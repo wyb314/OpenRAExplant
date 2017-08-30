@@ -1,0 +1,9 @@
+E:\Unity2017Projects\OpenRAExplant\OpenRA\YamlDotNet\bin\Debug\YamlDotNet.dll
+E:\Unity2017Projects\OpenRAExplant\OpenRA\YamlDotNet\bin\Debug\YamlDotNet.pdb
+E:\Unity2017Projects\OpenRAExplant\OpenRA\YamlDotNet\obj\Debug\YamlDotNet.dll
+E:\Unity2017Projects\OpenRAExplant\OpenRA\YamlDotNet\obj\Debug\YamlDotNet.pdb
+E:\Unity2017Projects\OpenRAExplant\trunk\OpenRA\YamlDotNet\bin\Debug\YamlDotNet.dll
+E:\Unity2017Projects\OpenRAExplant\trunk\OpenRA\YamlDotNet\bin\Debug\YamlDotNet.pdb
+E:\Unity2017Projects\OpenRAExplant\trunk\OpenRA\YamlDotNet\obj\Debug\YamlDotNet.dll
+E:\Unity2017Projects\OpenRAExplant\trunk\OpenRA\YamlDotNet\obj\Debug\YamlDotNet.pdb
+E:\Unity2017Projects\OpenRAExplant\trunk\OpenRA\YamlDotNet\obj\Debug\YamlDotNet.csprojResolveAssemblyReference.cache

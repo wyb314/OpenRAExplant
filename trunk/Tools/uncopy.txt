@@ -1,0 +1,6 @@
+OpenRA.Game.csproj.user
+OpenRA.Game.csproj
+OAUnityLayer.csproj
+\bin\
+\obj\
+AssemblyInfo.cs

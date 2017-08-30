@@ -1,0 +1,47 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenRA.Game", "OpenRA.Game\OpenRA.Game.csproj", "{CDF3E0CC-75E6-4912-92DD-38ED63663E71}"
+	ProjectSection(ProjectDependencies) = postProject
+		{F295D967-E67E-44AD-AF2A-A4CF9154BC79} = {F295D967-E67E-44AD-AF2A-A4CF9154BC79}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YamlDotNet", "YamlDotNet\YamlDotNet.csproj", "{F295D967-E67E-44AD-AF2A-A4CF9154BC79}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenRA.Server", "OpenRA.Server\OpenRA.Server.csproj", "{8961AF37-F7FD-4DD6-9982-23D667EA3208}"
+	ProjectSection(ProjectDependencies) = postProject
+		{F295D967-E67E-44AD-AF2A-A4CF9154BC79} = {F295D967-E67E-44AD-AF2A-A4CF9154BC79}
+		{CDF3E0CC-75E6-4912-92DD-38ED63663E71} = {CDF3E0CC-75E6-4912-92DD-38ED63663E71}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OAUnityLayer", "OAUnityLayer\OAUnityLayer.csproj", "{E158F678-D0D4-4AA1-B66F-941C8C9D534C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CDF3E0CC-75E6-4912-92DD-38ED63663E71}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CDF3E0CC-75E6-4912-92DD-38ED63663E71}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CDF3E0CC-75E6-4912-92DD-38ED63663E71}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CDF3E0CC-75E6-4912-92DD-38ED63663E71}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F295D967-E67E-44AD-AF2A-A4CF9154BC79}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F295D967-E67E-44AD-AF2A-A4CF9154BC79}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F295D967-E67E-44AD-AF2A-A4CF9154BC79}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F295D967-E67E-44AD-AF2A-A4CF9154BC79}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8961AF37-F7FD-4DD6-9982-23D667EA3208}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8961AF37-F7FD-4DD6-9982-23D667EA3208}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8961AF37-F7FD-4DD6-9982-23D667EA3208}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8961AF37-F7FD-4DD6-9982-23D667EA3208}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E158F678-D0D4-4AA1-B66F-941C8C9D534C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E158F678-D0D4-4AA1-B66F-941C8C9D534C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E158F678-D0D4-4AA1-B66F-941C8C9D534C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E158F678-D0D4-4AA1-B66F-941C8C9D534C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

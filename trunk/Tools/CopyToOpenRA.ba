@@ -1,0 +1,13 @@
+echo off
+set OpenRAPath=%cd%\..\OpenRA
+set unityProjPath=%cd%\..\Unity
+::echo %unityProjPath%
+::rd /s /q %OpenRAPath%\OpenRACopy.Game\ 
+
+xcopy %unityProjPath%\Assets\Scripts\OpenRA\OpenRA.Game %OpenRAPath%\OpenRA.Game  /s /i /k /exclude:uncopy1.txt
+::/exclude:%OpenRAPath%\OpenRA.Game\OpenRA.Game.csproj.user
+::%OpenRAPath%\"OpenRA.Game"\obj\ 
+::%OpenRAPath%\OpenRA.Game\*.csproj %OpenRAPath%\OpenRA.Game\*.user
+echo  copy completed!
+
+pause
