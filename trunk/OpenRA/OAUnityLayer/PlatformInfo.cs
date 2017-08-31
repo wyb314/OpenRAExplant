@@ -33,7 +33,7 @@ namespace OAUnityLayer
 #if UNITY_EDITOR
             currentPlatform = PlatformType.EDITOR;
 #if SIMULATE_SANDBOX
-            gameContentsDir = Application.dataPath + "/../../SimulatePersistentDataPath" + FileFolderName;
+            gameContentsDir = Application.dataPath + @"/../../SimulatePersistentDataPath/" + FileFolderName;
 #else
             gameContentsDir = Application.persistentDataPath + @"/" + FileFolderName;
 #endif
