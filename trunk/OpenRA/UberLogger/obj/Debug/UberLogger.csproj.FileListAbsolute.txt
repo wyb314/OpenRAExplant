@@ -1,0 +1,6 @@
+E:\GitHubProjects\OpenRAExplant\trunk\OpenRA\UberLogger\obj\Debug\UberLogger.csprojResolveAssemblyReference.cache
+E:\GitHubProjects\OpenRAExplant\trunk\OpenRA\UberLogger\bin\Debug\UberLogger.dll
+E:\GitHubProjects\OpenRAExplant\trunk\OpenRA\UberLogger\bin\Debug\UberLogger.pdb
+E:\GitHubProjects\OpenRAExplant\trunk\OpenRA\UberLogger\bin\Debug\UnityEngine.dll
+E:\GitHubProjects\OpenRAExplant\trunk\OpenRA\UberLogger\obj\Debug\UberLogger.dll
+E:\GitHubProjects\OpenRAExplant\trunk\OpenRA\UberLogger\obj\Debug\UberLogger.pdb

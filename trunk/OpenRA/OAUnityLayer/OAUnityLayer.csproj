@@ -43,6 +43,8 @@
   <ItemGroup>
     <Compile Include="PlatformInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Support\OaUberLoggerFile.cs" />
+    <Compile Include="Support\UberLoggerWraper.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\OpenRA.Game\OpenRA.Game.csproj">
@@ -52,6 +54,10 @@
     <ProjectReference Include="..\OpenRA.Server\OpenRA.Server.csproj">
       <Project>{8961af37-f7fd-4dd6-9982-23d667ea3208}</Project>
       <Name>OpenRA.Server</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\UberLogger\UberLogger.csproj">
+      <Project>{d4cd663a-2047-4dfb-9a85-84df4dcaf87c}</Project>
+      <Name>UberLogger</Name>
     </ProjectReference>
     <ProjectReference Include="..\YamlDotNet\YamlDotNet.csproj">
       <Project>{f295d967-e67e-44ad-af2a-a4cf9154bc79}</Project>

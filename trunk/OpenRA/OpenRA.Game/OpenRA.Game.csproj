@@ -21,6 +21,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -145,6 +146,7 @@
     <Compile Include="Sound\Sound.cs" />
     <Compile Include="StreamExts.cs" />
     <Compile Include="Support\Arguments.cs" />
+    <Compile Include="Support\ILogger.cs" />
     <Compile Include="Support\IPlatformImpl.cs" />
     <Compile Include="Support\Log.cs" />
     <Compile Include="Support\MersenneTwister.cs" />

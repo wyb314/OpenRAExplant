@@ -7,3 +7,12 @@ E:\Unity2017Projects\OpenRAExplant\trunk\OpenRA\OpenRA.Server\bin\Debug\OpenRA.G
 E:\Unity2017Projects\OpenRAExplant\trunk\OpenRA\OpenRA.Server\obj\Debug\OpenRA.Server.csprojResolveAssemblyReference.cache
 E:\Unity2017Projects\OpenRAExplant\trunk\OpenRA\OpenRA.Server\obj\Debug\OpenRA.Server.exe
 E:\Unity2017Projects\OpenRAExplant\trunk\OpenRA\OpenRA.Server\obj\Debug\OpenRA.Server.pdb
+E:\GitHubProjects\OpenRAExplant\trunk\OpenRA\OpenRA.Server\bin\Debug\OpenRA.Server.exe.config
+E:\GitHubProjects\OpenRAExplant\trunk\OpenRA\OpenRA.Server\obj\Debug\OpenRA.Server.exe
+E:\GitHubProjects\OpenRAExplant\trunk\OpenRA\OpenRA.Server\obj\Debug\OpenRA.Server.pdb
+E:\GitHubProjects\OpenRAExplant\trunk\OpenRA\OpenRA.Server\bin\Debug\OpenRA.Server.exe
+E:\GitHubProjects\OpenRAExplant\trunk\OpenRA\OpenRA.Server\bin\Debug\OpenRA.Server.pdb
+E:\GitHubProjects\OpenRAExplant\trunk\OpenRA\OpenRA.Server\bin\Debug\OpenRA.Game.dll
+E:\GitHubProjects\OpenRAExplant\trunk\OpenRA\OpenRA.Server\bin\Debug\ICSharpCode.SharpZipLib.dll
+E:\GitHubProjects\OpenRAExplant\trunk\OpenRA\OpenRA.Server\bin\Debug\OpenRA.Game.pdb
+E:\GitHubProjects\OpenRAExplant\trunk\OpenRA\OpenRA.Server\obj\Debug\OpenRA.Server.csprojResolveAssemblyReference.cache

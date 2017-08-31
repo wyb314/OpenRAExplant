@@ -187,10 +187,22 @@ namespace OpenRA
         internal static void Initialize(Arguments args , IPlatformImpl platformInfo = null)
         {
             Platform.SetCurrentPlatform(platformInfo);
+            Log.SetLogger(platformInfo.Logger);
+
+            Log.AddChannel("perf", "perf.log");
+            Log.AddChannel("debug", "debug.log");
+            Log.AddChannel("server", "server.log");
+            Log.AddChannel("sound", "sound.log");
+            Log.AddChannel("graphics", "graphics.log");
+            Log.AddChannel("geoip", "geoip.log");
+            Log.AddChannel("irc", "irc.log");
+            Log.AddChannel("nat", "nat.log");
+            Log.AddChannel("wyb", "wyb.log");
+
             // Load the engine version as early as possible so it can be written to exception logs
             try
             {
-                EngineVersion = File.ReadAllText(Platform.ResolvePath(Path.Combine(".", "VERSION"))).Trim();
+                EngineVersion = File.ReadAllText(Platform.ResolvePath(@"./VERSION")).Trim();
             }
             catch { }
 
@@ -199,6 +211,7 @@ namespace OpenRA
                 EngineVersion = "Unknown";
             }
 
+            Log.LogError("EngineVersion->" + EngineVersion,"wyb");
             // log engine version
 
             var modID = args.GetValue("Game.Mod", null);
@@ -210,16 +223,7 @@ namespace OpenRA
             }
 
             InitializeSettings(args);
-
-            Log.AddChannel("perf", "perf.log");
-            Log.AddChannel("debug", "debug.log");
-            Log.AddChannel("server", "server.log");
-            Log.AddChannel("sound", "sound.log");
-            Log.AddChannel("graphics", "graphics.log");
-            Log.AddChannel("geoip", "geoip.log");
-            Log.AddChannel("irc", "irc.log");
-            Log.AddChannel("nat", "nat.log");
-
+            
             var modSearchArg = args.GetValue("Engine.ModSearchPaths", null);
             var modSearchPaths = modSearchArg != null ?
                 FieldLoader.GetValue<string[]>("Engine.ModsPath", modSearchArg) :
@@ -346,7 +350,7 @@ namespace OpenRA
 
         public static void InitializeSettings(Arguments args)
         {
-            //Settings = new Settings(Platform.ResolvePath(Path.Combine("^", "settings.yaml")), args);
+            Settings = new Settings(Platform.ResolvePath(@"^settings.yaml"), args);
         }
 
         public static void AddChatLine(Color color, string name, string text)
@@ -417,19 +421,36 @@ namespace OpenRA
                 Settings.Graphics.CapFramerate = false;
             }
 
-            try
-            {
-                Loop();
-            }
-            finally
-            {
-                // Ensure that the active replay is properly saved
-                if (OrderManager != null)
-                    OrderManager.Dispose();
-            }
+            Platform.platformInfo.Tick = Loop;
+            Platform.platformInfo.OnApplicationQuit = OnApplicationQuit;
+            nextLogic = RunTime;
+            nextRender = RunTime;
+            forcedNextRender = RunTime;
 
+            //try
+            //{
+            //    Loop();
+            //}
+            //finally
+            //{
+            //    // Ensure that the active replay is properly saved
+            //    if (OrderManager != null)
+            //        OrderManager.Dispose();
+            //}
+
+            OnApplicationQuit();
+
+            return state;
+        }
+
+
+        static void OnApplicationQuit()
+        {
+            if (OrderManager != null)
+                OrderManager.Dispose();
             if (worldRenderer != null)
                 worldRenderer.Dispose();
+
             ModData.Dispose();
             //ChromeProvider.Deinitialize();
 
@@ -438,68 +459,62 @@ namespace OpenRA
             Renderer.Dispose();
 
             OnQuit();
-
-            return state;
         }
 
-        static void Loop()
+
+        const int MaxLogicTicksBehind = 250;
+
+        const int MinReplayFps = 10;
+        private static float nextLogic;
+        private static float nextRender;
+        private static float forcedNextRender;
+
+
+        static void Loop(float elapsedTime)
         {
-            const int MaxLogicTicksBehind = 250;
-            
-            const int MinReplayFps = 10;
-            
-            var nextLogic = RunTime;
-            var nextRender = RunTime;
-            var forcedNextRender = RunTime;
+            // Ideal time between logic updates. Timestep = 0 means the game is paused
+            // but we still call LogicTick() because it handles pausing internally.
+            var logicInterval = worldRenderer != null && worldRenderer.World.Timestep != 0 ? worldRenderer.World.Timestep : Timestep;
 
-            while (state == RunStatus.Running)
+            // Ideal time between screen updates
+            var maxFramerate = Settings.Graphics.CapFramerate ? Settings.Graphics.MaxFramerate.Clamp(1, 1000) : 1000;
+            var renderInterval = 1000 / maxFramerate;
+
+            var now = RunTime;
+
+            // If the logic has fallen behind too much, skip it and catch up
+            if (now - nextLogic > MaxLogicTicksBehind)
+                nextLogic = now;
+
+            // When's the next update (logic or render)
+            var nextUpdate = Math.Min(nextLogic, nextRender);
+            if (now >= nextUpdate)
             {
-                // Ideal time between logic updates. Timestep = 0 means the game is paused
-                // but we still call LogicTick() because it handles pausing internally.
-                var logicInterval = worldRenderer != null && worldRenderer.World.Timestep != 0 ? worldRenderer.World.Timestep : Timestep;
+                var forceRender = now >= forcedNextRender;
 
-                // Ideal time between screen updates
-                var maxFramerate = Settings.Graphics.CapFramerate ? Settings.Graphics.MaxFramerate.Clamp(1, 1000) : 1000;
-                var renderInterval = 1000 / maxFramerate;
-
-                var now = RunTime;
-
-                // If the logic has fallen behind too much, skip it and catch up
-                if (now - nextLogic > MaxLogicTicksBehind)
-                    nextLogic = now;
-
-                // When's the next update (logic or render)
-                var nextUpdate = Math.Min(nextLogic, nextRender);
-                if (now >= nextUpdate)
+                if (now >= nextLogic)
                 {
-                    var forceRender = now >= forcedNextRender;
+                    nextLogic += logicInterval;
 
-                    if (now >= nextLogic)
-                    {
-                        nextLogic += logicInterval;
+                    LogicTick();
 
-                        LogicTick();
-
-                        // Force at least one render per tick during regular gameplay
-                        if (OrderManager.World != null && !OrderManager.World.IsReplay)
-                            forceRender = true;
-                    }
-
-                    var haveSomeTimeUntilNextLogic = now < nextLogic;
-                    var isTimeToRender = now >= nextRender;
-
-                    if ((isTimeToRender && haveSomeTimeUntilNextLogic) || forceRender)
-                    {
-                        nextRender = now + renderInterval;
-                        
-                        var maxRenderInterval = Math.Max(1000 / MinReplayFps, renderInterval);
-                        forcedNextRender = now + maxRenderInterval;
-
-                        RenderTick();
-                    }
+                    // Force at least one render per tick during regular gameplay
+                    if (OrderManager.World != null && !OrderManager.World.IsReplay)
+                        forceRender = true;
                 }
-                else
-                    Thread.Sleep((int)(nextUpdate - now));
+
+                var haveSomeTimeUntilNextLogic = now < nextLogic;
+                var isTimeToRender = now >= nextRender;
+
+                if ((isTimeToRender && haveSomeTimeUntilNextLogic) || forceRender)
+                {
+                    nextRender = now + renderInterval;
+
+                    var maxRenderInterval = Math.Max(1000 / MinReplayFps, renderInterval);
+                    forcedNextRender = now + maxRenderInterval;
+
+                    RenderTick();
+                }
             }
         }
 

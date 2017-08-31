@@ -2,6 +2,7 @@
 using OpenRA;
 using OpenRA.Support;
 using UnityEngine;
+using ILogger = OpenRA.Support.ILogger;
 
 namespace OAUnityLayer
 {
@@ -11,21 +12,26 @@ namespace OAUnityLayer
 
         public PlatformType currentPlatform { private set; get; }
 
+        public System.Action<float> Tick { set; get; }
+
+        public System.Action OnApplicationQuit { set; get; }
+
+        public ILogger Logger { private set ; get; }
+
         private string gameContentsDir;
 
         public string GameContentsDir
         {
             get
             {
-                if (gameContentsDir == null)
+                if (string.IsNullOrEmpty(gameContentsDir))
                 {
-                    throw new NullReferenceException("gameContentsDir is null!");
+                    throw new NullReferenceException("gameContentsDir is null or empty!");
                 }
                 return gameContentsDir;
             }
         }
 
-        
 
         public void GatherInfomation()
         {
@@ -55,6 +61,11 @@ namespace OAUnityLayer
 #endif
 #endif
 
+        }
+
+        public void SetLogger(ILogger logger)
+        {
+            this.Logger = logger;
         }
 
 

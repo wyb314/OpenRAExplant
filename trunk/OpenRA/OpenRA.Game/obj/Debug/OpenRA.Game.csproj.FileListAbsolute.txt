@@ -5,3 +5,9 @@ E:\Unity2017Projects\OpenRAExplant\trunk\OpenRA\OpenRA.Game\bin\Debug\OpenRA.Gam
 E:\Unity2017Projects\OpenRAExplant\trunk\OpenRA\OpenRA.Game\bin\Debug\ICSharpCode.SharpZipLib.dll
 E:\Unity2017Projects\OpenRAExplant\trunk\OpenRA\OpenRA.Game\obj\Debug\OpenRA.Game.dll
 E:\Unity2017Projects\OpenRAExplant\trunk\OpenRA\OpenRA.Game\obj\Debug\OpenRA.Game.pdb
+E:\GitHubProjects\OpenRAExplant\trunk\OpenRA\OpenRA.Game\bin\Debug\OpenRA.Game.dll
+E:\GitHubProjects\OpenRAExplant\trunk\OpenRA\OpenRA.Game\bin\Debug\OpenRA.Game.pdb
+E:\GitHubProjects\OpenRAExplant\trunk\OpenRA\OpenRA.Game\bin\Debug\ICSharpCode.SharpZipLib.dll
+E:\GitHubProjects\OpenRAExplant\trunk\OpenRA\OpenRA.Game\obj\Debug\OpenRA.Game.dll
+E:\GitHubProjects\OpenRAExplant\trunk\OpenRA\OpenRA.Game\obj\Debug\OpenRA.Game.pdb
+E:\GitHubProjects\OpenRAExplant\trunk\OpenRA\OpenRA.Game\obj\Debug\OpenRA.Game.csprojResolveAssemblyReference.cache

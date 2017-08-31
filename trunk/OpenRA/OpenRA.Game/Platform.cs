@@ -18,6 +18,10 @@ namespace OpenRA
 
     public static class Platform
     {
+        public const string SeparatorChar = @"/";
+
+        public static IPlatformImpl platformInfo;
+
         private static PlatformType currentPlatform = PlatformType.Unknown;
 
         public static PlatformType CurrentPlatform
@@ -39,14 +43,15 @@ namespace OpenRA
         }
 
 
-        public static bool SetCurrentPlatform(IPlatformImpl platformInfo)
+        public static bool SetCurrentPlatform(IPlatformImpl info)
         {
+            platformInfo = info;
+
             if (platformInfo != null)
             {
                 currentPlatform = platformInfo.currentPlatform;
 
                 gameDir = platformInfo.GameContentsDir;
-
             }
             return false;
         }
@@ -88,12 +93,12 @@ namespace OpenRA
             //        break;
             //}
 
-            var dir = Path.Combine(GameDir, "OARes");
+            var dir = GameDir+ SeparatorChar+ @"OARes/Contents";
 
             if (!Directory.Exists(dir))
                 Directory.CreateDirectory(dir);
 
-            return dir + Path.DirectorySeparatorChar;
+            return dir + SeparatorChar;
         }
 
 
@@ -109,10 +114,10 @@ namespace OpenRA
 
             // Paths starting with . are relative to the game dir
             if (path == ".")
-                return GameDir;
+                return GameDir+ SeparatorChar;
 
             if (path.StartsWith("./", StringComparison.Ordinal) || path.StartsWith(".\\", StringComparison.Ordinal))
-                path = GameDir + path.Substring(2);
+                path = GameDir + SeparatorChar + path.Substring(2);
 
             return path;
         }

@@ -12,6 +12,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using OpenRA.Support;
 
 namespace OpenRA
 {
@@ -23,74 +24,91 @@ namespace OpenRA
 
 	public static class Log
 	{
-		static readonly Dictionary<string, ChannelInfo> Channels = new Dictionary<string, ChannelInfo>();
+	    private static ILogger innerLogger;
 
-		static IEnumerable<string> FilenamesForChannel(string channelName, string baseFilename)
-		{
-			var path = Platform.SupportDir + "Logs";
-			Directory.CreateDirectory(path);
+		//static readonly Dictionary<string, ChannelInfo> Channels = new Dictionary<string, ChannelInfo>();
 
-			for (var i = 0;; i++)
-				yield return Path.Combine(path, i > 0 ? "{0}.{1}".F(baseFilename, i) : baseFilename);
-		}
+		//static IEnumerable<string> FilenamesForChannel(string channelName, string baseFilename)
+		//{
+		//	var path = Platform.SupportDir + "Logs";
+		//	Directory.CreateDirectory(path);
 
-		public static ChannelInfo Channel(string channelName)
-		{
-			ChannelInfo info;
-			lock (Channels)
-				if (!Channels.TryGetValue(channelName, out info))
-					throw new ArgumentException("Tried logging to non-existent channel " + channelName, "channelName");
+		//	for (var i = 0;; i++)
+		//		yield return Path.Combine(path, i > 0 ? "{0}.{1}".F(baseFilename, i) : baseFilename);
+		//}
 
-			return info;
-		}
+		//public static ChannelInfo Channel(string channelName)
+		//{
+		//	ChannelInfo info;
+		//	lock (Channels)
+		//		if (!Channels.TryGetValue(channelName, out info))
+		//			throw new ArgumentException("Tried logging to non-existent channel " + channelName, "channelName");
+
+		//	return info;
+		//}
+
+
+	    public static void SetLogger(ILogger logger)
+	    {
+	        innerLogger = logger;
+
+	    }
 
 		public static void AddChannel(string channelName, string baseFilename)
 		{
-			lock (Channels)
-			{
-				if (Channels.ContainsKey(channelName)) return;
+		    if (innerLogger != null)
+		    {
+                innerLogger.AddChannel(channelName,baseFilename);
+		    }
+        }
 
-				if (string.IsNullOrEmpty(baseFilename))
-				{
-					Channels.Add(channelName, new ChannelInfo());
-					return;
-				}
-
-				foreach (var filename in FilenamesForChannel(channelName, baseFilename))
-					try
-					{
-						var writer = File.CreateText(filename);
-						writer.AutoFlush = true;
-
-						Channels.Add(channelName,
-							new ChannelInfo
-							{
-								Filename = filename,
-								Writer = TextWriter.Synchronized(writer)
-							});
-
-						return;
-					}
-					catch (IOException) { }
-			}
-		}
-
-		public static void Write(string channel, string value)
+		public static void Write(string channel, string value, bool couldUseNativeDebug = false)
 		{
-			var writer = Channel(channel).Writer;
-			if (writer == null)
-				return;
-
-			writer.WriteLine(value);
+            if (innerLogger != null)
+            {
+                innerLogger.Log(value,channel, couldUseNativeDebug);
+            }
 		}
 
 		public static void Write(string channel, string format, params object[] args)
 		{
-			var writer = Channel(channel).Writer;
-			if (writer == null)
-				return;
-
-			writer.WriteLine(format, args);
+            if (innerLogger != null)
+            {
+                innerLogger.Log(string.Format(format, args), channel);
+            }
 		}
-	}
+
+	    public static void LogWarning(string message, string channelName = null, bool couldUseNativeDebug = false)
+	    {
+            if (innerLogger != null)
+            {
+                innerLogger.LogWarning(message,channelName,couldUseNativeDebug);
+            }
+        }
+
+	    public static void LogError(string message, string channelName = null, bool couldUseNativeDebug = false)
+	    {
+            if (innerLogger != null)
+            {
+                innerLogger.LogError(message, channelName, couldUseNativeDebug);
+            }
+        }
+
+	    public static void Assert(bool condition, string message, string channelName = null,
+	        bool couldUseNativeDebug = false)
+	    {
+            if (innerLogger != null)
+            {
+                innerLogger.Assert(condition, message, channelName);
+            }
+        }
+
+	    public static void LogException(Exception exception, string channelName = null, bool couldUseNativeDebug = false)
+	    {
+            if (innerLogger != null)
+            {
+                innerLogger.LogException(exception, channelName, couldUseNativeDebug);
+            }
+        }
+    }
 }
