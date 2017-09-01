@@ -1,0 +1,5 @@
+E:\GitHubProjects\OpenRAExplant\trunk\fuzzynet_1_2_0\FuzzyLogicLibrary\bin\Debug\FuzzyLogicLibrary.XML
+E:\GitHubProjects\OpenRAExplant\trunk\fuzzynet_1_2_0\FuzzyLogicLibrary\bin\Debug\FuzzyLogicLibrary.dll
+E:\GitHubProjects\OpenRAExplant\trunk\fuzzynet_1_2_0\FuzzyLogicLibrary\bin\Debug\FuzzyLogicLibrary.pdb
+E:\GitHubProjects\OpenRAExplant\trunk\fuzzynet_1_2_0\FuzzyLogicLibrary\obj\Debug\FuzzyLogicLibrary.dll
+E:\GitHubProjects\OpenRAExplant\trunk\fuzzynet_1_2_0\FuzzyLogicLibrary\obj\Debug\FuzzyLogicLibrary.pdb

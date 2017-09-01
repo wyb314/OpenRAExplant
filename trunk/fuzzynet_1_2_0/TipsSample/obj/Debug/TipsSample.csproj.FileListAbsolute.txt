@@ -1,0 +1,11 @@
+E:\GitHubProjects\OpenRAExplant\trunk\fuzzynet_1_2_0\TipsSample\bin\Debug\TipsSample.exe
+E:\GitHubProjects\OpenRAExplant\trunk\fuzzynet_1_2_0\TipsSample\bin\Debug\TipsSample.pdb
+E:\GitHubProjects\OpenRAExplant\trunk\fuzzynet_1_2_0\TipsSample\bin\Debug\FuzzyLogicLibrary.dll
+E:\GitHubProjects\OpenRAExplant\trunk\fuzzynet_1_2_0\TipsSample\bin\Debug\FuzzyLogicLibrary.pdb
+E:\GitHubProjects\OpenRAExplant\trunk\fuzzynet_1_2_0\TipsSample\bin\Debug\FuzzyLogicLibrary.xml
+E:\GitHubProjects\OpenRAExplant\trunk\fuzzynet_1_2_0\TipsSample\obj\Debug\TipsSample.csprojResolveAssemblyReference.cache
+E:\GitHubProjects\OpenRAExplant\trunk\fuzzynet_1_2_0\TipsSample\obj\Debug\AI.Fuzzy.Samples.TipsSample.MainForm.resources
+E:\GitHubProjects\OpenRAExplant\trunk\fuzzynet_1_2_0\TipsSample\obj\Debug\AI.Fuzzy.Samples.TipsSample.Properties.Resources.resources
+E:\GitHubProjects\OpenRAExplant\trunk\fuzzynet_1_2_0\TipsSample\obj\Debug\TipsSample.csproj.GenerateResource.Cache
+E:\GitHubProjects\OpenRAExplant\trunk\fuzzynet_1_2_0\TipsSample\obj\Debug\TipsSample.exe
+E:\GitHubProjects\OpenRAExplant\trunk\fuzzynet_1_2_0\TipsSample\obj\Debug\TipsSample.pdb

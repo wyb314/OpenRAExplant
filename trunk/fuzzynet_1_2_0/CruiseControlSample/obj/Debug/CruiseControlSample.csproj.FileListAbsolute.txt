@@ -1,0 +1,11 @@
+E:\GitHubProjects\OpenRAExplant\trunk\fuzzynet_1_2_0\CruiseControlSample\bin\Debug\CruiseControlSample.exe
+E:\GitHubProjects\OpenRAExplant\trunk\fuzzynet_1_2_0\CruiseControlSample\bin\Debug\CruiseControlSample.pdb
+E:\GitHubProjects\OpenRAExplant\trunk\fuzzynet_1_2_0\CruiseControlSample\bin\Debug\FuzzyLogicLibrary.dll
+E:\GitHubProjects\OpenRAExplant\trunk\fuzzynet_1_2_0\CruiseControlSample\bin\Debug\FuzzyLogicLibrary.pdb
+E:\GitHubProjects\OpenRAExplant\trunk\fuzzynet_1_2_0\CruiseControlSample\bin\Debug\FuzzyLogicLibrary.xml
+E:\GitHubProjects\OpenRAExplant\trunk\fuzzynet_1_2_0\CruiseControlSample\obj\Debug\CruiseControlSample.csprojResolveAssemblyReference.cache
+E:\GitHubProjects\OpenRAExplant\trunk\fuzzynet_1_2_0\CruiseControlSample\obj\Debug\AI.Fuzzy.Samples.CruiseControlSample.MainForm.resources
+E:\GitHubProjects\OpenRAExplant\trunk\fuzzynet_1_2_0\CruiseControlSample\obj\Debug\AI.Fuzzy.Samples.CruiseControlSample.Properties.Resources.resources
+E:\GitHubProjects\OpenRAExplant\trunk\fuzzynet_1_2_0\CruiseControlSample\obj\Debug\CruiseControlSample.csproj.GenerateResource.Cache
+E:\GitHubProjects\OpenRAExplant\trunk\fuzzynet_1_2_0\CruiseControlSample\obj\Debug\CruiseControlSample.exe
+E:\GitHubProjects\OpenRAExplant\trunk\fuzzynet_1_2_0\CruiseControlSample\obj\Debug\CruiseControlSample.pdb
