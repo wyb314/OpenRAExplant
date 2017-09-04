@@ -25,7 +25,8 @@ namespace OpenRA
             {
                 try
                 {
-                    var resolved = Platform.ResolvePath(path);
+                    string _path = path.Replace(@"\", @"/");
+                    var resolved = Platform.ResolvePath(_path);
                     if (!Directory.Exists(resolved))
                         continue;
 

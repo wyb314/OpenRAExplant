@@ -73,6 +73,7 @@
     <Compile Include="Graphics\HSLColor.cs" />
     <Compile Include="Graphics\Model.cs" />
     <Compile Include="Graphics\Renderable.cs" />
+    <Compile Include="Graphics\RgbaColorRenderer.cs" />
     <Compile Include="Graphics\SequenceProvider.cs" />
     <Compile Include="Graphics\Sheet.cs" />
     <Compile Include="Graphics\Sprite.cs" />
@@ -148,6 +149,7 @@
     <Compile Include="Support\Arguments.cs" />
     <Compile Include="Support\ILogger.cs" />
     <Compile Include="Support\IPlatformImpl.cs" />
+    <Compile Include="Support\LaunchArguments.cs" />
     <Compile Include="Support\Log.cs" />
     <Compile Include="Support\MersenneTwister.cs" />
     <Compile Include="Support\PerfHistory.cs" />

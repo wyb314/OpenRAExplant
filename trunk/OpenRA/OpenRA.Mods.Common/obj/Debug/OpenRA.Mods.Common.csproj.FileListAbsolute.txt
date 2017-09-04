@@ -1,0 +1,1 @@
+E:\GitHubProjects\OpenRAExplant\trunk\OpenRA\OpenRA.Mods.Common\obj\Debug\OpenRA.Mods.Common.csprojResolveAssemblyReference.cache

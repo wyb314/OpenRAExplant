@@ -51,7 +51,7 @@ namespace OpenRA
             {
                 currentPlatform = platformInfo.currentPlatform;
 
-                gameDir = platformInfo.GameContentsDir;
+                gameDir = platformInfo.GameContentsDir + SeparatorChar + @"OARes";
             }
             return false;
         }
@@ -93,7 +93,7 @@ namespace OpenRA
             //        break;
             //}
 
-            var dir = GameDir+ SeparatorChar+ @"OARes/Contents";
+            var dir = GameDir + SeparatorChar + @"Contents";
 
             if (!Directory.Exists(dir))
                 Directory.CreateDirectory(dir);
@@ -102,7 +102,7 @@ namespace OpenRA
         }
 
 
-        
+
 
         public static string ResolvePath(string path)
         {
@@ -114,7 +114,7 @@ namespace OpenRA
 
             // Paths starting with . are relative to the game dir
             if (path == ".")
-                return GameDir+ SeparatorChar;
+                return GameDir + SeparatorChar;
 
             if (path.StartsWith("./", StringComparison.Ordinal) || path.StartsWith(".\\", StringComparison.Ordinal))
                 path = GameDir + SeparatorChar + path.Substring(2);

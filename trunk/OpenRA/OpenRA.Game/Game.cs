@@ -229,24 +229,24 @@ namespace OpenRA
                 FieldLoader.GetValue<string[]>("Engine.ModsPath", modSearchArg) :
                 new[] { Path.Combine(".", "mods") };
             Mods = new InstalledMods(modSearchPaths, explicitModPaths);
-            ExternalMods = new ExternalMods();
+            //ExternalMods = new ExternalMods();
 
-            Manifest currentMod;
-            if (modID != null && Mods.TryGetValue(modID, out currentMod))
-            {
-                var launchPath = args.GetValue("Engine.LaunchPath", Assembly.GetEntryAssembly().Location);
+            //Manifest currentMod;
+            //if (modID != null && Mods.TryGetValue(modID, out currentMod))
+            //{
+            //    var launchPath = args.GetValue("Engine.LaunchPath", Assembly.GetEntryAssembly().Location);
 
-                // Sanitize input from platform-specific launchers
-                // Process.Start requires paths to not be quoted, even if they contain spaces
-                if (launchPath.First() == '"' && launchPath.Last() == '"')
-                    launchPath = launchPath.Substring(1, launchPath.Length - 2);
+            //    // Sanitize input from platform-specific launchers
+            //    // Process.Start requires paths to not be quoted, even if they contain spaces
+            //    if (launchPath.First() == '"' && launchPath.Last() == '"')
+            //        launchPath = launchPath.Substring(1, launchPath.Length - 2);
 
-                ExternalMods.Register(Mods[modID], launchPath, ModRegistration.User);
+            //    ExternalMods.Register(Mods[modID], launchPath, ModRegistration.User);
 
-                ExternalMod activeMod;
-                if (ExternalMods.TryGetValue(ExternalMod.MakeKey(Mods[modID]), out activeMod))
-                    ExternalMods.ClearInvalidRegistrations(activeMod, ModRegistration.User);
-            }
+            //    ExternalMod activeMod;
+            //    if (ExternalMods.TryGetValue(ExternalMod.MakeKey(Mods[modID]), out activeMod))
+            //        ExternalMods.ClearInvalidRegistrations(activeMod, ModRegistration.User);
+            //}
 
             InitializeMod(modID, args);
         }
@@ -690,6 +690,11 @@ namespace OpenRA
                 throw new Exception("No valid shellmaps available");
 
             return shellmaps.Random(CosmeticRandom);
+        }
+        
+        public static void RemoteDirectConnect(string host, int port)
+        {
+            OnRemoteDirectConnect(host, port);
         }
     }
 }
