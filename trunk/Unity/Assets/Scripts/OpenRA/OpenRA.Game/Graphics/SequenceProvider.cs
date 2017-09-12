@@ -14,7 +14,7 @@
 //        int Length { get; }
 //        int Stride { get; }
 //        int Facings { get; }
-//        int Tick { get; }
+//        int LogicTick { get; }
 //        int ZOffset { get; }
 //        int ShadowStart { get; }
 //        int ShadowZOffset { get; }

@@ -27,6 +27,7 @@ namespace OpenRA
 
         public MapCache(ModData modData)
         {
+            return;
             this.modData = modData;
 
             MapGridType gridType = modData.Manifest.Get<MapGrid>().Type;
@@ -78,6 +79,7 @@ namespace OpenRA
 
         public void LoadMaps()
         {
+            return;
             // Utility mod that does not support maps
             if (!modData.Manifest.Contains<MapGrid>())
                 return;

@@ -2,6 +2,7 @@
 using OpenRA;
 using OpenRA.Support;
 using UnityEngine;
+using ILogger = OpenRA.Support.ILogger;
 
 namespace OAUnityLayer
 {
@@ -10,6 +11,10 @@ namespace OAUnityLayer
         public const string FileFolderName = "File";
 
         public PlatformType currentPlatform { private set; get; }
+        
+        public System.Action OnApplicationQuit { set; get; }
+
+        public ILogger Logger { private set ; get; }
 
         private string gameContentsDir;
 
@@ -17,15 +22,14 @@ namespace OAUnityLayer
         {
             get
             {
-                if (gameContentsDir == null)
+                if (string.IsNullOrEmpty(gameContentsDir))
                 {
-                    throw new NullReferenceException("gameContentsDir is null!");
+                    throw new NullReferenceException("gameContentsDir is null or empty!");
                 }
                 return gameContentsDir;
             }
         }
 
-        
 
         public void GatherInfomation()
         {
@@ -33,7 +37,7 @@ namespace OAUnityLayer
 #if UNITY_EDITOR
             currentPlatform = PlatformType.EDITOR;
 #if SIMULATE_SANDBOX
-            gameContentsDir = Application.dataPath + "/../../SimulatePersistentDataPath" + FileFolderName;
+            gameContentsDir = Application.dataPath + @"/../../SimulatePersistentDataPath/" + FileFolderName;
 #else
             gameContentsDir = Application.persistentDataPath + @"/" + FileFolderName;
 #endif
@@ -57,6 +61,46 @@ namespace OAUnityLayer
 
         }
 
+        public void SetLogger(ILogger logger)
+        {
+            this.Logger = logger;
+        }
+
+
+        private LogicTickFun logicTickFun;
+
+        public RenderTickFun renderTickFun;
+
+
+        public void LogicTick(float elapsedTime)
+        {
+            if (this.logicTickFun != null)
+            {
+                this.logicTickFun(elapsedTime);
+            }
+        }
+
+        public void RenderTick(float elapsedTime)
+        {
+            if (this.renderTickFun != null)
+            {
+                this.renderTickFun(elapsedTime);
+            }
+        }
+
+        public void RegisterLogicTick(LogicTickFun logicTick)
+        {
+            this.logicTickFun = logicTick;
+        }
+
+        /// <summary>
+        /// 注册游戏渲染Tick
+        /// </summary>
+        /// <param name="logicTick"></param>
+        public void RegisterRenderTick(RenderTickFun renderTick)
+        {
+            this.renderTickFun = renderTick;
+        }
 
     }
 }

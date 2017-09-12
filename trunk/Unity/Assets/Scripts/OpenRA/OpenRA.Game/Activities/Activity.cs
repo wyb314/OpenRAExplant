@@ -142,12 +142,12 @@ namespace OpenRA.Activities
         public abstract Activity Tick(Actor self);
 
         /// <summary>
-        /// Runs once immediately before the first Tick() execution.
+        /// Runs once immediately before the first LogicTick() execution.
         /// </summary>
         protected virtual void OnFirstRun(Actor self) { }
 
         /// <summary>
-        /// Runs once immediately after the last Tick() execution.
+        /// Runs once immediately after the last LogicTick() execution.
         /// </summary>
         protected virtual void OnLastRun(Actor self) { }
 
@@ -187,7 +187,7 @@ namespace OpenRA.Activities
         /// <summary>
         /// Prints the activity tree, starting from the root or optionally from a given origin.
         ///
-        /// Call this method from any place that's called during a tick, such as the Tick() method itself or
+        /// Call this method from any place that's called during a tick, such as the LogicTick() method itself or
         /// the Before(First|Last)Run() methods. The origin activity will be marked in the output.
         /// </summary>
         /// <param name="origin">Activity from which to start traversing, and which to mark. If null, mark the calling activity, and start traversal from the root.</param>

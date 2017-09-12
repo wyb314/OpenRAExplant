@@ -128,8 +128,11 @@ namespace OpenRA.Server
             //if (!dedicated && Settings.AllowPortForward)
             //    UPnP.ForwardPort(Settings.ListenPort, Settings.ExternalPort).Wait();
 
-            foreach (var trait in modData.Manifest.ServerTraits)
-                serverTraits.Add(modData.ObjectCreator.CreateObject<ServerTrait>(trait));
+            //foreach (var trait in modData.Manifest.ServerTraits)//当前没有Mod
+            //{
+            //    serverTraits.Add(modData.ObjectCreator.CreateObject<ServerTrait>(trait));
+            //}
+               
 
             LobbyInfo = new Session
             {
@@ -528,6 +531,9 @@ namespace OpenRA.Server
 
                         break;
                     }
+                case "kkks":
+                    Log.LogError("server receive kkks ","wyb");
+                    break;
             }
         }
 

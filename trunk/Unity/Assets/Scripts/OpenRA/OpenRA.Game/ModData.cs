@@ -69,18 +69,18 @@ namespace OpenRA
             // Take a local copy of the manifest
             Manifest = new Manifest(mod.Id, mod.Package);
             ObjectCreator = new ObjectCreator(Manifest, mods);
-            PackageLoaders = ObjectCreator.GetLoaders<IPackageLoader>(Manifest.PackageFormats, "package");
+            //PackageLoaders = ObjectCreator.GetLoaders<IPackageLoader>(Manifest.PackageFormats, "package");
 
-            ModFiles = new FS(mods, PackageLoaders);
-            ModFiles.LoadFromManifest(Manifest);
-            Manifest.LoadCustomData(ObjectCreator);
+            //ModFiles = new FS(mods, PackageLoaders);
+            //ModFiles.LoadFromManifest(Manifest);
+            //Manifest.LoadCustomData(ObjectCreator);
 
-            if (useLoadScreen)
-            {
-                LoadScreen = ObjectCreator.CreateObject<ILoadScreen>(Manifest.LoadScreen.Value);
-                LoadScreen.Init(this, Manifest.LoadScreen.ToDictionary(my => my.Value));
-                LoadScreen.Display();
-            }
+            //if (useLoadScreen)
+            //{
+            //    LoadScreen = ObjectCreator.CreateObject<ILoadScreen>(Manifest.LoadScreen.Value);
+            //    LoadScreen.Init(this, Manifest.LoadScreen.ToDictionary(my => my.Value));
+            //    LoadScreen.Display();
+            //}
 
             //WidgetLoader = new WidgetLoader(this);
             MapCache = new MapCache(this);

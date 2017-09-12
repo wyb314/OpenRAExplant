@@ -1,0 +1,119 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{0F947CAB-B84C-41E5-A9FE-FB831A7C490F}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>OAEngine</RootNamespace>
+    <AssemblyName>OAEngine</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Engine\Exts.cs" />
+    <Compile Include="Engine\FileFormats\ReplayMetadata.cs" />
+    <Compile Include="Engine\Game.cs" />
+    <Compile Include="Engine\Interfaces\IWorld.cs" />
+    <Compile Include="Engine\Interfaces\IWorldRenderer.cs" />
+    <Compile Include="Engine\Manifest.cs" />
+    <Compile Include="Engine\ModData.cs" />
+    <Compile Include="Engine\ModMetadata.cs" />
+    <Compile Include="Engine\Network\ClientOrder.cs" />
+    <Compile Include="Engine\Network\ConnectionState.cs" />
+    <Compile Include="Engine\Network\Defaults\ClientDefault.cs" />
+    <Compile Include="Engine\Network\Defaults\ClientPingDefault.cs" />
+    <Compile Include="Engine\Network\Defaults\EchoConnection.cs" />
+    <Compile Include="Engine\Network\Defaults\FrameDataDefault.cs" />
+    <Compile Include="Engine\Network\Defaults\Handshake.cs" />
+    <Compile Include="Engine\Network\Defaults\NetworkConnection.cs" />
+    <Compile Include="Engine\Network\Defaults\Order.cs" />
+    <Compile Include="Engine\Network\Defaults\OrderIO.cs" />
+    <Compile Include="Engine\Network\Defaults\OrderManagerDefault.cs" />
+    <Compile Include="Engine\Network\Defaults\OrderSerializerDefault.cs" />
+    <Compile Include="Engine\Network\Defaults\ReplayConnection.cs" />
+    <Compile Include="Engine\Network\Defaults\ServerConnectoinDefault.cs" />
+    <Compile Include="Engine\Network\Defaults\ServerDefault.cs" />
+    <Compile Include="Engine\Network\Defaults\ServerOrderDefault.cs" />
+    <Compile Include="Engine\Network\Defaults\SyncReportDefault.cs" />
+    <Compile Include="Engine\World.cs" />
+    <Compile Include="Engine\Network\Enums\ClientState.cs" />
+    <Compile Include="Engine\Network\Enums\ServerState.cs" />
+    <Compile Include="Engine\Network\Interfaces\IClient.cs" />
+    <Compile Include="Engine\Network\Interfaces\IClientPing.cs" />
+    <Compile Include="Engine\Network\Interfaces\IConnection.cs" />
+    <Compile Include="Engine\Network\Interfaces\IFrameData.cs" />
+    <Compile Include="Engine\Network\Interfaces\IGameInformation.cs" />
+    <Compile Include="Engine\Network\Interfaces\IGlobal.cs" />
+    <Compile Include="Engine\Network\Interfaces\IOrder.cs" />
+    <Compile Include="Engine\Network\Interfaces\IOrderManager.cs" />
+    <Compile Include="Engine\Network\Interfaces\IOrderProcessor.cs" />
+    <Compile Include="Engine\Network\Interfaces\IOrderSerializer.cs" />
+    <Compile Include="Engine\Network\Interfaces\IReplayRecorder.cs" />
+    <Compile Include="Engine\Network\Interfaces\IServer.cs" />
+    <Compile Include="Engine\Network\Interfaces\IServerConnectoin.cs" />
+    <Compile Include="Engine\Network\Interfaces\IServerOrder.cs" />
+    <Compile Include="Engine\Network\Interfaces\ISyncReport.cs" />
+    <Compile Include="Engine\Network\Interfaces\INetWorld.cs" />
+    <Compile Include="Engine\Network\NetworkExts.cs" />
+    <Compile Include="Engine\Network\ReplayRecorder.cs" />
+    <Compile Include="Engine\Network\Server\ProtocolVersion.cs" />
+    <Compile Include="Engine\Network\Server\TraitInterfaces.cs" />
+    <Compile Include="Engine\Network\Session.cs" />
+    <Compile Include="Engine\Network\StreamExts.cs" />
+    <Compile Include="Engine\ObjectCreator.cs" />
+    <Compile Include="Engine\Platform.cs" />
+    <Compile Include="Engine\Primitives\ActionQueue.cs" />
+    <Compile Include="Engine\Primitives\Cache.cs" />
+    <Compile Include="Engine\Primitives\Color.cs" />
+    <Compile Include="Engine\Primitives\Pair.cs" />
+    <Compile Include="Engine\Primitives\ReadOnlyDictionary.cs" />
+    <Compile Include="Engine\Primitives\TypeDictionary.cs" />
+    <Compile Include="Engine\Settings.cs" />
+    <Compile Include="Engine\Support\Arguments.cs" />
+    <Compile Include="Engine\Support\ILogger.cs" />
+    <Compile Include="Engine\Support\IPlatformImpl.cs" />
+    <Compile Include="Engine\Support\Log.cs" />
+    <Compile Include="Engine\Support\MersenneTwister.cs" />
+    <Compile Include="Engine\Support\PerfHistory.cs" />
+    <Compile Include="Engine\Support\PerfItem.cs" />
+    <Compile Include="Engine\Support\PerfSample.cs" />
+    <Compile Include="Engine\Support\PerfTimer.cs" />
+    <Compile Include="Engine\Support\Program.cs" />
+    <Compile Include="Engine\Sync.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

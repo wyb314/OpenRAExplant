@@ -22,33 +22,33 @@ namespace OpenRA
             typeCache = new Cache<string, Type>(FindType);
             ctorCache = new Cache<Type, ConstructorInfo>(GetCtor);
 
-            // Allow mods to load types from the core Game assembly, and any additional assemblies they specify.
-            // Assemblies can only be loaded from directories to avoid circular dependencies on package loaders.
-            var assemblyList = new List<Assembly>() { typeof(Game).Assembly };
-            foreach (var path in manifest.Assemblies)
-            {
-                var resolvedPath = FileSystem.FileSystem.ResolveAssemblyPath(path, manifest, mods);
-                if (resolvedPath == null)
-                    throw new FileNotFoundException("Assembly `{0}` not found.".F(path));
+            //// Allow mods to load types from the core Game assembly, and any additional assemblies they specify.
+            //// Assemblies can only be loaded from directories to avoid circular dependencies on package loaders.
+            //var assemblyList = new List<Assembly>() { typeof(Game).Assembly };
+            //foreach (var path in manifest.Assemblies)
+            //{
+            //    var resolvedPath = FileSystem.FileSystem.ResolveAssemblyPath(path, manifest, mods);
+            //    if (resolvedPath == null)
+            //        throw new FileNotFoundException("Assembly `{0}` not found.".F(path));
 
-                // .NET doesn't provide any way of querying the metadata of an assembly without either:
-                //   (a) loading duplicate data into the application domain, breaking the world.
-                //   (b) crashing if the assembly has already been loaded.
-                // We can't check the internal name of the assembly, so we'll work off the data instead
-                var hash = CryptoUtil.SHA1Hash(File.ReadAllBytes(resolvedPath));
+            //    // .NET doesn't provide any way of querying the metadata of an assembly without either:
+            //    //   (a) loading duplicate data into the application domain, breaking the world.
+            //    //   (b) crashing if the assembly has already been loaded.
+            //    // We can't check the internal name of the assembly, so we'll work off the data instead
+            //    var hash = CryptoUtil.SHA1Hash(File.ReadAllBytes(resolvedPath));
 
-                Assembly assembly;
-                if (!ResolvedAssemblies.TryGetValue(hash, out assembly))
-                {
-                    assembly = Assembly.LoadFile(resolvedPath);
-                    ResolvedAssemblies.Add(hash, assembly);
-                }
+            //    Assembly assembly;
+            //    if (!ResolvedAssemblies.TryGetValue(hash, out assembly))
+            //    {
+            //        assembly = Assembly.LoadFile(resolvedPath);
+            //        ResolvedAssemblies.Add(hash, assembly);
+            //    }
 
-                assemblyList.Add(assembly);
-            }
+            //    assemblyList.Add(assembly);
+            //}
 
-            //AppDomain.CurrentDomain.AssemblyResolve += ResolveAssembly;
-            assemblies = assemblyList.SelectMany(asm => asm.GetNamespaces().Select(ns => Pair.New(asm, ns))).ToArray();
+            ////AppDomain.CurrentDomain.AssemblyResolve += ResolveAssembly;
+            //assemblies = assemblyList.SelectMany(asm => asm.GetNamespaces().Select(ns => Pair.New(asm, ns))).ToArray();
         }
 
         //Assembly ResolveAssembly(object sender, ResolveEventArgs e)

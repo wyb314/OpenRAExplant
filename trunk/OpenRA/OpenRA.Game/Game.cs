@@ -30,7 +30,7 @@ namespace OpenRA
         public static InstalledMods Mods { get; private set; }
         public static ExternalMods ExternalMods { get; private set; }
 
-
+       
 
         static WorldRenderer worldRenderer;
 

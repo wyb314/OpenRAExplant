@@ -25,18 +25,22 @@ namespace YamlDotNet.Samples
 
             // Load the stream
             var yaml = new YamlStream();
-            yaml.Load(input);
+            var mapping =(YamlMappingNode)yaml.Documents[0].RootNode;
+            mapping.Add(new YamlScalarNode("wyb"), new YamlScalarNode("ht"));
+            //mapping.Add(new YamlSequenceNode(""),);
 
-            // Examine the stream
-            var mapping =
-                (YamlMappingNode)yaml.Documents[0].RootNode;
+            //yaml.Load(input);
 
-            foreach (var entry in mapping.Children)
-            {
-                output.WriteLine(((YamlScalarNode)entry.Key).Value);
-            }
+            //// Examine the stream
+            //var mapping =
+            //    (YamlMappingNode)yaml.Documents[0].RootNode;
 
-            // List all the items
+            //foreach (var entry in mapping.Children)
+            //{
+            //    output.WriteLine(((YamlScalarNode)entry.Key).Value);
+            //}
+
+            //// List all the items
             var items = (YamlSequenceNode)mapping.Children[new YamlScalarNode("items")];
             foreach (YamlMappingNode item in items)
             {

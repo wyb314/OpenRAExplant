@@ -15,6 +15,12 @@ using OpenRA.Support;
 
 namespace OpenRA
 {
+    public enum RunStatus
+    {
+        Error = -1,
+        Success = 0,
+        Running = int.MaxValue
+    }
     public static class Game
     {
         public const int NetTickScale = 3; // 120 ms net tick for 40 ms local tick
@@ -53,7 +59,15 @@ namespace OpenRA
 
         public static bool BenchmarkMode = false;
 
-        public static OrderManager JoinServer(string host, int port, string password, bool recordReplay = true)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="host"></param>
+        /// <param name="port"></param>
+        /// <param name="password"></param>
+        /// <param name="recordReplay">是否记录重放</param>
+        /// <returns></returns>
+        public static OrderManager JoinServer(string host, int port, string password, bool recordReplay = false)
         {
             var connection = new NetworkConnection(host, port);
             if (recordReplay)
@@ -94,10 +108,10 @@ namespace OpenRA
             //Cursor.SetCursor(null);
             BeforeGameStart();
 
-            Map map;
+            Map map = null;
 
-            using (new PerfTimer("PrepareMap"))
-                map = ModData.PrepareMap(mapUID);
+            //using (new PerfTimer("PrepareMap"))
+            //    map = ModData.PrepareMap(mapUID);
             using (new PerfTimer("NewWorld"))
                 OrderManager.World = new World(ModData, map, OrderManager, type);
 
@@ -181,10 +195,22 @@ namespace OpenRA
         internal static void Initialize(Arguments args , IPlatformImpl platformInfo = null)
         {
             Platform.SetCurrentPlatform(platformInfo);
+            Log.SetLogger(platformInfo.Logger);
+
+            Log.AddChannel("perf", "perf.log");
+            Log.AddChannel("debug", "debug.log");
+            Log.AddChannel("server", "server.log");
+            Log.AddChannel("sound", "sound.log");
+            Log.AddChannel("graphics", "graphics.log");
+            Log.AddChannel("geoip", "geoip.log");
+            Log.AddChannel("irc", "irc.log");
+            Log.AddChannel("nat", "nat.log");
+            Log.AddChannel("wyb", "wyb.log");
+
             // Load the engine version as early as possible so it can be written to exception logs
             try
             {
-                EngineVersion = File.ReadAllText(Platform.ResolvePath(Path.Combine(".", "VERSION"))).Trim();
+                EngineVersion = File.ReadAllText(Platform.ResolvePath(@"./VERSION")).Trim();
             }
             catch { }
 
@@ -193,6 +219,7 @@ namespace OpenRA
                 EngineVersion = "Unknown";
             }
 
+            Log.LogError("EngineVersion->" + EngineVersion,"wyb");
             // log engine version
 
             var modID = args.GetValue("Game.Mod", null);
@@ -204,39 +231,30 @@ namespace OpenRA
             }
 
             InitializeSettings(args);
-
-            Log.AddChannel("perf", "perf.log");
-            Log.AddChannel("debug", "debug.log");
-            Log.AddChannel("server", "server.log");
-            Log.AddChannel("sound", "sound.log");
-            Log.AddChannel("graphics", "graphics.log");
-            Log.AddChannel("geoip", "geoip.log");
-            Log.AddChannel("irc", "irc.log");
-            Log.AddChannel("nat", "nat.log");
-
+            
             var modSearchArg = args.GetValue("Engine.ModSearchPaths", null);
             var modSearchPaths = modSearchArg != null ?
                 FieldLoader.GetValue<string[]>("Engine.ModsPath", modSearchArg) :
                 new[] { Path.Combine(".", "mods") };
             Mods = new InstalledMods(modSearchPaths, explicitModPaths);
-            ExternalMods = new ExternalMods();
+            //ExternalMods = new ExternalMods();
 
-            Manifest currentMod;
-            if (modID != null && Mods.TryGetValue(modID, out currentMod))
-            {
-                var launchPath = args.GetValue("Engine.LaunchPath", Assembly.GetEntryAssembly().Location);
+            //Manifest currentMod;
+            //if (modID != null && Mods.TryGetValue(modID, out currentMod))
+            //{
+            //    var launchPath = args.GetValue("Engine.LaunchPath", Assembly.GetEntryAssembly().Location);
 
-                // Sanitize input from platform-specific launchers
-                // Process.Start requires paths to not be quoted, even if they contain spaces
-                if (launchPath.First() == '"' && launchPath.Last() == '"')
-                    launchPath = launchPath.Substring(1, launchPath.Length - 2);
+            //    // Sanitize input from platform-specific launchers
+            //    // Process.Start requires paths to not be quoted, even if they contain spaces
+            //    if (launchPath.First() == '"' && launchPath.Last() == '"')
+            //        launchPath = launchPath.Substring(1, launchPath.Length - 2);
 
-                ExternalMods.Register(Mods[modID], launchPath, ModRegistration.User);
+            //    ExternalMods.Register(Mods[modID], launchPath, ModRegistration.User);
 
-                ExternalMod activeMod;
-                if (ExternalMods.TryGetValue(ExternalMod.MakeKey(Mods[modID]), out activeMod))
-                    ExternalMods.ClearInvalidRegistrations(activeMod, ModRegistration.User);
-            }
+            //    ExternalMod activeMod;
+            //    if (ExternalMods.TryGetValue(ExternalMod.MakeKey(Mods[modID]), out activeMod))
+            //        ExternalMods.ClearInvalidRegistrations(activeMod, ModRegistration.User);
+            //}
 
             InitializeMod(modID, args);
         }
@@ -281,8 +299,8 @@ namespace OpenRA
 
             ModData = new ModData(Mods[mod], Mods, true);
 
-            if (!ModData.LoadScreen.BeforeLoad())
-                return;
+            //if (!ModData.LoadScreen.BeforeLoad())
+            //    return;
 
             using (new PerfTimer("LoadMaps"))
                 ModData.MapCache.LoadMaps();
@@ -291,30 +309,7 @@ namespace OpenRA
             //Renderer.InitializeFonts(ModData);
 
             var grid = ModData.Manifest.Contains<MapGrid>() ? ModData.Manifest.Get<MapGrid>() : null;
-            //Renderer.InitializeDepthBuffer(grid);
-
-            //if (Cursor != null)
-            //    Cursor.Dispose();
-
-            //if (Settings.Graphics.HardwareCursors)
-            //{
-            //    try
-            //    {
-            //        Cursor = new HardwareCursor(ModData.CursorProvider);
-            //    }
-            //    catch (Exception e)
-            //    {
-            //        Log.Write("debug", "Failed to initialize hardware cursors. Falling back to software cursors.");
-            //        Log.Write("debug", "Error was: " + e.Message);
-
-            //        Console.WriteLine("Failed to initialize hardware cursors. Falling back to software cursors.");
-            //        Console.WriteLine("Error was: " + e.Message);
-
-            //        Cursor = new SoftwareCursor(ModData.CursorProvider);
-            //    }
-            //}
-            //else
-            //    Cursor = new SoftwareCursor(ModData.CursorProvider);
+           
 
             PerfHistory.Items["render"].HasNormalTick = false;
             PerfHistory.Items["batches"].HasNormalTick = false;
@@ -323,6 +318,7 @@ namespace OpenRA
 
             JoinLocal();
 
+            return;
             try
             {
                 //if (discoverNat != null) //NAT在引擎完整之后会补上
@@ -340,7 +336,7 @@ namespace OpenRA
 
         public static void InitializeSettings(Arguments args)
         {
-            //Settings = new Settings(Platform.ResolvePath(Path.Combine("^", "settings.yaml")), args);
+            Settings = new Settings(Platform.ResolvePath(@"^settings.yaml"), args);
         }
 
         public static void AddChatLine(Color color, string name, string text)
@@ -411,93 +407,113 @@ namespace OpenRA
                 Settings.Graphics.CapFramerate = false;
             }
 
-            try
-            {
-                Loop();
-            }
-            finally
-            {
-                // Ensure that the active replay is properly saved
-                if (OrderManager != null)
-                    OrderManager.Dispose();
-            }
+            Platform.platformInfo.RegisterLogicTick(LogicTick);
+            Platform.platformInfo.OnApplicationQuit = OnApplicationQuit;
+            nextLogic = RunTime;
+            nextRender = RunTime;
+            forcedNextRender = RunTime;
 
-            if (worldRenderer != null)
-                worldRenderer.Dispose();
-            ModData.Dispose();
-            //ChromeProvider.Deinitialize();
+            //try
+            //{
+            //    Loop();
+            //}
+            //finally
+            //{
+            //    // Ensure that the active replay is properly saved
+            //    if (OrderManager != null)
+            //        OrderManager.Dispose();
+            //}
 
-            //GlobalChat.Dispose();
-            //Sound.Dispose();
-            Renderer.Dispose();
-
-            OnQuit();
+            //OnApplicationQuit();
 
             return state;
         }
 
-        static void Loop()
+        
+
+
+        static void OnApplicationQuit()
         {
-            const int MaxLogicTicksBehind = 250;
-            
-            const int MinReplayFps = 10;
-            
-            var nextLogic = RunTime;
-            var nextRender = RunTime;
-            var forcedNextRender = RunTime;
-
-            while (state == RunStatus.Running)
+            if (OrderManager != null)
+                OrderManager.Dispose();
+            if (worldRenderer != null)
+                worldRenderer.Dispose();
+            if (ModData != null)
             {
-                // Ideal time between logic updates. Timestep = 0 means the game is paused
-                // but we still call LogicTick() because it handles pausing internally.
-                var logicInterval = worldRenderer != null && worldRenderer.World.Timestep != 0 ? worldRenderer.World.Timestep : Timestep;
+                ModData.Dispose();
+            }
+            
+            //ChromeProvider.Deinitialize();
 
-                // Ideal time between screen updates
-                var maxFramerate = Settings.Graphics.CapFramerate ? Settings.Graphics.MaxFramerate.Clamp(1, 1000) : 1000;
-                var renderInterval = 1000 / maxFramerate;
+            //GlobalChat.Dispose();
+            //Sound.Dispose();
+            if (Renderer != null)
+            {
+                Renderer.Dispose();
+            }
+            
 
-                var now = RunTime;
+            OnQuit();
+        }
 
-                // If the logic has fallen behind too much, skip it and catch up
-                if (now - nextLogic > MaxLogicTicksBehind)
-                    nextLogic = now;
 
-                // When's the next update (logic or render)
-                var nextUpdate = Math.Min(nextLogic, nextRender);
-                if (now >= nextUpdate)
+        const int MaxLogicTicksBehind = 250;
+
+        const int MinReplayFps = 10;
+        private static float nextLogic;
+        private static float nextRender;
+        private static float forcedNextRender;
+
+
+        static void Loop(float elapsedTime)
+        {
+            // Ideal time between logic updates. Timestep = 0 means the game is paused
+            // but we still call LogicTick() because it handles pausing internally.
+            var logicInterval = worldRenderer != null && worldRenderer.World.Timestep != 0 ? worldRenderer.World.Timestep : Timestep;
+
+            // Ideal time between screen updates
+            var maxFramerate = Settings.Graphics.CapFramerate ? Settings.Graphics.MaxFramerate.Clamp(1, 1000) : 1000;
+            var renderInterval = 1000 / maxFramerate;
+
+            var now = RunTime;
+
+            // If the logic has fallen behind too much, skip it and catch up
+            if (now - nextLogic > MaxLogicTicksBehind)
+                nextLogic = now;
+
+            // When's the next update (logic or render)
+            var nextUpdate = Math.Min(nextLogic, nextRender);
+            if (now >= nextUpdate)
+            {
+                var forceRender = now >= forcedNextRender;
+
+                if (now >= nextLogic)
                 {
-                    var forceRender = now >= forcedNextRender;
+                    nextLogic += logicInterval;
 
-                    if (now >= nextLogic)
-                    {
-                        nextLogic += logicInterval;
+                    LogicTick(1);
 
-                        LogicTick();
-
-                        // Force at least one render per tick during regular gameplay
-                        if (OrderManager.World != null && !OrderManager.World.IsReplay)
-                            forceRender = true;
-                    }
-
-                    var haveSomeTimeUntilNextLogic = now < nextLogic;
-                    var isTimeToRender = now >= nextRender;
-
-                    if ((isTimeToRender && haveSomeTimeUntilNextLogic) || forceRender)
-                    {
-                        nextRender = now + renderInterval;
-                        
-                        var maxRenderInterval = Math.Max(1000 / MinReplayFps, renderInterval);
-                        forcedNextRender = now + maxRenderInterval;
-
-                        RenderTick();
-                    }
+                    // Force at least one render per tick during regular gameplay
+                    if (OrderManager.World != null && !OrderManager.World.IsReplay)
+                        forceRender = true;
                 }
-                else
-                    Thread.Sleep((int)(nextUpdate - now));
+
+                var haveSomeTimeUntilNextLogic = now < nextLogic;
+                var isTimeToRender = now >= nextRender;
+
+                if ((isTimeToRender && haveSomeTimeUntilNextLogic) || forceRender)
+                {
+                    nextRender = now + renderInterval;
+
+                    var maxRenderInterval = Math.Max(1000 / MinReplayFps, renderInterval);
+                    forcedNextRender = now + maxRenderInterval;
+
+                    RenderTick();
+                }
             }
         }
 
-        static void LogicTick()
+        static void LogicTick(float elapsedTime)
         {
             delayedActions.PerformActions(RunTime);
 
@@ -514,72 +530,33 @@ namespace OpenRA
 
         static void InnerLogicTick(OrderManager orderManager)
         {
-            var tick = RunTime;
+            //var world = orderManager.World;
 
-            var world = orderManager.World;
+            //if (world == null)
+            //    return;
 
-            //var uiTickDelta = tick - Ui.LastTickTime;
-            //if (uiTickDelta >= Timestep)
-            //{
-            //    // Explained below for the world tick calculation
-            //    var integralTickTimestep = (uiTickDelta / Timestep) * Timestep;
-            //    Ui.LastTickTime += integralTickTimestep >= TimestepJankThreshold ? integralTickTimestep : Timestep;
+            var isNetTick = LocalTick % NetTickScale == 0;
 
-            //    Sync.CheckSyncUnchanged(world, Ui.Tick);
-            //    Cursor.Tick();
-            //}
-
-            var worldTimestep = world == null ? Timestep : world.Timestep;
-            var worldTickDelta = tick - orderManager.LastTickTime;
-            if (worldTimestep != 0 && worldTickDelta >= worldTimestep)
+            if (!isNetTick || orderManager.IsReadyForNextFrame)
             {
-                using (new PerfSample("tick_time"))
+                ++orderManager.LocalFrameNumber;
+
+                if (isNetTick) //网络循环
                 {
-                    // Tick the world to advance the world time to match real time:
-                    //    If dt < TickJankThreshold then we should try and catch up by repeatedly ticking
-                    //    If dt >= TickJankThreshold then we should accept the jank and progress at the normal rate
-                    // dt is rounded down to an integer tick count in order to preserve fractional tick components.
-                    var integralTickTimestep = (worldTickDelta / worldTimestep) * worldTimestep;
-                    orderManager.LastTickTime += integralTickTimestep >= TimestepJankThreshold ? integralTickTimestep : worldTimestep;
-
-                    //Sound.Tick();
-                    Sync.CheckSyncUnchanged(world, orderManager.TickImmediate);
-
-                    if (world == null)
-                        return;
-
-                    var isNetTick = LocalTick % NetTickScale == 0;
-
-                    if (!isNetTick || orderManager.IsReadyForNextFrame)
-                    {
-                        ++orderManager.LocalFrameNumber;
-
-                        Log.Write("debug", "--Tick: {0} ({1})", LocalTick, isNetTick ? "net" : "local");
-
-                        if (BenchmarkMode)
-                            Log.Write("cpu", "{0};{1}".F(LocalTick, PerfHistory.Items["tick_time"].LastValue));
-
-                        if (isNetTick)
-                            orderManager.Tick();
-
-                        Sync.CheckSyncUnchanged(world, () =>
-                        {
-                            world.OrderGenerator.Tick(world);
-                            world.Selection.Tick(world);
-                        });
-
-                        world.Tick();
-
-                        PerfHistory.Tick();
-                    }
-                    else if (orderManager.NetFrameNumber == 0)
-                        orderManager.LastTickTime = RunTime;
-
-                    // Wait until we have done our first world Tick before TickRendering
-                    if (orderManager.LocalFrameNumber > 0)
-                        Sync.CheckSyncUnchanged(world, () => world.TickRender(worldRenderer));
+                    orderManager.Tick();
                 }
+
+                //Sync.CheckSyncUnchanged(world, () =>
+                //{
+                //    world.OrderGenerator.Tick(world);
+                //    world.Selection.Tick(world);
+                //});
+
+                //world.Tick();
             }
+
+            //if (orderManager.LocalFrameNumber > 0)
+            //    Sync.CheckSyncUnchanged(world, () => world.TickRender(worldRenderer));
         }
 
 
@@ -669,6 +646,11 @@ namespace OpenRA
                 throw new Exception("No valid shellmaps available");
 
             return shellmaps.Random(CosmeticRandom);
+        }
+        
+        public static void RemoteDirectConnect(string host, int port)
+        {
+            OnRemoteDirectConnect(host, port);
         }
     }
 }

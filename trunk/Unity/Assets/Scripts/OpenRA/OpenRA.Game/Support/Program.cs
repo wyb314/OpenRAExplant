@@ -2,22 +2,19 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using OpenRA.Support;
 
 namespace OpenRA
 {
-    public enum RunStatus
-    {
-        Error = -1,
-        Success = 0,
-        Running = int.MaxValue
-    }
+   
 
-    static class Program
+    public sealed class Program
     {
-        public static RunStatus Run(string[] args)
+        public static RunStatus Run(string[] args ,IPlatformImpl platformInfo = null)
         {
-            Game.Initialize(new Arguments(args));
+            Game.Initialize(new Arguments(args), platformInfo);
             GC.Collect();
+            //return RunStatus.Error;
             return Game.Run();
         }
     }

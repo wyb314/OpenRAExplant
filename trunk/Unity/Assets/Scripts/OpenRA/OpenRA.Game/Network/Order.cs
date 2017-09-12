@@ -159,6 +159,11 @@ namespace OpenRA
             return new Order("CancelProduction", subject, false) { ExtraData = (uint)count, TargetString = item };
         }
 
+        public static Order testWyb()
+        {
+            return new Order("kkks", null, false) { IsImmediate = true, TargetString = "Hello world" };
+        }
+
         // For scripting special powers
         public Order()
             : this(null, null, null, CPos.Zero, null, false, CPos.Zero, 0) { }

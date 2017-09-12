@@ -24,6 +24,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenRA.Mods.Common", "OpenR
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FuzzyLogicLibrary", "..\fuzzynet_1_2_0\FuzzyLogicLibrary\FuzzyLogicLibrary.csproj", "{5FCE77C6-C989-49C7-B82B-6F4B7779558C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OAEngine", "OAEngine\OAEngine.csproj", "{0F947CAB-B84C-41E5-A9FE-FB831A7C490F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -58,6 +60,10 @@ Global
 		{5FCE77C6-C989-49C7-B82B-6F4B7779558C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5FCE77C6-C989-49C7-B82B-6F4B7779558C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5FCE77C6-C989-49C7-B82B-6F4B7779558C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0F947CAB-B84C-41E5-A9FE-FB831A7C490F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0F947CAB-B84C-41E5-A9FE-FB831A7C490F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0F947CAB-B84C-41E5-A9FE-FB831A7C490F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0F947CAB-B84C-41E5-A9FE-FB831A7C490F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

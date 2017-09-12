@@ -348,4 +348,20 @@ namespace OpenRA.Traits
     }
 
     public interface IResolveOrder { void ResolveOrder(Actor self, Order order); }
+
+    //public interface IPaletteModifier { void AdjustPalette(IReadOnlyDictionary<string, MutablePalette> b); }
+
+    public interface IRenderOverlay { void Render(WorldRenderer wr); }
+
+    public interface IRenderAboveShroudWhenSelected { IEnumerable<IRenderable> RenderAboveShroud(Actor self, WorldRenderer wr); }
+
+    public class AttackInfo
+    {
+        public Damage Damage;
+        public Actor Attacker;
+        public DamageState DamageState;
+        public DamageState PreviousDamageState;
+    }
+
+    public interface IFacingInfo : ITraitInfoInterface { int GetInitialFacing(); }
 }

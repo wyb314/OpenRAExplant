@@ -289,6 +289,7 @@ namespace OpenRA
 
         public Map(ModData modData, IReadOnlyPackage package)
         {
+            return;
             this.modData = modData;
             Package = package;
 
