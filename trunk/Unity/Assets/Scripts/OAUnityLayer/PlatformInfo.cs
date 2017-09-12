@@ -1,8 +1,8 @@
 ﻿using System;
-using OpenRA;
-using OpenRA.Support;
+using Engine;
+using Engine.Support;
 using UnityEngine;
-using ILogger = OpenRA.Support.ILogger;
+using ILogger = Engine.Support.ILogger;
 
 namespace OAUnityLayer
 {
@@ -11,7 +11,9 @@ namespace OAUnityLayer
         public const string FileFolderName = "File";
 
         public PlatformType currentPlatform { private set; get; }
-        
+
+        public System.Action<float> Tick { set; get; }
+
         public System.Action OnApplicationQuit { set; get; }
 
         public ILogger Logger { private set ; get; }
@@ -66,41 +68,6 @@ namespace OAUnityLayer
             this.Logger = logger;
         }
 
-
-        private LogicTickFun logicTickFun;
-
-        public RenderTickFun renderTickFun;
-
-
-        public void LogicTick(float elapsedTime)
-        {
-            if (this.logicTickFun != null)
-            {
-                this.logicTickFun(elapsedTime);
-            }
-        }
-
-        public void RenderTick(float elapsedTime)
-        {
-            if (this.renderTickFun != null)
-            {
-                this.renderTickFun(elapsedTime);
-            }
-        }
-
-        public void RegisterLogicTick(LogicTickFun logicTick)
-        {
-            this.logicTickFun = logicTick;
-        }
-
-        /// <summary>
-        /// 注册游戏渲染Tick
-        /// </summary>
-        /// <param name="logicTick"></param>
-        public void RegisterRenderTick(RenderTickFun renderTick)
-        {
-            this.renderTickFun = renderTick;
-        }
 
     }
 }

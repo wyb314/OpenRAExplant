@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using OAUnityLayer;
 using UnityEngine;
-using OpenRA.Support;
 using System.IO;
+using Engine;
+using Engine.Network.Defaults;
+using Engine.Support;
 using OAUnityLayer.Support;
-using OpenRA;
-using OpenRA.Network;
 
 public class Test0 : MonoBehaviour
 {
@@ -20,17 +20,17 @@ public class Test0 : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (platformInfo != null)
-        {
-            platformInfo.RenderTick(Time.fixedDeltaTime);
-        }
+        //if (platformInfo != null)
+        //{
+        //    platformInfo.Tick(Time.fixedDeltaTime);
+        //}
     }
 
     void FixedUpdate()
     {
         if (platformInfo != null)
         {
-            platformInfo.LogicTick(Time.fixedDeltaTime);
+            platformInfo.Tick(Time.fixedDeltaTime);
         }
     }
 
@@ -64,7 +64,7 @@ public class Test0 : MonoBehaviour
 
         if (GUILayout.Button("Send a order"))
         {
-            Order order = Order.testWyb();
+            Order order = new Order("","");
             Game.OrderManager.IssueOrder(order);
         }
     }
