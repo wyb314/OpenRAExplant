@@ -8,7 +8,7 @@ namespace Engine.Network.Interfaces
     {
         string Name { get; }
 
-        string Data { get; }
+        byte[] Data { get; }
 
         byte[] Serialize();
     }

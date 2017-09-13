@@ -7,7 +7,7 @@ using Engine.Primitives;
 
 namespace Engine.Network.Defaults
 {
-    public class OrderManagerDefault: IOrderManager
+    public class OrderManagerDefault: IOrderManager<ClientDefault>
     {
         public string Host { private set;get; }
 
@@ -19,7 +19,7 @@ namespace Engine.Network.Defaults
 
         public int LocalFrameNumber { set;get; }
 
-        public int FramesAhead { private set ; get; }
+        public int FramesAhead { set ; get; }
 
         public IConnection Connection { private set;get; }
 
@@ -27,9 +27,9 @@ namespace Engine.Network.Defaults
 
         public IOrderSerializer orderSerializer { private set;get; }
 
-        public IOrderProcessor orderProcessor { private set;get; }
+        public IOrderProcessor<ClientDefault> orderProcessor { private set;get; }
 
-        public IFrameData frameData { private set; get; }
+        public IFrameData<ClientDefault> frameData { private set; get; }
 
         public ISyncReport syncReport { private set;get; }
 
@@ -47,6 +47,18 @@ namespace Engine.Network.Defaults
 
         public bool GameStarted { get { return NetFrameNumber != 0; } }
 
+        public Session<ClientDefault> LobbyInfo { set; get; }
+
+        private string serverError = "Server is not responding";
+        public string ServerError
+        {
+            get { return this.serverError; }
+
+            set { this.serverError = value; }
+        }
+
+        public bool AuthenticationFailed { set; get; }
+
         public OrderManagerDefault(string host, int port, string password, IConnection conn)
         {
             Host = host;
@@ -54,6 +66,10 @@ namespace Engine.Network.Defaults
             Password = password;
             Connection = conn;
             syncReport = new SyncReportDefault();
+            this.frameData = new FrameDataDefault();
+            this.localOrders = new List<IOrder>();
+            this.orderProcessor = new OrderProcessorDefault();
+            this.orderSerializer = new OrderSerializerDefault();
         }
 
 

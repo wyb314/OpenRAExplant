@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Xml;
 using Engine.Network.Interfaces;
 
 namespace Engine.Network.Defaults
@@ -16,12 +17,12 @@ namespace Engine.Network.Defaults
 
         public IOrder Deserialize(INetWorld world, BinaryReader r)
         {
-            throw new NotImplementedException();
+            return null;
         }
 
         public byte[] Serialize(IOrder order)
         {
-            throw new NotImplementedException();
+            return null;
         }
     }
 }

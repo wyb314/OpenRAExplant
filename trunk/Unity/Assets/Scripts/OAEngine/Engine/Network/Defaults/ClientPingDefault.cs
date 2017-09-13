@@ -7,56 +7,17 @@ namespace Engine.Network.Defaults
 {
     public class ClientPingDefault : IClientPing
     {
-        public int Index
+        public int Index { set; get; }
+
+        public long Latency { set; get; }
+
+        public long[] LatencyHistory { set; get; }
+
+        public long LatencyJitter { set; get; }
+
+        public byte[] Serialize()
         {
-            get
-            {
-                throw new NotImplementedException();
-            }
-
-            set
-            {
-                throw new NotImplementedException();
-            }
-        }
-
-        public long Latency
-        {
-            get
-            {
-                throw new NotImplementedException();
-            }
-
-            set
-            {
-                throw new NotImplementedException();
-            }
-        }
-
-        public long[] LatencyHistory
-        {
-            get
-            {
-                throw new NotImplementedException();
-            }
-
-            set
-            {
-                throw new NotImplementedException();
-            }
-        }
-
-        public long LatencyJitter
-        {
-            get
-            {
-                throw new NotImplementedException();
-            }
-
-            set
-            {
-                throw new NotImplementedException();
-            }
+            
         }
     }
 }

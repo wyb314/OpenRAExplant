@@ -9,17 +9,17 @@ using Engine.Network.Enums;
 
 namespace Engine.Network.Interfaces
 {
-    public interface IServer<T, U> where T : IClient where U : IClientPing
+    public interface IServer<T> : IDisposable  where T : IClient
     {
         IPAddress Ip { get; }
 
         int Port { get; }
         
-        List<IServerConnectoin<T, U>> Conns { get; }
+        List<IServerConnectoin<T>> Conns { get; }
 
-        List<IServerConnectoin<T,U>> PreConns { get; }
+        List<IServerConnectoin<T>> PreConns { get; }
         
-        Session<T, U> LobbyInfo { get; }
+        Session<T> LobbyInfo { get; }
 
         TypeDictionary serverTraits { get; }
 
@@ -33,12 +33,12 @@ namespace Engine.Network.Interfaces
 
         void EndGame();
 
-        void DropClient(IServerConnectoin<T, U> toDrop);
+        void DropClient(IServerConnectoin<T> toDrop);
 
         void Shutdown();
         
-        T GetClient(IServerConnectoin<T, U> conn);
+        T GetClient(IServerConnectoin<T> conn);
 
-        void InterpretServerOrder(IServerConnectoin<T, U> conn, IServerOrder so);
+        void InterpretServerOrder(IServerConnectoin<T> conn, IServerOrder so);
     }
 }

@@ -4,7 +4,7 @@ using System.Net.Sockets;
 
 namespace Engine.Network.Interfaces
 {
-    public interface IServerConnectoin<T, U> where T : IClient where U : IClientPing
+    public interface IServerConnectoin<T> where T : IClient
     {
         int PlayerIndex { get; }
 
@@ -12,6 +12,6 @@ namespace Engine.Network.Interfaces
 
         Socket Socket { get; }
 
-        void ReadData(IServer<T, U> server);
+        void ReadData(IServer<T> server);
     }
 }

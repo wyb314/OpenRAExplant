@@ -6,7 +6,7 @@ using Engine.Network.Interfaces;
 
 namespace Engine.Network.Defaults
 {
-    public class FrameDataDefault : IFrameData
+    public class FrameDataDefault : IFrameData<ClientDefault>
     {
         public Dictionary<int, int> clientQuitTimes { private set; get; }
 
@@ -56,7 +56,7 @@ namespace Engine.Network.Defaults
             return result;
         }
 
-        public IEnumerable<ClientOrder> OrdersForFrame(IOrderManager orderManager, INetWorld world, int frame)
+        public IEnumerable<ClientOrder> OrdersForFrame(IOrderManager<ClientDefault> orderManager, INetWorld world, int frame)
         {
             var frameData = framePackets[frame];
             var clientData = ClientsPlayingInFrame(frame)

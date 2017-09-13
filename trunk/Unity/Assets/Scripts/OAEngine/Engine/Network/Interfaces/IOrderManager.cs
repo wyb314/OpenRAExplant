@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Engine.Network.Interfaces
 {
-    public interface IOrderManager : IDisposable
+    public interface IOrderManager<T> : IDisposable where T : IClient
     {
         /// <summary>
         /// IP
@@ -23,17 +23,17 @@ namespace Engine.Network.Interfaces
 
         int LocalFrameNumber { set;get; }
 
-        int FramesAhead { get; }
+        int FramesAhead { set;get; }
         
         IConnection Connection { get; }
 
         List<IOrder> localOrders { get; }
 
-        IFrameData frameData { get; }
+        IFrameData<T> frameData { get; }
 
         IOrderSerializer orderSerializer { get; }
 
-        IOrderProcessor orderProcessor { get; }
+        IOrderProcessor<T> orderProcessor { get; }
 
         ISyncReport syncReport { get; }
 
@@ -42,7 +42,13 @@ namespace Engine.Network.Interfaces
         bool GameStarted { get; }
 
         bool IsReadyForNextFrame { get; }
-        
+
+        Session<T> LobbyInfo { set;get; }
+
+        string ServerError { set; get; }
+
+        bool AuthenticationFailed { set; get; }
+
         void StartGame();
 
 

@@ -6,6 +6,7 @@ using System.Net.Sockets;
 using System.Text;
 using System.Threading;
 using Engine.Network.Server;
+using Engine.Support;
 
 namespace Engine.Network.Defaults
 {
@@ -25,11 +26,12 @@ namespace Engine.Network.Defaults
                 new Thread(NetworkConnectionReceive)
                 {
                     Name = GetType().Name + " " + host + ":" + port,
-                    IsBackground = true
+                    IsBackground = false
                 }.Start(tcp.GetStream());
             }
             catch
             {
+                Log.Write("wyb", "TcpClient not connected!");
                 connectionState = ConnectionState.NotConnected;
             }
         }
@@ -38,7 +40,7 @@ namespace Engine.Network.Defaults
         {
             try
             {
-                var networkStream = (NetworkStream)networkStreamObject;
+                var networkStream = (NetworkStream) networkStreamObject;
                 var reader = new BinaryReader(networkStream);
                 var serverProtocol = reader.ReadInt32();
 
@@ -57,10 +59,13 @@ namespace Engine.Network.Defaults
                     var buf = reader.ReadBytes(len);
                     if (len == 0)
                         throw new NotImplementedException();
-                    AddPacket(new ReceivedPacket { FromClient = client, Data = buf });
+                    AddPacket(new ReceivedPacket {FromClient = client, Data = buf});
                 }
             }
-            catch { }
+            catch(Exception ex)
+            {
+                Log.Write("wyb", "Error msg : {0} stackTrace->{1}", ex.Message, ex.StackTrace);
+            }
             finally
             {
                 connectionState = ConnectionState.NotConnected;

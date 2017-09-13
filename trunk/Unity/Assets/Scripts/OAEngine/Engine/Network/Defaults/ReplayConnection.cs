@@ -10,7 +10,7 @@ using Engine.Network;
 
 namespace Engine.Network.Defaults
 {
-    public sealed class ReplayConnection<T, U> : IConnection  where T : IClient where U : IClientPing
+    public sealed class ReplayConnection<T> : IConnection  where T : IClient
     {
         class Chunk
         {
@@ -27,7 +27,7 @@ namespace Engine.Network.Defaults
         public ConnectionState ConnectionState { get { return ConnectionState.Connected; } }
         public readonly int TickCount;
         public readonly bool IsValid;
-        public readonly Session<T,U> LobbyInfo;
+        public readonly Session<T> LobbyInfo;
         public readonly string Filename;
 
         public ReplayConnection(string replayFilename)
@@ -67,7 +67,7 @@ namespace Engine.Network.Defaults
                             if (o.OrderString == "StartGame")
                                 IsValid = true;
                             else if (o.OrderString == "SyncInfo" && !IsValid)
-                                LobbyInfo = Session<T,U>.Deserialize(o.TargetString);
+                                LobbyInfo = Session<T>.Deserialize(o.TargetString);
                         }
                     }
                     else

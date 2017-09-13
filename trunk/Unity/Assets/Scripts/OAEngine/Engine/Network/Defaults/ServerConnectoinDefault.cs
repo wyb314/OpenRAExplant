@@ -7,7 +7,7 @@ using Engine.Network.Interfaces;
 
 namespace Engine.Network.Defaults
 {
-    public class ServerConnectoinDefault : IServerConnectoin<ClientDefault, ClientPingDefault>
+    public class ServerConnectoinDefault : IServerConnectoin<ClientDefault>
     {
         public int PlayerIndex { set; get; }
 
@@ -15,7 +15,7 @@ namespace Engine.Network.Defaults
 
         public Socket Socket { set; get; }
 
-        public void ReadData(IServer<ClientDefault, ClientPingDefault> server)
+        public void ReadData(IServer<ClientDefault> server)
         {
             
         }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 
@@ -17,9 +18,14 @@ namespace Engine.Network.Defaults
             return handshake;
         }
 
-        public string Serialize()
+        public byte[] Serialize()
         {
-            return null;
+            var ret = new MemoryStream();
+            var w = new BinaryWriter(ret);
+            w.Write(this.Mod);
+            w.Write(Version);
+            w.Write(Map);
+            return ret.ToArray();
         }
     }
 
@@ -30,37 +36,31 @@ namespace Engine.Network.Defaults
         public string Password;
         public ClientDefault Client;
 
-        public static HandshakeResponse Deserialize(string data)
+        public static HandshakeResponse Deserialize(byte[] data)
         {
             var handshake = new HandshakeResponse();
-            handshake.Client = new ClientDefault();
-
-            //var ys = MiniYaml.FromString(data);
-            //foreach (var y in ys)
-            //{
-            //    switch (y.Key)
-            //    {
-            //        case "Handshake":
-            //            FieldLoader.Load(handshake, y.Value);
-            //            break;
-            //        case "Client":
-            //            FieldLoader.Load(handshake.Client, y.Value);
-            //            break;
-            //    }
-            //}
-
+            using (var ret = new MemoryStream(data))
+            {
+                var r = new BinaryReader(ret);
+                handshake.Mod = r.ReadString();
+                handshake.Version = r.ReadString();
+                handshake.Password = r.ReadString();
+                handshake.Client = ClientDefault.Deserialize(data);
+            }
             return handshake;
         }
 
-        public string Serialize()
+        public byte[] Serialize()
         {
-            //var data = new List<MiniYamlNode>();
-            //data.Add(new MiniYamlNode("Handshake", null,
-            //    new string[] { "Mod", "Version", "Password" }.Select(p => FieldSaver.SaveField(this, p)).ToList()));
-            //data.Add(new MiniYamlNode("Client", FieldSaver.Save(Client)));
+            var ret = new MemoryStream();
+            var w = new BinaryWriter(ret);
+            w.Write(this.Mod);
+            w.Write(Version);
+            w.Write(this.Password);
+            byte[] clientData = this.Client.Serialize();
 
-            //return data.WriteToString();
-            return null;
+
+            return ret.ToArray();
         }
     }
 }

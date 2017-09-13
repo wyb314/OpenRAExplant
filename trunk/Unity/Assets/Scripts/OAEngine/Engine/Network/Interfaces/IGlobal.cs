@@ -21,5 +21,7 @@ namespace Engine.Network.Interfaces
         string GameUid { set; get; }
         
         bool EnableSingleplayer { set; get; }
+
+        byte[] Serialize();
     }
 }

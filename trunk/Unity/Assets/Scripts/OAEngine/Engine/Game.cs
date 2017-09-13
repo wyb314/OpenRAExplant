@@ -7,6 +7,7 @@ using System.Text;
 using System.IO;
 using System.Net;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Threading;
 using Engine.Primitives;
 using Engine.Support;
@@ -35,13 +36,13 @@ namespace Engine
 
         public static event Action LobbyInfoChanged = () => { };
         public static event Action<string, int> OnRemoteDirectConnect = (a, b) => { };
-        public static event Action<IOrderManager> ConnectionStateChanged = _ => { };
+        public static event Action<IOrderManager<ClientDefault>> ConnectionStateChanged = _ => { };
         public static event Action BeforeGameStart = () => { };
         static volatile ActionQueue delayedActions = new ActionQueue();
         public static event Action OnQuit = () => { };
 
         static ConnectionState lastConnectionState = ConnectionState.PreConnecting;
-        internal static IOrderManager OrderManager;
+        internal static IOrderManager<ClientDefault> OrderManager;
 
         static RunStatus state = RunStatus.Running;
 
@@ -50,7 +51,7 @@ namespace Engine
         public static ModData ModData;
         public static Settings Settings;
 
-        static IServer<ClientDefault,ClientPingDefault> server;
+        static IServer<ClientDefault> server;
 
         internal static void Initialize(Arguments args, IPlatformImpl platformInfo = null)
         {
@@ -104,9 +105,11 @@ namespace Engine
         {
             IWorld world = OrderManager.World as IWorld;
 
+            Sync.CheckSyncUnchanged(world, OrderManager.TickImmediate);
+
             if (world == null)
                 return;
-
+            
             var isNetTick = LocalTick % NetTickScale == 0;
 
             if (!isNetTick || OrderManager.IsReadyForNextFrame)
@@ -149,7 +152,7 @@ namespace Engine
 
         public static void CreateAndStartLocalServer(string mapUID, IEnumerable<Order> setupOrders)
         {
-            IOrderManager om = null;
+            IOrderManager<ClientDefault> om = null;
 
             Action lobbyReady = null;
             lobbyReady = () =>
@@ -161,7 +164,8 @@ namespace Engine
 
             LobbyInfoChanged += lobbyReady;
 
-            om = JoinServer(IPAddress.Loopback.ToString(), CreateLocalServer(mapUID), "");
+            string ip = IPAddress.Loopback.ToString();
+            om = JoinServer(ip, CreateLocalServer(mapUID), "",false);
         }
 
         public static int CreateLocalServer(string map)
@@ -174,13 +178,17 @@ namespace Engine
                 AllowPortForward = false
             };
 
+            if (server != null)
+            {
+                server.Dispose();
+            }
             server = new ServerDefault(new IPEndPoint(IPAddress.Loopback, 0), settings, null, false);
 
             return server.Port;
         }
 
 
-        public static IOrderManager JoinServer(string host, int port, string password, bool recordReplay = true)
+        public static IOrderManager<ClientDefault> JoinServer(string host, int port, string password, bool recordReplay = true)
         {
             var connection = new NetworkConnection(host, port);
             //if (recordReplay)
@@ -235,8 +243,17 @@ namespace Engine
         }
 
 
+        internal static void SyncLobbyInfo()
+        {
+            LobbyInfoChanged();
+        }
+
         static void OnApplicationQuit()
         {
+            if (server != null)
+            {
+                server.Dispose();
+            }
             if (OrderManager != null)
             {
                 OrderManager.Dispose();

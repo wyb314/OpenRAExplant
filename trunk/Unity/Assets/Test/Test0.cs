@@ -64,7 +64,7 @@ public class Test0 : MonoBehaviour
 
         if (GUILayout.Button("Send a order"))
         {
-            Order order = new Order("","");
+            Order order = Order.Command("hello world!");
             Game.OrderManager.IssueOrder(order);
         }
     }

@@ -13,8 +13,7 @@ namespace Engine.Support
         {
             Game.Initialize(new Arguments(args), platformInfo);
             GC.Collect();
-            return RunStatus.Error;
-            //return Game.Run();
+            return Game.Run();
         }
     }
 }

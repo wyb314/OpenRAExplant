@@ -96,8 +96,10 @@
     <Compile Include="Assets\Scripts\OAEngine\Engine\Exts.cs" />
     <Compile Include="Assets\Scripts\OAEngine\Engine\FileFormats\ReplayMetadata.cs" />
     <Compile Include="Assets\Scripts\OAEngine\Engine\Game.cs" />
+    <Compile Include="Assets\Scripts\OAEngine\Engine\Interfaces\ILoadScreen.cs" />
     <Compile Include="Assets\Scripts\OAEngine\Engine\Interfaces\IWorld.cs" />
     <Compile Include="Assets\Scripts\OAEngine\Engine\Interfaces\IWorldRenderer.cs" />
+    <Compile Include="Assets\Scripts\OAEngine\Engine\LoadScreens\LoadScreenDefault.cs" />
     <Compile Include="Assets\Scripts\OAEngine\Engine\Manifest.cs" />
     <Compile Include="Assets\Scripts\OAEngine\Engine\Map.cs" />
     <Compile Include="Assets\Scripts\OAEngine\Engine\ModData.cs" />
@@ -108,11 +110,13 @@
     <Compile Include="Assets\Scripts\OAEngine\Engine\Network\Defaults\ClientPingDefault.cs" />
     <Compile Include="Assets\Scripts\OAEngine\Engine\Network\Defaults\EchoConnection.cs" />
     <Compile Include="Assets\Scripts\OAEngine\Engine\Network\Defaults\FrameDataDefault.cs" />
+    <Compile Include="Assets\Scripts\OAEngine\Engine\Network\Defaults\GlobalDefault.cs" />
     <Compile Include="Assets\Scripts\OAEngine\Engine\Network\Defaults\Handshake.cs" />
     <Compile Include="Assets\Scripts\OAEngine\Engine\Network\Defaults\NetworkConnection.cs" />
     <Compile Include="Assets\Scripts\OAEngine\Engine\Network\Defaults\Order.cs" />
     <Compile Include="Assets\Scripts\OAEngine\Engine\Network\Defaults\OrderIO.cs" />
     <Compile Include="Assets\Scripts\OAEngine\Engine\Network\Defaults\OrderManagerDefault.cs" />
+    <Compile Include="Assets\Scripts\OAEngine\Engine\Network\Defaults\OrderProcessorDefault.cs" />
     <Compile Include="Assets\Scripts\OAEngine\Engine\Network\Defaults\OrderSerializerDefault.cs" />
     <Compile Include="Assets\Scripts\OAEngine\Engine\Network\Defaults\ReplayConnection.cs" />
     <Compile Include="Assets\Scripts\OAEngine\Engine\Network\Defaults\ServerConnectoinDefault.cs" />
