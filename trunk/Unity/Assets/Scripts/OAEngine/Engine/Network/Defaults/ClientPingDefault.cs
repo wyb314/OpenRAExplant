@@ -17,7 +17,7 @@ namespace Engine.Network.Defaults
 
         public byte[] Serialize()
         {
-            
+            return null;
         }
     }
 }
