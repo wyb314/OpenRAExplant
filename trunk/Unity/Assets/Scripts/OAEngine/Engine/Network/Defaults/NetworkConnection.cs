@@ -43,13 +43,14 @@ namespace Engine.Network.Defaults
                 var networkStream = (NetworkStream) networkStreamObject;
                 var reader = new BinaryReader(networkStream);
                 var serverProtocol = reader.ReadInt32();
-
+                
                 if (ProtocolVersion.Version != serverProtocol)
                     throw new InvalidOperationException(
                         "Protocol version mismatch. Server={0} Client={1}"
                             .F(serverProtocol, ProtocolVersion.Version));
 
                 clientId = reader.ReadInt32();
+                //Log.Write("wyb","Protocol version->{0} clientId->{1}".F(serverProtocol,clientId));
                 connectionState = ConnectionState.Connected;
 
                 for (;;)
@@ -64,7 +65,7 @@ namespace Engine.Network.Defaults
             }
             catch(Exception ex)
             {
-                Log.Write("wyb", "Error msg : {0} stackTrace->{1}", ex.Message, ex.StackTrace);
+                Log.LogError("Error msg : {0} stackTrace->{1}".F(ex.Message, ex.StackTrace), "wyb");
             }
             finally
             {

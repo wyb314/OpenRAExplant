@@ -59,7 +59,8 @@ public class Test0 : MonoBehaviour
 
         if (GUILayout.Button("Start Game"))
         {
-            Game.StartGame("wyb", WorldType.Regular);
+            Order order = Order.Command("startgame");
+            Game.OrderManager.IssueOrder(order);
         }
 
         if (GUILayout.Button("Send a order"))

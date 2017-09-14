@@ -12,9 +12,16 @@ namespace Engine.Network.Defaults
         public string Version;
         public string Map;
 
-        public static HandshakeRequest Deserialize(string data)
+        public static HandshakeRequest Deserialize(byte[] data)
         {
             var handshake = new HandshakeRequest();
+            using (var ms = new MemoryStream(data))
+            {
+                var br = new BinaryReader(ms);
+                handshake.Mod = br.ReadString();
+                handshake.Version = br.ReadString();
+                handshake.Map = br.ReadString();
+            }
             return handshake;
         }
 
@@ -45,22 +52,28 @@ namespace Engine.Network.Defaults
                 handshake.Mod = r.ReadString();
                 handshake.Version = r.ReadString();
                 handshake.Password = r.ReadString();
-                handshake.Client = ClientDefault.Deserialize(data);
+                byte[] clientData = r.ReadBytes(r.ReadInt32());
+                handshake.Client = ClientDefault.Deserialize(clientData);
             }
             return handshake;
         }
 
         public byte[] Serialize()
         {
-            var ret = new MemoryStream();
-            var w = new BinaryWriter(ret);
-            w.Write(this.Mod);
-            w.Write(Version);
-            w.Write(this.Password);
-            byte[] clientData = this.Client.Serialize();
+            byte[] ret = null;
 
-
-            return ret.ToArray();
+            using (var ms = new MemoryStream())
+            {
+                var w = new BinaryWriter(ms);
+                w.Write(this.Mod);
+                w.Write(Version);
+                w.Write(this.Password);
+                byte[] clientData = this.Client.Serialize();
+                w.Write(clientData.Length);
+                w.Write(clientData);
+                ret = ms.ToArray();
+            }
+            return ret;
         }
     }
 }

@@ -64,10 +64,10 @@ namespace Engine.Network.Defaults
                         var orders = packet.ToOrderList(null);
                         foreach (var o in orders)
                         {
-                            if (o.OrderString == "StartGame")
-                                IsValid = true;
-                            else if (o.OrderString == "SyncInfo" && !IsValid)
-                                LobbyInfo = Session<T>.Deserialize(o.TargetString);
+                            //if (o.OrderString == "StartGame")
+                            //    IsValid = true;
+                            //else if (o.OrderString == "SyncInfo" && !IsValid)
+                            //    LobbyInfo = Session<T>.Deserialize(o.TargetString);
                         }
                     }
                     else

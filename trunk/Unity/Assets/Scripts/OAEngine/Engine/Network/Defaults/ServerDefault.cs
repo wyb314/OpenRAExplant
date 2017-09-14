@@ -237,7 +237,7 @@ namespace Engine.Network.Defaults
 
         void DispatchOrdersToClient(IServerConnectoin<ClientDefault> c, int client, int frame, byte[] data)
         {
-            Console.WriteLine("DispatchOrdersToClient frame->{0}".F(frame));
+            Log.Write("wyb","DispatchOrdersToClient frame->{0}".F(frame));
             try
             {
                 SendData(c.Socket, BitConverter.GetBytes(data.Length + 4));
@@ -362,16 +362,16 @@ namespace Engine.Network.Defaults
         {
             if (frame == 0 && conn != null)
             {
-                //string log = "DispatchOrders InterpretServerOrders PlayerIndex->{0} frame->{1}".F(conn.PlayerIndex, frame);
-                //Log.Write("wybserver", log);
-                //Console.WriteLine(log);
+                string log = "DispatchOrders InterpretServerOrders PlayerIndex->{0} frame->{1}".F(conn.PlayerIndex, frame);
+                Log.Write("wybserver", log);
+                Console.WriteLine(log);
                 InterpretServerOrders(conn, data);
             }
             else
             {
-                //string log = "DispatchOrders DispatchOrdersToClients PlayerIndex->{0} frame->{1}".F(conn != null ? conn.PlayerIndex : -1, frame);
-                //Log.Write("wybserver", log);
-                //Console.WriteLine(log);
+                string log = "DispatchOrders DispatchOrdersToClients PlayerIndex->{0} frame->{1}".F(conn != null ? conn.PlayerIndex : -1, frame);
+                Log.Write("wybserver", log);
+                Console.WriteLine(log);
                 DispatchOrdersToClients(conn, frame, data);
             }
 
@@ -403,6 +403,27 @@ namespace Engine.Network.Defaults
         /// <param name="so"></param>
         public void InterpretServerOrder(IServerConnectoin<ClientDefault> conn, IServerOrder so)
         {
+            string log = "InterpretServerOrder so name->{0}".F(so.Name);
+            Log.Write("wybserver", log);
+            Console.WriteLine(log);
+            switch (so.Name)
+            {
+                case "Command":
+                    {
+                        //var handledBy = serverTraits.WithInterface<IInterpretCommand<ClientDefault>>()
+                        //    .FirstOrDefault(t => t.InterpretCommand(this, conn, GetClient(conn), so.Data));
+                        DispatchOrdersToClient(conn, 0, 0, new ServerOrderDefault("Message", so.Data).Serialize());
+                        //SendOrderTo(conn, "Message", "Unknown server command: {0}".F(so.Data));
+                        break;
+                    }
+                case "HandshakeResponse":
+                    {
+
+                        break;
+                    }
+                default:
+                    break;
+            }
         }
 
         //IServerConnectoin<ClientDefault, ClientPingDefault>

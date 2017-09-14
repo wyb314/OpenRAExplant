@@ -23,5 +23,7 @@ namespace Engine.Network.Interfaces
         int BotControllerClientIndex { set; get; }
 
         byte[] Serialize();
+        
     }
+    
 }

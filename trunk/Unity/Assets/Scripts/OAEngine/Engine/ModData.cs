@@ -14,7 +14,7 @@ namespace Engine
 
         public Map PrepareMap(string uid)
         {
-            return null;
+            return new Map();
         }
 
         public void Dispose()

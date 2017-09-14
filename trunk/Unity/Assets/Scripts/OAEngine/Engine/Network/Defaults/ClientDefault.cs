@@ -84,12 +84,32 @@ namespace Engine.Network.Defaults
                 {
                     byte[] clientBytes = client.Serialize();
                     w.Write(clientBytes.Length);
-                    w.Write(client.Serialize());
+                    w.Write(clientBytes);
                 }
                 bytes = mr.ToArray();
             }
 
             return bytes;
+        }
+
+        public static List<ClientDefault> ReadToBytes(this byte[] bytes)
+        {
+            List<ClientDefault> clients = null;
+            using (var mr = new MemoryStream())
+            {
+                var br = new BinaryReader(mr);
+                int count = br.ReadInt32();
+                clients = new List<ClientDefault>(count);
+                
+                for (int i = 0; i < count; i++)
+                {
+                    int clientBytesLength = br.ReadInt32();
+                    ClientDefault client = ClientDefault.Deserialize(br.ReadBytes(clientBytesLength));
+                    clients.Add(client);
+                }
+            }
+
+            return clients;
         }
     }
 

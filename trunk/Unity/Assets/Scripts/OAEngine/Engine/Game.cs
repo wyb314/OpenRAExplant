@@ -52,6 +52,8 @@ namespace Engine
         public static Settings Settings;
 
         static IServer<ClientDefault> server;
+        static Stopwatch stopwatch = Stopwatch.StartNew();
+        public static long RunTime { get { return stopwatch.ElapsedMilliseconds; } }
 
         internal static void Initialize(Arguments args, IPlatformImpl platformInfo = null)
         {
@@ -134,10 +136,10 @@ namespace Engine
 
                 PerfHistory.Tick();
             }
-            else if (OrderManager.NetFrameNumber == 0)
-            {
-                //OrderManager.LastTickTime = RunTime;
-            }
+            //else if (OrderManager.NetFrameNumber == 0)
+            //{
+            //    //OrderManager.LastTickTime = RunTime;
+            //}
                 
 
             // Wait until we have done our first world Tick before TickRendering
@@ -246,6 +248,12 @@ namespace Engine
         internal static void SyncLobbyInfo()
         {
             LobbyInfoChanged();
+        }
+
+        public static void CloseServer()
+        {
+            if (server != null)
+                server.Shutdown();
         }
 
         static void OnApplicationQuit()

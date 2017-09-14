@@ -26,6 +26,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FuzzyLogicLibrary", "..\fuz
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OAEngine", "OAEngine\OAEngine.csproj", "{0F947CAB-B84C-41E5-A9FE-FB831A7C490F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FlatBuffers", "..\..\..\flatbuffers\net\FlatBuffers\FlatBuffers.csproj", "{28C00774-1E73-4A75-AD8F-844CD21A064D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FlatBuffers.Test", "..\..\..\flatbuffers\tests\FlatBuffers.Test\FlatBuffers.Test.csproj", "{9DB0B5E7-757E-4BD1-A5F6-279390331254}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -64,6 +68,14 @@ Global
 		{0F947CAB-B84C-41E5-A9FE-FB831A7C490F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0F947CAB-B84C-41E5-A9FE-FB831A7C490F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0F947CAB-B84C-41E5-A9FE-FB831A7C490F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{28C00774-1E73-4A75-AD8F-844CD21A064D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{28C00774-1E73-4A75-AD8F-844CD21A064D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{28C00774-1E73-4A75-AD8F-844CD21A064D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{28C00774-1E73-4A75-AD8F-844CD21A064D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9DB0B5E7-757E-4BD1-A5F6-279390331254}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9DB0B5E7-757E-4BD1-A5F6-279390331254}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9DB0B5E7-757E-4BD1-A5F6-279390331254}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9DB0B5E7-757E-4BD1-A5F6-279390331254}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

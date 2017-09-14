@@ -7,7 +7,7 @@ namespace Engine.Network.Interfaces
     public interface IServerOrder
     {
         string Name { get; }
-
+        
         byte[] Data { get; }
 
         byte[] Serialize();

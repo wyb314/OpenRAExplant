@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Engine.Network.Interfaces;
 using Engine.Primitives;
+using Engine.Support;
 
 namespace Engine.Network.Defaults
 {
@@ -145,6 +146,7 @@ namespace Engine.Network.Defaults
 
             foreach (var p in immediatePackets)
             {
+                //Log.Write("wyb", "OrderManager paser immediatepackets !");
                 foreach (var o in this.orderSerializer.Deserialize(World,p.Second))
                 {
                     this.orderProcessor.ProcessOrder(this,this.World,p.First,o);

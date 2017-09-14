@@ -124,6 +124,9 @@
     <Reference Include="UberLogger">
       <HintPath>Assets\Plugins\UberLogger.dll</HintPath>
     </Reference>
+    <Reference Include="FlatBuffers">
+      <HintPath>Assets\Plugins\FlatBuffers.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="Unity.Plugins.csproj">

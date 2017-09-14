@@ -9,10 +9,10 @@ namespace Engine.Network
 {
     public class Session<T> where T : IClient
     {
-        public List<T> Clients = new List<T>();
-        public List<IClientPing> ClientPings = new List<IClientPing>();
+        public List<T> Clients = null;
+        public List<IClientPing> ClientPings = null;
 
-        public IGlobal GlobalSettings;
+        public IGlobal GlobalSettings = null;
 
 
         public T ClientWithIndex(int clientID)
@@ -24,6 +24,13 @@ namespace Engine.Network
         {
             get { return Clients.Where(c => c.Bot == null); }
         }
+
+
+        public Session()
+        {
+            
+        }
+
 
         public byte[] Serialize()
         {
@@ -39,7 +46,7 @@ namespace Engine.Network
                     w.Write(clientBytes.Length);
                     w.Write(clientBytes);
                 }
-
+                w.Write(this.ClientPings.Count);
                 foreach (var clientPing in ClientPings)
                 {
                     var clientPingBytes = clientPing.Serialize();
@@ -47,15 +54,14 @@ namespace Engine.Network
                     w.Write(clientPingBytes);
                 }
 
+                byte[] globalData = this.GlobalSettings.Serialize();
+                w.Write(globalData.Length);
+                w.Write(globalData);
+
+                bytes = ms.ToArray();
             }
-               
-
-            return null;
+            return bytes;
         }
-
-        public static Session<T> Deserialize(string data)
-        {
-            return null;
-        }
+        
     }
 }

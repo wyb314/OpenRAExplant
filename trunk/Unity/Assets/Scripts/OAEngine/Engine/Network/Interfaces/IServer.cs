@@ -40,5 +40,9 @@ namespace Engine.Network.Interfaces
         T GetClient(IServerConnectoin<T> conn);
 
         void InterpretServerOrder(IServerConnectoin<T> conn, IServerOrder so);
+
+        void DispatchOrders(IServerConnectoin<T> conn, int frame, byte[] data);
+
+        void SendOrderTo(IServerConnectoin<T> conn, string order, string data);
     }
 }

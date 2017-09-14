@@ -1,6 +1,7 @@
 ﻿
 
 using System.IO;
+using System.Text;
 using Engine.Network.Interfaces;
 using Engine.Support;
 using UnityEditor;
@@ -33,29 +34,25 @@ namespace Engine.Network.Defaults
 
         public string OrderString { private set; get; }
         
-        public string TargetString { set; get; }
-
         public uint ExtraData;
 
-        public byte[] ExtDatas;
+        public byte[] ExtDatas { private set; get; }
 
-        public Order(bool isImmediate, string orderString,string targetString,uint extraData = 0, byte[] extDatas = null)
+        public Order(bool isImmediate, string orderString, byte[] extDatas = null)
         {
             this.IsImmediate = isImmediate;
             this.OrderString = orderString;
-            this.TargetString = targetString;
-            this.ExtraData = extraData;
             this.ExtDatas = extDatas;
         }
 
         public static Order Command(string text)
         {
-            return new Order(true, "Command", text);
+            return new Order(true, "Command", Encoding.UTF8.GetBytes(text));
         }
 
         public static Order Pong(string pingTime)
         {
-            return new Order(true,"Pong", pingTime);
+            return new Order(true,"Pong", Encoding.UTF8.GetBytes(pingTime));
         }
 
         public static Order Deserialize(INetWorld world, BinaryReader r)
@@ -66,34 +63,39 @@ namespace Engine.Network.Defaults
                 case 0xFF:
                     {
                         var order = r.ReadString();
-                        var subjectId = r.ReadUInt32();
+                        //var subjectId = r.ReadUInt32();
                         var flags = (OrderFields)r.ReadByte();
 
                         //var targetActorId = flags.HasField(OrderFields.TargetActor) ? r.ReadUInt32() : uint.MaxValue;
                         //var targetLocation = (CPos)(flags.HasField(OrderFields.TargetLocation) ? r.ReadInt2() : int2.Zero);
-                        var targetString = flags.HasField(OrderFields.TargetString) ? r.ReadString() : null;
+                        //var targetString = flags.HasField(OrderFields.TargetString) ? r.ReadString() : null;
                         //var queued = flags.HasField(OrderFields.Queued);
                         //var extraLocation = (CPos)(flags.HasField(OrderFields.ExtraLocation) ? r.ReadInt2() : int2.Zero);
-                        var extraData = flags.HasField(OrderFields.ExtraData) ? r.ReadUInt32() : 0;
+                        //var extraData = flags.HasField(OrderFields.ExtraData) ? r.ReadUInt32() : 0;
                         var extDatas = flags.HasField(OrderFields.ExtDatas) ? r.ReadBytes(r.ReadInt32()) : null;
 
 
                         if (world == null)
-                            return new Order(false,order, targetString,extraData, extDatas);
+                            return new Order(false,order,extDatas);
 
                         //Actor subject, targetActor;
                         //if (!TryGetActorFromUInt(world, subjectId, out subject) || !TryGetActorFromUInt(world, targetActorId, out targetActor))
                         //    return null;
 
-                        return new Order(false, order, targetString, extraData, extDatas);
+                        return new Order(false, order,extDatas);
                     }
 
                 case 0xfe:
                     {
                         var name = r.ReadString();
-                        var data = r.ReadString();
-
-                        return new Order(true, name, data);
+                        int dataLength = r.ReadInt32();
+                        
+                        byte[] result = null;
+                        if (dataLength > 0)
+                        {
+                            result = r.ReadBytes(dataLength);
+                        }
+                        return new Order(true, name,result);
                     }
 
                 default:
@@ -112,7 +114,12 @@ namespace Engine.Network.Defaults
                 var w = new BinaryWriter(ret);
                 w.Write((byte)0xfe);
                 w.Write(OrderString);
-                w.Write(TargetString);
+                int count = this.ExtDatas == null ? 0 : this.ExtDatas.Length;
+                w.Write(count);
+                if (count > 0)
+                {
+                    w.Write(this.ExtDatas);
+                }
                 return ret.ToArray();
             }
 
@@ -136,10 +143,10 @@ namespace Engine.Network.Defaults
                         OrderFields fields = 0;
                         //if (TargetActor != null) fields |= OrderFields.TargetActor;
                         //if (TargetLocation != CPos.Zero) fields |= OrderFields.TargetLocation;
-                        if (TargetString != null) fields |= OrderFields.TargetString;
+                        //if (TargetString != null) fields |= OrderFields.TargetString;
                         //if (Queued) fields |= OrderFields.Queued;
                         //if (ExtraLocation != CPos.Zero) fields |= OrderFields.ExtraLocation;
-                        if (ExtraData != 0) fields |= OrderFields.ExtraData;
+                        //if (ExtraData != 0) fields |= OrderFields.ExtraData;
                         if (ExtDatas != null) fields |= OrderFields.ExtDatas;
 
                         w.Write((byte)fields);
@@ -148,19 +155,22 @@ namespace Engine.Network.Defaults
                         //    w.Write(UIntFromActor(TargetActor));
                         //if (TargetLocation != CPos.Zero)
                         //    w.Write(TargetLocation);
-                        if (TargetString != null)
-                            w.Write(TargetString);
+                        //if (TargetString != null)
+                        //    w.Write(TargetString);
                         //if (ExtraLocation != CPos.Zero)
                         //    w.Write(ExtraLocation);
-                        if (ExtraData != 0)
-                            w.Write(ExtraData);
-                        if (ExtDatas != null)
+                        //if (ExtraData != 0)
+                        //    w.Write(ExtraData);
+                        if (ExtDatas == null)
+                        {
+                            w.Write(0);
+                        }
+                        else
                         {
                             w.Write(ExtDatas.Length);
                             w.Write(ExtDatas);
                         }
-                       
-
+                        
                         return ret.ToArray();
                     }
             }

@@ -10,7 +10,7 @@ namespace Engine.Network.Defaults
     public class ServerOrderDefault : IServerOrder
     {
         public string Name { private set; get; }
-
+        
         public byte[] Data { private set; get; }
         
 
@@ -19,7 +19,7 @@ namespace Engine.Network.Defaults
             Name = name;
             Data = data;
         }
-
+        
         public static ServerOrderDefault Deserialize(BinaryReader r)
         {
             byte b;
@@ -33,6 +33,7 @@ namespace Engine.Network.Defaults
                     {
                         var name = r.ReadString();
                         var length = r.ReadInt32();
+                        
                         byte[] bytes = null;
                         if (length > 0)
                         {

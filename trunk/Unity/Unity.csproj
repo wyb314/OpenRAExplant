@@ -84,6 +84,9 @@
     <Reference Include="UberLogger">
       <HintPath>Assets\Plugins\UberLogger.dll</HintPath>
     </Reference>
+    <Reference Include="FlatBuffers">
+      <HintPath>Assets\Plugins\FlatBuffers.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="Unity.Plugins.csproj">
@@ -122,6 +125,7 @@
     <Compile Include="Assets\Scripts\OAEngine\Engine\Network\Defaults\ServerConnectoinDefault.cs" />
     <Compile Include="Assets\Scripts\OAEngine\Engine\Network\Defaults\ServerDefault.cs" />
     <Compile Include="Assets\Scripts\OAEngine\Engine\Network\Defaults\ServerOrderDefault.cs" />
+    <Compile Include="Assets\Scripts\OAEngine\Engine\Network\Defaults\ServerTraits\LobbyCommands.cs" />
     <Compile Include="Assets\Scripts\OAEngine\Engine\Network\Defaults\SyncReportDefault.cs" />
     <Compile Include="Assets\Scripts\OAEngine\Engine\Network\Enums\ClientState.cs" />
     <Compile Include="Assets\Scripts\OAEngine\Engine\Network\Enums\ServerState.cs" />
@@ -180,6 +184,7 @@
     <None Include="Assets\Plugins\YamlDotNet\Readme.txt" />
     <None Include="Assets\Plugins\YamlDotNet\YamlDotNet.license.txt" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />
 </Project>
