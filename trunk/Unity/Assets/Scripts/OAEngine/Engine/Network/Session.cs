@@ -63,6 +63,11 @@ namespace Engine.Network
             }
             return bytes;
         }
-        
+
+        public string FirstEmptySlot()
+        {
+            return "No Slot";
+            //return Slots.FirstOrDefault(s => !s.Value.Closed && ClientInSlot(s.Key) == null).Key;
+        }
     }
 }

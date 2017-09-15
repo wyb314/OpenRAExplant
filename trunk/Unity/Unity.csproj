@@ -111,6 +111,7 @@
     <Compile Include="Assets\Scripts\OAEngine\Engine\Network\ConnectionState.cs" />
     <Compile Include="Assets\Scripts\OAEngine\Engine\Network\Defaults\ClientDefault.cs" />
     <Compile Include="Assets\Scripts\OAEngine\Engine\Network\Defaults\ClientPingDefault.cs" />
+    <Compile Include="Assets\Scripts\OAEngine\Engine\Network\Defaults\Commands\ClientStateCmd.cs" />
     <Compile Include="Assets\Scripts\OAEngine\Engine\Network\Defaults\EchoConnection.cs" />
     <Compile Include="Assets\Scripts\OAEngine\Engine\Network\Defaults\FrameDataDefault.cs" />
     <Compile Include="Assets\Scripts\OAEngine\Engine\Network\Defaults\GlobalDefault.cs" />
@@ -134,6 +135,7 @@
     <Compile Include="Assets\Scripts\OAEngine\Engine\Network\Enums\ServerState.cs" />
     <Compile Include="Assets\Scripts\OAEngine\Engine\Network\Interfaces\IClient.cs" />
     <Compile Include="Assets\Scripts\OAEngine\Engine\Network\Interfaces\IClientPing.cs" />
+    <Compile Include="Assets\Scripts\OAEngine\Engine\Network\Interfaces\ICommand.cs" />
     <Compile Include="Assets\Scripts\OAEngine\Engine\Network\Interfaces\IConnection.cs" />
     <Compile Include="Assets\Scripts\OAEngine\Engine\Network\Interfaces\IFrameData.cs" />
     <Compile Include="Assets\Scripts\OAEngine\Engine\Network\Interfaces\IGameInformation.cs" />

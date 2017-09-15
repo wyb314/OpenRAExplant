@@ -69,11 +69,18 @@ namespace Engine
             Log.AddChannel("irc", "irc.log");
             Log.AddChannel("nat", "nat.log");
             Log.AddChannel("wyb", "wyb.log");
-            
+
+            InitializeSettings(args);
             var modID = args.GetValue("Game.Mod", null);
             Log.Write("wyb","Mod: {0} .".F(modID));
             InitializeMod(modID,args);
         }
+
+        public static void InitializeSettings(Arguments args)
+        {
+            Settings = new Settings();
+        }
+
 
         public static void InitializeMod(string mod, Arguments args)
         {

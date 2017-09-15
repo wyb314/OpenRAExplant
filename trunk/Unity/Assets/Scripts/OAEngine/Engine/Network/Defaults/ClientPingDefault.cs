@@ -24,16 +24,19 @@ namespace Engine.Network.Defaults
                 var w = new BinaryWriter(ret);
                 w.Write(this.Index);
                 w.Write(this.Latency);
-                int latencyHistoryCount = this.LatencyHistory.Length;
+                int latencyHistoryCount = this.LatencyHistory == null ? 0 : this.LatencyHistory.Length;
                 w.Write(latencyHistoryCount);
-                for (int i = 0; i < latencyHistoryCount; i++)
+                if (latencyHistoryCount > 0)
                 {
-                    w.Write(this.LatencyHistory[i]);
+                    for (int i = 0; i < latencyHistoryCount; i++)
+                    {
+                        w.Write(LatencyHistory[i]);
+                    }
                 }
                 w.Write(this.LatencyJitter);
                 bytes = ret.ToArray();
             }
-            return null;
+            return bytes;
         }
 
 
@@ -46,12 +49,16 @@ namespace Engine.Network.Defaults
                 clientPing.Index = r.ReadInt32();
                 clientPing.Latency = r.ReadInt64();
                 int latencyHistoryCount = r.ReadInt32();
-                long[] LatencyHistory = new long[latencyHistoryCount];
-                clientPing.LatencyHistory = LatencyHistory;
-                for (int i= 0; i < latencyHistoryCount; i++)
+                if (latencyHistoryCount > 0)
                 {
-                    LatencyHistory[i] = r.ReadInt64();
+                    long[] LatencyHistory = new long[latencyHistoryCount];
+                    clientPing.LatencyHistory = LatencyHistory;
+                    for (int i = 0; i < latencyHistoryCount; i++)
+                    {
+                        LatencyHistory[i] = r.ReadInt64();
+                    }
                 }
+                
                 clientPing.LatencyJitter = r.ReadInt64();
             }
             return clientPing;

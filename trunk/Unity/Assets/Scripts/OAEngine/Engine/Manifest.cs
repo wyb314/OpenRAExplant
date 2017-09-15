@@ -7,9 +7,9 @@ namespace Engine
 {
     public class Manifest
     {
-        public string Id;
+        public string Id = "";
         public ModMetadata Metadata;
-        public string[] ServerTraits;
+        public string[] ServerTraits = null;
 
         
     }

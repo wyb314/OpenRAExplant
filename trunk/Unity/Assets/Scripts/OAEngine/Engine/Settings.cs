@@ -118,6 +118,12 @@ namespace Engine
         }
     }
 
+    public class PlayerSettings
+    {
+        public string Name = "Newbie";
+        public string LastServer = "localhost:1234";
+    }
+
     public class DebugSettings
     {
         public bool BotDebug = true;
@@ -138,6 +144,7 @@ namespace Engine
     {
         public readonly ServerSettings Server = new ServerSettings();
         public readonly DebugSettings Debug = new DebugSettings();
+        public readonly PlayerSettings Player = new PlayerSettings();
 
         public static string SanitizedServerName(string dirty)
         {
@@ -174,6 +181,25 @@ namespace Engine
             }
 
             return true;
+        }
+
+        public static string SanitizedPlayerName(string dirty)
+        {
+            var forbiddenNames = new string[] { "Open", "Closed" };
+            //var botNames = OpenRA.Game.ModData.DefaultRules.Actors["player"].TraitInfos<IBotInfo>().Select(t => t.Name);
+
+            var clean = SanitizedName(dirty);
+
+            //if (IsNullOrWhiteSpace(clean) || forbiddenNames.Contains(clean) || botNames.Contains(clean))
+            //    clean = new PlayerSettings().Name;
+            if (IsNullOrWhiteSpace(clean) || forbiddenNames.Contains(clean))
+                clean = new PlayerSettings().Name;
+
+            // avoid UI glitches
+            if (clean.Length > 16)
+                clean = clean.Substring(0, 16);
+
+            return clean;
         }
     }
 }

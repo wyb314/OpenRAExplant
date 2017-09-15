@@ -38,10 +38,10 @@ namespace Engine.Network.Defaults
 
     public class HandshakeResponse
     {
-        public string Mod;
-        public string Version;
-        public string Password;
-        public ClientDefault Client;
+        public string Mod = "";
+        public string Version ="";
+        public string Password = "";
+        public ClientDefault Client = null;
 
         public static HandshakeResponse Deserialize(byte[] data)
         {

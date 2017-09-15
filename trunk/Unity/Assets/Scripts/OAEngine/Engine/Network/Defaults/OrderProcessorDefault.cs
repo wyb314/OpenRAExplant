@@ -59,9 +59,24 @@ namespace Engine.Network.Defaults
                     {
                         Order o = order as Order;
                         HandshakeRequest handshake = HandshakeRequest.Deserialize(o.ExtDatas);
+                        
+                        var info = new ClientDefault()
+                        {
+                            Name = Game.Settings.Player.Name,
+                           
+                            State = ClientState.Invalid
+                        };
 
-                        Log.Write("wyb", "HandshakeRequest Mod->{0} map->{1} version->{2}".F(handshake.Mod,handshake.Map,handshake.Version));
+                        var mod = Game.ModData.Manifest;
+                        var response = new HandshakeResponse()
+                        {
+                            Client = info,
+                            Mod = mod.Id,
+                            Version = mod.Metadata.Version,
+                            Password = orderManager.Password
+                        };
 
+                        orderManager.IssueOrder(Order.HandshakeResponse(response.Serialize()));
                         break;
                     }
                 case "ServerError":

@@ -12,17 +12,41 @@ namespace Engine.Network.Defaults
     {
         public int Index { set; get; }
 
-        public string Name { set; get; }
+        private string name = "";
 
-        public string IpAddress { set; get; }
+        public string Name
+        {
+            set { this.name = value; }
+            get { return this.name; }
+        }
+
+        private string ipAddress = "";
+
+        public string IpAddress
+        {
+            set { this.ipAddress = value; }
+            get { return this.ipAddress; }
+        }
 
         public ClientState State { set; get; }
 
-        public string Bot { set; get; }
+        private string bot = "";
+
+        public string Bot
+        {
+            set { this.bot = value; }
+            get { return this.bot; }
+        }
         
         public bool IsAdmin { set; get; }
-        
-        public string Slot { set; get; }
+
+        private string slot = "";
+
+        public string Slot
+        {
+            set { this.slot = value; }
+            get { return this.slot; }
+        }
         
         public int BotControllerClientIndex { set; get; }
 

@@ -227,7 +227,6 @@ namespace Engine.Network.Defaults
 
         void DispatchOrdersToClient(IServerConnectoin<ClientDefault> c, int client, int frame, byte[] data)
         {
-            Log.Write("wyb","DispatchOrdersToClient frame->{0}".F(frame));
             try
             {
                 SendData(c.Socket, BitConverter.GetBytes(data.Length + 4));
@@ -408,11 +407,142 @@ namespace Engine.Network.Defaults
                     }
                 case "HandshakeResponse":
                     {
-
+                        ValidateClient(conn, so.Data);
                         break;
                     }
                 default:
                     break;
+            }
+        }
+
+        void ValidateClient(IServerConnectoin<ClientDefault> newConn, byte[] data)
+        {
+            try
+            {
+                if (State == ServerState.GameStarted)
+                {
+                    Log.Write("server", "Rejected connection from {0}; game is already started.",
+                        newConn.Socket.RemoteEndPoint);
+
+                    SendOrderTo(newConn, "ServerError", "The game has already started");
+                    DropClient(newConn);
+                    return;
+                }
+
+                var handshake = HandshakeResponse.Deserialize(data);
+
+                if (!string.IsNullOrEmpty(ServerSettings.Password) && handshake.Password != ServerSettings.Password)
+                {
+                    var message = string.IsNullOrEmpty(handshake.Password) ? "Server requires a password" : "Incorrect password";
+                    SendOrderTo(newConn, "AuthenticationError", message);
+                    DropClient(newConn);
+                    return;
+                }
+
+                var client = new ClientDefault
+                {
+                    Name = Settings.SanitizedPlayerName(handshake.Client.Name),
+                    IpAddress = ((IPEndPoint)newConn.Socket.RemoteEndPoint).Address.ToString(),
+                    Index = newConn.PlayerIndex,
+                    Slot = LobbyInfo.FirstEmptySlot(),
+                    State = ClientState.Invalid,
+                    IsAdmin = !LobbyInfo.Clients.Any(c1 => c1.IsAdmin)
+                };
+
+                if (client.IsObserver && !LobbyInfo.GlobalSettings.AllowSpectators)
+                {
+                    SendOrderTo(newConn, "ServerError", "The game is full");
+                    DropClient(newConn);
+                    return;
+                }
+
+                //if (client.Slot != null)
+                //    SyncClientToPlayerReference(client, Map.Players.Players[client.Slot]);
+                //else
+                //    client.Color = HSLColor.FromRGB(255, 255, 255);
+
+                if (ModData.Manifest.Id != handshake.Mod)
+                {
+                    Log.Write("server", "Rejected connection from {0}; mods do not match.",
+                        newConn.Socket.RemoteEndPoint);
+
+                    SendOrderTo(newConn, "ServerError", "Server is running an incompatible mod");
+                    DropClient(newConn);
+                    return;
+                }
+
+                if (ModData.Manifest.Metadata.Version != handshake.Version && !LobbyInfo.GlobalSettings.AllowVersionMismatch)
+                {
+                    Log.Write("server", "Rejected connection from {0}; Not running the same version.",
+                        newConn.Socket.RemoteEndPoint);
+
+                    SendOrderTo(newConn, "ServerError", "Server is running an incompatible version");
+                    DropClient(newConn);
+                    return;
+                }
+
+                // 禁止某些Ip连接服务器
+                //var bans = Settings.Ban.Union(TempBans);
+                //if (bans.Contains(client.IpAddress))
+                //{
+                //    Log.Write("server", "Rejected connection from {0}; Banned.", newConn.Socket.RemoteEndPoint);
+                //    SendOrderTo(newConn, "ServerError", "You have been {0} from the server".F(Settings.Ban.Contains(client.IpAddress) ? "banned" : "temporarily banned"));
+                //    DropClient(newConn);
+                //    return;
+                //}
+
+                // Promote connection to a valid client
+                PreConns.Remove(newConn);
+                Conns.Add(newConn);
+                LobbyInfo.Clients.Add(client);
+                var clientPing = new ClientPingDefault { Index = client.Index };
+                LobbyInfo.ClientPings.Add(clientPing);
+
+                Log.Write("server", "Client {0}: Accepted connection from {1}.",
+                    newConn.PlayerIndex, newConn.Socket.RemoteEndPoint);
+
+                foreach (var t in serverTraits.WithInterface<IClientJoined<ClientDefault>>())
+                    t.ClientJoined(this, newConn);
+
+                SyncLobbyInfo();
+
+                Log.Write("server", "{0} ({1}) has joined the game.",
+                    client.Name, newConn.Socket.RemoteEndPoint);
+
+                if (LobbyInfo.NonBotClients.Count() > 1)
+                    SendMessage("{0} has joined the game.".F(client.Name));
+
+                // Send initial ping
+                SendOrderTo(newConn, "Ping", Game.RunTime.ToString(CultureInfo.InvariantCulture));
+
+                if (Dedicated)
+                {
+                    var motdFile = Platform.ResolvePath("^", "motd.txt");
+                    if (!File.Exists(motdFile))
+                        File.WriteAllText(motdFile, "Welcome, have fun and good luck!");
+
+                    var motd = File.ReadAllText(motdFile);
+                    if (!string.IsNullOrEmpty(motd))
+                        SendOrderTo(newConn, "Message", motd);
+                }
+
+                //if (Map.DefinesUnsafeCustomRules)
+                //    SendOrderTo(newConn, "Message", "This map contains custom rules. Game experience may change.");
+
+                //if (!LobbyInfo.GlobalSettings.EnableSingleplayer)
+                //    SendOrderTo(newConn, "Message", TwoHumansRequiredText);
+                //else if (Map.Players.Players.Where(p => p.Value.Playable).All(p => !p.Value.AllowBots))
+                //    SendOrderTo(newConn, "Message", "Bots have been disabled on this map.");
+
+                if (handshake.Mod == "{DEV_VERSION}")
+                    SendMessage("{0} is running an unversioned development build, ".F(client.Name) +
+                        "and may desynchronize the game state if they have incompatible rules.");
+            }
+            catch (Exception ex)
+            {
+                Log.Write("server", "Dropping connection {0} because an error occurred:", newConn.Socket.RemoteEndPoint);
+                Log.Write("server", "Serer Error msg->{0} stackTrace->{1}".F(ex.Message,ex.StackTrace));
+                DropClient(newConn);
             }
         }
 

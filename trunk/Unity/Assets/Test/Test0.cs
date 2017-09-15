@@ -4,7 +4,9 @@ using OAUnityLayer;
 using UnityEngine;
 using System.IO;
 using Engine;
+using Engine.Network;
 using Engine.Network.Defaults;
+using Engine.Network.Enums;
 using Engine.Support;
 using OAUnityLayer.Support;
 
@@ -54,7 +56,11 @@ public class Test0 : MonoBehaviour
 
         if (GUILayout.Button("Create Local Server"))
         {
-            Game.CreateAndStartLocalServer("wyb", null);
+            var orders = new[] 
+            {
+                Order.Command("state {0}".F(ClientState.Ready))
+            };
+            Game.CreateAndStartLocalServer("wyb", orders);
         }
 
         if (GUILayout.Button("Start Game"))

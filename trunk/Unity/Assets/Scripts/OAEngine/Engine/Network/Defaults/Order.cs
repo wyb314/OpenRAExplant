@@ -34,7 +34,7 @@ namespace Engine.Network.Defaults
 
         public string OrderString { private set; get; }
         
-        public uint ExtraData;
+        //public uint ExtraData;
 
         public byte[] ExtDatas { private set; get; }
 
@@ -53,6 +53,11 @@ namespace Engine.Network.Defaults
         public static Order Pong(string pingTime)
         {
             return new Order(true,"Pong", Encoding.UTF8.GetBytes(pingTime));
+        }
+
+        public static Order HandshakeResponse(byte[] bytes)
+        {
+            return new Order(true,"HandshakeResponse", bytes) ;
         }
 
         public static Order Deserialize(INetWorld world, BinaryReader r)
