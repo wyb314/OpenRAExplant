@@ -67,12 +67,9 @@ namespace Engine.Network.Defaults
             //if (!dedicated && ServerSettings.AllowPortForward)
             //    UPnP.ForwardPort(ServerSettings.ListenPort, ServerSettings.ExternalPort).Wait();
 
-            if (modData != null)
-            {
-                foreach (var trait in modData.Manifest.ServerTraits)
-                    serverTraits.Add(modData.ObjectCreator.CreateObject<ServerTrait>(trait));
-            }
-            
+            foreach (var trait in modData.Manifest.ServerTraits)
+                serverTraits.Add(modData.ObjectCreator.CreateObject<ServerTrait>(trait));
+
             LobbyInfo = new Session<ClientDefault>
             {
                 GlobalSettings = new GlobalDefault()
@@ -89,21 +86,14 @@ namespace Engine.Network.Defaults
             {
                 try
                 {
-                    foreach (var t in serverTraits.WithInterface<INotifyServerStart<ClientDefault>>()
-                        )
+                    foreach (var t in serverTraits.WithInterface<INotifyServerStart<ClientDefault>>())
                         t.ServerStarted(this);
-                    if (modData != null)
-                        Log.Write("server", "Initial mod: {0}", ModData.Manifest.Id);
-
+                   
                     Log.Write("server", "Initial map: {0}", LobbyInfo.GlobalSettings.Map);
 
                     var timeout = 5;
-                    if (modData != null)
-                    {
-                        timeout =
-                            serverTraits.WithInterface<ITick<ClientDefault>>()
+                    timeout = serverTraits.WithInterface<ITick<ClientDefault>>()
                                 .Min(t => t.TickTimeout);
-                    }
 
                     for (;;)
                     {
@@ -211,7 +201,7 @@ namespace Engine.Network.Defaults
                 SendData(newConn.Socket, BitConverter.GetBytes(ProtocolVersion.Version));
                 SendData(newConn.Socket, BitConverter.GetBytes(newConn.PlayerIndex));
                 PreConns.Add(newConn);
-
+                
                 // Dispatch a handshake order
                 var request = new HandshakeRequest
                 {
@@ -504,7 +494,11 @@ namespace Engine.Network.Defaults
 
         public void Dispose()
         {
-            this.serverThread.Abort();
+            if (this.serverThread != null)
+            {
+                this.serverThread.Abort();
+            }
+            
             this.Shutdown();
         }
     }

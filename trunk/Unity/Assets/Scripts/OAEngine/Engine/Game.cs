@@ -69,13 +69,55 @@ namespace Engine
             Log.AddChannel("irc", "irc.log");
             Log.AddChannel("nat", "nat.log");
             Log.AddChannel("wyb", "wyb.log");
+            
+            var modID = args.GetValue("Game.Mod", null);
+            Log.Write("wyb","Mod: {0} .".F(modID));
+            InitializeMod(modID,args);
+        }
 
+        public static void InitializeMod(string mod, Arguments args)
+        {
             LobbyInfoChanged = () => { };
             ConnectionStateChanged = om => { };
             BeforeGameStart = () => { };
             OnRemoteDirectConnect = (a, b) => { };
             delayedActions = new ActionQueue();
 
+            if (worldRenderer != null)
+            {
+                worldRenderer.Dispose();
+                worldRenderer = null;
+            }
+            if (server != null)
+            {
+                server.Dispose();
+            }
+            if (OrderManager != null)
+            {
+                OrderManager.Dispose();
+            }
+            ModData = null;
+            if (mod == null)
+                throw new InvalidOperationException("Game.Mod argument missing.");
+            Manifest manifest = new Manifest()
+            {
+                Id = mod,
+                Metadata = new ModMetadata()
+                {
+                    Title="",
+                    Version="",
+                    Hidden=false,
+                },
+                ServerTraits = new string[]
+                {
+                    "Engine.Network.Defaults.ServerTraits.LobbyCommands",
+                    "Engine.Network.Defaults.ServerTraits.LobbySettingsNotification",
+                    "Engine.Network.Defaults.ServerTraits.MasterServerPinger",
+                    "Engine.Network.Defaults.ServerTraits.PlayerPinger"
+                }
+            };
+            ModData = new ModData(manifest);
+            
             JoinLocal();
         }
 
@@ -172,6 +214,7 @@ namespace Engine
 
         public static int CreateLocalServer(string map)
         {
+            //TODO:
             var settings = new ServerSettings()
             {
                 Name = "Skirmish Game",
@@ -184,7 +227,7 @@ namespace Engine
             {
                 server.Dispose();
             }
-            server = new ServerDefault(new IPEndPoint(IPAddress.Loopback, 0), settings, null, false);
+            server = new ServerDefault(new IPEndPoint(IPAddress.Loopback, 0), settings, ModData, false);
 
             return server.Port;
         }

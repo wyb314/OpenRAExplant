@@ -14,10 +14,13 @@ namespace Engine
         readonly Cache<Type, ConstructorInfo> ctorCache;
         readonly Pair<Assembly, string>[] assemblies;
 
-        public ObjectCreator(Manifest manifest)
+        public ObjectCreator()
         {
             typeCache = new Cache<string, Type>(FindType);
             ctorCache = new Cache<Type, ConstructorInfo>(GetCtor);
+
+            //var assemblyList = new List<Assembly>() { typeof(Game).Assembly };
+            //assemblies = assemblyList.SelectMany(asm => asm.GetNamespaces().Select(ns => Pair.New(asm, ns))).ToArray();
         }
 
         Assembly ResolveAssembly(object sender, ResolveEventArgs e)
@@ -58,9 +61,10 @@ namespace Engine
 
         public Type FindType(string className)
         {
-            return assemblies
-                .Select(pair => pair.First.GetType(pair.Second + "." + className, false))
-                .FirstOrDefault(t => t != null);
+            return Type.GetType(className);
+            //return assemblies
+            //    .Select(pair => pair.First.GetType(pair.Second + "." + className, false))
+            //    .FirstOrDefault(t => t != null);
         }
 
         public ConstructorInfo GetCtor(Type type)
@@ -131,8 +135,8 @@ namespace Engine
 
         void Dispose(bool disposing)
         {
-            if (disposing)
-                AppDomain.CurrentDomain.AssemblyResolve -= ResolveAssembly;
+            //if (disposing)
+            //    AppDomain.CurrentDomain.AssemblyResolve -= ResolveAssembly;
         }
 
         [AttributeUsage(AttributeTargets.Constructor)]

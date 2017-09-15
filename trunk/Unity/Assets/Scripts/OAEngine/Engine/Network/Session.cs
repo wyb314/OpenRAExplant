@@ -28,7 +28,8 @@ namespace Engine.Network
 
         public Session()
         {
-            
+            this.Clients = new List<T>();
+            this.ClientPings = new List<IClientPing>();
         }
 
 

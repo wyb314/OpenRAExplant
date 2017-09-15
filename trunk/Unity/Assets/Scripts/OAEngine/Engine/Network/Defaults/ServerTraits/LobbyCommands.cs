@@ -5,6 +5,7 @@ using System.Text;
 using Engine.Network.Enums;
 using Engine.Network.Interfaces;
 using Engine.Network.Server;
+using Engine.Support;
 
 namespace Engine.Network.Defaults.ServerTraits
 {
@@ -14,6 +15,9 @@ namespace Engine.Network.Defaults.ServerTraits
         INotifyServerEmpty<ClientDefault>,
         IClientJoined<ClientDefault>
     {
+        public LobbyCommands()
+        {
+        }
         public static bool ValidateCommand(IServer<ClientDefault> server, IServerConnectoin<ClientDefault> conn, ClientDefault client, string cmd)
         {
             if (server.State == ServerState.GameStarted)
@@ -32,7 +36,6 @@ namespace Engine.Network.Defaults.ServerTraits
 
         public void ClientJoined(IServer<ClientDefault> server, IServerConnectoin<ClientDefault> conn)
         {
-            throw new NotImplementedException();
         }
 
         public bool InterpretCommand(IServer<ClientDefault> server, IServerConnectoin<ClientDefault> conn, ClientDefault client, string cmd)
@@ -57,12 +60,11 @@ namespace Engine.Network.Defaults.ServerTraits
 
         public void ServerEmpty(IServer<ClientDefault> server)
         {
-            throw new NotImplementedException();
         }
 
         public void ServerStarted(IServer<ClientDefault> server)
         {
-            throw new NotImplementedException();
+            Log.Write("wyb", "LobbyCommands ServerStarted!");
         }
     }
 }

@@ -26,7 +26,7 @@ namespace Engine.Network.Defaults
         public int Frame = 0;
 
         public long TimeSinceLastResponse { get { return Game.RunTime - lastReceivedTime; } }
-        public bool TimeoutMessageShown = false;
+        public bool TimeoutMessageShown { set; get; }
         long lastReceivedTime = 0;
 
         public byte[] PopBytes(int n)

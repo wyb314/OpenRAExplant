@@ -50,7 +50,7 @@ namespace Engine.Network.Defaults
                             .F(serverProtocol, ProtocolVersion.Version));
 
                 clientId = reader.ReadInt32();
-                //Log.Write("wyb","Protocol version->{0} clientId->{1}".F(serverProtocol,clientId));
+                Log.Write("wyb","Protocol version->{0} clientId->{1}".F(serverProtocol,clientId));
                 connectionState = ConnectionState.Connected;
 
                 for (;;)

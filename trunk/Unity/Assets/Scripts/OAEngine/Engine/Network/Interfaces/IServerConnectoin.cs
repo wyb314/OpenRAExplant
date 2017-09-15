@@ -10,6 +10,10 @@ namespace Engine.Network.Interfaces
 
         int MostRecentFrame { get; }
 
+        long TimeSinceLastResponse { get; }
+
+        bool TimeoutMessageShown { set;get; }
+
         Socket Socket { get; }
 
         void ReadData(IServer<T> server);

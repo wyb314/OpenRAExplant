@@ -126,6 +126,9 @@
     <Compile Include="Assets\Scripts\OAEngine\Engine\Network\Defaults\ServerDefault.cs" />
     <Compile Include="Assets\Scripts\OAEngine\Engine\Network\Defaults\ServerOrderDefault.cs" />
     <Compile Include="Assets\Scripts\OAEngine\Engine\Network\Defaults\ServerTraits\LobbyCommands.cs" />
+    <Compile Include="Assets\Scripts\OAEngine\Engine\Network\Defaults\ServerTraits\LobbySettingsNotification.cs" />
+    <Compile Include="Assets\Scripts\OAEngine\Engine\Network\Defaults\ServerTraits\MasterServerPinger.cs" />
+    <Compile Include="Assets\Scripts\OAEngine\Engine\Network\Defaults\ServerTraits\PlayerPinger.cs" />
     <Compile Include="Assets\Scripts\OAEngine\Engine\Network\Defaults\SyncReportDefault.cs" />
     <Compile Include="Assets\Scripts\OAEngine\Engine\Network\Enums\ClientState.cs" />
     <Compile Include="Assets\Scripts\OAEngine\Engine\Network\Enums\ServerState.cs" />
