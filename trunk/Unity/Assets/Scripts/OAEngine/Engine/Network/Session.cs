@@ -12,6 +12,8 @@ namespace Engine.Network
         public List<T> Clients = null;
         public List<IClientPing> ClientPings = null;
 
+        public Dictionary<string, ISlot> Slots = new Dictionary<string, ISlot>();
+
         public IGlobal GlobalSettings = null;
 
 
@@ -55,6 +57,14 @@ namespace Engine.Network
                     w.Write(clientPingBytes);
                 }
 
+                w.Write(this.Slots.Count);
+                foreach (var kvp in this.Slots)
+                {
+                    byte[] slotBytes = kvp.Value.Serialize();
+                    w.Write(slotBytes.Length);
+                    w.Write(slotBytes);
+                }
+
                 byte[] globalData = this.GlobalSettings.Serialize();
                 w.Write(globalData.Length);
                 w.Write(globalData);
@@ -64,10 +74,24 @@ namespace Engine.Network
             return bytes;
         }
 
+        public IEnumerable<T> NonBotPlayers
+        {
+            get { return Clients.Where(c => c.Bot == null && c.Slot != null); }
+        }
+
+        public IClientPing PingFromClient(T client)
+        {
+            return ClientPings.SingleOrDefault(p => p.Index == client.Index);
+        }
+
+        public T ClientInSlot(string slot)
+        {
+            return Clients.SingleOrDefault(c => c.Slot == slot);
+        }
+
         public string FirstEmptySlot()
         {
-            return "No Slot";
-            //return Slots.FirstOrDefault(s => !s.Value.Closed && ClientInSlot(s.Key) == null).Key;
+            return Slots.FirstOrDefault(s => !s.Value.Closed && ClientInSlot(s.Key) == null).Key;
         }
     }
 }

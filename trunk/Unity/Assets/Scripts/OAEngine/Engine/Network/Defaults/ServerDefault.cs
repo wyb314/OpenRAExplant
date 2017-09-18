@@ -351,16 +351,16 @@ namespace Engine.Network.Defaults
         {
             if (frame == 0 && conn != null)
             {
-                string log = "DispatchOrders InterpretServerOrders PlayerIndex->{0} frame->{1}".F(conn.PlayerIndex, frame);
-                Log.Write("wybserver", log);
-                Console.WriteLine(log);
+                //string log = "DispatchOrders InterpretServerOrders PlayerIndex->{0} frame->{1}".F(conn.PlayerIndex, frame);
+                //Log.Write("wybserver", log);
+                //Console.WriteLine(log);
                 InterpretServerOrders(conn, data);
             }
             else
             {
-                string log = "DispatchOrders DispatchOrdersToClients PlayerIndex->{0} frame->{1}".F(conn != null ? conn.PlayerIndex : -1, frame);
-                Log.Write("wybserver", log);
-                Console.WriteLine(log);
+                //string log = "DispatchOrders DispatchOrdersToClients PlayerIndex->{0} frame->{1}".F(conn != null ? conn.PlayerIndex : -1, frame);
+                //Log.Write("wybserver", log);
+                //Console.WriteLine(log);
                 DispatchOrdersToClients(conn, frame, data);
             }
 
@@ -399,10 +399,15 @@ namespace Engine.Network.Defaults
             {
                 case "Command":
                     {
-                        //var handledBy = serverTraits.WithInterface<IInterpretCommand<ClientDefault>>()
-                        //    .FirstOrDefault(t => t.InterpretCommand(this, conn, GetClient(conn), so.Data));
-                        DispatchOrdersToClient(conn, 0, 0, new ServerOrderDefault("Message", so.Data).Serialize());
-                        //SendOrderTo(conn, "Message", "Unknown server command: {0}".F(so.Data));
+                        var handledBy = serverTraits.WithInterface<IInterpretCommand<ClientDefault>>()
+                            .FirstOrDefault(t => t.InterpretCommand(this, conn, GetClient(conn), so.Data));
+
+                        if (handledBy == null)
+                        {
+                            Log.Write("server", "Unknown server command: {0}", so.Data);
+                            SendOrderTo(conn, "Message", "Unknown server command: {0}".F(so.Data));
+                        }
+
                         break;
                     }
                 case "HandshakeResponse":
@@ -410,9 +415,51 @@ namespace Engine.Network.Defaults
                         ValidateClient(conn, so.Data);
                         break;
                     }
+                case "Pong":
+                    {
+                        long pingSent;
+                        if (!NetworkExts.TryParseInt64Invariant(Encoding.UTF8.GetString(so.Data), out pingSent))
+                        {
+                            Log.Write("server", "Invalid order pong payload: {0}", so.Data);
+                            break;
+                        }
+
+                        var client = GetClient(conn);
+                        if (client == null)
+                            return;
+
+                        var pingFromClient = LobbyInfo.PingFromClient(client);
+                        if (pingFromClient == null)
+                            return;
+
+                        var history = pingFromClient.LatencyHistory.ToList();
+                        history.Add(Game.RunTime - pingSent);
+
+                        // Cap ping history at 5 values (25 seconds)
+                        if (history.Count > 5)
+                            history.RemoveRange(0, history.Count - 5);
+
+                        pingFromClient.Latency = history.Sum() / history.Count;
+                        pingFromClient.LatencyJitter = (history.Max() - history.Min()) / 2;
+                        pingFromClient.LatencyHistory = history.ToArray();
+
+                        SyncClientPing();
+                        break;
+                    }
                 default:
                     break;
             }
+        }
+
+        public void SyncClientPing()
+        {
+            // TODO: Split this further into per client ping orders
+            var clientPings = LobbyInfo.ClientPings.Select(ping => ping as ClientPingDefault).ToList();
+
+            DispatchOrders(null, 0, new ServerOrderDefault("SyncClientPings", clientPings.WriteToBytes()).Serialize());
+
+            foreach (var t in serverTraits.WithInterface<INotifySyncLobbyInfo<ClientDefault>>())
+                t.LobbyInfoSynced(this);
         }
 
         void ValidateClient(IServerConnectoin<ClientDefault> newConn, byte[] data)

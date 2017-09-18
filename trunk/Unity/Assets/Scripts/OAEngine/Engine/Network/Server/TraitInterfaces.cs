@@ -7,7 +7,7 @@ namespace Engine.Network.Server
 {
     public interface IInterpretCommand<T> where T : IClient
     {
-        bool InterpretCommand(IServer<T> server, IServerConnectoin<T> conn, T client, string cmd);
+        bool InterpretCommand(IServer<T> server, IServerConnectoin<T> conn, T client, byte[] data);
     }
 
     public interface INotifySyncLobbyInfo<T> where T : IClient 

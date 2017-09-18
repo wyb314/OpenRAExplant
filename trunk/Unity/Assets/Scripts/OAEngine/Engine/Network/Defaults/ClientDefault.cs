@@ -44,7 +44,17 @@ namespace Engine.Network.Defaults
 
         public string Slot
         {
-            set { this.slot = value; }
+            set
+            {
+                if (value == null)
+                {
+                    this.slot = string.Empty;
+                }
+                else
+                {
+                    this.slot = value;
+                }
+            }
             get { return this.slot; }
         }
         
@@ -53,7 +63,7 @@ namespace Engine.Network.Defaults
         public bool IsReady { get { return State == ClientState.Ready; } }
         public bool IsInvalid { get { return State == ClientState.Invalid; } }
 
-        public bool IsObserver { get { return Slot == null; } }
+        public bool IsObserver { get { return string.IsNullOrEmpty(this.slot); } }
 
         public byte[] Serialize()
         {
@@ -116,10 +126,10 @@ namespace Engine.Network.Defaults
             return bytes;
         }
 
-        public static List<ClientDefault> ReadToBytes(this byte[] bytes)
+        public static List<ClientDefault> ReadToClients(this byte[] bytes)
         {
             List<ClientDefault> clients = null;
-            using (var mr = new MemoryStream())
+            using (var mr = new MemoryStream(bytes))
             {
                 var br = new BinaryReader(mr);
                 int count = br.ReadInt32();

@@ -15,7 +15,7 @@ namespace Engine.Network.Defaults
 
         public void UpdateSyncReport()
         {
-            Log.Write("wyb", "UpdateSyncReport is invoke!");
+            //Log.Write("wyb", "UpdateSyncReport is invoke!");
         }
     }
 }

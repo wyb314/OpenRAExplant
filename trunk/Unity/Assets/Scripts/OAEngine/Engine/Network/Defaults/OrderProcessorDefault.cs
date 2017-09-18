@@ -102,7 +102,7 @@ namespace Engine.Network.Defaults
                 case "SyncLobbyClients":
                     {
                         Order o = order as Order;
-                        var clients = o.ExtDatas.ReadToBytes();
+                        var clients = o.ExtDatas.ReadToClients();
                         
                         orderManager.LobbyInfo.Clients = clients;
                         Game.SyncLobbyInfo();
@@ -113,7 +113,13 @@ namespace Engine.Network.Defaults
                 case "SyncLobbyGlobalSettings":
                     break;
                 case "SyncClientPings":
-                    break;
+                    {
+                        Order o = order as Order;
+                        var clientPings = o.ExtDatas.ReadToClientPings();
+
+                        orderManager.LobbyInfo.ClientPings = clientPings.Select(ping=>ping as IClientPing).ToList();
+                        break;
+                    }
                 case "Ping":
                     {
                         orderManager.IssueOrder(Order.Pong(Encoding.UTF8.GetString(order.ExtDatas)));
@@ -151,6 +157,14 @@ namespace Engine.Network.Defaults
                     int clientPingByteCount = br.ReadInt32();
                     ClientPingDefault clientPing = ClientPingDefault.Deserialize(br.ReadBytes(clientPingByteCount));
                     clientPings.Add(clientPing);
+                }
+
+                int slotsCount = br.ReadInt32();
+                for (int i = 0; i < slotsCount; i++)
+                {
+                    int slotByteCount = br.ReadInt32();
+                    SlotDefault slot = SlotDefault.Deserialize(br.ReadBytes(slotByteCount));
+                    session.Slots.Add(slot.PlayerReference,slot);
                 }
 
                 int globalDataCount = br.ReadInt32();

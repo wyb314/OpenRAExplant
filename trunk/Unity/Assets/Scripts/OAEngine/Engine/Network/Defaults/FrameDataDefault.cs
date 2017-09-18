@@ -12,6 +12,13 @@ namespace Engine.Network.Defaults
 
         public Dictionary<int, Dictionary<int, byte[]>> framePackets { private set; get; }
 
+        public FrameDataDefault()
+        {
+            this.clientQuitTimes = new Dictionary<int, int>();
+            this.framePackets = new Dictionary<int, Dictionary<int, byte[]>>();
+        }
+
+
         public void AddFrameOrders(int clientId, int frame, byte[] orders)
         {
             var frameData = framePackets.GetOrAdd(frame);

@@ -9,6 +9,7 @@ using Engine.Network.Defaults;
 using Engine.Network.Enums;
 using Engine.Support;
 using OAUnityLayer.Support;
+using Game = Engine.Game;
 
 public class Test0 : MonoBehaviour
 {
@@ -16,7 +17,7 @@ public class Test0 : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        Time.fixedDeltaTime = ((float)Game.Timestep)/1000;
+        Time.fixedDeltaTime = ((float)Engine.Game.Timestep)/1000;
     }
 
     // Update is called once per frame
@@ -60,19 +61,19 @@ public class Test0 : MonoBehaviour
             {
                 Order.Command("state {0}".F(ClientState.Ready))
             };
-            Game.CreateAndStartLocalServer("wyb", orders);
+            Engine.Game.CreateAndStartLocalServer("wyb", orders);
         }
 
-        if (GUILayout.Button("Start Game"))
+        if (GUILayout.Button("Start Mission game"))
         {
-            Order order = Order.Command("startgame");
-            Game.OrderManager.IssueOrder(order);
+            Order order = Order.Command("state {0}".F(ClientState.Ready));
+            Engine.Game.OrderManager.IssueOrder(order);
         }
 
         if (GUILayout.Button("Send a order"))
         {
             Order order = Order.Command("hello world!");
-            Game.OrderManager.IssueOrder(order);
+            Engine.Game.OrderManager.IssueOrder(order);
         }
     }
 

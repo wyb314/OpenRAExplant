@@ -7,6 +7,7 @@ using Engine.FileFormats;
 using Engine.Network.Interfaces;
 using Engine.Primitives;
 using Engine.Network;
+using Game = Engine.Game;
 
 namespace Engine.Network.Defaults
 {
@@ -18,7 +19,7 @@ namespace Engine.Network.Defaults
             public List<Pair<int, byte[]>> Packets = new List<Pair<int, byte[]>>();
         }
 
-        Queue<Chunk> chunks = new Queue<Chunk>();
+        System.Collections.Generic.Queue<Chunk> chunks = new System.Collections.Generic.Queue<Chunk>();
         List<byte[]> sync = new List<byte[]>();
         int ordersFrame;
         Dictionary<int, int> lastClientsFrame = new Dictionary<int, int>();

@@ -38,16 +38,58 @@ namespace Engine.Network.Defaults.ServerTraits
         {
         }
 
-        public bool InterpretCommand(IServer<ClientDefault> server, IServerConnectoin<ClientDefault> conn, ClientDefault client, string cmd)
+        static void CheckAutoStart(ServerDefault server)
         {
+            var nonBotPlayers = server.LobbyInfo.NonBotPlayers;
+
+            // Are all players and admin (could be spectating) ready?
+            if (nonBotPlayers.Any(c => c.State != ClientState.Ready) ||
+                server.LobbyInfo.Clients.First(c => c.IsAdmin).State != ClientState.Ready)
+                return;
+
+            // Does server have at least 2 human players?
+            if (!server.LobbyInfo.GlobalSettings.EnableSingleplayer && nonBotPlayers.Count() < 2)
+                return;
+
+            // Are the map conditions satisfied?
+            if (server.LobbyInfo.Slots.Any(sl => sl.Value.Required && server.LobbyInfo.ClientInSlot(sl.Key) == null))
+                return;
+
+            server.StartGame();
+        }
+
+
+        public bool InterpretCommand(IServer<ClientDefault> server, IServerConnectoin<ClientDefault> conn, ClientDefault client, byte[] data)
+        {
+            string cmd = Encoding.UTF8.GetString(data);
             if (server == null || conn == null || client == null || !ValidateCommand(server, conn, client, cmd))
                 return false;
-            switch (cmd)
+            var cmdName = cmd.Split(' ').First();
+            var cmdValue = cmd.Split(' ').Skip(1).JoinWith(" ");
+            
+
+            switch (cmdName)
             {
                 case "state":
                 {
-                    break;
-                }
+                        var state = ClientState.Invalid;
+                        if (!Enum<ClientState>.TryParse(cmdValue, false, out state))
+                        {
+                            server.SendOrderTo(conn, "Message", "Malformed state command");
+                            return true;
+                        }
+                        
+                        client.State = state;
+
+                        Log.Write("server", "Player @{0} is {1}",
+                            conn.Socket.RemoteEndPoint, client.State);
+                        ServerDefault sd = server as ServerDefault;
+                        sd.SyncLobbyClients();
+
+                        CheckAutoStart(sd);
+
+                        return true;
+                    }
                 default:
                 {
                     break;
@@ -64,7 +106,19 @@ namespace Engine.Network.Defaults.ServerTraits
 
         public void ServerStarted(IServer<ClientDefault> server)
         {
-            Log.Write("wyb", "LobbyCommands ServerStarted!");
+            //实例化Slots
+            //// Remote maps are not supported for the initial map
+            //var uid = server.LobbyInfo.GlobalSettings.Map;
+            ////server.Map = server.ModData.MapCache[uid];
+            ////if (server.Map.Status != MapStatus.Available)
+            ////    throw new InvalidOperationException("Map {0} not found".F(uid));
+
+            //server.LobbyInfo.Slots = server.Map.Players.Players
+            //    .Select(p => MakeSlotFromPlayerReference(p.Value))
+            //    .Where(s => s != null)
+            //    .ToDictionary(s => s.PlayerReference, s => s);
+
+            //LoadMapSettings(server, server.LobbyInfo.GlobalSettings, server.Map.Rules);
         }
     }
 }
