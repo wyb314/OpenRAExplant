@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-
+using Sprite = MadFinger.Sprite;
 public class GuiHud
 {
     Sprite[] SpriteComboProgress;

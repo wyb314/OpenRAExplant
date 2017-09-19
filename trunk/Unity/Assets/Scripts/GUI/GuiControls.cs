@@ -1,8 +1,8 @@
 using UnityEngine;
 using System.Collections;
 using System;
+using Sprite = MadFinger.Sprite;
 
-    
 [System.Serializable]
 public class GuiControls
 {

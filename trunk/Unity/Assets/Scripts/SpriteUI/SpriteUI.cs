@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 using System.Collections;
-
+using Sprite = MadFinger.Sprite;
 public class SpriteButton
 {
 	public int TouchCount;

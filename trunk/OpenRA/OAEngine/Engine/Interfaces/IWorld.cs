@@ -7,6 +7,7 @@ namespace Engine.Interfaces
 {
     public interface IWorld : INetWorld
     {
+        IOrderGenerator OrderGenerator { set; get; }
 
         void LoadComplete(IWorldRenderer worldRenderer);
 
