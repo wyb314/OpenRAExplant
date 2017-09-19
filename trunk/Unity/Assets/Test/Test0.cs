@@ -42,7 +42,6 @@ public class Test0 : MonoBehaviour
     void OnGUI()
     {
         
-        GUILayout.Label();
         if (GUILayout.Button("Create Folder"))
         {
             platformInfo = new PlatformInfo();
