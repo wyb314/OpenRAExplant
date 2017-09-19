@@ -79,6 +79,15 @@ public class Test0 : MonoBehaviour
             var orders = new[]
             {
                 Order.Command("state {0}".F(ClientState.NotReady)),
+            };
+            Engine.Game.OrderManager.IssueOrders(orders);
+
+        }
+
+        if (GUILayout.Button("Start Game"))
+        {
+            var orders = new[]
+            {
                 Order.Command("startgame"),
             };
             Engine.Game.OrderManager.IssueOrders(orders);
