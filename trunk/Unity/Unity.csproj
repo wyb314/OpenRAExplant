@@ -369,6 +369,7 @@
     <Compile Include="Assets\Scripts\Misc\Queue.cs" />
     <Compile Include="Assets\Scripts\Misc\RotateObject.cs" />
     <Compile Include="Assets\Scripts\Misc\Types.cs" />
+    <Compile Include="Assets\Scripts\OAEngine.Unity\Input\GameInputer.cs" />
     <Compile Include="Assets\Scripts\OAEngine\Engine\Exts.cs" />
     <Compile Include="Assets\Scripts\OAEngine\Engine\FileFormats\ReplayMetadata.cs" />
     <Compile Include="Assets\Scripts\OAEngine\Engine\Game.cs" />

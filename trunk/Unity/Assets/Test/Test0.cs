@@ -49,7 +49,7 @@ public class Test0 : MonoBehaviour
             UberLoggerWraper logger = new UberLoggerWraper();
             logger.Initialize(platformInfo.GameContentsDir);
             platformInfo.SetLogger(logger);
-            
+            platformInfo.inputer = new GameInputer();
 
             Program.Run(new string[] { "Game.Mod=ra" }, platformInfo);
 
