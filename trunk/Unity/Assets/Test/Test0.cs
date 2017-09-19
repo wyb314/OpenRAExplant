@@ -74,7 +74,7 @@ public class Test0 : MonoBehaviour
             Engine.Game.JoinServer(IPAddress.Loopback.ToString(), 1234, "");
         }
 
-        if (GUILayout.Button("Start Game"))
+        if (GUILayout.Button("Send ready"))
         {
             var orders = new[]
             {
