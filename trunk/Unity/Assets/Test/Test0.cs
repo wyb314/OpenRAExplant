@@ -102,7 +102,7 @@ public class Test0 : MonoBehaviour
             {
                 ClientDefault client =
                Engine.Game.OrderManager.LobbyInfo.ClientWithIndex(clientId);
-                GUILayout.Label("ClientId->" + clientId + " IsAdmin->" + client.IsAdmin);
+                GUILayout.Label("ClientId->" + clientId + " IsAdmin->" + client.IsAdmin+" localFrameNum->"+Engine.Game.OrderManager.LocalFrameNumber);
             }
            
         }
