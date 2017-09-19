@@ -62,6 +62,9 @@ namespace Engine.Network.Defaults.ServerTraits
         public bool InterpretCommand(IServer<ClientDefault> server, IServerConnectoin<ClientDefault> conn, ClientDefault client, byte[] data)
         {
             string cmd = Encoding.UTF8.GetString(data);
+# if DEDICATED_SERVER
+            Console.WriteLine("InterpretCommand->" + cmd);
+#endif
             if (server == null || conn == null || client == null || !ValidateCommand(server, conn, client, cmd))
                 return false;
             var cmdName = cmd.Split(' ').First();
@@ -98,18 +101,18 @@ namespace Engine.Network.Defaults.ServerTraits
                             return true;
                         }
 
-                        //if (server.LobbyInfo.Slots.Any(sl => sl.Value.Required &&
-                        //    server.LobbyInfo.ClientInSlot(sl.Key) == null))
-                        //{
-                        //    server.SendOrderTo(conn, "Message", "Unable to start the game until required slots are full.");
-                        //    return true;
-                        //}
+                        if (server.LobbyInfo.Slots.Any(sl => sl.Value.Required &&
+                            server.LobbyInfo.ClientInSlot(sl.Key) == null))
+                        {
+                            server.SendOrderTo(conn, "Message", "Unable to start the game until required slots are full.");
+                            return true;
+                        }
 
-                        //if (!server.LobbyInfo.GlobalSettings.EnableSingleplayer && server.LobbyInfo.NonBotPlayers.Count() < 2)
-                        //{
-                        //    server.SendOrderTo(conn, "Message", server.TwoHumansRequiredText);
-                        //    return true;
-                        //}
+                        if (!server.LobbyInfo.GlobalSettings.EnableSingleplayer && server.LobbyInfo.NonBotPlayers.Count() < 2)
+                        {
+                            server.SendOrderTo(conn, "Message", ServerConst.TwoHumansRequiredText);
+                            return true;
+                        }
 
                         server.StartGame();
                         return true;

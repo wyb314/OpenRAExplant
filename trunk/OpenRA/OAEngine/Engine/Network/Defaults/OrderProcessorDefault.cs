@@ -14,19 +14,17 @@ namespace Engine.Network.Defaults
     {
         public void ProcessOrder(IOrderManager<ClientDefault> orderManager, INetWorld world, int clientId, IOrder order)
         {
-            Log.Write("wyb","Process OrderString->"+order.OrderString);
-
             switch (order.OrderString)
             {
                 case "Message":
-                    Log.Write("wyb",Encoding.UTF8.GetString(order.ExtDatas));
-                    break;
+                    Log.Write("wyb","message->"+Encoding.UTF8.GetString(order.ExtDatas));
+                    return;
                 case "Disconnected":
                     {
                         var client = orderManager.LobbyInfo.ClientWithIndex(clientId);
                         if (client != null)
                             client.State = ClientState.Disconnected;
-                        break;
+                        return;
                     }
                 case "StartGame":
                     {
@@ -38,9 +36,9 @@ namespace Engine.Network.Defaults
                         //    // TODO: After adding a startup error dialog, notify the replay load failure.
                         //    break;
                         //}
-                        
+                        Log.Write("wyb", "Server start game!");
                         Game.StartGame(orderManager.LobbyInfo.GlobalSettings.Map, WorldType.Regular);
-                        break;
+                        return;
                     }
                 case "PauseGame":
                     {
@@ -53,7 +51,7 @@ namespace Engine.Network.Defaults
                             orderManager.World.Paused = pause;
                             //orderManager.World.PredictedPaused = pause;
                         }
-                        break;
+                        return;
                     }
                 case "HandshakeRequest":
                     {
@@ -77,14 +75,14 @@ namespace Engine.Network.Defaults
                         };
 
                         orderManager.IssueOrder(Order.HandshakeResponse(response.Serialize()));
-                        break;
+                        return;
                     }
                 case "ServerError":
                     {
                         orderManager.ServerError = Encoding.UTF8.GetString(order.ExtDatas);
                         Log.Write("wyb", orderManager.ServerError);
                         orderManager.AuthenticationFailed = false;
-                        break;
+                        return;
                     }
                 case "AuthenticationError":
                     {
@@ -98,7 +96,7 @@ namespace Engine.Network.Defaults
                         orderManager.LobbyInfo = DeserializeSession(o.ExtDatas);
                         SetOrderLag(orderManager);
                         Game.SyncLobbyInfo();
-                        break;
+                        return;
                     }
                 case "SyncLobbyClients":
                     {
@@ -107,10 +105,10 @@ namespace Engine.Network.Defaults
                         
                         orderManager.LobbyInfo.Clients = clients;
                         Game.SyncLobbyInfo();
-                        break;
+                        return;
                     }
                 case "SyncLobbySlots":
-                    break;
+                    return;
                 case "SyncLobbyGlobalSettings":
                     break;
                 case "SyncClientPings":
@@ -119,12 +117,12 @@ namespace Engine.Network.Defaults
                         var clientPings = o.ExtDatas.ReadToClientPings();
 
                         orderManager.LobbyInfo.ClientPings = clientPings.Select(ping=>ping as IClientPing).ToList();
-                        break;
+                        return;
                     }
                 case "Ping":
                     {
                         orderManager.IssueOrder(Order.Pong(Encoding.UTF8.GetString(order.ExtDatas)));
-                        break;
+                        return;
                     }
                 default:
                     break;

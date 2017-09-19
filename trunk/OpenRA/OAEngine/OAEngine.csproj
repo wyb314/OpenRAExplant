@@ -74,6 +74,7 @@
     <Compile Include="Engine\Network\Defaults\SyncReportDefault.cs" />
     <Compile Include="Engine\Network\Interfaces\ICommand.cs" />
     <Compile Include="Engine\Network\Interfaces\ISlot.cs" />
+    <Compile Include="Engine\Network\Server\ServerConst.cs" />
     <Compile Include="Engine\World.cs" />
     <Compile Include="Engine\Network\Enums\ClientState.cs" />
     <Compile Include="Engine\Network\Enums\ServerState.cs" />

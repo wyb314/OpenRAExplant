@@ -352,6 +352,7 @@
     <Compile Include="Assets\Scripts\OAEngine\Engine\Network\NetworkExts.cs" />
     <Compile Include="Assets\Scripts\OAEngine\Engine\Network\ReplayRecorder.cs" />
     <Compile Include="Assets\Scripts\OAEngine\Engine\Network\Server\ProtocolVersion.cs" />
+    <Compile Include="Assets\Scripts\OAEngine\Engine\Network\Server\ServerConst.cs" />
     <Compile Include="Assets\Scripts\OAEngine\Engine\Network\Server\TraitInterfaces.cs" />
     <Compile Include="Assets\Scripts\OAEngine\Engine\Network\Session.cs" />
     <Compile Include="Assets\Scripts\OAEngine\Engine\Network\StreamExts.cs" />

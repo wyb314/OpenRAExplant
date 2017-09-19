@@ -98,18 +98,18 @@ namespace Engine.Network.Defaults.ServerTraits
                             return true;
                         }
 
-                        //if (server.LobbyInfo.Slots.Any(sl => sl.Value.Required &&
-                        //    server.LobbyInfo.ClientInSlot(sl.Key) == null))
-                        //{
-                        //    server.SendOrderTo(conn, "Message", "Unable to start the game until required slots are full.");
-                        //    return true;
-                        //}
+                        if (server.LobbyInfo.Slots.Any(sl => sl.Value.Required &&
+                            server.LobbyInfo.ClientInSlot(sl.Key) == null))
+                        {
+                            server.SendOrderTo(conn, "Message", "Unable to start the game until required slots are full.");
+                            return true;
+                        }
 
-                        //if (!server.LobbyInfo.GlobalSettings.EnableSingleplayer && server.LobbyInfo.NonBotPlayers.Count() < 2)
-                        //{
-                        //    server.SendOrderTo(conn, "Message", server.TwoHumansRequiredText);
-                        //    return true;
-                        //}
+                        if (!server.LobbyInfo.GlobalSettings.EnableSingleplayer && server.LobbyInfo.NonBotPlayers.Count() < 2)
+                        {
+                            server.SendOrderTo(conn, "Message", ServerConst.TwoHumansRequiredText);
+                            return true;
+                        }
 
                         server.StartGame();
                         return true;

@@ -90,7 +90,7 @@ namespace Engine.Network.Defaults
                         t.ServerStarted(this);
                    
 #if DEDICATED_SERVER
-                    Console.Write("Initial map: {0}".F(LobbyInfo.GlobalSettings.Map));
+                    Console.WriteLine("Initial map: {0}".F(LobbyInfo.GlobalSettings.Map));
 #else
                     Log.Write("server", "Initial map: {0}", LobbyInfo.GlobalSettings.Map);
 #endif

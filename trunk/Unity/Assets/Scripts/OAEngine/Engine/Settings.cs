@@ -87,7 +87,7 @@ namespace Engine
             get { return this.ban; }
         }
 
-        private bool enableSingleplayer = false;
+        private bool enableSingleplayer = true;
 
         public bool EnableSingleplayer
         {
