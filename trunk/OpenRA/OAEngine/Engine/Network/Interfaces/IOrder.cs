@@ -13,7 +13,7 @@ namespace Engine.Network.Interfaces
 
         string OrderString { get; }
 
-        string TargetString { set;get; }
+        byte[] ExtDatas { get; }
 
         byte[] Serialize();
 

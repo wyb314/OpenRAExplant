@@ -18,7 +18,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;DEDICATED_SERVER</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
@@ -39,28 +39,41 @@
     <Compile Include="Engine\Exts.cs" />
     <Compile Include="Engine\FileFormats\ReplayMetadata.cs" />
     <Compile Include="Engine\Game.cs" />
+    <Compile Include="Engine\Interfaces\ILoadScreen.cs" />
     <Compile Include="Engine\Interfaces\IWorld.cs" />
     <Compile Include="Engine\Interfaces\IWorldRenderer.cs" />
+    <Compile Include="Engine\LoadScreens\LoadScreenDefault.cs" />
     <Compile Include="Engine\Manifest.cs" />
+    <Compile Include="Engine\Map.cs" />
     <Compile Include="Engine\ModData.cs" />
     <Compile Include="Engine\ModMetadata.cs" />
     <Compile Include="Engine\Network\ClientOrder.cs" />
     <Compile Include="Engine\Network\ConnectionState.cs" />
     <Compile Include="Engine\Network\Defaults\ClientDefault.cs" />
     <Compile Include="Engine\Network\Defaults\ClientPingDefault.cs" />
+    <Compile Include="Engine\Network\Defaults\Commands\ClientStateCmd.cs" />
     <Compile Include="Engine\Network\Defaults\EchoConnection.cs" />
     <Compile Include="Engine\Network\Defaults\FrameDataDefault.cs" />
+    <Compile Include="Engine\Network\Defaults\GlobalDefault.cs" />
     <Compile Include="Engine\Network\Defaults\Handshake.cs" />
     <Compile Include="Engine\Network\Defaults\NetworkConnection.cs" />
     <Compile Include="Engine\Network\Defaults\Order.cs" />
     <Compile Include="Engine\Network\Defaults\OrderIO.cs" />
     <Compile Include="Engine\Network\Defaults\OrderManagerDefault.cs" />
+    <Compile Include="Engine\Network\Defaults\OrderProcessorDefault.cs" />
     <Compile Include="Engine\Network\Defaults\OrderSerializerDefault.cs" />
     <Compile Include="Engine\Network\Defaults\ReplayConnection.cs" />
     <Compile Include="Engine\Network\Defaults\ServerConnectoinDefault.cs" />
     <Compile Include="Engine\Network\Defaults\ServerDefault.cs" />
     <Compile Include="Engine\Network\Defaults\ServerOrderDefault.cs" />
+    <Compile Include="Engine\Network\Defaults\ServerTraits\LobbyCommands.cs" />
+    <Compile Include="Engine\Network\Defaults\ServerTraits\LobbySettingsNotification.cs" />
+    <Compile Include="Engine\Network\Defaults\ServerTraits\MasterServerPinger.cs" />
+    <Compile Include="Engine\Network\Defaults\ServerTraits\PlayerPinger.cs" />
+    <Compile Include="Engine\Network\Defaults\SlotDefault.cs" />
     <Compile Include="Engine\Network\Defaults\SyncReportDefault.cs" />
+    <Compile Include="Engine\Network\Interfaces\ICommand.cs" />
+    <Compile Include="Engine\Network\Interfaces\ISlot.cs" />
     <Compile Include="Engine\World.cs" />
     <Compile Include="Engine\Network\Enums\ClientState.cs" />
     <Compile Include="Engine\Network\Enums\ServerState.cs" />
@@ -106,6 +119,7 @@
     <Compile Include="Engine\Support\PerfTimer.cs" />
     <Compile Include="Engine\Support\Program.cs" />
     <Compile Include="Engine\Sync.cs" />
+    <Compile Include="Engine\WorldRenderer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -3,7 +3,10 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Threading;
-using OpenRA.Support;
+using Engine;
+using Engine.Network.Defaults;
+using Engine.Network.Enums;
+using Engine.Support;
 
 namespace OpenRA.Server
 {
@@ -12,20 +15,20 @@ namespace OpenRA.Server
         static void Main(string[] args)
         {
             var arguments = new Arguments(args);
-            Log.AddChannel("debug", "dedicated-debug.log");
-            Log.AddChannel("perf", "dedicated-perf.log");
-            Log.AddChannel("server", "dedicated-server.log");
-            Log.AddChannel("nat", "dedicated-nat.log");
+            Log.AddChannel("perf", "perf.log");
+            Log.AddChannel("debug", "debug.log");
+            Log.AddChannel("server", "server.log");
+            Log.AddChannel("sound", "sound.log");
+            Log.AddChannel("graphics", "graphics.log");
+            Log.AddChannel("geoip", "geoip.log");
+            Log.AddChannel("irc", "irc.log");
+            Log.AddChannel("nat", "nat.log");
+            Log.AddChannel("wyb", "wyb.log");
 
             // Special case handling of Game.Mod argument: if it matches a real filesystem path
             // then we use this to override the mod search path, and replace it with the mod id
             var modID = arguments.GetValue("Game.Mod", null);
-            var explicitModPaths = new string[0];
-            if (modID != null && (File.Exists(modID) || Directory.Exists(modID)))
-            {
-                explicitModPaths = new[] { modID };
-                modID = Path.GetFileNameWithoutExtension(modID);
-            }
+           
 
             if (modID == null)
                 throw new InvalidOperationException("Game.Mod argument missing or mod could not be found.");
@@ -35,23 +38,34 @@ namespace OpenRA.Server
             Game.InitializeSettings(arguments);
             var settings = Game.Settings.Server;
 
-            var envModSearchPaths = Environment.GetEnvironmentVariable("MOD_SEARCH_PATHS");
-            var modSearchPaths = !Exts.IsNullOrWhiteSpace(envModSearchPaths) ?
-                FieldLoader.GetValue<string[]>("MOD_SEARCH_PATHS", envModSearchPaths) :
-                new[] { Path.Combine(".", "mods") };
-
-            var mods = new InstalledMods(modSearchPaths, explicitModPaths);
+            Manifest manifest = new Manifest()
+            {
+                Id = modID,
+                Metadata = new ModMetadata()
+                {
+                    Title = "",
+                    Version = "",
+                    Hidden = false,
+                },
+                ServerTraits = new string[]
+               {
+                    "Engine.Network.Defaults.ServerTraits.LobbyCommands",
+                    "Engine.Network.Defaults.ServerTraits.LobbySettingsNotification",
+                    "Engine.Network.Defaults.ServerTraits.MasterServerPinger",
+                    "Engine.Network.Defaults.ServerTraits.PlayerPinger"
+               }
+            };
 
             // HACK: The engine code *still* assumes that Game.ModData is set
-            var modData = Game.ModData = new ModData(mods[modID], mods);
-            modData.MapCache.LoadMaps();
+            var modData = Game.ModData = new ModData(manifest);
+            //modData.MapCache.LoadMaps();
 
-            settings.Map = modData.MapCache.ChooseInitialMap(settings.Map, new MersenneTwister());
+            settings.Map = "wyb";
 
             Console.WriteLine("[{0}] Starting dedicated server for mod: {1}", DateTime.Now.ToString(settings.TimestampFormat), modID);
             while (true)
             {
-                var server = new Server(new IPEndPoint(IPAddress.Any, settings.ListenPort), settings, modData, true);
+                var server = new ServerDefault(new IPEndPoint(IPAddress.Any, settings.ListenPort), settings, modData, true);
 
                 while (true)
                 {

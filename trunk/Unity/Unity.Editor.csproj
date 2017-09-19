@@ -129,55 +129,21 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="Unity.Plugins.csproj">
-      <Project>{D1FDB199-0FB7-099D-3771-C6A942E4E326}</Project>
-      <Name>Unity.Plugins</Name>
-    </ProjectReference>
     <ProjectReference Include="Unity.csproj">
       <Project>{CF118143-7E37-744F-BE45-3F55345FEC40}</Project>
       <Name>Unity</Name>
+    </ProjectReference>
+    <ProjectReference Include="Unity.Plugins.csproj">
+      <Project>{D1FDB199-0FB7-099D-3771-C6A942E4E326}</Project>
+      <Name>Unity.Plugins</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\UberLogger\Editor\UberLoggerEditorWindow.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Assets\Assets\EnemyArcher\animations enemy_archer01.txt" />
-    <None Include="Assets\Assets\EnemyBoss01\animations_boss01.txt" />
-    <None Include="Assets\Assets\EnemyBoss03\animations_boss01.txt" />
-    <None Include="Assets\Assets\EnemyDoubleSwordsman\animations_double_swordsman01.txt" />
-    <None Include="Assets\Assets\EnemyMiniBoss01\animations_miniboss.txt" />
-    <None Include="Assets\Assets\EnemySwordsman\animations enemy_swordsman.txt" />
-    <None Include="Assets\Assets\EnemySwordsman\animations enemy_swordsman02.txt" />
-    <None Include="Assets\Assets\Level03\animations zone01lift.txt" />
-    <None Include="Assets\Assets\Player\animations player.txt" />
-    <None Include="Assets\Assets\Player\player_combo01.txt" />
-    <None Include="Assets\Assets\Player\player_combos.txt" />
-    <None Include="Assets\Assets\Shaders\GCDifuse.shader" />
-    <None Include="Assets\Assets\Shaders\Particle Alpha Blend-Z.shader" />
-    <None Include="Assets\Assets\Shaders\Particles Additive Culled.shader" />
-    <None Include="Assets\Assets\Shaders\Partocle Multiply Culled.shader" />
-    <None Include="Assets\Assets\Shaders\TextureSimple.shader" />
-    <None Include="Assets\Assets\Shaders\TextureSimpleComix.shader" />
-    <None Include="Assets\Assets\Shaders\TextureSimpleCutOff.shader" />
-    <None Include="Assets\Assets\Shaders\TransparentSimple.shader" />
-    <None Include="Assets\Assets\Shaders\TransparentSimpleTwoSided.shader" />
-    <None Include="Assets\Assets\Shaders\TransparentSimpleZBuffer.shader" />
-    <None Include="Assets\Assets\Shaders\TransparentVertexColor.shader" />
-    <None Include="Assets\Assets\Shaders\VertexColored.shader" />
-    <None Include="Assets\Assets\Shaders\_TransparentVertexColor.shader" />
-    <None Include="Assets\Assets\Shaders\_VertexColored.shader" />
-    <None Include="Assets\Assets\enemyBossOrochi\animations_boss01-1.txt" />
-    <None Include="Assets\Assets\iPhone Standard Assets\iPhone Shaders\Lightmap Shaders\iPhone Lightmap AlphaTest.shader" />
-    <None Include="Assets\Assets\iPhone Standard Assets\iPhone Shaders\Lightmap Shaders\iPhone Lightmap Only.shader" />
-    <None Include="Assets\Assets\iPhone Standard Assets\iPhone Shaders\Lightmap Shaders\iPhone Lightmap Reflective.shader" />
-    <None Include="Assets\Assets\iPhone Standard Assets\iPhone Shaders\Particle Shaders\iPhone Multiply Culled.shader" />
-    <None Include="Assets\Assets\iPhone Standard Assets\iPhone Shaders\Particle Shaders\iPhone Particles Additive Culled.shader" />
-    <None Include="Assets\Assets\iPhone Standard Assets\iPhone Shaders\Self Illumination\iPhone Self Illuminated.shader" />
-    <None Include="Assets\Assets\iPhone Standard Assets\iPhone Shaders\Vertex Colored Shaders\iPhone Transparent Vertex Color.shader" />
-    <None Include="Assets\Assets\iPhone Standard Assets\iPhone Shaders\Vertex Colored Shaders\iPhone Vertex Colored.shader" />
-    <None Include="Assets\Assets\iPhone Standard Assets\iPhone Shaders\iPhone Background.shader" />
-    <None Include="Assets\Assets\iPhone Standard Assets\iPhone Shaders\iPhone Detail.shader" />
+    <None Include="Assets\Editor\Flurry\Analytics-README.txt" />
+    <None Include="Assets\Editor\Flurry\AppCircle-README.txt" />
     <None Include="Assets\Plugins\Android\AndroidManifest.xml" />
     <None Include="Assets\Plugins\Android\build.xml" />
     <None Include="Assets\Plugins\Android\res\drawable\of_native_loader_progress.xml" />

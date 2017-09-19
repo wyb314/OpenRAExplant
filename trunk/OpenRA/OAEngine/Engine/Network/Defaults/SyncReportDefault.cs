@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Engine.Network.Interfaces;
+using Engine.Support;
 
 namespace Engine.Network.Defaults
 {
@@ -9,12 +10,12 @@ namespace Engine.Network.Defaults
     {
         public void DumpSyncReport(int frame, IEnumerable<ClientOrder> orders)
         {
-            throw new NotImplementedException();
+            Log.Write("wyb", "DumpSyncReport is invoke!");
         }
 
         public void UpdateSyncReport()
         {
-            throw new NotImplementedException();
+            //Log.Write("wyb", "UpdateSyncReport is invoke!");
         }
     }
 }

@@ -15,15 +15,15 @@ using System.Threading;
 
 namespace Engine.Network.Defaults
 {
-    public class ServerDefault : IServer<ClientDefault, ClientPingDefault>
+    public class ServerDefault : IServer<ClientDefault>
     {
-        public List<IServerConnectoin<ClientDefault, ClientPingDefault>> Conns { private set; get; }
+        public List<IServerConnectoin<ClientDefault>> Conns { private set; get; }
 
-        public List<IServerConnectoin<ClientDefault, ClientPingDefault>> PreConns { private set; get; }
+        public List<IServerConnectoin<ClientDefault>> PreConns { private set; get; }
 
         public IPAddress Ip { private set; get; }
 
-        public Session<ClientDefault, ClientPingDefault> LobbyInfo { private set; get; }
+        public Session<ClientDefault> LobbyInfo { private set; get; }
 
         public int Port { private set; get; }
         
@@ -40,9 +40,13 @@ namespace Engine.Network.Defaults
         readonly int randomSeed;
         public readonly MersenneTwister Random = new MersenneTwister();
         readonly TcpListener listener;
+        private readonly Thread serverThread;
 
         public ServerDefault(IPEndPoint endpoint, ServerSettings serverSettings, ModData modData, bool dedicated)
         {
+            this.Conns = new List<IServerConnectoin<ClientDefault>>();
+            this.PreConns = new List<IServerConnectoin<ClientDefault>>();
+
             listener = new TcpListener(endpoint);
             listener.Start();
             var localEndpoint = (IPEndPoint)listener.LocalEndpoint;
@@ -55,8 +59,10 @@ namespace Engine.Network.Defaults
 
             ModData = modData;
 
-            randomSeed = (int)DateTime.Now.ToBinary();
+            randomSeed  = (int)DateTime.Now.ToBinary();
 
+            State = ServerState.WaitingPlayers;
+            this.serverTraits = new TypeDictionary();
             // UPnP is only supported for servers created by the game client.
             //if (!dedicated && ServerSettings.AllowPortForward)
             //    UPnP.ForwardPort(ServerSettings.ListenPort, ServerSettings.ExternalPort).Wait();
@@ -64,9 +70,9 @@ namespace Engine.Network.Defaults
             foreach (var trait in modData.Manifest.ServerTraits)
                 serverTraits.Add(modData.ObjectCreator.CreateObject<ServerTrait>(trait));
 
-            LobbyInfo = new Session<ClientDefault, ClientPingDefault>
+            LobbyInfo = new Session<ClientDefault>
             {
-                GlobalSettings =
+                GlobalSettings = new GlobalDefault()
                 {
                     RandomSeed = randomSeed,
                     Map = serverSettings.Map,
@@ -76,74 +82,103 @@ namespace Engine.Network.Defaults
                 }
             };
 
-            new Thread(_ =>
+            this.serverThread = new Thread(_ =>
             {
-                foreach (var t in serverTraits.WithInterface<INotifyServerStart<ClientDefault,ClientPingDefault>>())
-                    t.ServerStarted(this);
-
-                //Log.Write("server", "Initial mod: {0}", ModData.Manifest.Id);
-                //Log.Write("server", "Initial map: {0}", LobbyInfo.GlobalSettings.Map);
-
-                var timeout = serverTraits.WithInterface<ITick<ClientDefault, ClientPingDefault>>().Min(t => t.TickTimeout);
-                for (;;)
+                try
                 {
-                    var checkRead = new List<Socket>();
-                    if (State == ServerState.WaitingPlayers)
-                        checkRead.Add(listener.Server);
+                    foreach (var t in serverTraits.WithInterface<INotifyServerStart<ClientDefault>>())
+                        t.ServerStarted(this);
+                   
+#if DEDICATED_SERVER
+                    Console.WriteLine("Initial map: {0}".F(LobbyInfo.GlobalSettings.Map));
+#else
+                    Log.Write("server", "Initial map: {0}", LobbyInfo.GlobalSettings.Map);
+#endif
+                    var timeout = 5;
+                    timeout = serverTraits.WithInterface<ITick<ClientDefault>>()
+                                .Min(t => t.TickTimeout);
 
-                    checkRead.AddRange(Conns.Select(c => c.Socket));
-                    checkRead.AddRange(PreConns.Select(c => c.Socket));
-
-                    if (checkRead.Count > 0)
-                        Socket.Select(checkRead, null, null, timeout);
-
-                    if (State == ServerState.ShuttingDown)
+                    for (;;)
                     {
-                        EndGame();
-                        break;
-                    }
+                        var checkRead = new List<Socket>();
+                        if (State == ServerState.WaitingPlayers)
+                            checkRead.Add(listener.Server);
 
-                    foreach (var s in checkRead)
-                    {
-                        if (s == listener.Server)
+                        checkRead.AddRange(Conns.Select(c => c.Socket));
+                        checkRead.AddRange(PreConns.Select(c => c.Socket));
+
+                        if (checkRead.Count > 0)
+                            Socket.Select(checkRead, null, null, timeout);
+
+                        if (State == ServerState.ShuttingDown)
                         {
-                            AcceptConnection();
-                            continue;
+                            EndGame();
+                            break;
                         }
 
-                        var preConn = PreConns.SingleOrDefault(c => c.Socket == s);
-                        if (preConn != null)
+                        foreach (var s in checkRead)
                         {
-                            preConn.ReadData(this);
-                            continue;
+                            if (s == listener.Server)
+                            {
+                                AcceptConnection();
+                                continue;
+                            }
+
+                            var preConn = PreConns.SingleOrDefault(c => c.Socket == s);
+                            if (preConn != null)
+                            {
+                                preConn.ReadData(this);
+                                continue;
+                            }
+
+                            var conn = Conns.SingleOrDefault(c => c.Socket == s);
+                            if (conn != null)
+                                conn.ReadData(this);
                         }
 
-                        var conn = Conns.SingleOrDefault(c => c.Socket == s);
-                        if (conn != null)
-                            conn.ReadData(this);
-                    }
+                        foreach (var t in serverTraits.WithInterface<ITick<ClientDefault>>())
+                            t.Tick(this);
 
-                    foreach (var t in serverTraits.WithInterface<ITick<ClientDefault,ClientPingDefault>>())
-                        t.Tick(this);
-
-                    if (State == ServerState.ShuttingDown)
-                    {
-                        EndGame();
-                        //if (!dedicated && ServerSettings.AllowPortForward)
-                        //    UPnP.RemovePortForward().Wait();
-                        break;
+                        if (State == ServerState.ShuttingDown)
+                        {
+                            EndGame();
+                            //if (!dedicated && ServerSettings.AllowPortForward)
+                            //    UPnP.RemovePortForward().Wait();
+                            break;
+                        }
                     }
                 }
+                catch (Exception ex)
+                {
+                    string log = "Error msg : {0} stackTrace->{1}".F(ex.Message, ex.StackTrace);
+#if DEDICATED_SERVER
+                    Console.Write(log);
+#else
+                    Log.Write("server", log);
+#endif
 
-                foreach (var t in serverTraits.WithInterface<INotifyServerShutdown<ClientDefault, ClientPingDefault>>())
+                }
+
+
+
+                foreach (var t in serverTraits.WithInterface<INotifyServerShutdown<ClientDefault>>())
                     t.ServerShutdown(this);
 
                 PreConns.Clear();
                 Conns.Clear();
-                try { listener.Stop(); }
-                catch { }
+                try
+                {
+                    listener.Stop();
+                }
+                catch
+                {
+                }
             })
-            { IsBackground = true }.Start();
+            {
+                IsBackground = true
+            };
+
+            this.serverThread.Start();
 
         }
         
@@ -166,6 +201,9 @@ namespace Engine.Network.Defaults
                 return;
             }
 
+#if DEDICATED_SERVER
+            Console.WriteLine("Accept a connection! ");
+#endif
             var newConn = new ServerConnectoinDefault(){ Socket = newSocket };
             try
             {
@@ -177,12 +215,12 @@ namespace Engine.Network.Defaults
                 SendData(newConn.Socket, BitConverter.GetBytes(ProtocolVersion.Version));
                 SendData(newConn.Socket, BitConverter.GetBytes(newConn.PlayerIndex));
                 PreConns.Add(newConn);
-
+                
                 // Dispatch a handshake order
                 var request = new HandshakeRequest
                 {
-                    Mod = ModData.Manifest.Id,
-                    Version = ModData.Manifest.Metadata.Version,
+                    Mod = ModData != null ? ModData.Manifest.Id : "wyb",
+                    Version = ModData != null ? ModData.Manifest.Metadata.Version : "Develop",
                     Map = LobbyInfo.GlobalSettings.Map
                 };
 
@@ -191,7 +229,7 @@ namespace Engine.Network.Defaults
             catch (Exception e)
             {
                 DropClient(newConn);
-                //Log.Write("server", "Dropping client {0} because handshake failed: {1}", newConn.PlayerIndex.ToString(CultureInfo.InvariantCulture), e);
+                Log.Write("server", "Dropping client {0} because handshake failed: {1}", newConn.PlayerIndex.ToString(CultureInfo.InvariantCulture), e);
             }
         }
 
@@ -201,9 +239,8 @@ namespace Engine.Network.Defaults
             return nextPlayerIndex++;
         }
 
-        void DispatchOrdersToClient(IServerConnectoin<ClientDefault, ClientPingDefault> c, int client, int frame, byte[] data)
+        void DispatchOrdersToClient(IServerConnectoin<ClientDefault> c, int client, int frame, byte[] data)
         {
-            Console.WriteLine("DispatchOrdersToClient frame->{0}".F(frame));
             try
             {
                 SendData(c.Socket, BitConverter.GetBytes(data.Length + 4));
@@ -214,8 +251,8 @@ namespace Engine.Network.Defaults
             catch (Exception e)
             {
                 DropClient(c);
-                //Log.Write("server", "Dropping client {0} because dispatching orders failed: {1}",
-                //    client.ToString(CultureInfo.InvariantCulture), e);
+                Log.Write("server", "Dropping client {0} because dispatching orders failed: {1}",
+                    client.ToString(CultureInfo.InvariantCulture), e);
             }
         }
 
@@ -243,7 +280,7 @@ namespace Engine.Network.Defaults
             }
         }
 
-        public void DropClient(IServerConnectoin<ClientDefault, ClientPingDefault> toDrop)
+        public void DropClient(IServerConnectoin<ClientDefault> toDrop)
         {
             if (!PreConns.Remove(toDrop))
             {
@@ -259,7 +296,7 @@ namespace Engine.Network.Defaults
                 SendMessage("{0}{1} has disconnected.".F(dropClient.Name, suffix));
 
                 // Send disconnected order, even if still in the lobby
-                DispatchOrdersToClients(toDrop, 0, new ServerOrderDefault("Disconnected", "").Serialize());
+                DispatchOrdersToClients(toDrop, 0, new ServerOrderDefault("Disconnected", null).Serialize());
 
                 LobbyInfo.Clients.RemoveAll(c => c.Index == toDrop.PlayerIndex);
                 LobbyInfo.ClientPings.RemoveAll(p => p.Index == toDrop.PlayerIndex);
@@ -285,7 +322,7 @@ namespace Engine.Network.Defaults
 
                 // All clients have left: clean up
                 if (!Conns.Any())
-                    foreach (var t in serverTraits.WithInterface<INotifyServerEmpty<ClientDefault,ClientPingDefault>>())
+                    foreach (var t in serverTraits.WithInterface<INotifyServerEmpty<ClientDefault>>())
                         t.ServerEmpty(this);
 
                 if (Conns.Any() || Dedicated)
@@ -304,7 +341,7 @@ namespace Engine.Network.Defaults
 
         public void SendMessage(string text)
         {
-            DispatchOrdersToClients(null, 0, new ServerOrderDefault("Message", text).Serialize());
+            DispatchOrdersToClients(null, 0, new ServerOrderDefault("Message",Encoding.UTF8.GetBytes(text)).Serialize());
 
             if (Dedicated)
                 Console.WriteLine("[{0}] {1}".F(DateTime.Now.ToString(ServerSettings.TimestampFormat), text));
@@ -318,13 +355,13 @@ namespace Engine.Network.Defaults
             // TODO: Only need to sync the specific client that has changed to avoid conflicts!
             //var clientData = LobbyInfo.Clients.Select(client => client.Serialize()).ToList();
 
-            DispatchOrders(null, 0, new ServerOrderDefault("SyncLobbyClients", LobbyInfo.Clients.WriteToString()).Serialize());
+            DispatchOrders(null, 0, new ServerOrderDefault("SyncLobbyClients", LobbyInfo.Clients.WriteToBytes()).Serialize());
 
-            foreach (var t in serverTraits.WithInterface<INotifySyncLobbyInfo<ClientDefault, ClientPingDefault>>())
+            foreach (var t in serverTraits.WithInterface<INotifySyncLobbyInfo<ClientDefault>>())
                 t.LobbyInfoSynced(this);
         }
 
-        public void DispatchOrders(IServerConnectoin<ClientDefault,ClientPingDefault> conn, int frame, byte[] data)
+        public void DispatchOrders(IServerConnectoin<ClientDefault> conn, int frame, byte[] data)
         {
             if (frame == 0 && conn != null)
             {
@@ -343,7 +380,7 @@ namespace Engine.Network.Defaults
 
         }
 
-        void InterpretServerOrders(IServerConnectoin<ClientDefault, ClientPingDefault> conn, byte[] data)
+        void InterpretServerOrders(IServerConnectoin<ClientDefault> conn, byte[] data)
         {
 
             var ms = new MemoryStream(data);
@@ -367,12 +404,216 @@ namespace Engine.Network.Defaults
         /// </summary>
         /// <param name="conn"></param>
         /// <param name="so"></param>
-        public void InterpretServerOrder(IServerConnectoin<ClientDefault, ClientPingDefault> conn, IServerOrder so)
+        public void InterpretServerOrder(IServerConnectoin<ClientDefault> conn, IServerOrder so)
         {
+            string log = "InterpretServerOrder so name->{0}".F(so.Name);
+            
+#if DEDICATED_SERVER
+            Console.WriteLine(log);
+#else
+            Log.Write("wybserver", log);
+#endif
+
+            switch (so.Name)
+            {
+                case "Command":
+                    {
+                        var handledBy = serverTraits.WithInterface<IInterpretCommand<ClientDefault>>()
+                            .FirstOrDefault(t => t.InterpretCommand(this, conn, GetClient(conn), so.Data));
+
+                        if (handledBy == null)
+                        {
+                            Log.Write("server", "Unknown server command: {0}", so.Data);
+                            SendOrderTo(conn, "Message", "Unknown server command: {0}".F(so.Data));
+                        }
+
+                        break;
+                    }
+                case "HandshakeResponse":
+                    {
+                        ValidateClient(conn, so.Data);
+                        break;
+                    }
+                case "Pong":
+                    {
+                        long pingSent;
+                        if (!NetworkExts.TryParseInt64Invariant(Encoding.UTF8.GetString(so.Data), out pingSent))
+                        {
+                            Log.Write("server", "Invalid order pong payload: {0}", so.Data);
+                            break;
+                        }
+
+                        var client = GetClient(conn);
+                        if (client == null)
+                            return;
+
+                        var pingFromClient = LobbyInfo.PingFromClient(client);
+                        if (pingFromClient == null)
+                            return;
+
+                        var history = pingFromClient.LatencyHistory.ToList();
+                        history.Add(Game.RunTime - pingSent);
+
+                        // Cap ping history at 5 values (25 seconds)
+                        if (history.Count > 5)
+                            history.RemoveRange(0, history.Count - 5);
+
+                        pingFromClient.Latency = history.Sum() / history.Count;
+                        pingFromClient.LatencyJitter = (history.Max() - history.Min()) / 2;
+                        pingFromClient.LatencyHistory = history.ToArray();
+
+                        SyncClientPing();
+                        break;
+                    }
+                default:
+                    break;
+            }
+        }
+
+        public void SyncClientPing()
+        {
+            // TODO: Split this further into per client ping orders
+            var clientPings = LobbyInfo.ClientPings.Select(ping => ping as ClientPingDefault).ToList();
+
+            DispatchOrders(null, 0, new ServerOrderDefault("SyncClientPings", clientPings.WriteToBytes()).Serialize());
+
+            foreach (var t in serverTraits.WithInterface<INotifySyncLobbyInfo<ClientDefault>>())
+                t.LobbyInfoSynced(this);
+        }
+
+        void ValidateClient(IServerConnectoin<ClientDefault> newConn, byte[] data)
+        {
+            try
+            {
+                if (State == ServerState.GameStarted)
+                {
+                    Log.Write("server", "Rejected connection from {0}; game is already started.",
+                        newConn.Socket.RemoteEndPoint);
+
+                    SendOrderTo(newConn, "ServerError", "The game has already started");
+                    DropClient(newConn);
+                    return;
+                }
+
+                var handshake = HandshakeResponse.Deserialize(data);
+
+                if (!string.IsNullOrEmpty(ServerSettings.Password) && handshake.Password != ServerSettings.Password)
+                {
+                    var message = string.IsNullOrEmpty(handshake.Password) ? "Server requires a password" : "Incorrect password";
+                    SendOrderTo(newConn, "AuthenticationError", message);
+                    DropClient(newConn);
+                    return;
+                }
+
+                var client = new ClientDefault
+                {
+                    Name = Settings.SanitizedPlayerName(handshake.Client.Name),
+                    IpAddress = ((IPEndPoint)newConn.Socket.RemoteEndPoint).Address.ToString(),
+                    Index = newConn.PlayerIndex,
+                    Slot = LobbyInfo.FirstEmptySlot(),
+                    State = ClientState.Invalid,
+                    IsAdmin = !LobbyInfo.Clients.Any(c1 => c1.IsAdmin)
+                };
+
+                if (client.IsObserver && !LobbyInfo.GlobalSettings.AllowSpectators)
+                {
+                    SendOrderTo(newConn, "ServerError", "The game is full");
+                    DropClient(newConn);
+                    return;
+                }
+
+                //if (client.Slot != null)
+                //    SyncClientToPlayerReference(client, Map.Players.Players[client.Slot]);
+                //else
+                //    client.Color = HSLColor.FromRGB(255, 255, 255);
+
+                if (ModData.Manifest.Id != handshake.Mod)
+                {
+                    Log.Write("server", "Rejected connection from {0}; mods do not match.",
+                        newConn.Socket.RemoteEndPoint);
+
+                    SendOrderTo(newConn, "ServerError", "Server is running an incompatible mod");
+                    DropClient(newConn);
+                    return;
+                }
+
+                if (ModData.Manifest.Metadata.Version != handshake.Version && !LobbyInfo.GlobalSettings.AllowVersionMismatch)
+                {
+                    Log.Write("server", "Rejected connection from {0}; Not running the same version.",
+                        newConn.Socket.RemoteEndPoint);
+
+                    SendOrderTo(newConn, "ServerError", "Server is running an incompatible version");
+                    DropClient(newConn);
+                    return;
+                }
+
+                // 禁止某些Ip连接服务器
+                //var bans = Settings.Ban.Union(TempBans);
+                //if (bans.Contains(client.IpAddress))
+                //{
+                //    Log.Write("server", "Rejected connection from {0}; Banned.", newConn.Socket.RemoteEndPoint);
+                //    SendOrderTo(newConn, "ServerError", "You have been {0} from the server".F(Settings.Ban.Contains(client.IpAddress) ? "banned" : "temporarily banned"));
+                //    DropClient(newConn);
+                //    return;
+                //}
+
+                // Promote connection to a valid client
+                PreConns.Remove(newConn);
+                Conns.Add(newConn);
+                LobbyInfo.Clients.Add(client);
+                var clientPing = new ClientPingDefault { Index = client.Index };
+                LobbyInfo.ClientPings.Add(clientPing);
+
+                Log.Write("server", "Client {0}: Accepted connection from {1}.",
+                    newConn.PlayerIndex, newConn.Socket.RemoteEndPoint);
+
+                foreach (var t in serverTraits.WithInterface<IClientJoined<ClientDefault>>())
+                    t.ClientJoined(this, newConn);
+
+                SyncLobbyInfo();
+
+                Log.Write("server", "{0} ({1}) has joined the game.",
+                    client.Name, newConn.Socket.RemoteEndPoint);
+
+                if (LobbyInfo.NonBotClients.Count() > 1)
+                    SendMessage("{0} has joined the game.".F(client.Name));
+
+                // Send initial ping
+                SendOrderTo(newConn, "Ping", Game.RunTime.ToString(CultureInfo.InvariantCulture));
+
+                if (Dedicated)
+                {
+                    var motdFile = Platform.ResolvePath("^", "motd.txt");
+                    if (!File.Exists(motdFile))
+                        File.WriteAllText(motdFile, "Welcome, have fun and good luck!");
+
+                    var motd = File.ReadAllText(motdFile);
+                    if (!string.IsNullOrEmpty(motd))
+                        SendOrderTo(newConn, "Message", motd);
+                }
+
+                //if (Map.DefinesUnsafeCustomRules)
+                //    SendOrderTo(newConn, "Message", "This map contains custom rules. Game experience may change.");
+
+                //if (!LobbyInfo.GlobalSettings.EnableSingleplayer)
+                //    SendOrderTo(newConn, "Message", TwoHumansRequiredText);
+                //else if (Map.Players.Players.Where(p => p.Value.Playable).All(p => !p.Value.AllowBots))
+                //    SendOrderTo(newConn, "Message", "Bots have been disabled on this map.");
+
+                if (handshake.Mod == "{DEV_VERSION}")
+                    SendMessage("{0} is running an unversioned development build, ".F(client.Name) +
+                        "and may desynchronize the game state if they have incompatible rules.");
+            }
+            catch (Exception ex)
+            {
+                Log.Write("server", "Dropping connection {0} because an error occurred:", newConn.Socket.RemoteEndPoint);
+                Log.Write("server", "Serer Error msg->{0} stackTrace->{1}".F(ex.Message,ex.StackTrace));
+                DropClient(newConn);
+            }
         }
 
         //IServerConnectoin<ClientDefault, ClientPingDefault>
-        public void DispatchOrdersToClients(IServerConnectoin<ClientDefault,ClientPingDefault> conn, int frame, byte[] data)
+        public void DispatchOrdersToClients(IServerConnectoin<ClientDefault> conn, int frame, byte[] data)
         {
             var from = conn != null ? conn.PlayerIndex : 0;
             foreach (var c in Conns.Except(conn).ToList())
@@ -384,11 +625,11 @@ namespace Engine.Network.Defaults
 
         public void EndGame()
         {
-            foreach (var t in serverTraits.WithInterface<IEndGame<ClientDefault,ClientPingDefault>>())
+            foreach (var t in serverTraits.WithInterface<IEndGame<ClientDefault>>())
                 t.GameEnded(this);
         }
 
-        public ClientDefault GetClient(IServerConnectoin<ClientDefault, ClientPingDefault> conn)
+        public ClientDefault GetClient(IServerConnectoin<ClientDefault> conn)
         {
             return LobbyInfo.ClientWithIndex(conn.PlayerIndex);
         }
@@ -427,15 +668,15 @@ namespace Engine.Network.Defaults
                     DispatchOrdersToClient(c, d.PlayerIndex, 0x7FFFFFFF, new byte[] { 0xBF });
 
             DispatchOrders(null, 0,
-                new ServerOrderDefault("StartGame", "").Serialize());
+                new ServerOrderDefault("StartGame", null).Serialize());
 
-            foreach (var t in serverTraits.WithInterface<IStartGame<ClientDefault,ClientPingDefault>>())
+            foreach (var t in serverTraits.WithInterface<IStartGame<ClientDefault>>())
                 t.GameStarted(this);
         }
 
-        public void SendOrderTo(IServerConnectoin<ClientDefault,ClientPingDefault> conn, string order, string data)
+        public void SendOrderTo(IServerConnectoin<ClientDefault> conn, string order, string data)
         {
-            DispatchOrdersToClient(conn, 0, 0, new ServerOrderDefault(order, data).Serialize());
+            DispatchOrdersToClient(conn, 0, 0, new ServerOrderDefault(order, Encoding.UTF8.GetBytes(data)).Serialize());
         }
 
         public void SyncLobbyInfo()
@@ -443,8 +684,18 @@ namespace Engine.Network.Defaults
             if (State == ServerState.WaitingPlayers) // Don't do this while the game is running, it breaks things!
                 DispatchOrders(null, 0, new ServerOrderDefault("SyncInfo", LobbyInfo.Serialize()).Serialize());
 
-            foreach (var t in serverTraits.WithInterface<INotifySyncLobbyInfo<ClientDefault, ClientPingDefault>>())
+            foreach (var t in serverTraits.WithInterface<INotifySyncLobbyInfo<ClientDefault>>())
                 t.LobbyInfoSynced(this);
+        }
+
+        public void Dispose()
+        {
+            if (this.serverThread != null)
+            {
+                this.serverThread.Abort();
+            }
+            
+            this.Shutdown();
         }
     }
 }

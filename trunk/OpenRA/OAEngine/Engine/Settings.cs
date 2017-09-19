@@ -34,7 +34,7 @@ namespace Engine
 
         public bool AdvertiseOnline
         {
-            private set { this.advertiseOnline = value; }
+            set { this.advertiseOnline = value; }
             get { return this.advertiseOnline; }
         }
 
@@ -59,7 +59,7 @@ namespace Engine
 
         public bool AllowPortForward
         {
-            private set { this.allowPortForward = value; }
+            set { this.allowPortForward = value; }
             get { return this.allowPortForward; }
         }
 
@@ -75,7 +75,7 @@ namespace Engine
 
         public string Map
         {
-            private set { this.map = value; }
+            set { this.map = value; }
             get { return this.map; }
         }
 
@@ -118,6 +118,12 @@ namespace Engine
         }
     }
 
+    public class PlayerSettings
+    {
+        public string Name = "Newbie";
+        public string LastServer = "localhost:1234";
+    }
+
     public class DebugSettings
     {
         public bool BotDebug = true;
@@ -138,6 +144,7 @@ namespace Engine
     {
         public readonly ServerSettings Server = new ServerSettings();
         public readonly DebugSettings Debug = new DebugSettings();
+        public readonly PlayerSettings Player = new PlayerSettings();
 
         public static string SanitizedServerName(string dirty)
         {
@@ -174,6 +181,25 @@ namespace Engine
             }
 
             return true;
+        }
+
+        public static string SanitizedPlayerName(string dirty)
+        {
+            var forbiddenNames = new string[] { "Open", "Closed" };
+            //var botNames = OpenRA.Game.ModData.DefaultRules.Actors["player"].TraitInfos<IBotInfo>().Select(t => t.Name);
+
+            var clean = SanitizedName(dirty);
+
+            //if (IsNullOrWhiteSpace(clean) || forbiddenNames.Contains(clean) || botNames.Contains(clean))
+            //    clean = new PlayerSettings().Name;
+            if (IsNullOrWhiteSpace(clean) || forbiddenNames.Contains(clean))
+                clean = new PlayerSettings().Name;
+
+            // avoid UI glitches
+            if (clean.Length > 16)
+                clean = clean.Substring(0, 16);
+
+            return clean;
         }
     }
 }

@@ -12,7 +12,6 @@ E:\GitHubProjects\OpenRAExplant\trunk\OpenRA\OpenRA.Server\obj\Debug\OpenRA.Serv
 E:\GitHubProjects\OpenRAExplant\trunk\OpenRA\OpenRA.Server\obj\Debug\OpenRA.Server.pdb
 E:\GitHubProjects\OpenRAExplant\trunk\OpenRA\OpenRA.Server\bin\Debug\OpenRA.Server.exe
 E:\GitHubProjects\OpenRAExplant\trunk\OpenRA\OpenRA.Server\bin\Debug\OpenRA.Server.pdb
-E:\GitHubProjects\OpenRAExplant\trunk\OpenRA\OpenRA.Server\bin\Debug\OpenRA.Game.dll
-E:\GitHubProjects\OpenRAExplant\trunk\OpenRA\OpenRA.Server\bin\Debug\ICSharpCode.SharpZipLib.dll
-E:\GitHubProjects\OpenRAExplant\trunk\OpenRA\OpenRA.Server\bin\Debug\OpenRA.Game.pdb
 E:\GitHubProjects\OpenRAExplant\trunk\OpenRA\OpenRA.Server\obj\Debug\OpenRA.Server.csprojResolveAssemblyReference.cache
+E:\GitHubProjects\OpenRAExplant\trunk\OpenRA\OpenRA.Server\bin\Debug\OAEngine.dll
+E:\GitHubProjects\OpenRAExplant\trunk\OpenRA\OpenRA.Server\bin\Debug\OAEngine.pdb

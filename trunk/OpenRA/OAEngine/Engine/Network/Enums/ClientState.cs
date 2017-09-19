@@ -2,7 +2,7 @@
 
 namespace Engine.Network.Enums
 {
-    public enum ClientState
+    public enum ClientState : int
     {
         Invalid,
         NotReady,

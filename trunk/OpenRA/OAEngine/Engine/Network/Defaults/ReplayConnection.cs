@@ -7,10 +7,11 @@ using Engine.FileFormats;
 using Engine.Network.Interfaces;
 using Engine.Primitives;
 using Engine.Network;
+using Game = Engine.Game;
 
 namespace Engine.Network.Defaults
 {
-    public sealed class ReplayConnection<T, U> : IConnection  where T : IClient where U : IClientPing
+    public sealed class ReplayConnection<T> : IConnection  where T : IClient
     {
         class Chunk
         {
@@ -18,7 +19,7 @@ namespace Engine.Network.Defaults
             public List<Pair<int, byte[]>> Packets = new List<Pair<int, byte[]>>();
         }
 
-        Queue<Chunk> chunks = new Queue<Chunk>();
+        System.Collections.Generic.Queue<Chunk> chunks = new System.Collections.Generic.Queue<Chunk>();
         List<byte[]> sync = new List<byte[]>();
         int ordersFrame;
         Dictionary<int, int> lastClientsFrame = new Dictionary<int, int>();
@@ -27,7 +28,7 @@ namespace Engine.Network.Defaults
         public ConnectionState ConnectionState { get { return ConnectionState.Connected; } }
         public readonly int TickCount;
         public readonly bool IsValid;
-        public readonly Session<T,U> LobbyInfo;
+        public readonly Session<T> LobbyInfo;
         public readonly string Filename;
 
         public ReplayConnection(string replayFilename)
@@ -64,10 +65,10 @@ namespace Engine.Network.Defaults
                         var orders = packet.ToOrderList(null);
                         foreach (var o in orders)
                         {
-                            if (o.OrderString == "StartGame")
-                                IsValid = true;
-                            else if (o.OrderString == "SyncInfo" && !IsValid)
-                                LobbyInfo = Session<T,U>.Deserialize(o.TargetString);
+                            //if (o.OrderString == "StartGame")
+                            //    IsValid = true;
+                            //else if (o.OrderString == "SyncInfo" && !IsValid)
+                            //    LobbyInfo = Session<T>.Deserialize(o.TargetString);
                         }
                     }
                     else

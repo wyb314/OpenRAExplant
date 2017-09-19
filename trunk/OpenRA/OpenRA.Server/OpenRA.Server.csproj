@@ -36,10 +36,6 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Program.cs" />
@@ -49,9 +45,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\OpenRA.Game\OpenRA.Game.csproj">
-      <Project>{cdf3e0cc-75e6-4912-92dd-38ed63663e71}</Project>
-      <Name>OpenRA.Game</Name>
+    <ProjectReference Include="..\OAEngine\OAEngine.csproj">
+      <Project>{0f947cab-b84c-41e5-a9fe-fb831a7c490f}</Project>
+      <Name>OAEngine</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

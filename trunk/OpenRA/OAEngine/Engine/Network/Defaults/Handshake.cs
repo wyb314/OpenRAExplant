@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 
@@ -11,56 +12,68 @@ namespace Engine.Network.Defaults
         public string Version;
         public string Map;
 
-        public static HandshakeRequest Deserialize(string data)
+        public static HandshakeRequest Deserialize(byte[] data)
         {
             var handshake = new HandshakeRequest();
+            using (var ms = new MemoryStream(data))
+            {
+                var br = new BinaryReader(ms);
+                handshake.Mod = br.ReadString();
+                handshake.Version = br.ReadString();
+                handshake.Map = br.ReadString();
+            }
             return handshake;
         }
 
-        public string Serialize()
+        public byte[] Serialize()
         {
-            return null;
+            var ret = new MemoryStream();
+            var w = new BinaryWriter(ret);
+            w.Write(this.Mod);
+            w.Write(Version);
+            w.Write(Map);
+            return ret.ToArray();
         }
     }
 
     public class HandshakeResponse
     {
-        public string Mod;
-        public string Version;
-        public string Password;
-        public ClientDefault Client;
+        public string Mod = "";
+        public string Version ="";
+        public string Password = "";
+        public ClientDefault Client = null;
 
-        public static HandshakeResponse Deserialize(string data)
+        public static HandshakeResponse Deserialize(byte[] data)
         {
             var handshake = new HandshakeResponse();
-            handshake.Client = new ClientDefault();
-
-            //var ys = MiniYaml.FromString(data);
-            //foreach (var y in ys)
-            //{
-            //    switch (y.Key)
-            //    {
-            //        case "Handshake":
-            //            FieldLoader.Load(handshake, y.Value);
-            //            break;
-            //        case "Client":
-            //            FieldLoader.Load(handshake.Client, y.Value);
-            //            break;
-            //    }
-            //}
-
+            using (var ret = new MemoryStream(data))
+            {
+                var r = new BinaryReader(ret);
+                handshake.Mod = r.ReadString();
+                handshake.Version = r.ReadString();
+                handshake.Password = r.ReadString();
+                byte[] clientData = r.ReadBytes(r.ReadInt32());
+                handshake.Client = ClientDefault.Deserialize(clientData);
+            }
             return handshake;
         }
 
-        public string Serialize()
+        public byte[] Serialize()
         {
-            //var data = new List<MiniYamlNode>();
-            //data.Add(new MiniYamlNode("Handshake", null,
-            //    new string[] { "Mod", "Version", "Password" }.Select(p => FieldSaver.SaveField(this, p)).ToList()));
-            //data.Add(new MiniYamlNode("Client", FieldSaver.Save(Client)));
+            byte[] ret = null;
 
-            //return data.WriteToString();
-            return null;
+            using (var ms = new MemoryStream())
+            {
+                var w = new BinaryWriter(ms);
+                w.Write(this.Mod);
+                w.Write(Version);
+                w.Write(this.Password);
+                byte[] clientData = this.Client.Serialize();
+                w.Write(clientData.Length);
+                w.Write(clientData);
+                ret = ms.ToArray();
+            }
+            return ret;
         }
     }
 }

@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Engine.Network.Defaults;
 
 namespace Engine.Network.Interfaces
 {
-    public interface IFrameData
+    public interface IFrameData<T> where T : IClient
     {
         Dictionary<int, int> clientQuitTimes { get; }
 
@@ -28,7 +29,7 @@ namespace Engine.Network.Interfaces
         /// <returns></returns>
         bool IsReadyForFrame(int frame);
 
-        IEnumerable<ClientOrder> OrdersForFrame(IOrderManager orderManager, INetWorld world, int frame);
+        IEnumerable<ClientOrder> OrdersForFrame(IOrderManager<T> orderManager, INetWorld world, int frame);
         
 
     }

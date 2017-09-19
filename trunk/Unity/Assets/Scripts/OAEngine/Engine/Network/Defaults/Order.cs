@@ -4,7 +4,6 @@ using System.IO;
 using System.Text;
 using Engine.Network.Interfaces;
 using Engine.Support;
-using UnityEditor;
 
 namespace Engine.Network.Defaults
 {

@@ -5,49 +5,49 @@ using Engine.Network.Interfaces;
 
 namespace Engine.Network.Server
 {
-    public interface IInterpretCommand<T, U> where T : IClient where U : IClientPing
+    public interface IInterpretCommand<T> where T : IClient
     {
-        bool InterpretCommand(IServer<T,U> server, IServerConnectoin<T, U> conn, T client, string cmd);
+        bool InterpretCommand(IServer<T> server, IServerConnectoin<T> conn, T client, byte[] data);
     }
 
-    public interface INotifySyncLobbyInfo<T, U> where T : IClient where U : IClientPing
+    public interface INotifySyncLobbyInfo<T> where T : IClient 
     {
-        void LobbyInfoSynced(IServer<T, U> server);
+        void LobbyInfoSynced(IServer<T> server);
     }
 
-    public interface INotifyServerStart<T, U> where T : IClient where U : IClientPing
+    public interface INotifyServerStart<T> where T : IClient
     {
-        void ServerStarted(IServer<T, U> server);
+        void ServerStarted(IServer<T> server);
     }
 
-    public interface INotifyServerEmpty<T, U> where T : IClient where U : IClientPing
+    public interface INotifyServerEmpty<T> where T : IClient
     {
-        void ServerEmpty(IServer<T, U> server);
+        void ServerEmpty(IServer<T> server);
     }
 
-    public interface INotifyServerShutdown<T, U> where T : IClient where U : IClientPing
+    public interface INotifyServerShutdown<T> where T : IClient
     {
-        void ServerShutdown(IServer<T, U> server);
+        void ServerShutdown(IServer<T> server);
     }
 
-    public interface IStartGame<T, U> where T : IClient where U : IClientPing
+    public interface IStartGame<T> where T : IClient
     {
-        void GameStarted(IServer<T, U> server);
+        void GameStarted(IServer<T> server);
     }
 
-    public interface IClientJoined<T, U> where T : IClient where U : IClientPing
+    public interface IClientJoined<T> where T : IClient
     {
-        void ClientJoined(IServer<T, U> server, IServerConnectoin<T, U> conn);
+        void ClientJoined(IServer<T> server, IServerConnectoin<T> conn);
     }
 
-    public interface IEndGame<T, U> where T : IClient where U : IClientPing
+    public interface IEndGame<T> where T : IClient
     {
-        void GameEnded(IServer<T, U> server);
+        void GameEnded(IServer<T> server);
     }
 
-    public interface ITick<T, U> where T : IClient where U : IClientPing
+    public interface ITick<T> where T : IClient 
     {
-        void Tick(IServer<T, U> server);
+        void Tick(IServer<T> server);
         int TickTimeout { get; }
     }
 

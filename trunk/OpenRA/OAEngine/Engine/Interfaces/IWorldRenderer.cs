@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Engine.Interfaces
 {
-    public interface IWorldRenderer
+    public interface IWorldRenderer : IDisposable
     {
     }
 }

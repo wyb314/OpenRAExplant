@@ -11,5 +11,7 @@ namespace Engine.Network.Interfaces
         long LatencyJitter { set; get; }
         
         long[] LatencyHistory { set; get; }
+
+        byte[] Serialize();
     }
 }

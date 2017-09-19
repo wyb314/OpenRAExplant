@@ -89,8 +89,11 @@ namespace Engine.Network.Defaults
                     foreach (var t in serverTraits.WithInterface<INotifyServerStart<ClientDefault>>())
                         t.ServerStarted(this);
                    
+#if DEDICATED_SERVER
+                    Console.Write("Initial map: {0}".F(LobbyInfo.GlobalSettings.Map));
+#else
                     Log.Write("server", "Initial map: {0}", LobbyInfo.GlobalSettings.Map);
-
+#endif
                     var timeout = 5;
                     timeout = serverTraits.WithInterface<ITick<ClientDefault>>()
                                 .Min(t => t.TickTimeout);
@@ -147,7 +150,13 @@ namespace Engine.Network.Defaults
                 }
                 catch (Exception ex)
                 {
-                    Log.Write("server", "Error msg : {0} stackTrace->{1}", ex.Message, ex.StackTrace);
+                    string log = "Error msg : {0} stackTrace->{1}".F(ex.Message, ex.StackTrace);
+#if DEDICATED_SERVER
+                    Console.Write(log);
+#else
+                    Log.Write("server", log);
+#endif
+
                 }
 
 
@@ -165,7 +174,9 @@ namespace Engine.Network.Defaults
                 {
                 }
             })
-            {IsBackground = true};
+            {
+                IsBackground = true
+            };
 
             this.serverThread.Start();
 
@@ -190,6 +201,9 @@ namespace Engine.Network.Defaults
                 return;
             }
 
+#if DEDICATED_SERVER
+            Console.WriteLine("Accept a connection! ");
+#endif
             var newConn = new ServerConnectoinDefault(){ Socket = newSocket };
             try
             {
@@ -393,8 +407,13 @@ namespace Engine.Network.Defaults
         public void InterpretServerOrder(IServerConnectoin<ClientDefault> conn, IServerOrder so)
         {
             string log = "InterpretServerOrder so name->{0}".F(so.Name);
-            Log.Write("wybserver", log);
+            
+#if DEDICATED_SERVER
             Console.WriteLine(log);
+#else
+            Log.Write("wybserver", log);
+#endif
+
             switch (so.Name)
             {
                 case "Command":

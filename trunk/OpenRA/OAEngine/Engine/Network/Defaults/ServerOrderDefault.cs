@@ -9,17 +9,17 @@ namespace Engine.Network.Defaults
 {
     public class ServerOrderDefault : IServerOrder
     {
-        public string Data { private set; get; }
-
         public string Name { private set; get; }
+        
+        public byte[] Data { private set; get; }
+        
 
-
-        public ServerOrderDefault(string name, string data)
+        public ServerOrderDefault(string name, byte[] data)
         {
             Name = name;
             Data = data;
         }
-
+        
         public static ServerOrderDefault Deserialize(BinaryReader r)
         {
             byte b;
@@ -32,9 +32,14 @@ namespace Engine.Network.Defaults
                 case 0xfe:
                     {
                         var name = r.ReadString();
-                        var data = r.ReadString();
-
-                        return new ServerOrderDefault(name, data);
+                        var length = r.ReadInt32();
+                        
+                        byte[] bytes = null;
+                        if (length > 0)
+                        {
+                            bytes = r.ReadBytes(length);
+                        }
+                        return new ServerOrderDefault(name, bytes);
                     }
 
                 default:
@@ -44,13 +49,21 @@ namespace Engine.Network.Defaults
 
         public byte[] Serialize()
         {
-            var ms = new MemoryStream();
-            var bw = new BinaryWriter(ms);
-
-            bw.Write((byte)0xfe);
-            bw.Write(Name);
-            bw.Write(Data);
-            return ms.ToArray();
+            byte[] ret = null;
+            using (var ms = new MemoryStream())
+            {
+                var bw = new BinaryWriter(ms);
+                bw.Write((byte)0xfe);
+                bw.Write(Name);
+                int count = Data == null ? 0 : Data.Length;
+                bw.Write(count);
+                if (count > 0)
+                {
+                    bw.Write(Data);
+                }
+                ret = ms.ToArray();
+            }
+            return ret;
         }
     }
 }

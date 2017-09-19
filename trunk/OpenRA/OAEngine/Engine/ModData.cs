@@ -11,6 +11,20 @@ namespace Engine
 
         public readonly ObjectCreator ObjectCreator;
 
+
+        public ModData(Manifest mod, bool useLoadScreen = false)
+        {
+            this.Manifest = mod;
+            this.ObjectCreator = new ObjectCreator();
+            // Take a local copy of the manifest
+            
+        }
+
+        public Map PrepareMap(string uid)
+        {
+            return new Map();
+        }
+
         public void Dispose()
         {
         }

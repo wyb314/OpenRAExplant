@@ -6,6 +6,7 @@ using System.Net.Sockets;
 using System.Text;
 using System.Threading;
 using Engine.Network.Server;
+using Engine.Support;
 
 namespace Engine.Network.Defaults
 {
@@ -25,11 +26,12 @@ namespace Engine.Network.Defaults
                 new Thread(NetworkConnectionReceive)
                 {
                     Name = GetType().Name + " " + host + ":" + port,
-                    IsBackground = true
+                    IsBackground = false
                 }.Start(tcp.GetStream());
             }
             catch
             {
+                Log.Write("wyb", "TcpClient not connected!");
                 connectionState = ConnectionState.NotConnected;
             }
         }
@@ -38,16 +40,17 @@ namespace Engine.Network.Defaults
         {
             try
             {
-                var networkStream = (NetworkStream)networkStreamObject;
+                var networkStream = (NetworkStream) networkStreamObject;
                 var reader = new BinaryReader(networkStream);
                 var serverProtocol = reader.ReadInt32();
-
+                
                 if (ProtocolVersion.Version != serverProtocol)
                     throw new InvalidOperationException(
                         "Protocol version mismatch. Server={0} Client={1}"
                             .F(serverProtocol, ProtocolVersion.Version));
 
                 clientId = reader.ReadInt32();
+                Log.Write("wyb","Protocol version->{0} clientId->{1}".F(serverProtocol,clientId));
                 connectionState = ConnectionState.Connected;
 
                 for (;;)
@@ -57,10 +60,13 @@ namespace Engine.Network.Defaults
                     var buf = reader.ReadBytes(len);
                     if (len == 0)
                         throw new NotImplementedException();
-                    AddPacket(new ReceivedPacket { FromClient = client, Data = buf });
+                    AddPacket(new ReceivedPacket {FromClient = client, Data = buf});
                 }
             }
-            catch { }
+            catch(Exception ex)
+            {
+                Log.LogError("Error msg : {0} stackTrace->{1}".F(ex.Message, ex.StackTrace), "wyb");
+            }
             finally
             {
                 connectionState = ConnectionState.NotConnected;

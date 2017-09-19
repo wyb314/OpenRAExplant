@@ -6,11 +6,18 @@ using Engine.Network.Interfaces;
 
 namespace Engine.Network.Defaults
 {
-    public class FrameDataDefault : IFrameData
+    public class FrameDataDefault : IFrameData<ClientDefault>
     {
         public Dictionary<int, int> clientQuitTimes { private set; get; }
 
         public Dictionary<int, Dictionary<int, byte[]>> framePackets { private set; get; }
+
+        public FrameDataDefault()
+        {
+            this.clientQuitTimes = new Dictionary<int, int>();
+            this.framePackets = new Dictionary<int, Dictionary<int, byte[]>>();
+        }
+
 
         public void AddFrameOrders(int clientId, int frame, byte[] orders)
         {
@@ -56,7 +63,7 @@ namespace Engine.Network.Defaults
             return result;
         }
 
-        public IEnumerable<ClientOrder> OrdersForFrame(IOrderManager orderManager, INetWorld world, int frame)
+        public IEnumerable<ClientOrder> OrdersForFrame(IOrderManager<ClientDefault> orderManager, INetWorld world, int frame)
         {
             var frameData = framePackets[frame];
             var clientData = ClientsPlayingInFrame(frame)
