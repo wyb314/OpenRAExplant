@@ -41,6 +41,8 @@ public class Test0 : MonoBehaviour
     //Game.Mod=ra
     void OnGUI()
     {
+        
+        GUILayout.Label();
         if (GUILayout.Button("Create Folder"))
         {
             platformInfo = new PlatformInfo();
@@ -93,6 +95,15 @@ public class Test0 : MonoBehaviour
             Engine.Game.OrderManager.IssueOrders(orders);
             
         }
+
+        if (Engine.Game.OrderManager != null)
+        {
+            int clientId = Engine.Game.OrderManager.Connection.LocalClientId;
+            ClientDefault client =
+                Engine.Game.OrderManager.LobbyInfo.ClientWithIndex(clientId);
+            GUILayout.Label("ClientId->"+ clientId+" IsAdmin->"+client.IsAdmin);
+        }
+
         //if (GUILayout.Button("Start Mission game"))
         //{
         //    Order order = Order.Command("state {0}".F(ClientState.Ready));
