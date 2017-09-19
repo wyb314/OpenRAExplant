@@ -44,5 +44,11 @@ namespace Engine
             //        throw new InvalidOperationException("CheckSyncUnchanged: sync-changing code may not run here");
             //}
         }
+
+        public static void AssertUnsynced(string message)
+        {
+            //if (!inUnsyncedCode)
+            //    throw new InvalidOperationException(message);
+        }
     }
 }

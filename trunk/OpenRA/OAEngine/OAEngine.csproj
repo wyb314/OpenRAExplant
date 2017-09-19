@@ -40,6 +40,7 @@
     <Compile Include="Engine\FileFormats\ReplayMetadata.cs" />
     <Compile Include="Engine\Game.cs" />
     <Compile Include="Engine\Interfaces\ILoadScreen.cs" />
+    <Compile Include="Engine\Interfaces\IOrderGenerator.cs" />
     <Compile Include="Engine\Interfaces\IWorld.cs" />
     <Compile Include="Engine\Interfaces\IWorldRenderer.cs" />
     <Compile Include="Engine\LoadScreens\LoadScreenDefault.cs" />
@@ -75,6 +76,8 @@
     <Compile Include="Engine\Network\Interfaces\ICommand.cs" />
     <Compile Include="Engine\Network\Interfaces\ISlot.cs" />
     <Compile Include="Engine\Network\Server\ServerConst.cs" />
+    <Compile Include="Engine\OrderGenerators\PlayerControllerOrderGenerator.cs" />
+    <Compile Include="Engine\Support\IInputsGetter.cs" />
     <Compile Include="Engine\World.cs" />
     <Compile Include="Engine\Network\Enums\ClientState.cs" />
     <Compile Include="Engine\Network\Enums\ServerState.cs" />
@@ -123,6 +126,7 @@
     <Compile Include="Engine\WorldRenderer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

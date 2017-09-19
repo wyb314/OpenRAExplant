@@ -18,6 +18,8 @@ namespace OAUnityLayer
 
         public ILogger Logger { private set ; get; }
 
+        public IInputsGetter inputer { private set; get; }
+
         private string gameContentsDir;
 
         public string GameContentsDir

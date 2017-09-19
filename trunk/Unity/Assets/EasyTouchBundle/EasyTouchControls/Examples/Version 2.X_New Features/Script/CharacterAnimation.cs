@@ -35,6 +35,11 @@ public class CharacterAnimation : MonoBehaviour {
 		if (cc.isGrounded && ETCInput.GetAxis("Vertical")==0 && ETCInput.GetAxis("Horizontal")<0){
 			anim.CrossFade("soldierSpinLeft");
 		}
+
+	    if (ETCInput.GetButtonDown("Button jump"))
+	    {
+            Debug.LogError("GetButtonDown is invoke!");
+	    }
 	}
 
 }

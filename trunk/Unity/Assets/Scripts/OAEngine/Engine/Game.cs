@@ -176,7 +176,7 @@ namespace Engine
 
                 Sync.CheckSyncUnchanged(world, () =>
                 {
-                    //world.OrderGenerator.Tick(world);
+                    world.OrderGenerator.Tick(world);
                     //world.Selection.Tick(world);
                 });
 

@@ -373,6 +373,7 @@
     <Compile Include="Assets\Scripts\OAEngine\Engine\FileFormats\ReplayMetadata.cs" />
     <Compile Include="Assets\Scripts\OAEngine\Engine\Game.cs" />
     <Compile Include="Assets\Scripts\OAEngine\Engine\Interfaces\ILoadScreen.cs" />
+    <Compile Include="Assets\Scripts\OAEngine\Engine\Interfaces\IOrderGenerator.cs" />
     <Compile Include="Assets\Scripts\OAEngine\Engine\Interfaces\IWorld.cs" />
     <Compile Include="Assets\Scripts\OAEngine\Engine\Interfaces\IWorldRenderer.cs" />
     <Compile Include="Assets\Scripts\OAEngine\Engine\LoadScreens\LoadScreenDefault.cs" />
@@ -433,6 +434,7 @@
     <Compile Include="Assets\Scripts\OAEngine\Engine\Network\Session.cs" />
     <Compile Include="Assets\Scripts\OAEngine\Engine\Network\StreamExts.cs" />
     <Compile Include="Assets\Scripts\OAEngine\Engine\ObjectCreator.cs" />
+    <Compile Include="Assets\Scripts\OAEngine\Engine\OrderGenerators\PlayerControllerOrderGenerator.cs" />
     <Compile Include="Assets\Scripts\OAEngine\Engine\Platform.cs" />
     <Compile Include="Assets\Scripts\OAEngine\Engine\Primitives\ActionQueue.cs" />
     <Compile Include="Assets\Scripts\OAEngine\Engine\Primitives\Cache.cs" />
@@ -442,6 +444,7 @@
     <Compile Include="Assets\Scripts\OAEngine\Engine\Primitives\TypeDictionary.cs" />
     <Compile Include="Assets\Scripts\OAEngine\Engine\Settings.cs" />
     <Compile Include="Assets\Scripts\OAEngine\Engine\Support\Arguments.cs" />
+    <Compile Include="Assets\Scripts\OAEngine\Engine\Support\IInputsGetter.cs" />
     <Compile Include="Assets\Scripts\OAEngine\Engine\Support\ILogger.cs" />
     <Compile Include="Assets\Scripts\OAEngine\Engine\Support\IPlatformImpl.cs" />
     <Compile Include="Assets\Scripts\OAEngine\Engine\Support\Log.cs" />

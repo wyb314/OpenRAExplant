@@ -17,6 +17,21 @@ namespace Engine
             
         }
 
+        IOrderGenerator orderGenerator;
+        public IOrderGenerator OrderGenerator
+        {
+            get
+            {
+                return orderGenerator;
+            }
+
+            set
+            {
+                Sync.AssertUnsynced("The current order generator may not be changed from synced code");
+                orderGenerator = value;
+            }
+        }
+
         public bool Paused { get; set; }
 
         public void LoadComplete(IWorldRenderer worldRenderer)
