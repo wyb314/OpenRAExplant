@@ -98,9 +98,13 @@ public class Test0 : MonoBehaviour
         if (Engine.Game.OrderManager != null)
         {
             int clientId = Engine.Game.OrderManager.Connection.LocalClientId;
-            ClientDefault client =
-                Engine.Game.OrderManager.LobbyInfo.ClientWithIndex(clientId);
-            GUILayout.Label("ClientId->"+ clientId+" IsAdmin->"+client.IsAdmin);
+            if (Engine.Game.OrderManager.LobbyInfo!= null)
+            {
+                ClientDefault client =
+               Engine.Game.OrderManager.LobbyInfo.ClientWithIndex(clientId);
+                GUILayout.Label("ClientId->" + clientId + " IsAdmin->" + client.IsAdmin);
+            }
+           
         }
 
         //if (GUILayout.Button("Start Mission game"))
