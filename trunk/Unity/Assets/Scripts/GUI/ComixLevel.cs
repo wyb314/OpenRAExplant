@@ -121,9 +121,9 @@ public class ComixLevel : MonoBehaviour
 
     void Update()
     {
-		if(BasicDialog.state == BasicDialog.State.Show) {
-			return;
-		}
+		//if(BasicDialog.state == BasicDialog.State.Show) {
+		//	return;
+		//}
 		
         if (Input.touchCount == 0)
             return;
