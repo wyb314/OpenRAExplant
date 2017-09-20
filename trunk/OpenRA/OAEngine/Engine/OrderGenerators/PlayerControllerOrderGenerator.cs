@@ -5,6 +5,7 @@ using System.Text;
 using Engine.Interfaces;
 using Engine.Network.Defaults;
 using Engine.Support;
+using ORDER = Engine.Network.Defaults.Order;
 
 namespace Engine.OrderGenerators
 {
@@ -28,13 +29,21 @@ namespace Engine.OrderGenerators
         {
             if (this.inputer.GetButtonDown("X"))
             {
+                CreateOrderAttack(world,E_AttackType.X);
             }
             if (this.inputer.GetButtonDown("O"))
             {
+                CreateOrderAttack(world, E_AttackType.X);
             }
-            if (this.inputer.GetButtonDown("Doge"))
+            if (this.inputer.GetButtonDown("Dodge"))
             {
+                CreateOrderAttack(world, E_AttackType.X);
             }
+        }
+
+        private void CreateOrderAttack(IWorld world, E_AttackType type)
+        {
+            world.IssureOrder(ORDER.ButtonDown((byte)type));
         }
     }
 }

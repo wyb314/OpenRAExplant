@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-
+using Sprite = MadFinger.Sprite;
 class UiRect
 {
     public UiRect(int l, int b, int w, int h) { Left = l; Bottom = b; Width = w; Height = h; }

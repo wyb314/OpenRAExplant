@@ -28,5 +28,10 @@ namespace Engine.Support
         /// 设备日志输出器
         /// </summary>
         ILogger Logger { get; }
+
+        /// <summary>
+        /// 输入输出器
+        /// </summary>
+        IInputsGetter inputer { set; get; }
     }
 }

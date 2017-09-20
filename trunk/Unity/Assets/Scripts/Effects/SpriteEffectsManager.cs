@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using Sprite = MadFinger.Sprite;
 
 [RequireComponent(typeof(SpriteManager))]
 

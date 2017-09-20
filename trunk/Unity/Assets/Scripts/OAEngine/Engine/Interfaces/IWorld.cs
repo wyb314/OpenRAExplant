@@ -13,5 +13,8 @@ namespace Engine.Interfaces
 
         void TickRender(IWorldRenderer worldRenderer);
 
+        void ProcessOrder(int clientId, IOrder order);
+
+        void IssureOrder(IOrder order);
     }
 }

@@ -108,6 +108,11 @@ NavMeshSettings:
     tileSize: 256
     accuratePlacement: 0
   m_NavMeshData: {fileID: 0}
+--- !u!224 &169761843 stripped
+RectTransform:
+  m_PrefabParentObject: {fileID: 22444534, guid: c589025ecb191c64d94887d0e12e0111,
+    type: 2}
+  m_PrefabInternal: {fileID: 1598010568}
 --- !u!1 &205437329
 GameObject:
   m_ObjectHideFlags: 0
@@ -192,6 +197,201 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &871237046
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 183252, guid: c589025ecb191c64d94887d0e12e0111, type: 2}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 871237047}
+  - component: {fileID: 871237050}
+  - component: {fileID: 871237049}
+  - component: {fileID: 871237048}
+  m_Layer: 0
+  m_Name: O
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &871237047
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 22411198, guid: c589025ecb191c64d94887d0e12e0111,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 871237046}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 169761843}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 1, y: 0}
+  m_AnchorMax: {x: 1, y: 0}
+  m_AnchoredPosition: {x: -142.1, y: 122.9}
+  m_SizeDelta: {x: 65.7, y: 65.7}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &871237048
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11406364, guid: c589025ecb191c64d94887d0e12e0111,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 871237046}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -765806418, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  m_Sprite: {fileID: 21300000, guid: 65998af61294ec74a8629a4fe17ef652, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 1
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+--- !u!222 &871237049
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 22227112, guid: c589025ecb191c64d94887d0e12e0111,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 871237046}
+--- !u!114 &871237050
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11481510, guid: c589025ecb191c64d94887d0e12e0111,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 871237046}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba60450c5a1202b41869d8ee7136c85f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isUnregisterAtDisable: 0
+  _anchor: 0
+  _anchorOffet: {x: 0, y: 0}
+  _visible: 1
+  _activated: 1
+  enableCamera: 0
+  cameraMode: 0
+  camTargetTag: Player
+  autoLinkTagCam: 1
+  autoCamTag: MainCamera
+  cameraTransform: {fileID: 0}
+  cameraTargetMode: 0
+  enableWallDetection: 0
+  wallLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  cameraLookAt: {fileID: 0}
+  followOffset: {x: 0, y: 6, z: -6}
+  followDistance: 10
+  followHeight: 5
+  followRotationDamping: 5
+  followHeightDamping: 5
+  pointId: -1
+  enableKeySimulation: 1
+  allowSimulationStandalone: 0
+  visibleOnStandalone: 1
+  dPadAxisCount: 0
+  useFixedUpdate: 0
+  isOnDrag: 0
+  isSwipeIn: 0
+  isSwipeOut: 0
+  showPSInspector: 1
+  showSpriteInspector: 1
+  showEventInspector: 1
+  showBehaviourInspector: 0
+  showAxesInspector: 0
+  showTouchEventInspector: 0
+  showDownEventInspector: 0
+  showPressEventInspector: 0
+  showCameraInspector: 0
+  onDown:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: ETCButton+OnDownHandler, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  onPressed:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: ETCButton+OnPressedHandler, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  onPressedValue:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: ETCButton+OnPressedValueandler, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  onUp:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: ETCButton+OnUPHandler, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  axis:
+    name: O
+    autoLinkTagPlayer: 0
+    autoTag: Player
+    player: {fileID: 0}
+    enable: 1
+    invertedAxis: 0
+    speed: 15
+    deadValue: 0.1
+    valueMethod: 0
+    curveValue:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    isEnertia: 0
+    inertia: 0
+    inertiaThreshold: 0.08
+    isAutoStab: 0
+    autoStabThreshold: 0.01
+    autoStabSpeed: 10
+    isClampRotation: 0
+    maxAngle: 90
+    minAngle: 90
+    isValueOverTime: 0
+    overTimeStep: 1
+    maxOverTimeValue: 1
+    axisValue: 0
+    axisSpeedValue: 0
+    axisThreshold: 0.5
+    isLockinJump: 0
+    axisState: 0
+    _directTransform: {fileID: 0}
+    directAction: 0
+    axisInfluenced: 0
+    actionOn: 1
+    directCharacterController: {fileID: 0}
+    directRigidBody: {fileID: 0}
+    gravity: 0
+    currentGravity: 0
+    isJump: 0
+    unityAxis: Jump
+    showGeneralInspector: 0
+    showDirectInspector: 0
+    showInertiaInspector: 0
+    showSimulatinInspector: 0
+  normalSprite: {fileID: 21300000, guid: 65998af61294ec74a8629a4fe17ef652, type: 3}
+  normalColor: {r: 1, g: 1, b: 1, a: 1}
+  pressedSprite: {fileID: 21300000, guid: b012bb969eb725248a1f91ed1e4b4855, type: 3}
+  pressedColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &1178119103
 GameObject:
   m_ObjectHideFlags: 0
@@ -336,6 +536,141 @@ Prefab:
     - target: {fileID: 152870, guid: c589025ecb191c64d94887d0e12e0111, type: 2}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 183252, guid: c589025ecb191c64d94887d0e12e0111, type: 2}
+      propertyPath: m_Name
+      value: X
+      objectReference: {fileID: 0}
+    - target: {fileID: 11481510, guid: c589025ecb191c64d94887d0e12e0111, type: 2}
+      propertyPath: _anchor
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11481510, guid: c589025ecb191c64d94887d0e12e0111, type: 2}
+      propertyPath: _anchorOffet.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11481510, guid: c589025ecb191c64d94887d0e12e0111, type: 2}
+      propertyPath: _anchorOffet.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11481510, guid: c589025ecb191c64d94887d0e12e0111, type: 2}
+      propertyPath: showBehaviourInspector
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11481510, guid: c589025ecb191c64d94887d0e12e0111, type: 2}
+      propertyPath: axis.name
+      value: X
+      objectReference: {fileID: 0}
+    - target: {fileID: 11481510, guid: c589025ecb191c64d94887d0e12e0111, type: 2}
+      propertyPath: axis.autoLinkTagPlayer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11481510, guid: c589025ecb191c64d94887d0e12e0111, type: 2}
+      propertyPath: axis.speed
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 11481510, guid: c589025ecb191c64d94887d0e12e0111, type: 2}
+      propertyPath: axis.directAction
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11481510, guid: c589025ecb191c64d94887d0e12e0111, type: 2}
+      propertyPath: axis.actionOn
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11481510, guid: c589025ecb191c64d94887d0e12e0111, type: 2}
+      propertyPath: axis.gravity
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11481510, guid: c589025ecb191c64d94887d0e12e0111, type: 2}
+      propertyPath: axis.showGeneralInspector
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11481510, guid: c589025ecb191c64d94887d0e12e0111, type: 2}
+      propertyPath: axis.showDirectInspector
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11481510, guid: c589025ecb191c64d94887d0e12e0111, type: 2}
+      propertyPath: normalSprite
+      value: 
+      objectReference: {fileID: 21300018, guid: 80275060b6e10684789abbc1214f0407,
+        type: 3}
+    - target: {fileID: 11481510, guid: c589025ecb191c64d94887d0e12e0111, type: 2}
+      propertyPath: normalColor.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11481510, guid: c589025ecb191c64d94887d0e12e0111, type: 2}
+      propertyPath: normalColor.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11481510, guid: c589025ecb191c64d94887d0e12e0111, type: 2}
+      propertyPath: normalColor.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11481510, guid: c589025ecb191c64d94887d0e12e0111, type: 2}
+      propertyPath: normalColor.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11481510, guid: c589025ecb191c64d94887d0e12e0111, type: 2}
+      propertyPath: pressedSprite
+      value: 
+      objectReference: {fileID: 21300020, guid: 80275060b6e10684789abbc1214f0407,
+        type: 3}
+    - target: {fileID: 11481510, guid: c589025ecb191c64d94887d0e12e0111, type: 2}
+      propertyPath: pressedColor.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11481510, guid: c589025ecb191c64d94887d0e12e0111, type: 2}
+      propertyPath: pressedColor.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11481510, guid: c589025ecb191c64d94887d0e12e0111, type: 2}
+      propertyPath: pressedColor.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11481510, guid: c589025ecb191c64d94887d0e12e0111, type: 2}
+      propertyPath: pressedColor.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11406364, guid: c589025ecb191c64d94887d0e12e0111, type: 2}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300020, guid: 80275060b6e10684789abbc1214f0407,
+        type: 3}
+    - target: {fileID: 11481510, guid: c589025ecb191c64d94887d0e12e0111, type: 2}
+      propertyPath: _visible
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11406364, guid: c589025ecb191c64d94887d0e12e0111, type: 2}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11481510, guid: c589025ecb191c64d94887d0e12e0111, type: 2}
+      propertyPath: _activated
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 22411198, guid: c589025ecb191c64d94887d0e12e0111, type: 2}
+      propertyPath: m_SizeDelta.x
+      value: 66.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 22411198, guid: c589025ecb191c64d94887d0e12e0111, type: 2}
+      propertyPath: m_SizeDelta.y
+      value: 66.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 11481510, guid: c589025ecb191c64d94887d0e12e0111, type: 2}
+      propertyPath: showEventInspector
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11481510, guid: c589025ecb191c64d94887d0e12e0111, type: 2}
+      propertyPath: showSpriteInspector
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 22411198, guid: c589025ecb191c64d94887d0e12e0111, type: 2}
+      propertyPath: m_AnchoredPosition.x
+      value: -53.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 22411198, guid: c589025ecb191c64d94887d0e12e0111, type: 2}
+      propertyPath: m_AnchoredPosition.y
+      value: 174.1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c589025ecb191c64d94887d0e12e0111, type: 2}
@@ -521,6 +856,201 @@ MonoBehaviour:
     m_StretchWidth: 1
     m_StretchHeight: 0
   updateInterval: 0.5
+--- !u!1 &1885692002
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 183252, guid: c589025ecb191c64d94887d0e12e0111, type: 2}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1885692003}
+  - component: {fileID: 1885692006}
+  - component: {fileID: 1885692005}
+  - component: {fileID: 1885692004}
+  m_Layer: 0
+  m_Name: Dodge
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1885692003
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 22411198, guid: c589025ecb191c64d94887d0e12e0111,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1885692002}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 169761843}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 1, y: 0}
+  m_AnchorMax: {x: 1, y: 0}
+  m_AnchoredPosition: {x: -193.7, y: 40.5}
+  m_SizeDelta: {x: 65.7, y: 65.7}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1885692004
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11406364, guid: c589025ecb191c64d94887d0e12e0111,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1885692002}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -765806418, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  m_Sprite: {fileID: 21300028, guid: 80275060b6e10684789abbc1214f0407, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 1
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+--- !u!222 &1885692005
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 22227112, guid: c589025ecb191c64d94887d0e12e0111,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1885692002}
+--- !u!114 &1885692006
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 11481510, guid: c589025ecb191c64d94887d0e12e0111,
+    type: 2}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1885692002}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba60450c5a1202b41869d8ee7136c85f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isUnregisterAtDisable: 0
+  _anchor: 0
+  _anchorOffet: {x: 0, y: 0}
+  _visible: 1
+  _activated: 0
+  enableCamera: 0
+  cameraMode: 0
+  camTargetTag: Player
+  autoLinkTagCam: 1
+  autoCamTag: MainCamera
+  cameraTransform: {fileID: 0}
+  cameraTargetMode: 0
+  enableWallDetection: 0
+  wallLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  cameraLookAt: {fileID: 0}
+  followOffset: {x: 0, y: 6, z: -6}
+  followDistance: 10
+  followHeight: 5
+  followRotationDamping: 5
+  followHeightDamping: 5
+  pointId: -1
+  enableKeySimulation: 1
+  allowSimulationStandalone: 0
+  visibleOnStandalone: 1
+  dPadAxisCount: 0
+  useFixedUpdate: 0
+  isOnDrag: 0
+  isSwipeIn: 0
+  isSwipeOut: 0
+  showPSInspector: 1
+  showSpriteInspector: 1
+  showEventInspector: 0
+  showBehaviourInspector: 1
+  showAxesInspector: 0
+  showTouchEventInspector: 0
+  showDownEventInspector: 0
+  showPressEventInspector: 0
+  showCameraInspector: 0
+  onDown:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: ETCButton+OnDownHandler, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  onPressed:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: ETCButton+OnPressedHandler, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  onPressedValue:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: ETCButton+OnPressedValueandler, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+  onUp:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: ETCButton+OnUPHandler, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  axis:
+    name: Dodge
+    autoLinkTagPlayer: 0
+    autoTag: Player
+    player: {fileID: 0}
+    enable: 1
+    invertedAxis: 0
+    speed: 15
+    deadValue: 0.1
+    valueMethod: 0
+    curveValue:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    isEnertia: 0
+    inertia: 0
+    inertiaThreshold: 0.08
+    isAutoStab: 0
+    autoStabThreshold: 0.01
+    autoStabSpeed: 10
+    isClampRotation: 0
+    maxAngle: 90
+    minAngle: 90
+    isValueOverTime: 0
+    overTimeStep: 1
+    maxOverTimeValue: 1
+    axisValue: 0
+    axisSpeedValue: 0
+    axisThreshold: 0.5
+    isLockinJump: 0
+    axisState: 0
+    _directTransform: {fileID: 0}
+    directAction: 0
+    axisInfluenced: 0
+    actionOn: 1
+    directCharacterController: {fileID: 0}
+    directRigidBody: {fileID: 0}
+    gravity: 0
+    currentGravity: 0
+    isJump: 0
+    unityAxis: Jump
+    showGeneralInspector: 0
+    showDirectInspector: 0
+    showInertiaInspector: 0
+    showSimulatinInspector: 0
+  normalSprite: {fileID: 21300028, guid: 80275060b6e10684789abbc1214f0407, type: 3}
+  normalColor: {r: 1, g: 1, b: 1, a: 1}
+  pressedSprite: {fileID: 21300026, guid: 80275060b6e10684789abbc1214f0407, type: 3}
+  pressedColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1 &2016908043
 GameObject:
   m_ObjectHideFlags: 0
