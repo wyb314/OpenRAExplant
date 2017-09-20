@@ -50174,11 +50174,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f86ca0dbdb2b4e7e87ee84695cdde8d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ofname: "\u6D4B\u8BD5"
-  ofid: 1060314212
-  ofkey: EZttTsnaI0iUhfBHBVmf2Q
-  ofsecret: LAYRF7SEO0vFKzb0RoSrb29SJ7QROkfM
-  appstore: default
 --- !u!114 &2476
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -54285,7 +54280,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7beb7e2b33f164cc6a9aaa48b7e4249d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Target: {fileID: 639}
+  Target: {fileID: 0}
   Animation: {fileID: 2367}
   BaseFov: 0
 --- !u!114 &2674
@@ -55461,7 +55456,9 @@ MonoBehaviour:
   winding: 0
   autoUpdateBounds: 1
   DrawDepth: 100
-  UILayer: {}
+  UILayer:
+    serializedVersion: 2
+    m_Bits: 2147483648
   ZeroLocation: -1
   ScreenOrientation: 3
 --- !u!114 &2741

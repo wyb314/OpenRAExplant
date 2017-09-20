@@ -46,8 +46,4 @@ public class FpsCounter : MonoBehaviour
 			 frames = 0;
 	    }
 	}
-
-    void OnGUI()
-    {
-    }
 }

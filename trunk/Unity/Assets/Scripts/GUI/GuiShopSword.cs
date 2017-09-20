@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using System;
-using Sprite = MadFinger.Sprite;
+
 public class GuiShopSword
 {
     private GuiManager Gui;

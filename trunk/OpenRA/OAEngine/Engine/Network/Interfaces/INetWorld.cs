@@ -14,6 +14,6 @@ namespace Engine.Network.Interfaces
         int SyncHash();
 
         void Tick();
-     
+
     }
 }

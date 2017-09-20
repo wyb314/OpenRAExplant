@@ -1729,7 +1729,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc6e44ba560f04cf7a387bb966bcb255, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  LeaderBoardID: 0
   GameDifficulty: 0
+  ControlsButtonOffset: {x: 0, y: 0}
+  ControlsJoystickOffset: {x: 0, y: 0}
 --- !u!114 &97
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1741,7 +1744,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b6e6feff2005a43a783349f4c2487230, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  NextLevel: 0
+  NextLevel: 
   Background: {fileID: 0}
   BackgroundButtons: {fileID: 20}
   ButtonGame: {fileID: 35}
@@ -1750,9 +1753,11 @@ MonoBehaviour:
   ButtonRewind: {fileID: 21}
   Counter: {fileID: 17}
   Counter8: {fileID: 0}
+  Buy: {fileID: 0}
   MaxPages: 8
   NextPage:
   - {fileID: 0}
+  BuyLink: []
 --- !u!1001 &98
 Prefab:
   m_ObjectHideFlags: 0

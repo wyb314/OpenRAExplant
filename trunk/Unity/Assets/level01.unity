@@ -45153,7 +45153,9 @@ MonoBehaviour:
   winding: 0
   autoUpdateBounds: 1
   DrawDepth: 100
-  UILayer: {}
+  UILayer:
+    serializedVersion: 2
+    m_Bits: 2147483648
   ZeroLocation: -1
   ScreenOrientation: 3
 --- !u!114 &2130

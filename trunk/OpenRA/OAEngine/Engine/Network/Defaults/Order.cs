@@ -1,8 +1,11 @@
 ﻿
 
 using System.IO;
+using System.Reflection.Emit;
+using System.Runtime.InteropServices;
 using System.Text;
 using Engine.Network.Interfaces;
+using Engine.OrderGenerators;
 using Engine.Support;
 
 namespace Engine.Network.Defaults
@@ -13,8 +16,8 @@ namespace Engine.Network.Defaults
         TargetLocation = 0x02,
         TargetString = 0x04,
         Queued = 0x08,
-        ExtraLocation = 0x10,
-        ExtraData = 0x20,
+        OpCode = 0x10,
+        OpData = 0x20,
         ExtDatas = 0x40
     }
 
@@ -37,7 +40,12 @@ namespace Engine.Network.Defaults
 
         public byte[] ExtDatas { private set; get; }
 
-        public Order(bool isImmediate, string orderString, byte[] extDatas = null)
+
+        public byte OpCode { private set; get; }
+
+        public byte OpData { private set; get; }
+
+        public Order(bool isImmediate, string orderString, byte[] extDatas = null,byte opCode = byte.MaxValue,byte opData = byte.MaxValue)
         {
             this.IsImmediate = isImmediate;
             this.OrderString = orderString;
@@ -52,6 +60,11 @@ namespace Engine.Network.Defaults
         public static Order Pong(string pingTime)
         {
             return new Order(true,"Pong", Encoding.UTF8.GetBytes(pingTime));
+        }
+
+        public static Order Pong(byte opCode , byte opData)
+        {
+            return new Order(true, "Controller", null,opCode,opData);
         }
 
         public static Order HandshakeResponse(byte[] bytes)
@@ -76,17 +89,23 @@ namespace Engine.Network.Defaults
                         //var queued = flags.HasField(OrderFields.Queued);
                         //var extraLocation = (CPos)(flags.HasField(OrderFields.ExtraLocation) ? r.ReadInt2() : int2.Zero);
                         //var extraData = flags.HasField(OrderFields.ExtraData) ? r.ReadUInt32() : 0;
+                        
                         var extDatas = flags.HasField(OrderFields.ExtDatas) ? r.ReadBytes(r.ReadInt32()) : null;
-
+                        byte opCode = flags.HasField(OrderFields.OpCode) ? r.ReadByte() : ControllerConst.NULL_OP_CODE;
+                        byte opData = 0;
+                        if (opCode != ControllerConst.NULL_OP_CODE)
+                        {
+                            opData = flags.HasField(OrderFields.OpData) ? r.ReadByte() : ControllerConst.NULL_OP_CODE;
+                        }
 
                         if (world == null)
-                            return new Order(false,order,extDatas);
+                            return new Order(false,order,extDatas,opCode, opData);
 
                         //Actor subject, targetActor;
                         //if (!TryGetActorFromUInt(world, subjectId, out subject) || !TryGetActorFromUInt(world, targetActorId, out targetActor))
                         //    return null;
 
-                        return new Order(false, order,extDatas);
+                        return new Order(false, order, extDatas, opCode, opData);
                     }
 
                 case 0xfe:
@@ -152,7 +171,12 @@ namespace Engine.Network.Defaults
                         //if (ExtraLocation != CPos.Zero) fields |= OrderFields.ExtraLocation;
                         //if (ExtraData != 0) fields |= OrderFields.ExtraData;
                         if (ExtDatas != null) fields |= OrderFields.ExtDatas;
-
+                        if (OpCode != ControllerConst.NULL_OP_CODE)
+                        {
+                            fields |= OrderFields.OpCode;
+                            fields |= OrderFields.OpData;
+                        }
+                       
                         w.Write((byte)fields);
 
                         //if (TargetActor != null)
@@ -167,14 +191,16 @@ namespace Engine.Network.Defaults
                         //    w.Write(ExtraData);
                         if (ExtDatas == null)
                         {
-                            w.Write(0);
-                        }
-                        else
-                        {
                             w.Write(ExtDatas.Length);
                             w.Write(ExtDatas);
                         }
-                        
+
+                        if (OpCode != ControllerConst.NULL_OP_CODE)
+                        {
+                            w.Write(this.OpCode);
+                            w.Write(this.OpData);
+                        }
+
                         return ret.ToArray();
                     }
             }

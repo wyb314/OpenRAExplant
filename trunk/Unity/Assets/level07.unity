@@ -41409,7 +41409,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24ca22c884ee846e9b881d8fed04ab0c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  updateInterval: 0.5
+  updateInterval: 1
 --- !u!114 &2035
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -44109,7 +44109,9 @@ MonoBehaviour:
   winding: 0
   autoUpdateBounds: 1
   DrawDepth: 100
-  UILayer: {}
+  UILayer:
+    serializedVersion: 2
+    m_Bits: 2147483648
   ZeroLocation: -1
   ScreenOrientation: 3
 --- !u!114 &2178

@@ -58585,7 +58585,9 @@ MonoBehaviour:
   winding: 0
   autoUpdateBounds: 1
   DrawDepth: 100
-  UILayer: {}
+  UILayer:
+    serializedVersion: 2
+    m_Bits: 2147483648
   ZeroLocation: -1
   ScreenOrientation: 3
 --- !u!114 &2658
@@ -58855,7 +58857,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7beb7e2b33f164cc6a9aaa48b7e4249d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Target: {fileID: 473}
+  Target: {fileID: 0}
   Animation: {fileID: 2368}
   BaseFov: 0
 --- !u!114 &2675

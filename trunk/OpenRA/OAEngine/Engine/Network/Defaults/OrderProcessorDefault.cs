@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using Engine.Interfaces;
 using Engine.Network.Enums;
 using Engine.Network.Interfaces;
 using Engine.Primitives;
@@ -124,7 +125,17 @@ namespace Engine.Network.Defaults
                         orderManager.IssueOrder(Order.Pong(Encoding.UTF8.GetString(order.ExtDatas)));
                         return;
                     }
+                case "Controller":
+                    {
+                        IWorld w = world as IWorld;
+                        w.ProcessOrder(clientId, order);
+                        break;
+                    }
                 default:
+                    //if (!order.IsImmediate)
+                    //{
+                        
+                    //}
                     break;
 
             }

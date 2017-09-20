@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using System;
-using Sprite = MadFinger.Sprite;
+
 public class GuiShopCombo
 {
     private GuiManager Gui;

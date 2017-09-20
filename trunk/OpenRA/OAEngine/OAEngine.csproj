@@ -36,6 +36,7 @@
     <Reference Include="System.Data" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Engine\Actor.cs" />
     <Compile Include="Engine\Exts.cs" />
     <Compile Include="Engine\FileFormats\ReplayMetadata.cs" />
     <Compile Include="Engine\Game.cs" />
@@ -45,7 +46,11 @@
     <Compile Include="Engine\Interfaces\IWorldRenderer.cs" />
     <Compile Include="Engine\LoadScreens\LoadScreenDefault.cs" />
     <Compile Include="Engine\Manifest.cs" />
-    <Compile Include="Engine\Map.cs" />
+    <Compile Include="Engine\Maps\ActorInitializer.cs" />
+    <Compile Include="Engine\Maps\ActorReference.cs" />
+    <Compile Include="Engine\Maps\Map.cs" />
+    <Compile Include="Engine\Maps\MapPlayers.cs" />
+    <Compile Include="Engine\Maps\PlayerReference.cs" />
     <Compile Include="Engine\ModData.cs" />
     <Compile Include="Engine\ModMetadata.cs" />
     <Compile Include="Engine\Network\ClientOrder.cs" />
@@ -76,8 +81,17 @@
     <Compile Include="Engine\Network\Interfaces\ICommand.cs" />
     <Compile Include="Engine\Network\Interfaces\ISlot.cs" />
     <Compile Include="Engine\Network\Server\ServerConst.cs" />
+    <Compile Include="Engine\OrderGenerators\ControllerConst.cs" />
     <Compile Include="Engine\OrderGenerators\PlayerControllerOrderGenerator.cs" />
+    <Compile Include="Engine\Partials\ActorReference.cs" />
+    <Compile Include="Engine\Partials\PlayerReference.cs" />
+    <Compile Include="Engine\Player.cs" />
+    <Compile Include="Engine\Primitives\CPos.cs" />
+    <Compile Include="Engine\Primitives\CVec.cs" />
+    <Compile Include="Engine\Primitives\float2.cs" />
+    <Compile Include="Engine\Primitives\int2.cs" />
     <Compile Include="Engine\Support\IInputsGetter.cs" />
+    <Compile Include="Engine\Types.cs" />
     <Compile Include="Engine\World.cs" />
     <Compile Include="Engine\Network\Enums\ClientState.cs" />
     <Compile Include="Engine\Network\Enums\ServerState.cs" />
@@ -124,6 +138,7 @@
     <Compile Include="Engine\Support\Program.cs" />
     <Compile Include="Engine\Sync.cs" />
     <Compile Include="Engine\WorldRenderer.cs" />
+    <Compile Include="Engine\Partials\Map.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />

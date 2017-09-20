@@ -12,7 +12,7 @@
 
 using UnityEngine;
 using System.Collections;
-using Sprite = MadFinger.Sprite;
+
 //-----------------------------------------------------------------
 // Describes a UV animation
 //-----------------------------------------------------------------

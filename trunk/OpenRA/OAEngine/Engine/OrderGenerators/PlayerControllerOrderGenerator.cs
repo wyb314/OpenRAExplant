@@ -10,6 +10,7 @@ namespace Engine.OrderGenerators
 {
     public sealed class PlayerControllerOrderGenerator : IOrderGenerator
     {
+
         public IInputsGetter inputer { private set; get; }
 
         public PlayerControllerOrderGenerator(IInputsGetter inputer)
@@ -25,7 +26,15 @@ namespace Engine.OrderGenerators
 
         public void Tick(IWorld world)
         {
-            
+            if (this.inputer.GetButtonDown("X"))
+            {
+            }
+            if (this.inputer.GetButtonDown("O"))
+            {
+            }
+            if (this.inputer.GetButtonDown("Doge"))
+            {
+            }
         }
     }
 }

@@ -238,11 +238,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f86ca0dbdb2b4e7e87ee84695cdde8d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ofname: "\u6D4B\u8BD5"
-  ofid: 1060314212
-  ofkey: EZttTsnaI0iUhfBHBVmf2Q
-  ofsecret: LAYRF7SEO0vFKzb0RoSrb29SJ7QROkfM
-  appstore: default
 --- !u!1001 &14
 Prefab:
   m_ObjectHideFlags: 0
