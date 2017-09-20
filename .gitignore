@@ -51,3 +51,5 @@ Temporary Items
 /trunk/Unity/Temp
 .vs
 .vs
+bin
+obj
