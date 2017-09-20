@@ -16,26 +16,32 @@ public class Test0 : MonoBehaviour
 {
     private PlatformInfo platformInfo;
     // Use this for initialization
+
+    private GameInputer inputer;
     void Start()
     {
+        inputer = new GameInputer();
         Time.fixedDeltaTime = ((float)Engine.Game.Timestep)/1000;
     }
 
     // Update is called once per frame
     void Update()
     {
-        //if (platformInfo != null)
-        //{
-        //    platformInfo.Tick(Time.fixedDeltaTime);
-        //}
+        if (platformInfo != null)
+        {
+            platformInfo.Tick(Time.deltaTime);
+        }
+
+
     }
 
     void FixedUpdate()
     {
         if (platformInfo != null)
         {
-            platformInfo.Tick(Time.fixedDeltaTime);
+            platformInfo.LogicTick(Time.fixedDeltaTime);
         }
+        
     }
 
     //Game.Mod=ra
@@ -49,7 +55,7 @@ public class Test0 : MonoBehaviour
             UberLoggerWraper logger = new UberLoggerWraper();
             logger.Initialize(platformInfo.GameContentsDir);
             platformInfo.SetLogger(logger);
-            platformInfo.inputer = new GameInputer();
+            platformInfo.inputer = inputer;
 
             Program.Run(new string[] { "Game.Mod=ra" }, platformInfo);
 

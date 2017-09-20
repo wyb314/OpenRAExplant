@@ -12,7 +12,9 @@ namespace OAUnityLayer
 
         public PlatformType currentPlatform { private set; get; }
 
-        public System.Action<float> Tick { set; get; }
+        public System.Action<float> LogicTick { set; get; }
+
+        public Action<float> Tick { set; get; }
 
         public System.Action OnApplicationQuit { set; get; }
 

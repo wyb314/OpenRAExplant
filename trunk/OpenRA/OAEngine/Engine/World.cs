@@ -16,11 +16,16 @@ namespace Engine
     {
         public int Timestep;
 
+        //internal readonly TraitDictionary TraitDict = new TraitDictionary();
+        readonly SortedDictionary<uint, Actor> actors = new SortedDictionary<uint, Actor>();
+
         private readonly Map Map = null;
         internal readonly IOrderManager<ClientDefault> OrderManager;
         public Session<ClientDefault> LobbyInfo { get { return OrderManager.LobbyInfo; } }
 
         public Dictionary<int,Player> Players = new Dictionary<int, Player>();
+
+        readonly Queue<Action<World>> frameEndActions = new Queue<Action<World>>();
 
         public World(ModData modData, Map map, IOrderManager<ClientDefault> orderManager, WorldType type)
         {
@@ -48,14 +53,16 @@ namespace Engine
 
         public bool Paused { get; set; }
 
+        public void AddFrameEndTask(Action<World> a) { frameEndActions.Enqueue(a); }
+        public int WorldTick { get; private set; }
 
         private void CreatePlayers(IOrderManager<ClientDefault> orderManager)
         {
             var worldPlayers = new List<Player>();
             Player localPlayer = null;
-            foreach (var kv in orderManager.LobbyInfo.Slots)
+            foreach (var client in orderManager.LobbyInfo.Clients)
             {
-                var client = orderManager.LobbyInfo.ClientInSlot(kv.Key);
+                //var client = orderManager.LobbyInfo.ClientInSlot(kv.Key);
                 if (client == null)
                     continue;
 
@@ -82,7 +89,16 @@ namespace Engine
 
         public void Tick()
         {
-            
+            if (!Paused)
+            {
+                WorldTick++;
+
+                foreach (var a in actors.Values)
+                    a.Tick();
+            }
+
+            while (frameEndActions.Count != 0)
+                frameEndActions.Dequeue()(this);
         }
         
         public void TickRender(IWorldRenderer worldRenderer)

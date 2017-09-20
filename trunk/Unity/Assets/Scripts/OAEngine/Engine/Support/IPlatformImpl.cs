@@ -15,6 +15,11 @@ namespace Engine.Support
         string GameContentsDir { get; }
 
         /// <summary>
+        /// 游戏逻辑循环
+        /// </summary>
+        Action<float> LogicTick { set; get; }
+
+        /// <summary>
         /// 游戏循环
         /// </summary>
         Action<float> Tick { set; get; }

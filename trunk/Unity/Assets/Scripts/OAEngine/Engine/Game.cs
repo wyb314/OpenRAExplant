@@ -144,7 +144,8 @@ namespace Engine
         internal static RunStatus Run()
         {
             
-            Platform.platformInfo.Tick = Loop;
+            Platform.platformInfo.LogicTick = LogicTick;
+            Platform.platformInfo.Tick = Tick;
             Platform.platformInfo.OnApplicationQuit = OnApplicationQuit;
             
             return state;
@@ -152,7 +153,7 @@ namespace Engine
 
         public static int LocalTick { get { return OrderManager.LocalFrameNumber; } }
 
-        static void Loop(float elapsedTime)
+        static void LogicTick(float elapsedTime)
         {
             IWorld world = OrderManager.World as IWorld;
 
@@ -199,7 +200,16 @@ namespace Engine
             }
                 
         }
+        
+        static void Tick(float elapsedTime)
+        {
+            IWorld world = OrderManager.World as IWorld;
+            
+            if (world == null)
+                return;
 
+            world.OrderGenerator.Tick(world);
+        }
 
         public static void CreateAndStartLocalServer(string mapUID, IEnumerable<Order> setupOrders)
         {
