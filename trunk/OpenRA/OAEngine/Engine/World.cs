@@ -103,6 +103,8 @@ namespace Engine
         
         public void TickRender(IWorldRenderer worldRenderer)
         {
+            foreach (var a in actors.Values)
+                a.RenderSelf(worldRenderer);
         }
 
 

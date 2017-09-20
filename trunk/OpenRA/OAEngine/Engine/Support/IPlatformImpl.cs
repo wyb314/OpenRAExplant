@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Engine.Interfaces;
 
 namespace Engine.Support
 {
@@ -38,5 +39,8 @@ namespace Engine.Support
         /// 输入输出器
         /// </summary>
         IInputsGetter inputer { set; get; }
+
+
+        IActorRendererFactory actorRendererFactory { set; get; }
     }
 }

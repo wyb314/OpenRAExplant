@@ -193,11 +193,11 @@ namespace Engine
                 
 
             // Wait until we have done our first world Tick before TickRendering
-            if (OrderManager.LocalFrameNumber > 0)
-            {
-                Sync.CheckSyncUnchanged
-                    (world, () => world.TickRender(worldRenderer));
-            }
+            //if (OrderManager.LocalFrameNumber > 0)
+            //{
+            //    Sync.CheckSyncUnchanged
+            //        (world, () => world.TickRender(worldRenderer));
+            //}
                 
         }
         
@@ -209,6 +209,12 @@ namespace Engine
                 return;
 
             world.OrderGenerator.Tick(world);
+
+            if (OrderManager.LocalFrameNumber > 0)
+            {
+                Sync.CheckSyncUnchanged
+                    (world, () => world.TickRender(worldRenderer));
+            }
         }
 
         public static void CreateAndStartLocalServer(string mapUID, IEnumerable<Order> setupOrders)

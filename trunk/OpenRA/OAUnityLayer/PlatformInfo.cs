@@ -1,5 +1,6 @@
 ﻿using System;
 using Engine;
+using Engine.Interfaces;
 using Engine.Support;
 using UnityEngine;
 using ILogger = Engine.Support.ILogger;
@@ -21,6 +22,8 @@ namespace OAUnityLayer
         public ILogger Logger { private set ; get; }
 
         public IInputsGetter inputer { set; get; }
+
+        public IActorRendererFactory actorRendererFactory { set; get; }
 
         private string gameContentsDir;
 

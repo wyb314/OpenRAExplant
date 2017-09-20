@@ -29,6 +29,7 @@ namespace Engine
             {
                 this.ClientIndex = client.Index;
             }
+            this.PlayerActor = new Actor(world,"",null);
            
             //this.InternalName = pr.Name;
 
@@ -38,26 +39,21 @@ namespace Engine
         {
             //Order _order = order.OrderString;
             Order _order = order as Order;
-            E_AttackType attackType = (E_AttackType)_order.OpCode;
+            E_OpType opType = (E_OpType)_order.OpCode;
 
             Log.Write("ClientIdx ->",
-                "Client:{0} opCode->{1} opData->{2} attackType->{3}".
-                F(this.ClientIndex,_order.OpCode,_order.OpData,attackType));
-            switch (attackType)
+                "Client:{0} opCode->{1} opData->{2} opType->{3}".
+                F(this.ClientIndex,_order.OpCode,_order.OpData, opType));
+            switch (opType)
             {
-                case E_AttackType.X:
+                case E_OpType.X:
                     break;
-                case E_AttackType.O:
+                case E_OpType.O:
                     break;
-                case E_AttackType.BossBash:
+                case E_OpType.Dodge:
                     break;
-                case E_AttackType.Fatality:
-                    break;
-                case E_AttackType.Counter:
-                    break;
-                case E_AttackType.Berserk:
-                    break;
-                case E_AttackType.Max:
+                case E_OpType.Joystick:
+                    this.PlayerActor.SetMoveDir(_order.OpData);
                     break;
                 default:
                     break;
