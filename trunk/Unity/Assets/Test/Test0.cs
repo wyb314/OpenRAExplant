@@ -31,9 +31,8 @@ public class Test0 : MonoBehaviour
         {
             platformInfo.Tick(Time.deltaTime);
         }
-
-
-    }
+        
+    } 
 
     void FixedUpdate()
     {

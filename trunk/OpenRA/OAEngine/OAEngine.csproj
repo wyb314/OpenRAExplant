@@ -38,10 +38,13 @@
   <ItemGroup>
     <Compile Include="Engine\Actor.cs" />
     <Compile Include="Engine\Exts.cs" />
+    <Compile Include="Engine\Factories\ActorFactory.cs" />
     <Compile Include="Engine\FileFormats\ReplayMetadata.cs" />
     <Compile Include="Engine\Game.cs" />
+    <Compile Include="Engine\Interfaces\IActorRendererFactory.cs" />
     <Compile Include="Engine\Interfaces\ILoadScreen.cs" />
     <Compile Include="Engine\Interfaces\IOrderGenerator.cs" />
+    <Compile Include="Engine\Interfaces\IRender.cs" />
     <Compile Include="Engine\Interfaces\IWorld.cs" />
     <Compile Include="Engine\Interfaces\IWorldRenderer.cs" />
     <Compile Include="Engine\LoadScreens\LoadScreenDefault.cs" />
@@ -51,6 +54,7 @@
     <Compile Include="Engine\Maps\Map.cs" />
     <Compile Include="Engine\Maps\MapPlayers.cs" />
     <Compile Include="Engine\Maps\PlayerReference.cs" />
+    <Compile Include="Engine\MathUtils.cs" />
     <Compile Include="Engine\ModData.cs" />
     <Compile Include="Engine\ModMetadata.cs" />
     <Compile Include="Engine\Network\ClientOrder.cs" />
@@ -90,6 +94,8 @@
     <Compile Include="Engine\Primitives\CVec.cs" />
     <Compile Include="Engine\Primitives\float2.cs" />
     <Compile Include="Engine\Primitives\int2.cs" />
+    <Compile Include="Engine\Primitives\WAngle.cs" />
+    <Compile Include="Engine\Primitives\WRot.cs" />
     <Compile Include="Engine\Support\IInputsGetter.cs" />
     <Compile Include="Engine\Types.cs" />
     <Compile Include="Engine\World.cs" />
