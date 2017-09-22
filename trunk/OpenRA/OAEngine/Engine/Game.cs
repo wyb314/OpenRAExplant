@@ -145,7 +145,7 @@ namespace Engine
         {
             
             Platform.platformInfo.LogicTick = LogicTick;
-            Platform.platformInfo.Tick = Tick;
+            //Platform.platformInfo.Tick = Tick;
             Platform.platformInfo.OnApplicationQuit = OnApplicationQuit;
             
             return state;
@@ -190,32 +190,32 @@ namespace Engine
             //{
             //    //OrderManager.LastTickTime = RunTime;
             //}
-                
+
 
             // Wait until we have done our first world Tick before TickRendering
-            //if (OrderManager.LocalFrameNumber > 0)
-            //{
-            //    Sync.CheckSyncUnchanged
-            //        (world, () => world.TickRender(worldRenderer));
-            //}
-                
-        }
-        
-        static void Tick(float elapsedTime)
-        {
-            IWorld world = OrderManager.World as IWorld;
-            
-            if (world == null)
-                return;
-
-            world.OrderGenerator.Tick(world);
-
             if (OrderManager.LocalFrameNumber > 0)
             {
                 Sync.CheckSyncUnchanged
                     (world, () => world.TickRender(worldRenderer));
             }
+
         }
+        
+        //static void Tick(float elapsedTime)
+        //{
+        //    IWorld world = OrderManager.World as IWorld;
+            
+        //    if (world == null)
+        //        return;
+
+        //    world.OrderGenerator.Tick(world);
+
+        //    if (OrderManager.LocalFrameNumber > 0)
+        //    {
+        //        Sync.CheckSyncUnchanged
+        //            (world, () => world.TickRender(worldRenderer));
+        //    }
+        //}
 
         public static void CreateAndStartLocalServer(string mapUID, IEnumerable<Order> setupOrders)
         {
@@ -304,12 +304,19 @@ namespace Engine
             OrderManager.LocalFrameNumber = 0;
 
             OrderManager.StartGame();
+
+            AllUserInput();
+
             //worldRenderer.RefreshPalette();
             //Cursor.SetCursor("default");
 
             GC.Collect();
         }
-
+        
+        internal static void AllUserInput()
+        {
+            Platform.platformInfo.inputter.AllowGetInput = true;
+        }
 
         internal static void SyncLobbyInfo()
         {

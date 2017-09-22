@@ -32,7 +32,7 @@ namespace Engine
             this.OrderManager = orderManager;
             Timestep = orderManager.LobbyInfo.GlobalSettings.Timestep;
             this.Map = map;
-            this.orderGenerator = new PlayerControllerOrderGenerator(Platform.platformInfo.inputer);
+            this.orderGenerator = new PlayerControllerOrderGenerator();
             this.CreatePlayers(orderManager);
         }
 
@@ -87,6 +87,12 @@ namespace Engine
             return 0;
         }
 
+        uint nextAID = 0;
+        internal uint NextAID()
+        {
+            return nextAID++;
+        }
+
         public void Tick()
         {
             if (!Paused)
@@ -120,6 +126,11 @@ namespace Engine
             {
                 p.ProcessOrder(order);
             }
+        }
+
+        public void Add(Actor a)
+        {
+            actors.Add(a.ActorID, a);
         }
     }
 }

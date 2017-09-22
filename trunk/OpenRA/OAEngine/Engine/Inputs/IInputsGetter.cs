@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Engine.Support
+namespace Engine.Inputs
 {
     public interface IInputsGetter
     {

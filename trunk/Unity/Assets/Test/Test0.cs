@@ -8,7 +8,9 @@ using Engine;
 using Engine.Network;
 using Engine.Network.Defaults;
 using Engine.Network.Enums;
+using Engine.Primitives;
 using Engine.Support;
+using OAUnityLayer.Factories;
 using OAUnityLayer.Support;
 using Game = Engine.Game;
 
@@ -17,11 +19,14 @@ public class Test0 : MonoBehaviour
     private PlatformInfo platformInfo;
     // Use this for initialization
 
-    private GameInputer inputer;
+    public Transform playTran;
+
+    private GameInputerGetter inputer;
     void Start()
     {
-        inputer = new GameInputer();
+        inputer = new GameInputerGetter();
         Time.fixedDeltaTime = ((float)Engine.Game.Timestep)/1000;
+
     }
 
     // Update is called once per frame
@@ -29,10 +34,28 @@ public class Test0 : MonoBehaviour
     {
         if (platformInfo != null)
         {
-            platformInfo.Tick(Time.deltaTime);
+            platformInfo.inputter.Update();
         }
         
-    } 
+        //this.GetJoystickInput();
+
+    }
+
+    private int curFacing;
+    private int targetFaceing;
+
+    private void GetJoystickInput()
+    {
+        float h = this.inputer.GetAxis("Horizontal");
+        float v = this.inputer.GetAxis("Vertical");
+
+        float sqrLength = h * h + v * v;
+        if (sqrLength > 0)
+        {
+            float rad = Mathf.Atan2(v, h);
+            this.targetFaceing = (int)(rad * 128 / Mathf.PI);
+        }
+    }
 
     void FixedUpdate()
     {
@@ -40,7 +63,13 @@ public class Test0 : MonoBehaviour
         {
             platformInfo.LogicTick(Time.fixedDeltaTime);
         }
-        
+
+        if (this.curFacing != this.targetFaceing)
+        {
+            float rad = this.targetFaceing*Mathf.PI/128;
+
+            this.playTran.eulerAngles = new Vector3(0,rad * Mathf.Rad2Deg,0);
+        }
     }
 
     //Game.Mod=ra
@@ -54,7 +83,8 @@ public class Test0 : MonoBehaviour
             UberLoggerWraper logger = new UberLoggerWraper();
             logger.Initialize(platformInfo.GameContentsDir);
             platformInfo.SetLogger(logger);
-            platformInfo.inputer = inputer;
+            platformInfo.inputGetter = inputer;
+            platformInfo.actorRendererFactory = new NormalActorRendererFactory();
 
             Program.Run(new string[] { "Game.Mod=ra" }, platformInfo);
 

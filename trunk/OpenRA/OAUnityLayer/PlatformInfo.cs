@@ -1,5 +1,6 @@
 ﻿using System;
 using Engine;
+using Engine.Inputs;
 using Engine.Interfaces;
 using Engine.Support;
 using UnityEngine;
@@ -15,13 +16,12 @@ namespace OAUnityLayer
 
         public System.Action<float> LogicTick { set; get; }
 
-        public Action<float> Tick { set; get; }
+        //public Action<float> Tick { set; get; }
 
         public System.Action OnApplicationQuit { set; get; }
 
         public ILogger Logger { private set ; get; }
-
-        public IInputsGetter inputer { set; get; }
+        
 
         public IActorRendererFactory actorRendererFactory { set; get; }
 
@@ -37,6 +37,23 @@ namespace OAUnityLayer
                 }
                 return gameContentsDir;
             }
+        }
+        
+        public IInputter inputter {private set; get; }
+
+        public IInputsGetter inputGetter
+        {
+            get { return this.inputter.inputGetter; }
+
+            set
+            {
+                this.inputter.inputGetter = value;
+            }
+        }
+
+        public PlatformInfo()
+        {
+            this.inputter = new GameInputter();
         }
 
 

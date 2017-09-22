@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Engine.Inputs;
+using Engine.Interfaces;
 
 namespace Engine.Support
 {
@@ -19,10 +21,10 @@ namespace Engine.Support
         /// </summary>
         Action<float> LogicTick { set; get; }
 
-        /// <summary>
-        /// 游戏循环
-        /// </summary>
-        Action<float> Tick { set; get; }
+        ///// <summary>
+        ///// 游戏循环
+        ///// </summary>
+        //Action<float> Tick { set; get; }
 
         /// <summary>
         /// 游戏退出回调
@@ -34,9 +36,15 @@ namespace Engine.Support
         /// </summary>
         ILogger Logger { get; }
 
+        IInputter inputter { get; }
+
         /// <summary>
         /// 输入输出器
         /// </summary>
-        IInputsGetter inputer { set; get; }
+        IInputsGetter inputGetter { set; get; }
+
+
+        IActorRendererFactory actorRendererFactory { set; get; }
+        
     }
 }

@@ -50,6 +50,8 @@ namespace Engine.Network.Defaults
             this.IsImmediate = isImmediate;
             this.OrderString = orderString;
             this.ExtDatas = extDatas;
+            this.OpCode = opCode;
+            this.OpData = opData;
         }
 
         public static Order Command(string text)
@@ -64,7 +66,7 @@ namespace Engine.Network.Defaults
 
         public static Order ButtonDown(byte opCode , byte opData = 0)
         {
-            return new Order(true, "Controller", null,opCode,opData);
+            return new Order(false, "Controller", null,opCode,opData);
         }
 
         public static Order HandshakeResponse(byte[] bytes)
@@ -189,7 +191,7 @@ namespace Engine.Network.Defaults
                         //    w.Write(ExtraLocation);
                         //if (ExtraData != 0)
                         //    w.Write(ExtraData);
-                        if (ExtDatas == null)
+                        if (ExtDatas != null)
                         {
                             w.Write(ExtDatas.Length);
                             w.Write(ExtDatas);

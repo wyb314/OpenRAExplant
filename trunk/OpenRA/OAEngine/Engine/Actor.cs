@@ -20,10 +20,14 @@ namespace Engine
 
         public IRender render;
 
+        public readonly uint ActorID;
+
         public Actor(World world, string name, TypeDictionary initDict)
         {
             this.World = world;
             this.render = Platform.platformInfo.actorRendererFactory.CreateActorRenderer();
+
+            ActorID = world.NextAID();
         }
 
         public void Tick()
@@ -32,8 +36,8 @@ namespace Engine
 
         public void SetMoveDir(byte angle)
         {
-            
-            this.Pos += this.MoveSpeed*new CVec();
+            this.Rot = angle;
+            //this.Pos += this.MoveSpeed*new CVec();
         }
 
         public void RenderSelf(IWorldRenderer worldRenderer)

@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using Engine.Inputs;
 using Engine.Support;
 using UnityEngine;
 
-public class GameInputer : IInputsGetter
+public class GameInputerGetter : IInputsGetter
 {
     public float GetAxis(string axisName)
     {

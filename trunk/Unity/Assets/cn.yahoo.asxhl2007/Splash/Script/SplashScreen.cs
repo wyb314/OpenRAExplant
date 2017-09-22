@@ -1,6 +1,7 @@
 using UnityEngine;
 
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class SplashScreen : MonoBehaviour
 {
@@ -49,6 +50,7 @@ public class SplashScreen : MonoBehaviour
 
     void Start()
     {
+        SceneManager.sceneLoaded += this.OnLevelWasLoaded1;
         if (logoList == null || logoList.Length == 0)
         {
 			if(The9Settings.appstore == The9Settings.Appstore.mm) {
@@ -154,7 +156,7 @@ public class SplashScreen : MonoBehaviour
         }
     }
 
-    void OnLevelWasLoaded(int lvlIdx)
+    void OnLevelWasLoaded1(Scene scene, LoadSceneMode mode)
     {
         if (loadingNextLevel)
         {

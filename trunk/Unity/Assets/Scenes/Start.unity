@@ -689,6 +689,7 @@ GameObject:
   - component: {fileID: 1701806884}
   - component: {fileID: 1701806889}
   - component: {fileID: 1701806890}
+  - component: {fileID: 1701806891}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -777,6 +778,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b92b0a208c55cd64aa02f515d5e7eaf7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playTran: {fileID: 0}
 --- !u!114 &1701806890
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -856,6 +858,27 @@ MonoBehaviour:
     m_StretchWidth: 1
     m_StretchHeight: 0
   updateInterval: 0.5
+--- !u!114 &1701806891
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1701806883}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd43faaf88785e1429e6c8bf58dbc336, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 0}
+  distance: 4
+  height: 0.93
+  heightDamping: 7.55
+  rotationDamping: 3
+  posDamping: 10
+  maxAngleSpeed: 30
+  wantedAngle: 0
+  rot_y_scale: 1
+  rot_y_speed: 0
 --- !u!1 &1885692002
 GameObject:
   m_ObjectHideFlags: 0

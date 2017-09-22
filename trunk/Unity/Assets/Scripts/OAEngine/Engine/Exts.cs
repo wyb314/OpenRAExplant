@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -153,6 +154,30 @@ namespace Engine
                 root += 1;
 
             return root;
+        }
+        
+        public static T[] MakeArray<T>(int count, Func<int, T> f)
+        {
+            var result = new T[count];
+            for (var i = 0; i < count; i++)
+                result[i] = f(i);
+
+            return result;
+        }
+
+        public static bool TryParseIntegerInvariant(string s, out int i)
+        {
+            return int.TryParse(s, NumberStyles.Integer, NumberFormatInfo.InvariantInfo, out i);
+        }
+
+        public static T Clamp<T>(this T val, T min, T max) where T : IComparable<T>
+        {
+            if (val.CompareTo(min) < 0)
+                return min;
+            else if (val.CompareTo(max) > 0)
+                return max;
+            else
+                return val;
         }
 
     }
