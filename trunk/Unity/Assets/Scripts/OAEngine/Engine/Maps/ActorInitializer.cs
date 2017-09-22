@@ -40,7 +40,13 @@ namespace Engine.Maps
 
     public class LocationInit : IActorInit<CPos>
     {
-        readonly CPos value = CPos.Zero;
+#region YAML Field
+        public int X { set; get; }
+
+        public int Y { set; get; }
+#endregion
+
+        public CPos value = CPos.Zero;
         public LocationInit() { }
         public LocationInit(CPos init) { value = init; }
         public CPos Value(World world) { return value; }
@@ -48,8 +54,17 @@ namespace Engine.Maps
 
     public class OwnerInit : IActorInit<Player>
     {
+#region YAML Field
 
-        public readonly string PlayerName = "Neutral";
+        private string playerName = "Neutral";
+
+        public string PlayerName
+        {
+            set { this.playerName = value; }
+            get { return this.playerName; }
+        }
+#endregion
+
         Player player;
 
         public OwnerInit() { }
@@ -66,8 +81,7 @@ namespace Engine.Maps
             if (player != null)
                 return player;
 
-            //return world.Players.First(x => x.InternalName == PlayerName);
-            return null;
+            return world.Players.First(x => x.InternalName == PlayerName);
         }
     }
 }

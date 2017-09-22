@@ -42,9 +42,9 @@ namespace Engine
             Order _order = order as Order;
             E_OpType opType = (E_OpType)_order.OpCode;
 
-            Log.Write("ClientIdx ->",
-                "Client:{0} opCode->{1} opData->{2} opType->{3}".
-                F(this.ClientIndex,_order.OpCode,_order.OpData, opType));
+            //Log.Write("ClientIdx ->",
+            //    "Client:{0} opCode->{1} opData->{2} opType->{3}".
+            //    F(this.ClientIndex,_order.OpCode,_order.OpData, opType));
             switch (opType)
             {
                 case E_OpType.X:

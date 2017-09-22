@@ -23,7 +23,7 @@ namespace Engine
         internal readonly IOrderManager<ClientDefault> OrderManager;
         public Session<ClientDefault> LobbyInfo { get { return OrderManager.LobbyInfo; } }
 
-        public Dictionary<int,Player> Players = new Dictionary<int, Player>();
+        public Player[] Players = new Player[0];
 
         readonly Queue<Action<World>> frameEndActions = new Queue<Action<World>>();
 
@@ -73,7 +73,7 @@ namespace Engine
                     localPlayer = player;
             }
 
-            this.Players = worldPlayers.ToDictionary(p => p.ClientIndex, p => p);
+            this.Players = worldPlayers.ToArray();
 
         }
 

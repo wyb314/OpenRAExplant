@@ -161,6 +161,7 @@
     <Compile Include="Assets\EasyTouchBundle\EasyTouchControls\Plugins\Editor\ETCJoystickInspector.cs" />
     <Compile Include="Assets\EasyTouchBundle\EasyTouchControls\Plugins\Editor\ETCMenu.cs" />
     <Compile Include="Assets\EasyTouchBundle\EasyTouchControls\Plugins\Editor\ETCTouchPadInspector.cs" />
+    <Compile Include="Assets\Test\GenerateConfgs\Editor\CrateCfg.cs" />
     <Compile Include="Assets\UberLogger\Editor\UberLoggerEditorWindow.cs" />
   </ItemGroup>
   <ItemGroup>
