@@ -1,0 +1,19 @@
+﻿Server:
+  Name: OpenRA Game
+  ListenPort: 1234
+  ExternalPort: 1234
+  AdvertiseOnline: true
+  Password: ''
+  NatDiscoveryTimeout: 1000
+  QueryMapRepository: true
+  TimestampFormat: s
+Debug:
+  BotDebug: true
+  LuaDebug: true
+  PerfText: true
+  PerfGraph: true
+  SendSystemInformation: true
+  EnableDebugCommandsInReplays: true
+Player:
+  Name: Newbie
+  LastServer: localhost:1234
