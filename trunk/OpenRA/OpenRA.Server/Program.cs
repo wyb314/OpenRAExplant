@@ -33,7 +33,6 @@ namespace Engine.Server
             Log.AddChannel("nat", "nat.log");
             Log.AddChannel("wyb", "wyb.log");
             
-            return;
             // Special case handling of Game.Mod argument: if it matches a real filesystem path
             // then we use this to override the mod search path, and replace it with the mod id
             var modID = arguments.GetValue("Game.Mod", null);

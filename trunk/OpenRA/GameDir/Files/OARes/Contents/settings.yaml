@@ -15,5 +15,5 @@ Debug:
   SendSystemInformation: true
   EnableDebugCommandsInReplays: true
 Player:
-  Name: Newbie
+  Name: wyb
   LastServer: localhost:1234

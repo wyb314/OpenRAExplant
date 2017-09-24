@@ -8,6 +8,7 @@ using OAUnityLayer;
 using UnityEngine;
 using UnityEditor;
 using YamlDotNet.Serialization;
+using YamlDotNet.Serialization.NamingConventions;
 
 public class CrateCfg
 {
@@ -178,15 +179,31 @@ public class CrateCfg
         Platform.SetCurrentPlatform(platformInfo);
 
         string dir = Platform.SupportDir + @"/";
-        if (!Directory.Exists(dir))
-        {
-            Directory.CreateDirectory(dir);
-        }
-        using (StreamWriter sw = new StreamWriter(File.OpenWrite(dir + "settings.yaml"), Encoding.UTF8))
-        {
-            sw.Write(yaml);
-        }
+        //if (!Directory.Exists(dir))
+        //{
+        //    Directory.CreateDirectory(dir);
+        //}
+        //using (StreamWriter sw = new StreamWriter(File.OpenWrite(dir + "settings.yaml"), Encoding.UTF8))
+        //{
+        //    sw.Write(yaml);
+        //}
 
+        string path = dir + "settings.yaml";
+
+        Settings setting1 = null;
+        using (Stream stream = File.OpenRead(path))
+        {
+            var input = File.ReadAllText(path, Encoding.UTF8);
+
+            //var deserializer = new DeserializerBuilder().IgnoreUnmatchedProperties()
+            //    .WithNamingConvention(new CamelCaseNamingConvention())
+            //    .Build();
+            var deserializer = new DeserializerBuilder().WithNamingConvention(new NullNamingConvention())
+                .Build();
+
+            setting1 = deserializer.Deserialize<Settings>(input);
+        }
+        Debug.Log("Player name ->"+setting1.Player.Name);
         Debug.Log("Test write setting config successful!");
     }
 
