@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using Engine.Maps;
 
-namespace Engine.Partials
+namespace Engine.Maps
 {
     public class ActorInitInfo
     {

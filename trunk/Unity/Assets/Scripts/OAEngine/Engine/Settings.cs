@@ -18,7 +18,7 @@ namespace Engine
 
         public int ListenPort
         {
-            private set { listenPort = value; }
+            set { listenPort = value; }
             get { return this.listenPort; }
         }
 
@@ -26,7 +26,7 @@ namespace Engine
 
         public int ExternalPort
         {
-            private set { this.externalPort = value; }
+            set { this.externalPort = value; }
             get { return this.externalPort; }
         }
 
@@ -42,7 +42,7 @@ namespace Engine
 
         public string Password
         {
-            private set { this.password = value; }
+            set { this.password = value; }
             get { return this.password; }
         }
 
@@ -51,7 +51,7 @@ namespace Engine
 
         public bool DiscoverNatDevices
         {
-            private set { this.discoverNatDevices = value; }
+            set { this.discoverNatDevices = value; }
             get { return this.discoverNatDevices; }
         }
 
@@ -67,7 +67,7 @@ namespace Engine
 
         public int NatDiscoveryTimeout
         {
-            private set { this.natDiscoveryTimeout = value; }
+            set { this.natDiscoveryTimeout = value; }
             get { return this.natDiscoveryTimeout; }
         }
 
@@ -83,24 +83,18 @@ namespace Engine
 
         public string[] Ban
         {
-            private set { this.ban = value; }
+            set { this.ban = value; }
             get { return this.ban; }
         }
-
-        private bool enableSingleplayer = true;
-
-        public bool EnableSingleplayer
-        {
-            private set { this.enableSingleplayer = value; }
-            get { return this.enableSingleplayer; }
-        }
+        
+        public bool EnableSingleplayer { set; get; }
 
 
         private bool queryMapRepository = true;
 
         public bool QueryMapRepository
         {
-            private set { this.queryMapRepository = value; }
+            set { this.queryMapRepository = value; }
             get { return this.queryMapRepository; }
         }
 
@@ -108,7 +102,7 @@ namespace Engine
 
         public string TimestampFormat
         {
-            private set { this.timestampFormat = value; }
+            set { this.timestampFormat = value; }
             get { return this.timestampFormat; }
         }
 
@@ -120,31 +114,77 @@ namespace Engine
 
     public class PlayerSettings
     {
-        public string Name = "Newbie";
-        public string LastServer = "localhost:1234";
+        private string name = "Newbie";
+        public string Name
+        {
+            set { this.name = value; }
+            get { return this.name; }
+        }
+
+        private string lastServer = "localhost:1234";
+
+        public string LastServer
+        {
+            set { this.lastServer = value; }
+            get { return this.lastServer; }
+        }
     }
 
     public class DebugSettings
     {
-        public bool BotDebug = true;
-        public bool LuaDebug = true;
-        public bool PerfText = true;
-        public bool PerfGraph = true;
+        public bool BotDebug { set; get; }
+        public bool LuaDebug { set; get; }
+        public bool PerfText { set; get; }
+        public bool PerfGraph { set; get; }
+
         public float LongTickThresholdMs = 1;
-        public bool SanityCheckUnsyncedCode = false;
-        public int Samples = 25;
-        public bool IgnoreVersionMismatch = false;
-        public bool StrictActivityChecking = false;
-        public bool SendSystemInformation = true;
-        public int SystemInformationVersionPrompt = 0;
-        public string UUID = System.Guid.NewGuid().ToString();
+        public bool SanityCheckUnsyncedCode { set; get; }
+        public int Samples { set; get; }
+        public bool IgnoreVersionMismatch { set; get; }
+        public bool StrictActivityChecking { set; get; }
+
+        private bool sendSystemInformation = true;
+
+        public bool SendSystemInformation
+        {
+            set { this.sendSystemInformation = value; }
+            get { return this.sendSystemInformation; }
+        }
+        public int SystemInformationVersionPrompt { set; get; }
+
+        public bool EnableDebugCommandsInReplays { set; get; }
+
+        public string UUID = "";
+
+        public DebugSettings()
+        {
+            this.UUID = System.Guid.NewGuid().ToString();
+        }
     }
 
     public class Settings
     {
-        public readonly ServerSettings Server = new ServerSettings();
-        public readonly DebugSettings Debug = new DebugSettings();
-        public readonly PlayerSettings Player = new PlayerSettings();
+        private ServerSettings server = new ServerSettings();
+        public ServerSettings Server
+        {
+            set { this.server = value; }
+            get { return this.server; }
+        }
+
+        private DebugSettings debug = new DebugSettings();
+
+        public DebugSettings Debug
+        {
+            set { this.debug = value; }
+            get { return this.debug; }
+        }
+
+        private PlayerSettings player = new PlayerSettings();
+
+        public PlayerSettings Player {
+            set { this.player = value; }
+            get { return this.player; }
+        }
 
         public static string SanitizedServerName(string dirty)
         {
