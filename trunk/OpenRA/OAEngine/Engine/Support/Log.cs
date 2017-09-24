@@ -15,12 +15,6 @@ using System.IO;
 
 namespace Engine.Support
 {
-	public struct ChannelInfo
-	{
-		public string Filename;
-		public TextWriter Writer;
-	}
-
 	public static class Log
 	{
 	    private static ILogger innerLogger;

@@ -6,15 +6,23 @@ using System.Threading;
 using Engine;
 using Engine.Network.Defaults;
 using Engine.Network.Enums;
+using Engine.Server.Logs;
 using Engine.Support;
+using Server;
 
-namespace OpenRA.Server
+namespace Engine.Server
 {
     class Program
     {
         static void Main(string[] args)
         {
             var arguments = new Arguments(args);
+            ServerPlatformInfo platformInfo = new ServerPlatformInfo();
+            platformInfo.GatherInfomation();
+            platformInfo.SetLogger(new ServerLogger());
+
+            Platform.SetCurrentPlatform(platformInfo);
+            Log.SetLogger(platformInfo.Logger);
             Log.AddChannel("perf", "perf.log");
             Log.AddChannel("debug", "debug.log");
             Log.AddChannel("server", "server.log");
@@ -24,6 +32,8 @@ namespace OpenRA.Server
             Log.AddChannel("irc", "irc.log");
             Log.AddChannel("nat", "nat.log");
             Log.AddChannel("wyb", "wyb.log");
+
+            return;
 
             // Special case handling of Game.Mod argument: if it matches a real filesystem path
             // then we use this to override the mod search path, and replace it with the mod id
