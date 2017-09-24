@@ -18,8 +18,11 @@ namespace Engine.Server.Logs
 
         static IEnumerable<string> FilenamesForChannel(string channelName, string baseFilename)
         {
-            var path = Platform.SupportDir + "Logs";
-            Directory.CreateDirectory(path);
+            var path = Platform.platformInfo.GameContentsDir+@"/Logs";
+            if (!Directory.Exists(path))
+            {
+                Directory.CreateDirectory(path);
+            }
 
             for (var i = 0; ; i++)
                 yield return Path.Combine(path, i > 0 ? "{0}.{1}".F(baseFilename, i) : baseFilename);

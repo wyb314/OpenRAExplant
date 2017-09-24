@@ -78,6 +78,7 @@ namespace Engine
 
         public static void InitializeSettings(Arguments args)
         {
+            string settingPath = Platform.ResolvePath("");
             Settings = new Settings();
         }
 
