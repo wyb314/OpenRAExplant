@@ -88,12 +88,8 @@ namespace Engine.Network.Defaults
                 {
                     foreach (var t in serverTraits.WithInterface<INotifyServerStart<ClientDefault>>())
                         t.ServerStarted(this);
-                   
-#if DEDICATED_SERVER
-                    Console.WriteLine("Initial map: {0}".F(LobbyInfo.GlobalSettings.Map));
-#else
                     Log.Write("server", "Initial map: {0}", LobbyInfo.GlobalSettings.Map);
-#endif
+
                     var timeout = 5;
                     timeout = serverTraits.WithInterface<ITick<ClientDefault>>()
                                 .Min(t => t.TickTimeout);
@@ -151,11 +147,7 @@ namespace Engine.Network.Defaults
                 catch (Exception ex)
                 {
                     string log = "Error msg : {0} stackTrace->{1}".F(ex.Message, ex.StackTrace);
-#if DEDICATED_SERVER
-                    Console.Write(log);
-#else
                     Log.Write("server", log);
-#endif
 
                 }
 
@@ -201,9 +193,7 @@ namespace Engine.Network.Defaults
                 return;
             }
 
-#if DEDICATED_SERVER
-            Console.WriteLine("Accept a connection! ");
-#endif
+            Log.Write("server", "Accept a connection! ");
             var newConn = new ServerConnectoinDefault(){ Socket = newSocket };
             try
             {
@@ -407,12 +397,7 @@ namespace Engine.Network.Defaults
         public void InterpretServerOrder(IServerConnectoin<ClientDefault> conn, IServerOrder so)
         {
             string log = "InterpretServerOrder so name->{0}".F(so.Name);
-            
-#if DEDICATED_SERVER
-            Console.WriteLine(log);
-#else
             Log.Write("wybserver", log);
-#endif
 
             switch (so.Name)
             {

@@ -75,6 +75,7 @@ namespace Engine.Server.Logs
             if (writer == null)
                 return;
 
+            Console.WriteLine(string.Format("Log ChannelName->{0} message->{1}", channelName, message));
             writer.WriteLine("Assert: "+message);
         }
 
@@ -85,6 +86,7 @@ namespace Engine.Server.Logs
             if (writer == null)
                 return;
 
+            Console.WriteLine(string.Format("Log ChannelName->{0} message->{1}", channelName, message));
             writer.WriteLine(message);
         }
 
@@ -93,7 +95,7 @@ namespace Engine.Server.Logs
             var writer = Channel(channelName).Writer;
             if (writer == null)
                 return;
-
+            Console.WriteLine(string.Format("Error ChannelName->{0} message->{1}", channelName,message));
             writer.WriteLine("Error： "+message);
         }
 
@@ -102,7 +104,7 @@ namespace Engine.Server.Logs
             var writer = Channel(channelName).Writer;
             if (writer == null)
                 return;
-
+            Console.WriteLine(string.Format("Exception ChannelName->{0} message->{1}", channelName, exception.Message));
             writer.WriteLine("Exception： " + exception.Message);
         }
 
@@ -111,7 +113,7 @@ namespace Engine.Server.Logs
             var writer = Channel(channelName).Writer;
             if (writer == null)
                 return;
-
+            Console.WriteLine(string.Format("Warning ChannelName->{0} message->{1}", channelName, message));
             writer.WriteLine("Warning: " + message);
         }
     }

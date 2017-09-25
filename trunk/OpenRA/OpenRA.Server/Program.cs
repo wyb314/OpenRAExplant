@@ -5,6 +5,7 @@ using System.Net;
 using System.Threading;
 using Engine;
 using Engine.FileSystem;
+using Engine.Maps;
 using Engine.Network.Defaults;
 using Engine.Network.Enums;
 using Engine.Server.Logs;
@@ -33,7 +34,8 @@ namespace Engine.Server
             Log.AddChannel("irc", "irc.log");
             Log.AddChannel("nat", "nat.log");
             Log.AddChannel("wyb", "wyb.log");
-            
+            Log.AddChannel("wybserver", "wybserver.log");
+
             // Special case handling of Game.Mod argument: if it matches a real filesystem path
             // then we use this to override the mod search path, and replace it with the mod id
             var modID = arguments.GetValue("Game.Mod", null);
@@ -47,20 +49,24 @@ namespace Engine.Server
             Game.InitializeSettings(arguments);
             var settings = Game.Settings.Server;
 
-            string maniPath = Platform.ModsDir+Path.DirectorySeparatorChar + modID + Path.DirectorySeparatorChar+"mod.yaml";
-            Manifest manifest = YamlHelper.Deserialize<Manifest>(maniPath);
+            string manifestPath = Platform.ModsDir+Path.DirectorySeparatorChar + modID + Path.DirectorySeparatorChar+"mod.yaml";
+            Manifest manifest = YamlHelper.Deserialize<Manifest>(manifestPath);
             manifest.Id = modID;
             // HACK: The engine code *still* assumes that Game.ModData is set
             var modData = Game.ModData = new ModData(manifest);
             //modData.MapCache.LoadMaps();
 
-            settings.Map = "wyb";
+            settings.Map = "map1";//随便选个地图
+            string mapDir = Platform.ModsDir + Path.DirectorySeparatorChar + "ra" + Path.DirectorySeparatorChar +
+                          Path.Combine("maps", settings.Map);
+            Map map = YamlHelper.Deserialize<Map>(mapDir + Path.DirectorySeparatorChar + "map.yaml");
+
 
             Console.WriteLine("[{0}] Starting dedicated server for mod: {1}", DateTime.Now.ToString(settings.TimestampFormat), modID);
             while (true)
             {
                 var server = new ServerDefault(new IPEndPoint(IPAddress.Any, settings.ListenPort), settings, modData, true);
-
+                server.Map = map;
                 while (true)
                 {
                     Thread.Sleep(1000);

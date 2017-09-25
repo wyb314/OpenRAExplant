@@ -86,7 +86,7 @@ namespace Engine
         }
 
 
-        public static void InitializeMod(string mod, Arguments args)
+        public static void InitializeMod(string modID, Arguments args)
         {
             LobbyInfoChanged = () => { };
             ConnectionStateChanged = om => { };
@@ -108,25 +108,11 @@ namespace Engine
                 OrderManager.Dispose();
             }
             ModData = null;
-            if (mod == null)
+            if (modID == null)
                 throw new InvalidOperationException("Game.Mod argument missing.");
-            Manifest manifest = new Manifest()
-            {
-                Id = mod,
-                Metadata = new ModMetadata()
-                {
-                    Title="",
-                    Version="",
-                    Hidden=false,
-                },
-                ServerTraits = new string[]
-                {
-                    "Engine.Network.Defaults.ServerTraits.LobbyCommands",
-                    "Engine.Network.Defaults.ServerTraits.LobbySettingsNotification",
-                    "Engine.Network.Defaults.ServerTraits.MasterServerPinger",
-                    "Engine.Network.Defaults.ServerTraits.PlayerPinger"
-                }
-            };
+            string manifestPath = Platform.ModsDir + Path.DirectorySeparatorChar + modID + Path.DirectorySeparatorChar + "mod.yaml";
+            Manifest manifest = YamlHelper.Deserialize<Manifest>(manifestPath);
+            manifest.Id = modID;
             ModData = new ModData(manifest);
             
             JoinLocal();

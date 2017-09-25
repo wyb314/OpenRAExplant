@@ -378,6 +378,7 @@
     <Compile Include="Assets\Scripts\OAEngine\Engine\Exts.cs" />
     <Compile Include="Assets\Scripts\OAEngine\Engine\Factories\ActorFactory.cs" />
     <Compile Include="Assets\Scripts\OAEngine\Engine\FileFormats\ReplayMetadata.cs" />
+    <Compile Include="Assets\Scripts\OAEngine\Engine\FileSystem\YamlHelper.cs" />
     <Compile Include="Assets\Scripts\OAEngine\Engine\Game.cs" />
     <Compile Include="Assets\Scripts\OAEngine\Engine\Inputs\Evts.cs" />
     <Compile Include="Assets\Scripts\OAEngine\Engine\Inputs\GameInputter.cs" />

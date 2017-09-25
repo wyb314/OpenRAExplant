@@ -15,6 +15,7 @@ using Engine.Network;
 using Engine.Network.Defaults;
 using Engine.Network.Interfaces;
 using Engine;
+using Engine.FileSystem;
 using Engine.Interfaces;
 using Engine.Maps;
 using YamlDotNet.Serialization;
@@ -81,21 +82,11 @@ namespace Engine
         public static void InitializeSettings(Arguments args)
         {
             string settingPath = Platform.ResolvePath("^settings.yaml");
-            using (Stream stream = File.OpenRead(settingPath))
-            {
-                StreamReader sr = new StreamReader(stream,Encoding.UTF8);
-                
-                var deserializer = new DeserializerBuilder()
-               .WithNamingConvention(new NullNamingConvention())
-               .Build();
-
-                Settings = deserializer.Deserialize<Settings>(sr);
-            }
-            
+            Settings = YamlHelper.Deserialize<Settings>(settingPath);
         }
 
 
-        public static void InitializeMod(string mod, Arguments args)
+        public static void InitializeMod(string modID, Arguments args)
         {
             LobbyInfoChanged = () => { };
             ConnectionStateChanged = om => { };
@@ -117,25 +108,11 @@ namespace Engine
                 OrderManager.Dispose();
             }
             ModData = null;
-            if (mod == null)
+            if (modID == null)
                 throw new InvalidOperationException("Game.Mod argument missing.");
-            Manifest manifest = new Manifest()
-            {
-                Id = mod,
-                Metadata = new ModMetadata()
-                {
-                    Title="",
-                    Version="",
-                    Hidden=false,
-                },
-                ServerTraits = new string[]
-                {
-                    "Engine.Network.Defaults.ServerTraits.LobbyCommands",
-                    "Engine.Network.Defaults.ServerTraits.LobbySettingsNotification",
-                    "Engine.Network.Defaults.ServerTraits.MasterServerPinger",
-                    "Engine.Network.Defaults.ServerTraits.PlayerPinger"
-                }
-            };
+            string manifestPath = Platform.ModsDir + Path.DirectorySeparatorChar + modID + Path.DirectorySeparatorChar + "mod.yaml";
+            Manifest manifest = YamlHelper.Deserialize<Manifest>(manifestPath);
+            manifest.Id = modID;
             ModData = new ModData(manifest);
             
             JoinLocal();

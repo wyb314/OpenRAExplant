@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Engine.Maps;
 using Engine.Network.Enums;
 using Engine.Network.Interfaces;
 using Engine.Network.Server;
@@ -62,9 +63,8 @@ namespace Engine.Network.Defaults.ServerTraits
         public bool InterpretCommand(IServer<ClientDefault> server, IServerConnectoin<ClientDefault> conn, ClientDefault client, byte[] data)
         {
             string cmd = Encoding.UTF8.GetString(data);
-# if DEDICATED_SERVER
-            Console.WriteLine("InterpretCommand->" + cmd);
-#endif
+            Log.Write("server", "InterpretCommand->" + cmd);
+
             if (server == null || conn == null || client == null || !ValidateCommand(server, conn, client, cmd))
                 return false;
             var cmdName = cmd.Split(' ').First();
@@ -133,19 +133,34 @@ namespace Engine.Network.Defaults.ServerTraits
 
         public void ServerStarted(IServer<ClientDefault> server)
         {
-            //实例化Slots
-            //// Remote maps are not supported for the initial map
             //var uid = server.LobbyInfo.GlobalSettings.Map;
-            ////server.Map = server.ModData.MapCache[uid];
-            ////if (server.Map.Status != MapStatus.Available)
-            ////    throw new InvalidOperationException("Map {0} not found".F(uid));
+            //server.Map = server.ModData.MapCache[uid];
+            //if (server.Map.Status != MapStatus.Available)
+            //    throw new InvalidOperationException("Map {0} not found".F(uid));
 
-            //server.LobbyInfo.Slots = server.Map.Players.Players
-            //    .Select(p => MakeSlotFromPlayerReference(p.Value))
-            //    .Where(s => s != null)
-            //    .ToDictionary(s => s.PlayerReference, s => s);
+            ServerDefault _server = server as ServerDefault;
+            server.LobbyInfo.Slots = _server.Map.Players
+                .Select(p => MakeSlotFromPlayerReference(p))
+                .Where(s => s != null)
+                .ToDictionary(s => s.PlayerReference, s => s as ISlot);
 
             //LoadMapSettings(server, server.LobbyInfo.GlobalSettings, server.Map.Rules);
+        }
+
+        static SlotDefault MakeSlotFromPlayerReference(PlayerReference pr)
+        {
+            if (!pr.Playable) return null;
+            return new SlotDefault
+            {
+                PlayerReference = pr.Name,
+                Closed = false,
+                AllowBots = pr.AllowBots,
+                LockFaction = pr.LockFaction,
+                //LockColor = pr.LockColor,
+                LockTeam = pr.LockTeam,
+                LockSpawn = pr.LockSpawn,
+                Required = pr.Required,
+            };
         }
     }
 }
