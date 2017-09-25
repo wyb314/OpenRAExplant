@@ -12,6 +12,7 @@ using Engine.Network.Server;
 using Engine.Primitives;
 using Engine.Support;
 using System.Threading;
+using Engine.Maps;
 
 namespace Engine.Network.Defaults
 {
@@ -34,6 +35,8 @@ namespace Engine.Network.Defaults
         public bool Dedicated { private set; get; }
 
         public ModData ModData { private set; get; }
+
+        public Map Map { set; get; }
 
         public ServerSettings ServerSettings { private set; get; }
         
@@ -497,7 +500,7 @@ namespace Engine.Network.Defaults
                     Index = newConn.PlayerIndex,
                     Slot = LobbyInfo.FirstEmptySlot(),
                     State = ClientState.Invalid,
-                    IsAdmin = !LobbyInfo.Clients.Any(c1 => c1.IsAdmin)
+                    IsAdmin = !LobbyInfo.Clients.Any(c1 => c1.IsAdmin)//第一次进来的客户端就是管理员
                 };
 
                 if (client.IsObserver && !LobbyInfo.GlobalSettings.AllowSpectators)

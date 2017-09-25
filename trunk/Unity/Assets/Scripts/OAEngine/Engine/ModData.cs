@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
+using Engine.FileSystem;
 using Engine.Maps;
 
 namespace Engine
@@ -23,10 +25,11 @@ namespace Engine
 
         public Map PrepareMap(string uid)
         {
+            string mapDir = Platform.ModsDir + Path.DirectorySeparatorChar + "ra" + Path.DirectorySeparatorChar +
+                          Path.Combine("maps", uid);
+            Map map = YamlHelper.Deserialize<Map>(mapDir + Path.DirectorySeparatorChar + "map.yaml");
             
-
-
-            return new Map();
+            return map;
         }
 
         public void Dispose()
