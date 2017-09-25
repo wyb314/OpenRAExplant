@@ -5,6 +5,7 @@
   AdvertiseOnline: true
   Password: ''
   NatDiscoveryTimeout: 1000
+  EnableSingleplayer: true
   QueryMapRepository: true
   TimestampFormat: s
 Debug:

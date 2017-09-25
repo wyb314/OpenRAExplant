@@ -37,6 +37,31 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Engine\Actor.cs" />
+    <Compile Include="Engine\ComponentsAI\AgentActions\AgentAction.cs" />
+    <Compile Include="Engine\ComponentsAI\AStarMachine\Agent.cs" />
+    <Compile Include="Engine\ComponentsAI\AStarMachine\AStarEngine.cs" />
+    <Compile Include="Engine\ComponentsAI\AStarMachine\AStarGoal.cs" />
+    <Compile Include="Engine\ComponentsAI\AStarMachine\AStarMap.cs" />
+    <Compile Include="Engine\ComponentsAI\AStarMachine\AStarNode.cs" />
+    <Compile Include="Engine\ComponentsAI\AStarMachine\AStarStorage.cs" />
+    <Compile Include="Engine\ComponentsAI\BlackBoard.cs" />
+    <Compile Include="Engine\ComponentsAI\Factories\AgentActionFactory.cs" />
+    <Compile Include="Engine\ComponentsAI\Factories\FactsFactory.cs" />
+    <Compile Include="Engine\ComponentsAI\Factories\GOAPActionFactory.cs" />
+    <Compile Include="Engine\ComponentsAI\Factories\GOAPGoalFactory.cs" />
+    <Compile Include="Engine\ComponentsAI\Factories\WorldStatePropFactory.cs" />
+    <Compile Include="Engine\ComponentsAI\GOAP\AgentOrder.cs" />
+    <Compile Include="Engine\ComponentsAI\GOAP\Core\AStarGOAPGoal.cs" />
+    <Compile Include="Engine\ComponentsAI\GOAP\Core\AStarGOAPMap.cs" />
+    <Compile Include="Engine\ComponentsAI\GOAP\Core\AStarGOAPNode.cs" />
+    <Compile Include="Engine\ComponentsAI\GOAP\Core\GOAPAction.cs" />
+    <Compile Include="Engine\ComponentsAI\GOAP\Core\GOAPGoal.cs" />
+    <Compile Include="Engine\ComponentsAI\GOAP\Core\GOAPManager.cs" />
+    <Compile Include="Engine\ComponentsAI\GOAP\Core\GOAPPlan.cs" />
+    <Compile Include="Engine\ComponentsAI\GOAP\Core\WorldState.cs" />
+    <Compile Include="Engine\ComponentsAI\PlayerAgent.cs" />
+    <Compile Include="Engine\ComponentsAI\WorkingMemory\Fact.cs" />
+    <Compile Include="Engine\ComponentsAI\WorkingMemory\Memory.cs" />
     <Compile Include="Engine\Exts.cs" />
     <Compile Include="Engine\Factories\ActorFactory.cs" />
     <Compile Include="Engine\FileFormats\ReplayMetadata.cs" />
@@ -164,6 +189,7 @@
       <Name>YamlDotNet</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -95,27 +95,27 @@ namespace Engine.Network.Defaults.ServerTraits
                 }
                 case "startgame":
                 {
-                        if (!client.IsAdmin)
-                        {
-                            server.SendOrderTo(conn, "Message", "Only the host can start the game.");
-                            return true;
-                        }
-
-                        if (server.LobbyInfo.Slots.Any(sl => sl.Value.Required &&
-                            server.LobbyInfo.ClientInSlot(sl.Key) == null))
-                        {
-                            server.SendOrderTo(conn, "Message", "Unable to start the game until required slots are full.");
-                            return true;
-                        }
-
-                        if (!server.LobbyInfo.GlobalSettings.EnableSingleplayer && server.LobbyInfo.NonBotPlayers.Count() < 2)
-                        {
-                            server.SendOrderTo(conn, "Message", ServerConst.TwoHumansRequiredText);
-                            return true;
-                        }
-
-                        server.StartGame();
+                    if (!client.IsAdmin)
+                    {
+                        server.SendOrderTo(conn, "Message", "Only the host can start the game.");
                         return true;
+                    }
+
+                    if (server.LobbyInfo.Slots.Any(sl => sl.Value.Required &&
+                        server.LobbyInfo.ClientInSlot(sl.Key) == null))
+                    {
+                        server.SendOrderTo(conn, "Message", "Unable to start the game until required slots are full.");
+                        return true;
+                    }
+
+                    if (!server.LobbyInfo.GlobalSettings.EnableSingleplayer && server.LobbyInfo.NonBotPlayers.Count() < 2)
+                    {
+                        server.SendOrderTo(conn, "Message", ServerConst.TwoHumansRequiredText);
+                        return true;
+                    }
+
+                    server.StartGame();
+                    return true;
                 }
                 default:
                 {

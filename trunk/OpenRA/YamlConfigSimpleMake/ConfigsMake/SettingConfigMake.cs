@@ -17,7 +17,7 @@ namespace YamlConfigSimpleMake.ConfigsMake
             ServerSettings server = new ServerSettings();
             setting.Server = server;
             server.AllowPortForward = false;
-
+            server.EnableSingleplayer = true;
 
             Engine.PlayerSettings player = new Engine.PlayerSettings();
             setting.Player = player;
