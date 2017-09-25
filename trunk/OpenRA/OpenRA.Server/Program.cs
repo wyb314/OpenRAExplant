@@ -47,8 +47,8 @@ namespace Engine.Server
             Game.InitializeSettings(arguments);
             var settings = Game.Settings.Server;
 
-            string modPath = Platform.ModsDir+Path.DirectorySeparatorChar + modID + Path.DirectorySeparatorChar+"mod.yaml";
-            Manifest manifest = YamlHelper.Deserialize<Manifest>(modPath);
+            string maniPath = Platform.ModsDir+Path.DirectorySeparatorChar + modID + Path.DirectorySeparatorChar+"mod.yaml";
+            Manifest manifest = YamlHelper.Deserialize<Manifest>(maniPath);
             manifest.Id = modID;
             // HACK: The engine code *still* assumes that Game.ModData is set
             var modData = Game.ModData = new ModData(manifest);

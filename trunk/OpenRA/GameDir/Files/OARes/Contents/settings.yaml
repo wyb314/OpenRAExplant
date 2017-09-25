@@ -11,9 +11,9 @@ Debug:
   BotDebug: true
   LuaDebug: true
   PerfText: true
-  PerfGraph: false
+  PerfGraph: true
   SendSystemInformation: true
   EnableDebugCommandsInReplays: true
 Player:
-  Name: wyb
+  Name: Newbie
   LastServer: localhost:1234

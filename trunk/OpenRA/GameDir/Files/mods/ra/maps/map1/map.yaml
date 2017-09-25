@@ -1,0 +1,45 @@
+﻿Players:
+- Name: France
+  AllowBots: true
+  Faction: allies
+- Name: Germany
+  AllowBots: true
+  NonCombatant: true
+  Faction: allies
+- Name: USSR
+  Playable: true
+  Required: true
+  LockFaction: true
+  Faction: soviet
+  LockSpawn: true
+  LockTeam: true
+- Name: Neutral
+  AllowBots: true
+  OwnsWorld: true
+  NonCombatant: true
+  Faction: allies
+Actors:
+- ActorTypeName: wood
+  InitInfo:
+    Location:
+      X: -30
+    Owner:
+      PlayerName: Germany
+- ActorTypeName: wood
+  InitInfo:
+    Location:
+      X: -15
+    Owner:
+      PlayerName: USSR
+- ActorTypeName: wood
+  InitInfo:
+    Location:
+      X: 15
+    Owner:
+      PlayerName: Neutral
+- ActorTypeName: wood
+  InitInfo:
+    Location:
+      X: 30
+    Owner:
+      PlayerName: France
