@@ -164,11 +164,11 @@ namespace Engine
 
     public class Settings
     {
-        private ServerSettings server1 = new ServerSettings();
+        private ServerSettings server = new ServerSettings();
         public ServerSettings Server
         {
-            set { this.server1 = value; }
-            get { return this.server1; }
+            set { this.server = value; }
+            get { return this.server; }
         }
 
         private DebugSettings debug = new DebugSettings();

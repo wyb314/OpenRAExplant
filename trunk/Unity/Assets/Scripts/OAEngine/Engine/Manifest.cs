@@ -8,8 +8,8 @@ namespace Engine
     public class Manifest
     {
         public string Id = "";
-        public ModMetadata Metadata;
-        public string[] ServerTraits = null;
+        public ModMetadata Metadata { set; get; }
+        public string[] ServerTraits { set; get; }
 
         
     }

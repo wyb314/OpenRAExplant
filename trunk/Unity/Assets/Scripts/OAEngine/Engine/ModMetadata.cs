@@ -7,8 +7,8 @@ namespace Engine
 {
     public class ModMetadata
     {
-        public string Title;
-        public string Version;
-        public bool Hidden;
+        public string Title { set; get; }
+        public string Version { set; get; }
+        public bool Hidden { set; get; }
     }
 }

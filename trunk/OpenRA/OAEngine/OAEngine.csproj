@@ -40,6 +40,7 @@
     <Compile Include="Engine\Exts.cs" />
     <Compile Include="Engine\Factories\ActorFactory.cs" />
     <Compile Include="Engine\FileFormats\ReplayMetadata.cs" />
+    <Compile Include="Engine\FileSystem\YamlHelper.cs" />
     <Compile Include="Engine\Game.cs" />
     <Compile Include="Engine\Inputs\Evts.cs" />
     <Compile Include="Engine\Inputs\GameInputter.cs" />

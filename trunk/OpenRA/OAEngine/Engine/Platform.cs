@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 using Engine.Support;
 
 namespace Engine
@@ -42,6 +44,12 @@ namespace Engine
             }
         }
 
+        private static string modsDir = string.Empty;
+
+        public static string ModsDir
+        {
+            get { return modsDir; }
+        }
 
         public static bool SetCurrentPlatform(IPlatformImpl info)
         {
@@ -52,6 +60,8 @@ namespace Engine
                 currentPlatform = platformInfo.currentPlatform;
 
                 gameDir = platformInfo.GameContentsDir + SeparatorChar + @"OARes";
+
+                modsDir = Path.Combine(platformInfo.GameContentsDir, "mods");
             }
             return false;
         }

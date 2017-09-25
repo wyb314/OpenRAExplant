@@ -3,6 +3,7 @@ using Engine;
 using Engine.Inputs;
 using Engine.Interfaces;
 using System.Collections.Generic;
+using System.IO;
 using Engine.Support;
 using ILogger = Engine.Support.ILogger;
 
@@ -60,7 +61,7 @@ namespace Server
         public void GatherInfomation()
         {
             currentPlatform = PlatformType.EDITOR;
-            gameContentsDir = AppDomain.CurrentDomain.BaseDirectory + @"/GameDir/Files";
+            gameContentsDir = AppDomain.CurrentDomain.BaseDirectory +Path.DirectorySeparatorChar +@"GameDir"+Path.DirectorySeparatorChar+"Files";
 
 
         }

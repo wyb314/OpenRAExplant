@@ -1,0 +1,8 @@
+﻿Metadata:
+  Title: Red Alert
+  Version: '{DEV_VERSION}'
+ServerTraits:
+- Engine.Network.Defaults.ServerTraits.LobbyCommands
+- Engine.Network.Defaults.ServerTraits.LobbySettingsNotification
+- Engine.Network.Defaults.ServerTraits.MasterServerPinger
+- Engine.Network.Defaults.ServerTraits.PlayerPinger

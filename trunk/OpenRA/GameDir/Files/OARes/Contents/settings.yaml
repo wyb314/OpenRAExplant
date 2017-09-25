@@ -11,7 +11,7 @@ Debug:
   BotDebug: true
   LuaDebug: true
   PerfText: true
-  PerfGraph: true
+  PerfGraph: false
   SendSystemInformation: true
   EnableDebugCommandsInReplays: true
 Player:

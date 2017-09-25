@@ -15,6 +15,7 @@ using Engine.Network;
 using Engine.Network.Defaults;
 using Engine.Network.Interfaces;
 using Engine;
+using Engine.FileSystem;
 using Engine.Interfaces;
 using Engine.Maps;
 using YamlDotNet.Serialization;
@@ -81,17 +82,7 @@ namespace Engine
         public static void InitializeSettings(Arguments args)
         {
             string settingPath = Platform.ResolvePath("^settings.yaml");
-            using (Stream stream = File.OpenRead(settingPath))
-            {
-                StreamReader sr = new StreamReader(stream,Encoding.UTF8);
-                
-                var deserializer = new DeserializerBuilder()
-               .WithNamingConvention(new NullNamingConvention())
-               .Build();
-
-                Settings = deserializer.Deserialize<Settings>(sr);
-            }
-            
+            Settings = YamlHelper.Deserialize<Settings>(settingPath);
         }
 
 

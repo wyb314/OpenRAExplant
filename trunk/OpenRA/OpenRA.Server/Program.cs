@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Threading;
 using Engine;
+using Engine.FileSystem;
 using Engine.Network.Defaults;
 using Engine.Network.Enums;
 using Engine.Server.Logs;
@@ -46,24 +47,9 @@ namespace Engine.Server
             Game.InitializeSettings(arguments);
             var settings = Game.Settings.Server;
 
-            Manifest manifest = new Manifest()
-            {
-                Id = modID,
-                Metadata = new ModMetadata()
-                {
-                    Title = "",
-                    Version = "",
-                    Hidden = false,
-                },
-                ServerTraits = new string[]
-               {
-                    "Engine.Network.Defaults.ServerTraits.LobbyCommands",
-                    "Engine.Network.Defaults.ServerTraits.LobbySettingsNotification",
-                    "Engine.Network.Defaults.ServerTraits.MasterServerPinger",
-                    "Engine.Network.Defaults.ServerTraits.PlayerPinger"
-               }
-            };
-
+            string modPath = Platform.ModsDir+Path.DirectorySeparatorChar + modID + Path.DirectorySeparatorChar+"mod.yaml";
+            Manifest manifest = YamlHelper.Deserialize<Manifest>(modPath);
+            manifest.Id = modID;
             // HACK: The engine code *still* assumes that Game.ModData is set
             var modData = Game.ModData = new ModData(manifest);
             //modData.MapCache.LoadMaps();

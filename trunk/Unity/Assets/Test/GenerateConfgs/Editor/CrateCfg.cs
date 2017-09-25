@@ -4,6 +4,7 @@ using System.IO;
 using System.Text;
 using Engine;
 using Engine.Maps;
+using Engine.Network.Defaults.ServerTraits;
 using OAUnityLayer;
 using UnityEngine;
 using UnityEditor;
@@ -205,6 +206,45 @@ public class CrateCfg
         }
         Debug.Log("Player name ->"+setting1.Player.Name);
         Debug.Log("Test write setting config successful!");
+    }
+
+    [MenuItem("Configs/Create manifest Config")]
+    public static void CrateManifestConfig()
+    {
+        Manifest manifest = new Manifest();
+
+        ModMetadata metaData = new ModMetadata();
+        metaData.Title = "Red Alert";
+        metaData.Version = "{DEV_VERSION}";
+        manifest.Metadata = metaData;
+
+
+        manifest.ServerTraits = new string[]
+        {
+            typeof(LobbyCommands).FullName,
+            typeof(LobbySettingsNotification).FullName,
+            typeof(MasterServerPinger).FullName,
+            typeof(PlayerPinger).FullName
+        };
+
+        PlatformInfo platformInfo = new PlatformInfo();
+        platformInfo.GatherInfomation();
+
+        Platform.SetCurrentPlatform(platformInfo);
+        string dir = Platform.platformInfo.GameContentsDir + @"/mods/ra/";
+        if (!Directory.Exists(dir))
+        {
+            Directory.CreateDirectory(dir);
+        }
+        string path = dir + "mod.yaml";
+        var serializer = new SerializerBuilder().Build();
+        var yaml = serializer.Serialize(manifest);
+
+        using (StreamWriter sw = new StreamWriter(File.OpenWrite(path), Encoding.UTF8))
+        {
+            sw.Write(yaml);
+        }
+        Debug.Log("Write mod.yaml successful!");
     }
 
 }
