@@ -54,7 +54,7 @@ namespace Server
 
         public ServerPlatformInfo()
         {
-            this.inputter = new GameInputter();
+            //this.inputter = new GameInputter();
         }
 
 

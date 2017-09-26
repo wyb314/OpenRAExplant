@@ -43,9 +43,9 @@ namespace Engine.Network.Defaults
 
         public byte OpCode { private set; get; }
 
-        public byte OpData { private set; get; }
+        public ushort OpData { private set; get; }
 
-        public Order(bool isImmediate, string orderString, byte[] extDatas = null,byte opCode = byte.MaxValue,byte opData = byte.MaxValue)
+        public Order(bool isImmediate, string orderString, byte[] extDatas = null , byte opCode = byte.MaxValue,ushort opData = ushort.MinValue)
         {
             this.IsImmediate = isImmediate;
             this.OrderString = orderString;
@@ -64,9 +64,14 @@ namespace Engine.Network.Defaults
             return new Order(true,"Pong", Encoding.UTF8.GetBytes(pingTime));
         }
 
-        public static Order ButtonDown(byte opCode , byte opData = 0)
+        public static Order ButtonDown(byte opCode)
         {
-            return new Order(false, "Controller", null,opCode,opData);
+            return new Order(false, "Controller", null,opCode,0);
+        }
+        
+        public static Order JoystickMotion(byte opCode,ushort opData)
+        {
+            return new Order(false, "Controller", null, opCode, opData);
         }
 
         public static Order HandshakeResponse(byte[] bytes)
@@ -94,10 +99,10 @@ namespace Engine.Network.Defaults
                         
                         var extDatas = flags.HasField(OrderFields.ExtDatas) ? r.ReadBytes(r.ReadInt32()) : null;
                         byte opCode = flags.HasField(OrderFields.OpCode) ? r.ReadByte() : ControllerConst.NULL_OP_CODE;
-                        byte opData = 0;
+                        ushort opData = 0;
                         if (opCode != ControllerConst.NULL_OP_CODE)
                         {
-                            opData = flags.HasField(OrderFields.OpData) ? r.ReadByte() : ControllerConst.NULL_OP_CODE;
+                            opData = flags.HasField(OrderFields.OpData) ? r.ReadUInt16() : ControllerConst.INVALID_OP_DATA;
                         }
 
                         if (world == null)

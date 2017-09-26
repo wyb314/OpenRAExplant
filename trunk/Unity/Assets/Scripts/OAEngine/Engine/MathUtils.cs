@@ -113,6 +113,13 @@ namespace Engine
             return a >= b ? b : a;
         }
 
+        public static float Sqrt(float f)
+        {
+            return (float) Math.Sqrt(f);
+        }
+
+        
+
     }
 
 }

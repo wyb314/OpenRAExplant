@@ -38,6 +38,7 @@
   <ItemGroup>
     <Compile Include="Engine\Actor.cs" />
     <Compile Include="Engine\ComponentsAI\AgentActions\AgentAction.cs" />
+    <Compile Include="Engine\ComponentsAI\AgentActions\AgentActionAttack.cs" />
     <Compile Include="Engine\ComponentsAI\AStarMachine\Agent.cs" />
     <Compile Include="Engine\ComponentsAI\AStarMachine\AStarEngine.cs" />
     <Compile Include="Engine\ComponentsAI\AStarMachine\AStarGoal.cs" />
@@ -45,7 +46,9 @@
     <Compile Include="Engine\ComponentsAI\AStarMachine\AStarNode.cs" />
     <Compile Include="Engine\ComponentsAI\AStarMachine\AStarStorage.cs" />
     <Compile Include="Engine\ComponentsAI\BlackBoard.cs" />
+    <Compile Include="Engine\ComponentsAI\ComponentPlayer\ComponentPlayer.cs" />
     <Compile Include="Engine\ComponentsAI\Factories\AgentActionFactory.cs" />
+    <Compile Include="Engine\ComponentsAI\Factories\AgentOrderFactory.cs" />
     <Compile Include="Engine\ComponentsAI\Factories\FactsFactory.cs" />
     <Compile Include="Engine\ComponentsAI\Factories\GOAPActionFactory.cs" />
     <Compile Include="Engine\ComponentsAI\Factories\GOAPGoalFactory.cs" />

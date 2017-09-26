@@ -38,28 +38,7 @@ namespace Engine
 
         public void ProcessOrder(IOrder order)
         {
-            //Order _order = order.OrderString;
-            Order _order = order as Order;
-            E_OpType opType = (E_OpType)_order.OpCode;
-
-            //Log.Write("ClientIdx ->",
-            //    "Client:{0} opCode->{1} opData->{2} opType->{3}".
-            //    F(this.ClientIndex,_order.OpCode,_order.OpData, opType));
-            switch (opType)
-            {
-                case E_OpType.X:
-                    break;
-                case E_OpType.O:
-                    break;
-                case E_OpType.Dodge:
-                    break;
-                case E_OpType.Joystick:
-                    this.PlayerActor.SetMoveDir(_order.OpData);
-                    break;
-                default:
-                    break;
-            }
-
+            this.PlayerActor.ProcessOrder(order);
         }
     }
 }

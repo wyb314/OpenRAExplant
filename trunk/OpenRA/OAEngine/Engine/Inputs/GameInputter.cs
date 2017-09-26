@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using Engine.Interfaces;
 using Engine.OrderGenerators;
+using Engine.Support;
+using YamlDotNet.Serialization.ValueDeserializers;
 
 namespace Engine.Inputs
 {
@@ -50,16 +52,28 @@ namespace Engine.Inputs
             if (sqrLength > 0)
             {
                 float rad = MathUtils.Atan2(v, h);
-                int val = (int)(rad * 128 / MathUtils.PI);
 
-                if (val < 0)
+                if (rad < 0)
                 {
-                    val += 256;
+                    rad = 2*MathUtils.PI + rad;
                 }
 
-                val = MathUtils.Min(val, byte.MaxValue);//normaized to 0 - 255;
+                int val = (int) (rad*128/MathUtils.PI);
 
-                this.inputPoster.PostInput(E_OpType.Joystick,val);
+                val = MathUtils.Min(val, byte.MaxValue); //normaized to 0 - 255;
+                ushort angle = (ushort) val;
+
+                int length = (int) (256*MathUtils.Sqrt(sqrLength));
+                length = MathUtils.Min(length, byte.MaxValue);
+                ushort force = (ushort) length;
+
+                ushort data = (ushort) ((angle << 8) | force);
+
+                this.inputPoster.PostInput(E_OpType.Joystick, data);
+            }
+            else
+            {
+                this.inputPoster.PostInput(E_OpType.Joystick, 0);
             }
         }
     }

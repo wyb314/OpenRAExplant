@@ -14,5 +14,12 @@ namespace Engine.ComponentsAI.GOAP
             E_USE,
             E_STOPMOVE,
         }
+
+        public E_OrderType Type;
+
+        private AgentOrder() { Type = E_OrderType.E_NONE; }
+
+
+        public AgentOrder(E_OrderType type) { Type = type; }
     }
 }

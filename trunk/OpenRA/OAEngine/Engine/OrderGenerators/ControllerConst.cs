@@ -9,6 +9,8 @@ namespace Engine.OrderGenerators
     {
         public const byte NULL_OP_CODE = Byte.MaxValue;
 
+        public const ushort INVALID_OP_DATA = ushort.MaxValue;
+
         public const float DEG_PER_BYTE = 360F/256;
     }
 }
