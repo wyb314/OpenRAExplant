@@ -6,6 +6,7 @@ using Engine.ComponentsAI.AStarMachine;
 using Engine.ComponentsAI.GOAP;
 using Engine.ComponentsAI.GOAP.Core;
 using Engine.ComponentsAI.WorkingMemory;
+using Engine.Interfaces;
 using Engine.Primitives;
 using OAEngine.Engine.ComponentsAI;
 
@@ -15,31 +16,30 @@ namespace Engine.ComponentsAI
     {
         public override WPos Position
         {
-            get
-            {
-                throw new NotImplementedException();
-            }
+            set { this.self.Pos = value; }
+            get { return this.self.Pos; }
         }
 
-        public override WVec Forward
+        public override int Facing
         {
-            get
-            {
-                throw new NotImplementedException();
-            }
+            get { return this.self.Facing; }
+            set { this.self.Facing = value; }
         }
 
-        public override WVec Right
+        public override int TurnSpeed
         {
-            get
-            {
-                throw new NotImplementedException();
-            }
+            get { return this.self.TurnSpeed; }
+            set { this.self.TurnSpeed = value; }
         }
 
-        public PlayerAgent()
+        public Actor self { private set; get; }
+
+        public IRender rendererProxy { private set; get; }
+
+        public PlayerAgent(Actor self, IRender render)
         {
-            
+            this.self = self;
+            this.rendererProxy = render;
         }
 
         public void Init()
@@ -74,13 +74,15 @@ namespace Engine.ComponentsAI
             WorldState.SetWSProperty(E_PropKey.E_TELEPORT, false);
 
             WorldState.SetWSProperty(E_PropKey.E_EVENT, E_EventTypes.None);
+
+            this.BlackBoard.DontUpdate = false;
         }
 
 
 
         public void Tick()
         {
-
+            this.UpdateAgent();
         }
 
         void UpdateAgent()
@@ -103,7 +105,16 @@ namespace Engine.ComponentsAI
 
         private void ResetAgent()
         {
+            WorldState.SetWSProperty(E_PropKey.E_EVENT, E_EventTypes.None);
+
+            //StopAllCoroutines();
+            BlackBoard.Reset();
+            WorldState.Reset();
+            Memory.Reset();
+            m_GoalManager.Reset();
         }
+
+
 
 
     }

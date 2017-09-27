@@ -13,7 +13,10 @@ namespace Engine.Inputs
 
         public IInputPoster inputPoster { private set; get; }
 
-        public bool AllowGetInput { set; get; }
+        public bool AllowGetInput
+        {
+            set; get;
+        }
 
         public GameInputter()
         {

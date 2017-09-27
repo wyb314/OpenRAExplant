@@ -47,10 +47,13 @@ namespace Engine.ComponentsAI.AStarMachine
         {
             m_GoalManager.Initialize();
         }
+        
 
-        public abstract WPos Position { get; }
-        public abstract WVec Forward { get; }
-        public abstract WVec Right { get; }
+        public abstract WPos Position { set;get; }
+        public abstract int Facing { set;get; }
+
+        public abstract int TurnSpeed { set;get; }
+        //public abstract WVec Right { get; }
 
 
     }

@@ -295,7 +295,7 @@ namespace Engine
 
             OrderManager.StartGame();
 
-            AllUserInput();
+            AllUserInput(true);
 
             //worldRenderer.RefreshPalette();
             //Cursor.SetCursor("default");
@@ -303,9 +303,12 @@ namespace Engine
             GC.Collect();
         }
         
-        internal static void AllUserInput()
+        internal static void AllUserInput(bool allow)
         {
-            Platform.platformInfo.inputter.AllowGetInput = true;
+            if (Platform.platformInfo != null && Platform.platformInfo.inputter != null)
+            {
+                Platform.platformInfo.inputter.AllowGetInput = allow;
+            }
         }
 
         internal static void SyncLobbyInfo()
@@ -318,6 +321,8 @@ namespace Engine
             if (server != null)
                 server.Shutdown();
         }
+        
+
 
         static void OnApplicationQuit()
         {

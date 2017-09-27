@@ -58,72 +58,72 @@ namespace Engine.ComponentsAI.Factories
             }
             else
             {
-                //switch (type)
-                //{
-                //    case E_Type.E_IDLE:
-                //        a = new AgentActionIdle();
-                //        break;
-                //    case E_Type.E_MOVE:
-                //        a = new AgentActionMove();
-                //        break;
-                //    case E_Type.E_GOTO:
-                //        a = new AgentActionGoTo();
-                //        break;
-                //    case E_Type.E_COMBAT_MOVE:
-                //        a = new AgentActioCombatMove();
-                //        break;
-                //    case E_Type.E_ATTACK:
-                //        a = new AgentActionAttack();
-                //        break;
-                //    case E_Type.E_ATTACK_ROLL:
-                //        a = new AgentActionAttackRoll();
-                //        break;
-                //    case E_Type.E_ATTACK_WHIRL:
-                //        a = new AgentActionAttackWhirl();
-                //        break;
-                //    case E_Type.E_INJURY:
-                //        a = new AgentActionInjury();
-                //        break;
-                //    case E_Type.E_DAMAGE_BLOCKED:
-                //        a = new AgentActionDamageBlocked();
-                //        break;
-                //    case E_Type.E_BLOCK:
-                //        a = new AgentActionBlock();
-                //        break;
-                //    case E_Type.E_ROLL:
-                //        a = new AgentActionRoll();
-                //        break;
-                //    case E_Type.E_INCOMMING_ATTACK:
-                //        a = new AgentActionIncommingAttack();
-                //        break;
-                //    case E_Type.E_WEAPON_SHOW:
-                //        a = new AgentActionWeaponShow();
-                //        break;
-                //    case E_Type.Rotate:
-                //        a = new AgentActionRotate();
-                //        break;
-                //    case E_Type.E_USE_LEVER:
-                //        a = new AgentActionUseLever();
-                //        break;
-                //    case E_Type.E_PLAY_ANIM:
-                //        a = new AgentActionPlayAnim();
-                //        break;
-                //    case E_Type.E_PLAY_IDLE_ANIM:
-                //        a = new AgentActionPlayIdleAnim();
-                //        break;
-                //    case E_Type.E_DEATH:
-                //        a = new AgentActionDeath();
-                //        break;
-                //    case E_Type.E_KNOCKDOWN:
-                //        a = new AgentActionKnockdown();
-                //        break;
-                //    case E_Type.Teleport:
-                //        a = new AgentActionTeleport();
-                //        break;
-                //    default:
-                //        Debug.LogError("no AgentAction to create");
-                //        return null;
-                //}
+                switch (type)
+                {
+                    case E_Type.E_IDLE:
+                        a = new AgentActionIdle();
+                        break;
+                    case E_Type.E_MOVE:
+                        a = new AgentActionMove();
+                        break;
+                    case E_Type.E_GOTO:
+                        a = new AgentActionGoTo();
+                        break;
+                    //case E_Type.E_COMBAT_MOVE:
+                    //    a = new AgentActioCombatMove();
+                    //    break;
+                    case E_Type.E_ATTACK:
+                        a = new AgentActionAttack();
+                        break;
+                    //case E_Type.E_ATTACK_ROLL:
+                    //    a = new AgentActionAttackRoll();
+                    //    break;
+                    //case E_Type.E_ATTACK_WHIRL:
+                    //    a = new AgentActionAttackWhirl();
+                    //    break;
+                    //case E_Type.E_INJURY:
+                    //    a = new AgentActionInjury();
+                    //    break;
+                    //case E_Type.E_DAMAGE_BLOCKED:
+                    //    a = new AgentActionDamageBlocked();
+                    //    break;
+                    //case E_Type.E_BLOCK:
+                    //    a = new AgentActionBlock();
+                    //    break;
+                    //case E_Type.E_ROLL:
+                    //    a = new AgentActionRoll();
+                    //    break;
+                    //case E_Type.E_INCOMMING_ATTACK:
+                    //    a = new AgentActionIncommingAttack();
+                    //    break;
+                    case E_Type.E_WEAPON_SHOW:
+                        a = new AgentActionWeaponShow();
+                        break;
+                    //case E_Type.Rotate:
+                    //    a = new AgentActionRotate();
+                    //    break;
+                    //case E_Type.E_USE_LEVER:
+                    //    a = new AgentActionUseLever();
+                    //    break;
+                    //case E_Type.E_PLAY_ANIM:
+                    //    a = new AgentActionPlayAnim();
+                    //    break;
+                    case E_Type.E_PLAY_IDLE_ANIM:
+                        a = new AgentActionPlayIdleAnim();
+                        break;
+                    //case E_Type.E_DEATH:
+                    //    a = new AgentActionDeath();
+                    //    break;
+                    //case E_Type.E_KNOCKDOWN:
+                    //    a = new AgentActionKnockdown();
+                    //    break;
+                    //case E_Type.Teleport:
+                    //    a = new AgentActionTeleport();
+                    //    break;
+                    default:
+                        Log.LogError("no AgentAction to create type : "+type,"wyb");
+                        return null;
+                }
             }
             a.Reset();
             a.SetActive();

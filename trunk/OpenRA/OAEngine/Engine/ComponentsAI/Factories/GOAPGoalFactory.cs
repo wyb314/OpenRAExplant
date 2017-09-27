@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Engine.ComponentsAI.AStarMachine;
 using Engine.ComponentsAI.GOAP.Core;
+using Engine.ComponentsAI.GOAP.Goals;
 
 namespace Engine.ComponentsAI.Factories
 {
@@ -37,14 +38,71 @@ namespace Engine.ComponentsAI.Factories
     {
         public static GOAPGoal Create(E_GOAPGoals type, Agent owner)
         {
-            GOAPGoal g = null;
+            GOAPGoal g;
             switch (type)
             {
-
-                default:
+                //case E_GOAPGoals.E_ORDER_ATTACK:
+                //    g = new GOAPGoalOrderAttack(owner);
+                //    break;
+                //case E_GOAPGoals.E_ORDER_DODGE:
+                //    g = new GOAPGoalOrderDodge(owner);
+                //    break;
+                //case E_GOAPGoals.E_ORDER_USE:
+                //    g = new GOAPGoalOrderUseWorldObject(owner);
+                //    break;
+                case E_GOAPGoals.E_GOTO:
+                    g = new GOAPGoalGoTo(owner);
                     break;
+                //case E_GOAPGoals.E_COMBAT_MOVE_RIGHT:
+                //    g = new GOAPGoalCombatMoveToRight(owner);
+                //    break;
+                //case E_GOAPGoals.E_COMBAT_MOVE_LEFT:
+                //    g = new GOAPGoalCombatMoveToLeft(owner);
+                //    break;
+                //case E_GOAPGoals.E_COMBAT_MOVE_FORWARD:
+                //    g = new GOAPGoalCombatMoveForward(owner);
+                //    break;
+                //case E_GOAPGoals.E_COMBAT_MOVE_BACKWARD:
+                //    g = new GOAPGoalCombatMoveBackward(owner);
+                //    break;
+                //case E_GOAPGoals.E_LOOK_AT_TARGET:
+                //    g = new GOAPGoalLookAtTarget(owner);
+                //    break;
+                //case E_GOAPGoals.E_KILL_TARGET:
+                //    g = new GOAPGoalKillTarget(owner);
+                //    break;
+                //case E_GOAPGoals.E_DODGE:
+                //    g = new GOAPGoalDodge(owner);
+                //    break;
+                //case E_GOAPGoals.E_DO_BLOCK:
+                //    g = new GOAPGoalDoBlock(owner);
+                //    break;
+                //case E_GOAPGoals.E_ALERT:
+                //    g = new GOAPGoalAlert(owner);
+                //    break;
+                //case E_GOAPGoals.E_CALM:
+                //    g = new GOAPGoalCalm(owner);
+                //    break;
+                //case E_GOAPGoals.E_USE_WORLD_OBJECT:
+                //    g = new GOAPGoalUseWorldObject(owner);
+                //    break;
+                //case E_GOAPGoals.E_PLAY_ANIM:
+                //    g = new GOAPGoalPlayAnim(owner);
+                //    break;
+                case E_GOAPGoals.E_IDLE_ANIM:
+                    g = new GOAPGoalIdle(owner);
+                    break;
+                //case E_GOAPGoals.E_REACT_TO_DAMAGE:
+                //    g = new GOAPGoalReactToDamage(owner);
+                //    break;
+                //case E_GOAPGoals.E_TELEPORT:
+                //    g = new GOAPGoalTeleport(owner);
+                //    break;
+                default:
+                    return null;
             }
 
+            g.InitGoal();
             return g;
         }
     }

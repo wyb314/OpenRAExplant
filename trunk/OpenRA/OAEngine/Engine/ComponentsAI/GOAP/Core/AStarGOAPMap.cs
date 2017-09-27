@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Reflection;
 using Engine.ComponentsAI.AStarMachine;
 using Engine.ComponentsAI.Factories;
 
@@ -90,7 +91,12 @@ namespace Engine.ComponentsAI.GOAP.Core
                 {
                     if (!(currProp == goalProp))
                     {
-                        for (int j = 0; j < m_EffectsTable[(int)i].Count; j++)
+                        var goapActionList = this.m_EffectsTable[(int)i];
+                        if (goapActionList == null)
+                        {
+                            continue;
+                        }
+                        for (int j = 0; j < goapActionList.Count; j++)
                         {
                             action = m_EffectsTable[(int)i][j];
 

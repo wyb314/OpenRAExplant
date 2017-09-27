@@ -95,8 +95,14 @@ namespace Engine.ComponentsAI.GOAP.Core
         */
         bool IsGoalInGoalSet(E_GOAPGoals goalType)
         {
+            GOAPGoal goal = null;
             for (int i = 0; i < m_GoalSet.Count; i++)
             {
+                goal = m_GoalSet[i];
+                if (goal == null)
+                {
+                    continue;
+                }
                 if (m_GoalSet[i].GoalType == goalType)
                     return true;
             }
@@ -313,7 +319,7 @@ namespace Engine.ComponentsAI.GOAP.Core
             GOAPPlan plan = BuildPlan(goal);
             if (plan == null)
             {
-                Log.LogError("GOAP", Game.RunTime+" " + goal.ToString() + " - BUILD PLAN FAILED !!!");
+                Log.LogError(Game.RunTime + " " + goal.ToString() + " - BUILD PLAN FAILED !!!","wyb");
                 return;
             }
 
@@ -332,6 +338,10 @@ namespace Engine.ComponentsAI.GOAP.Core
             {   //First check for timing checks?!
 
                 goal = m_GoalSet[i];
+                if (goal == null)
+                {
+                    continue;
+                }
                 if (goal.IsDisabled())
                     continue;//we dont want to select these goals
 
@@ -367,28 +377,34 @@ namespace Engine.ComponentsAI.GOAP.Core
             if (CurrentGoal != null && CurrentGoal.Active)
                 goalRelevance = CurrentGoal.GoalRelevancy;
 
+            GOAPGoal goal = null;
             for (int i = 0; i < m_GoalSet.Count; i++)
             {   //First check for timing checks?!
+                goal = m_GoalSet[i];
 
-                if (m_GoalSet[i].IsDisabled())
+                if (goal == null)
+                {
+                    continue;
+                }
+                if (goal.IsDisabled())
                     continue;//we dont want to select these goals
 
-                if (m_GoalSet[i].Critical == false)
+                if (goal.Critical == false)
                     continue;
 
-                if (m_GoalSet[i].Active == false)
+                if (goal.Active == false)
                 {// recalculate goal relevancy !!!!
-                    m_GoalSet[i].CalculateGoalRelevancy();
+                    goal.CalculateGoalRelevancy();
                     //m_GoalSet[i].SetNewEvaluationTime();
                     //set new timing check time?!
                 }
 
                 // check all goal relevancy
-                goalRelevance = m_GoalSet[i].GoalRelevancy;
+                goalRelevance = goal.GoalRelevancy;
                 if (goalRelevance > highestRelevancy)
                 {
                     highestRelevancy = goalRelevance;
-                    maxGoal = m_GoalSet[i];
+                    maxGoal = goal;
                 }
             }
             return maxGoal;

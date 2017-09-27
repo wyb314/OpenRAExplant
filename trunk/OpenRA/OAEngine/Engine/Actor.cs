@@ -16,11 +16,13 @@ namespace Engine
     public class Actor
     {
 
-        public CPos Pos;
+        public WPos Pos;
 
         public int MoveSpeed = 3000;
 
-        public int Rot;
+        public int Facing;
+
+        public int TurnSpeed = 4;
 
         public readonly World World;
 
@@ -40,20 +42,31 @@ namespace Engine
             this.render = Platform.platformInfo.actorRendererFactory.CreateActorRenderer();
 
             ActorID = world.NextAID();
-            this.Agent = new PlayerAgent();
-            this.Agent.Init();
-            this.AnimComponent = new AnimComponent(this.Agent,null);
-            this.AnimComponent.Init();
-            this.ComponentPlayer = new ComponentPlayer();
+            
         }
+
+        public void Init()
+        {
+            this.Agent = new PlayerAgent(this,this.render);
+            this.Agent.Init();
+            Animation anim = new Animation(this.render);
+            this.AnimComponent = new AnimComponent(this.Agent,anim);
+            this.AnimComponent.Init();
+            this.ComponentPlayer = new ComponentPlayer(this.Agent);
+            this.ComponentPlayer.Init();
+        }
+
 
         public void Tick()
         {
+            this.Agent.Tick();
+            this.AnimComponent.Update();
+            this.ComponentPlayer.Update();
         }
 
         public void SetMoveDir(byte angle)
         {
-            this.Rot = angle;
+            this.Facing = angle;
             //this.Pos += this.MoveSpeed*new CVec();
         }
 
@@ -65,13 +78,13 @@ namespace Engine
             switch (opType)
             {
                 case E_OpType.X:
-                    this.ComponentPlayer.CreateOrderAttack(E_AttackType.X);
+                    //this.ComponentPlayer.CreateOrderAttack(E_AttackType.X);
                     break;
                 case E_OpType.O:
-                    this.ComponentPlayer.CreateOrderAttack(E_AttackType.O);
+                    //this.ComponentPlayer.CreateOrderAttack(E_AttackType.O);
                     break;
                 case E_OpType.Dodge:
-                    this.ComponentPlayer.CreateOrderDodge();
+                    //this.ComponentPlayer.CreateOrderDodge();
                     break;
                 case E_OpType.Joystick:
                     ushort data = _order.OpData;

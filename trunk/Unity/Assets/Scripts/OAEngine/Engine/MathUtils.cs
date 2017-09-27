@@ -16,6 +16,11 @@ namespace Engine
             return (float)Math.Atan2((double)y, (double)x);
         }
 
+        public static int Abs(int v)
+        {
+            return Math.Abs(v);
+        }
+
         /// <summary>
         /// 
         /// <para>

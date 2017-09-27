@@ -30,7 +30,7 @@ namespace Engine
                 this.ClientIndex = client.Index;
             }
             this.PlayerActor = new Actor(world,"",null);
-            
+            this.PlayerActor.Init();
             world.Add(this.PlayerActor);
             //this.InternalName = pr.Name;
 

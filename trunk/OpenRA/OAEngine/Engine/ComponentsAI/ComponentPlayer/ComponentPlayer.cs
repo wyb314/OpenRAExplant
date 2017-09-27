@@ -5,6 +5,8 @@ using Engine.ComponentsAI.AStarMachine;
 using Engine.ComponentsAI.Factories;
 using Engine.ComponentsAI.GOAP;
 using Engine.ComponentsAI.GOAP.Core;
+using Engine.Support;
+using OAEngine.Engine.ComponentsAI;
 
 namespace Engine.ComponentsAI.ComponentPlayer
 {
@@ -19,7 +21,7 @@ namespace Engine.ComponentsAI.ComponentPlayer
         Berserk = 5,
         Max = 6,
     }
-    public class ComponentPlayer
+    public class ComponentPlayer: IActionHandler
     {
         
 
@@ -27,9 +29,54 @@ namespace Engine.ComponentsAI.ComponentPlayer
 
         private AgentActionAttack CurrentAttackAction;
 
+        private Agent LastAttacketTarget;
+
         public int force;
 
         private Queue<AgentOrder> BufferedOrders = new Queue<AgentOrder>();
+
+        public ComponentPlayer(Agent Owner)
+        {
+            this.Owner = Owner;
+        }
+
+
+        public void Init()
+        {
+            this.Owner.AddGOAPAction(E_GOAPAction.gotoPos);
+            this.Owner.AddGOAPAction(E_GOAPAction.move);
+            this.Owner.AddGOAPAction(E_GOAPAction.gotoMeleeRange);
+            this.Owner.AddGOAPAction(E_GOAPAction.weaponShow);
+            this.Owner.AddGOAPAction(E_GOAPAction.weaponHide);
+            this.Owner.AddGOAPAction(E_GOAPAction.orderAttack);
+            //Agent.AddGOAPAction(E_GOAPAction.orderAttackJump);
+            this.Owner.AddGOAPAction(E_GOAPAction.orderDodge);
+            this.Owner.AddGOAPAction(E_GOAPAction.rollToTarget);
+            this.Owner.AddGOAPAction(E_GOAPAction.useLever);
+            this.Owner.AddGOAPAction(E_GOAPAction.playAnim);
+            this.Owner.AddGOAPAction(E_GOAPAction.teleport);
+            this.Owner.AddGOAPAction(E_GOAPAction.injury);
+            this.Owner.AddGOAPAction(E_GOAPAction.death);
+
+            this.Owner.AddGOAPGoal(E_GOAPGoals.E_GOTO);
+            this.Owner.AddGOAPGoal(E_GOAPGoals.E_ORDER_ATTACK);
+            this.Owner.AddGOAPGoal(E_GOAPGoals.E_ORDER_DODGE);
+            this.Owner.AddGOAPGoal(E_GOAPGoals.E_ORDER_USE);
+            this.Owner.AddGOAPGoal(E_GOAPGoals.E_ALERT);
+            this.Owner.AddGOAPGoal(E_GOAPGoals.E_CALM);
+            this.Owner.AddGOAPGoal(E_GOAPGoals.E_USE_WORLD_OBJECT);
+            this.Owner.AddGOAPGoal(E_GOAPGoals.E_PLAY_ANIM);
+            this.Owner.AddGOAPGoal(E_GOAPGoals.E_TELEPORT);
+            this.Owner.AddGOAPGoal(E_GOAPGoals.E_REACT_TO_DAMAGE);
+
+            this.Owner.InitializeGOAP();
+
+            Owner.BlackBoard.ActionHandlerAdd(this);
+            Owner.BlackBoard.ActionHandlerAdd(this);
+        }
+
+
+
         public bool CouldBufferNewOrder()
         {
             return BufferedOrders.Count <= 0 && CurrentAttackAction != null;
@@ -130,19 +177,63 @@ namespace Engine.ComponentsAI.ComponentPlayer
             Owner.BlackBoard.OrderAdd(order);
         }
 
-
-        public void StopMove(bool stop)
-        {
-            //if (stop)
-            //    Controls.DisableInput();
-            //else
-            //    Controls.EnableInput();
-        }
+        
 
         public void Update()
         {
+            if (Owner.BlackBoard.Stop)
+            {
+                LastAttacketTarget = null;
+                //ComboProgress.Clear();
+                ClearBufferedOrder();
+                CreateOrderStop();
+                return;
+            }
 
+            if (BufferedOrders.Count > 0)
+            {
+                if (CouldAddnewOrder())
+                    Owner.BlackBoard.OrderAdd(BufferedOrders.Dequeue());
+            }
         }
 
+        public void HandleAction(AgentAction a)
+        {
+            if (a is AgentActionAttack)
+            {
+                CurrentAttackAction = a as AgentActionAttack;
+                Owner.WorldState.SetWSProperty(E_PropKey.E_ALERTED, true);
+            }
+            //else if (a is AgentActionInjury)
+            //{
+            //    Owner.WorldState.SetWSProperty(E_PropKey.E_ORDER, AgentOrder.E_OrderType.E_NONE);
+            //    ComboProgress.Clear();
+            //    ClearBufferedOrder();
+            //    GuiManager.Instance.ShowComboProgress(ComboProgress);
+            //    Game.Instance.Hits = 0;
+            //    Game.Instance.NumberOfInjuries++;
+
+            //}
+            //else if (a is AgentActionDeath)
+            //{
+            //    Owner.WorldState.SetWSProperty(E_PropKey.E_ORDER, AgentOrder.E_OrderType.E_NONE);
+            //    ComboProgress.Clear();
+            //    ClearBufferedOrder();
+            //    GuiManager.Instance.ShowComboProgress(ComboProgress);
+            //    Game.Instance.Hits = 0;
+            //    Game.Instance.NumberOfDeath++;
+            //    //Game.Instance.Score -= 50;
+            //    Mission.Instance.EndOfMission(false);
+            //    // of	unlockAchievement
+            //    if (Game.Instance.NumberOfDeath >= 100)
+            //    {
+            //        Achievements.UnlockAchievement(2);
+            //    }
+            //    else if (Game.Instance.NumberOfDeath >= 50)
+            //    {
+            //        Achievements.UnlockAchievement(1);
+            //    }
+            //}
+        }
     }
 }

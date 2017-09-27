@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Engine.ComponentAnim.Core;
 using Engine.ComponentsAI;
 using Engine.ComponentsAI.ComponentPlayer;
 using Engine.Interfaces;
@@ -15,11 +16,13 @@ namespace Engine
     public class Actor
     {
 
-        public CPos Pos;
+        public WPos Pos;
 
         public int MoveSpeed = 3000;
 
-        public int Rot;
+        public int Facing;
+
+        public int TurnSpeed = 4;
 
         public readonly World World;
 
@@ -27,9 +30,10 @@ namespace Engine
 
         public readonly uint ActorID;
 
-        public ComponentPlayer ComponentPlayer;
+        private ComponentPlayer ComponentPlayer;
+        private AnimComponent AnimComponent;
 
-        public PlayerAgent Agent;
+        private PlayerAgent Agent;
 
 
         public Actor(World world, string name, TypeDictionary initDict)
@@ -38,16 +42,31 @@ namespace Engine
             this.render = Platform.platformInfo.actorRendererFactory.CreateActorRenderer();
 
             ActorID = world.NextAID();
-            this.ComponentPlayer = new ComponentPlayer();
+            
         }
+
+        public void Init()
+        {
+            this.Agent = new PlayerAgent(this,this.render);
+            this.Agent.Init();
+            Animation anim = new Animation(this.render);
+            this.AnimComponent = new AnimComponent(this.Agent,anim);
+            this.AnimComponent.Init();
+            this.ComponentPlayer = new ComponentPlayer(this.Agent);
+            this.ComponentPlayer.Init();
+        }
+
 
         public void Tick()
         {
+            this.Agent.Tick();
+            this.AnimComponent.Update();
+            this.ComponentPlayer.Update();
         }
 
         public void SetMoveDir(byte angle)
         {
-            this.Rot = angle;
+            this.Facing = angle;
             //this.Pos += this.MoveSpeed*new CVec();
         }
 
@@ -65,20 +84,23 @@ namespace Engine
                     //this.ComponentPlayer.CreateOrderAttack(E_AttackType.O);
                     break;
                 case E_OpType.Dodge:
+                    //this.ComponentPlayer.CreateOrderDodge();
                     break;
                 case E_OpType.Joystick:
                     ushort data = _order.OpData;
-                    byte angle = (byte)((data & 0xFF00) >> 8);
+                    int angle = ((data & 0xFF00) >> 8);
                     int force = data & 0x00ff;
 
                     if (force == 0)
                     {
-                        Log.Write("wyb","Joystick end!");
+                        this.ComponentPlayer.CreateOrderStop();
+                        //Log.Write("wyb","Joystick end!");
                     }
                     else
                     {
-                        this.SetMoveDir(angle);
-                        Log.Write("wyb", "Joystick angle->" + angle+" force->"+force);
+                        this.ComponentPlayer.CreateOrderGoTo(angle,force);
+                        //this.SetMoveDir(angle);
+                        //Log.Write("wyb", "Joystick angle->" + angle+" force->"+force);
                     }
                     
                     break;

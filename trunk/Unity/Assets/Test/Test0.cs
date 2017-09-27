@@ -24,6 +24,7 @@ public class Test0 : MonoBehaviour
     private GameInputerGetter inputer;
     void Start()
     {
+        Application.targetFrameRate = 40;
         inputer = new GameInputerGetter();
         Time.fixedDeltaTime = ((float)Engine.Game.Timestep)/1000;
 

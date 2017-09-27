@@ -37,8 +37,25 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Engine\Actor.cs" />
+    <Compile Include="Engine\ComponentAnim\Core\Animation.cs" />
+    <Compile Include="Engine\ComponentAnim\Core\AnimationState.cs" />
+    <Compile Include="Engine\ComponentAnim\Core\AnimComponent.cs" />
+    <Compile Include="Engine\ComponentAnim\Core\AnimFSM.cs" />
+    <Compile Include="Engine\ComponentAnim\Core\AnimSet.cs" />
+    <Compile Include="Engine\ComponentAnim\Core\AnimState.cs" />
+    <Compile Include="Engine\ComponentAnim\Core\Types.cs" />
+    <Compile Include="Engine\ComponentAnim\_AniStates\AnimStateGoTo.cs" />
+    <Compile Include="Engine\ComponentAnim\_AniStates\AnimStateIdle.cs" />
+    <Compile Include="Engine\ComponentAnim\_AniStates\AnimStateMove.cs" />
+    <Compile Include="Engine\ComponentAnim\_FSMs\AnimFSMPlayer.cs" />
     <Compile Include="Engine\ComponentsAI\AgentActions\AgentAction.cs" />
     <Compile Include="Engine\ComponentsAI\AgentActions\AgentActionAttack.cs" />
+    <Compile Include="Engine\ComponentsAI\AgentActions\AgentActionGoTo.cs" />
+    <Compile Include="Engine\ComponentsAI\AgentActions\AgentActionIdle.cs" />
+    <Compile Include="Engine\ComponentsAI\AgentActions\AgentActionMove.cs" />
+    <Compile Include="Engine\ComponentsAI\AgentActions\AgentActionPlayIdleAnim.cs" />
+    <Compile Include="Engine\ComponentsAI\AgentActions\AgentActionWeaponShow.cs" />
+    <Compile Include="Engine\ComponentsAI\AIUtils.cs" />
     <Compile Include="Engine\ComponentsAI\AStarMachine\Agent.cs" />
     <Compile Include="Engine\ComponentsAI\AStarMachine\AStarEngine.cs" />
     <Compile Include="Engine\ComponentsAI\AStarMachine\AStarGoal.cs" />
@@ -53,6 +70,9 @@
     <Compile Include="Engine\ComponentsAI\Factories\GOAPActionFactory.cs" />
     <Compile Include="Engine\ComponentsAI\Factories\GOAPGoalFactory.cs" />
     <Compile Include="Engine\ComponentsAI\Factories\WorldStatePropFactory.cs" />
+    <Compile Include="Engine\ComponentsAI\GOAP\Actions\GOAPActionGoTo.cs" />
+    <Compile Include="Engine\ComponentsAI\GOAP\Actions\GOAPActionIdleActionTount.cs" />
+    <Compile Include="Engine\ComponentsAI\GOAP\Actions\GOAPActionMove.cs" />
     <Compile Include="Engine\ComponentsAI\GOAP\AgentOrder.cs" />
     <Compile Include="Engine\ComponentsAI\GOAP\Core\AStarGOAPGoal.cs" />
     <Compile Include="Engine\ComponentsAI\GOAP\Core\AStarGOAPMap.cs" />
@@ -62,7 +82,10 @@
     <Compile Include="Engine\ComponentsAI\GOAP\Core\GOAPManager.cs" />
     <Compile Include="Engine\ComponentsAI\GOAP\Core\GOAPPlan.cs" />
     <Compile Include="Engine\ComponentsAI\GOAP\Core\WorldState.cs" />
+    <Compile Include="Engine\ComponentsAI\GOAP\Goals\GOAPGoalGoTo.cs" />
+    <Compile Include="Engine\ComponentsAI\GOAP\Goals\GOAPGoalIdle.cs" />
     <Compile Include="Engine\ComponentsAI\PlayerAgent.cs" />
+    <Compile Include="Engine\ComponentsAI\PlayerSensorEyes.cs" />
     <Compile Include="Engine\ComponentsAI\WorkingMemory\Fact.cs" />
     <Compile Include="Engine\ComponentsAI\WorkingMemory\Memory.cs" />
     <Compile Include="Engine\Exts.cs" />

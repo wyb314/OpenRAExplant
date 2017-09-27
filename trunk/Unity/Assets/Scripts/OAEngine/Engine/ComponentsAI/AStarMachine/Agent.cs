@@ -3,9 +3,11 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Engine.ComponentAnim.Core;
 using Engine.ComponentsAI.Factories;
 using Engine.ComponentsAI.GOAP.Core;
 using Engine.ComponentsAI.WorkingMemory;
+using Engine.Primitives;
 using OAEngine.Engine.ComponentsAI;
 
 namespace Engine.ComponentsAI.AStarMachine
@@ -22,8 +24,10 @@ namespace Engine.ComponentsAI.AStarMachine
 
         public BlackBoard BlackBoard;
 
-        private Hashtable m_Actions = new Hashtable();
+        public AnimSet AnimSet;
 
+        private Hashtable m_Actions = new Hashtable();
+        
         public GOAPAction GetAction(E_GOAPAction type) { return (GOAPAction)m_Actions[type]; }
         public int GetNumberOfActions() { return m_Actions.Count; }
 
@@ -43,6 +47,14 @@ namespace Engine.ComponentsAI.AStarMachine
         {
             m_GoalManager.Initialize();
         }
+        
+
+        public abstract WPos Position { set;get; }
+        public abstract int Facing { set;get; }
+
+        public abstract int TurnSpeed { set;get; }
+        //public abstract WVec Right { get; }
+
 
     }
 }
