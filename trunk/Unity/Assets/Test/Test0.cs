@@ -19,11 +19,17 @@ public class Test0 : MonoBehaviour
     private PlatformInfo platformInfo;
     // Use this for initialization
 
-    public Transform playTran;
+    //public Transform playTran;
+
+    public GUIStyle guiStyle = new GUIStyle();
 
     private GameInputerGetter inputer;
     void Start()
     {
+        guiStyle.fontSize = 20;
+        guiStyle.normal.textColor = UnityEngine.Color.green;
+        guiStyle.alignment = TextAnchor.UpperCenter;
+
         Application.targetFrameRate = 40;
         inputer = new GameInputerGetter();
         Time.fixedDeltaTime = ((float)Engine.Game.Timestep)/1000;
@@ -65,12 +71,12 @@ public class Test0 : MonoBehaviour
             platformInfo.LogicTick(Time.fixedDeltaTime);
         }
 
-        if (this.curFacing != this.targetFaceing)
-        {
-            float rad = this.targetFaceing*Mathf.PI/128;
+        //if (this.curFacing != this.targetFaceing)
+        //{
+        //    float rad = this.targetFaceing*Mathf.PI/128;
 
-            this.playTran.eulerAngles = new Vector3(0,rad * Mathf.Rad2Deg,0);
-        }
+        //    this.playTran.eulerAngles = new Vector3(0,rad * Mathf.Rad2Deg,0);
+        //}
     }
 
     //Game.Mod=ra
@@ -138,7 +144,9 @@ public class Test0 : MonoBehaviour
             {
                 ClientDefault client =
                Engine.Game.OrderManager.LobbyInfo.ClientWithIndex(clientId);
-                GUILayout.Label("Timestep->" + Game.Timestep+" ClientId->" + clientId + " IsAdmin->" + client.IsAdmin+" localFrameNum->"+Engine.Game.OrderManager.LocalFrameNumber);
+                string info = string.Format("TimeStep->{0} Id->{1} Admin->{2} NetFrame->{3} LocalFrame->{4}", Game.Timestep, clientId, client.IsAdmin,
+                    Engine.Game.OrderManager.NetFrameNumber, Engine.Game.OrderManager.LocalFrameNumber);
+                GUILayout.Label(info, this.guiStyle);
             }
            
         }
