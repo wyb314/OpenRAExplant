@@ -100,6 +100,12 @@ public class Test0 : MonoBehaviour
         {
             return;
         }
+
+        if (!Engine.Game.OrderManager.IsReadyForNextFrame)
+        {
+            return;
+        }
+
         FrameDataDefault fdd = Engine.Game.OrderManager.frameData as FrameDataDefault;
         
         foreach (var kvp in fdd.framePackets)
