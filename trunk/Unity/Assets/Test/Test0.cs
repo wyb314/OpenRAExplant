@@ -181,7 +181,7 @@ public class Test0 : MonoBehaviour
                         maxFrame = kvp.Key;
                     }
                 }
-                if (maxFrame != -1)
+                if (maxFrame == -1)
                 {
                     GUILayout.EndVertical();
                     return;
