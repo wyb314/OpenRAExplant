@@ -106,7 +106,7 @@ public class Test0 : MonoBehaviour
             return;
         }
 
-        maxFrame = Engine.Game.OrderManager.NetFrameNumber;
+        maxFrame = ((OrderManagerDefault) Engine.Game.OrderManager).processNetFrame;
 
         FrameDataDefault fdd = Engine.Game.OrderManager.frameData as FrameDataDefault;
         
