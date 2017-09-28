@@ -88,6 +88,34 @@ public class Test0 : MonoBehaviour
 
         //    this.playTran.eulerAngles = new Vector3(0,rad * Mathf.Rad2Deg,0);
         //}
+
+        this.CalculateGameInfo();
+    }
+
+    private Dictionary<int, byte[]> previousFrameData;
+    private int maxFrame = -1;
+    private void CalculateGameInfo()
+    {
+        if (Engine.Game.OrderManager == null || Engine.Game.OrderManager.LobbyInfo == null)
+        {
+            return;
+        }
+        FrameDataDefault fdd = Engine.Game.OrderManager.frameData as FrameDataDefault;
+        
+        foreach (var kvp in fdd.framePackets)
+        {
+            if (maxFrame < kvp.Key)
+            {
+                maxFrame = kvp.Key;
+            }
+        }
+        if (maxFrame == -1 || maxFrame == 0)
+        {
+            
+            return;
+        }
+        
+        previousFrameData = fdd.framePackets[maxFrame - 1];
     }
 
     public bool pause = false;
@@ -165,36 +193,16 @@ public class Test0 : MonoBehaviour
         if (Engine.Game.OrderManager != null)
         {
             int clientId = Engine.Game.OrderManager.Connection.LocalClientId;
-            if (Engine.Game.OrderManager.LobbyInfo!= null)
+            if (Engine.Game.OrderManager.LobbyInfo!= null && previousFrameData != null)
             {
                 ClientDefault client =
                 Engine.Game.OrderManager.LobbyInfo.ClientWithIndex(clientId);
 
 
-                FrameDataDefault fdd = Engine.Game.OrderManager.frameData as FrameDataDefault;
-
-                int maxFrame = -1;
-                foreach (var kvp in fdd.framePackets)
-                {
-                    if (maxFrame < kvp.Key)
-                    {
-                        maxFrame = kvp.Key;
-                    }
-                }
-                if (maxFrame == -1 || maxFrame == 0)
-                {
-                    GUILayout.EndVertical();
-                    return;
-                }
-
-                if (maxFrame > 0)
-                {
-                    maxFrame--;
-                }
-                Dictionary<int, byte[]> data = fdd.framePackets[maxFrame-1];
+                
                 StringBuilder sb = new StringBuilder();
-                sb.Append("MaxFrame->" + maxFrame + "  previous receiveCount-> " + data.Count + " : ");
-                foreach (var kvp in data)
+                sb.Append("MaxFrame->" + maxFrame + "  previous receiveCount-> " + previousFrameData.Count + " : ");
+                foreach (var kvp in previousFrameData)
                 {
                     sb.Append(string.Format(" c_{0} len->{1}   ", kvp.Key, kvp.Value.Length));
                 }
