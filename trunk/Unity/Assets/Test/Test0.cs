@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using OAUnityLayer;
 using UnityEngine;
 using System.IO;
+using System.Linq;
 using System.Net;
+using System.Text;
 using Engine;
 using Engine.Network;
 using Engine.Network.Defaults;
@@ -26,7 +28,7 @@ public class Test0 : MonoBehaviour
     private GameInputerGetter inputer;
     void Start()
     {
-        guiStyle.fontSize = 20;
+        guiStyle.fontSize = 12;
         guiStyle.normal.textColor = UnityEngine.Color.green;
         guiStyle.alignment = TextAnchor.UpperCenter;
 
@@ -39,10 +41,10 @@ public class Test0 : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (this.pause)
-        {
-            return;
-        }
+        //if (this.pause)
+        //{
+        //    return;
+        //}
 
         if (platformInfo != null)
         {
@@ -71,10 +73,10 @@ public class Test0 : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (this.pause)
-        {
-            return;
-        }
+        //if (this.pause)
+        //{
+        //    return;
+        //}
         if (platformInfo != null)
         {
             platformInfo.LogicTick(Time.fixedDeltaTime);
@@ -150,6 +152,12 @@ public class Test0 : MonoBehaviour
         if (GUILayout.Button("Pause"+!pause))
         {
             pause = !pause;
+
+            if (Engine.Game.OrderManager.LobbyInfo != null)
+            {
+                OrderManagerDefault omd = Engine.Game.OrderManager as OrderManagerDefault;
+                omd.allowSendSyncData = !pause;
+            }
         }
 
         if (Engine.Game.OrderManager != null)
@@ -158,10 +166,35 @@ public class Test0 : MonoBehaviour
             if (Engine.Game.OrderManager.LobbyInfo!= null)
             {
                 ClientDefault client =
-               Engine.Game.OrderManager.LobbyInfo.ClientWithIndex(clientId);
-                string info = string.Format("TimeStep->{0} Id->{1} Admin->{2} NetFrame->{3} LocalFrame->{4}", Game.Timestep, clientId, client.IsAdmin,
-                    Engine.Game.OrderManager.NetFrameNumber, Engine.Game.OrderManager.LocalFrameNumber);
+                Engine.Game.OrderManager.LobbyInfo.ClientWithIndex(clientId);
+
+
+                FrameDataDefault fdd = Engine.Game.OrderManager.frameData as FrameDataDefault;
+
+                int maxFrame = -1;
+                foreach (var kvp in fdd.framePackets)
+                {
+                    if (maxFrame < kvp.Key)
+                    {
+                        maxFrame = kvp.Key;
+                    }
+                }
+                if (maxFrame == -1)
+                {
+                    return;
+                }
+                Dictionary<int, byte[]> data = fdd.framePackets[maxFrame];
+                StringBuilder sb = new StringBuilder();
+                sb.Append("MaxFrame->" + maxFrame + "  receiveCount-> " + data.Count + " : ");
+                foreach (var kvp in data)
+                {
+                    sb.Append(string.Format(" c_{0} len->{1}   ", kvp.Key, kvp.Value.Length));
+                }
+
+                string info = string.Format("TimeStep->{0} Id->{1} NetFrame->{3} LocalFrame->{4}  {5}", Game.Timestep, clientId, client.IsAdmin,
+                    Engine.Game.OrderManager.NetFrameNumber, Engine.Game.OrderManager.LocalFrameNumber, sb.ToString());
                 GUILayout.Label(info, this.guiStyle);
+
             }
            
         }

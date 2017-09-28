@@ -50,6 +50,8 @@ namespace Engine.Network.Defaults
 
         public Session<ClientDefault> LobbyInfo { set; get; }
 
+       
+
         private string serverError = "Server is not responding";
         public string ServerError
         {
@@ -61,6 +63,8 @@ namespace Engine.Network.Defaults
         public bool AuthenticationFailed { set; get; }
 
         public ClientDefault LocalClient { get { return LobbyInfo.ClientWithIndex(Connection.LocalClientId); } }
+
+        public bool allowSendSyncData = true;
 
         public OrderManagerDefault(string host, int port, string password, IConnection conn)
         {
@@ -74,7 +78,6 @@ namespace Engine.Network.Defaults
             this.orderProcessor = new OrderProcessorDefault();
             this.orderSerializer = new OrderSerializerDefault();
         }
-
 
         public void StartGame()
         {
@@ -163,6 +166,11 @@ namespace Engine.Network.Defaults
         {
             if (!IsReadyForNextFrame)
                 throw new InvalidOperationException();
+
+            if (!this.allowSendSyncData)
+            {
+                return;
+            }
 
             Connection.Send(NetFrameNumber + FramesAhead, localOrders.Select(o => o.Serialize()).ToList());
             localOrders.Clear();
