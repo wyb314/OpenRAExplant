@@ -191,7 +191,7 @@ public class Test0 : MonoBehaviour
                 {
                     maxFrame--;
                 }
-                Dictionary<int, byte[]> data = fdd.framePackets[maxFrame - 1];
+                Dictionary<int, byte[]> data = fdd.framePackets[maxFrame];
                 StringBuilder sb = new StringBuilder();
                 sb.Append("MaxFrame->" + maxFrame + "  receiveCount-> " + data.Count + " : ");
                 foreach (var kvp in data)
