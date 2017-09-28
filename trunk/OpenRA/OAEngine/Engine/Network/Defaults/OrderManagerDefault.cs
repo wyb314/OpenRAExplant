@@ -167,21 +167,23 @@ namespace Engine.Network.Defaults
             if (!IsReadyForNextFrame)
                 throw new InvalidOperationException();
 
-            if (!this.allowSendSyncData)
+            if (this.allowSendSyncData)
             {
-                return;
+                Connection.Send(NetFrameNumber + FramesAhead, localOrders.Select(o => o.Serialize()).ToList());
+                localOrders.Clear();
             }
-
-            Connection.Send(NetFrameNumber + FramesAhead, localOrders.Select(o => o.Serialize()).ToList());
-            localOrders.Clear();
-
+            
             foreach (var order in frameData.OrdersForFrame(this,World, NetFrameNumber))
             {
                 //Log.Write("wyb", "process order Client->{0} orderStr->{1} netFrameNum->{2}".F(order.Client, order.Order.OrderString, NetFrameNumber));
                 this.orderProcessor.ProcessOrder(this, World, order.Client, order.Order);
             }
-            
-            Connection.SendSync(NetFrameNumber, OrderIO.SerializeSync(World.SyncHash()));
+
+            if (this.allowSendSyncData)
+            {
+                Connection.SendSync(NetFrameNumber, OrderIO.SerializeSync(World.SyncHash()));
+            }
+               
 
             syncReport.UpdateSyncReport();
 
