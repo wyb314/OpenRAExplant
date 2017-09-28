@@ -95,7 +95,6 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4483801032306286}
-  - component: {fileID: 81898392814697278}
   m_Layer: 0
   m_Name: AudioListener
   m_TagString: Untagged
@@ -669,13 +668,6 @@ ParticleRenderer:
     x Tile: 1
     y Tile: 1
     cycles: 1
---- !u!81 &81898392814697278
-AudioListener:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1280593726790314}
-  m_Enabled: 1
 --- !u!82 &82249483297030708
 AudioSource:
   m_ObjectHideFlags: 1

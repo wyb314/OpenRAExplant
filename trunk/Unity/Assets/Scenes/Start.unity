@@ -684,6 +684,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1701806888}
   - component: {fileID: 1701806887}
+  - component: {fileID: 1701806891}
   - component: {fileID: 1701806886}
   - component: {fileID: 1701806885}
   - component: {fileID: 1701806889}
@@ -930,6 +931,13 @@ MonoBehaviour:
     m_StretchWidth: 1
     m_StretchHeight: 0
   updateInterval: 1
+--- !u!81 &1701806891
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1701806883}
+  m_Enabled: 1
 --- !u!1 &1885692002
 GameObject:
   m_ObjectHideFlags: 0
