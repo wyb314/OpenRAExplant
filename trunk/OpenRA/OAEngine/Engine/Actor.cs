@@ -36,12 +36,13 @@ namespace Engine
         private PlayerAgent Agent;
 
 
-        public Actor(World world, string name, TypeDictionary initDict)
+        public Actor(World world, int clientIdx ,string name, TypeDictionary initDict)
         {
             this.World = world;
-            this.render = Platform.platformInfo.actorRendererFactory.CreateActorRenderer();
-
             ActorID = world.NextAID();
+            this.render = Platform.platformInfo.actorRendererFactory.CreateActorRenderer(WPos.Zero,clientIdx,"Player");
+
+            
             
         }
 

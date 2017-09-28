@@ -347,11 +347,13 @@
     <Compile Include="Assets\Scripts\OAEngine\Engine\Types.cs" />
     <Compile Include="Assets\Scripts\OAEngine\Engine\World.cs" />
     <Compile Include="Assets\Scripts\OAEngine\Engine\WorldRenderer.cs" />
+    <Compile Include="Assets\Scripts\OAUnityLayer\Exts.cs" />
     <Compile Include="Assets\Scripts\OAUnityLayer\Factories\NormalActorRendererFactory.cs" />
     <Compile Include="Assets\Scripts\OAUnityLayer\PlatformInfo.cs" />
     <Compile Include="Assets\Scripts\OAUnityLayer\Renderers\PlayerRenderer.cs" />
     <Compile Include="Assets\Scripts\OAUnityLayer\Support\OAUberLoggerFile.cs" />
     <Compile Include="Assets\Scripts\OAUnityLayer\Support\UberLoggerWraper.cs" />
+    <Compile Include="Assets\Scripts\OAUnityLayer\Support\WPos.cs" />
     <Compile Include="Assets\Test\SmothFollow1.cs" />
     <Compile Include="Assets\Test\Test0.cs" />
     <Compile Include="Assets\Test\TestFixedUpdateMove.cs" />
