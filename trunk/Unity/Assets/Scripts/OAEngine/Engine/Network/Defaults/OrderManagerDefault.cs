@@ -162,6 +162,7 @@ namespace Engine.Network.Defaults
             }
         }
 
+        private int lastNetFrame;
         public void Tick()
         {
             if (!IsReadyForNextFrame)
@@ -172,12 +173,16 @@ namespace Engine.Network.Defaults
                 Connection.Send(NetFrameNumber + FramesAhead, localOrders.Select(o => o.Serialize()).ToList());
                 localOrders.Clear();
             }
-            
-            foreach (var order in frameData.OrdersForFrame(this,World, NetFrameNumber))
+
+            if (this.lastNetFrame != NetFrameNumber)
             {
-                //Log.Write("wyb", "process order Client->{0} orderStr->{1} netFrameNum->{2}".F(order.Client, order.Order.OrderString, NetFrameNumber));
-                this.orderProcessor.ProcessOrder(this, World, order.Client, order.Order);
+                foreach (var order in frameData.OrdersForFrame(this, World, NetFrameNumber))
+                {
+                    //Log.Write("wyb", "process order Client->{0} orderStr->{1} netFrameNum->{2}".F(order.Client, order.Order.OrderString, NetFrameNumber));
+                    this.orderProcessor.ProcessOrder(this, World, order.Client, order.Order);
+                }
             }
+            
 
             if (this.allowSendSyncData)
             {
@@ -187,7 +192,12 @@ namespace Engine.Network.Defaults
 
             syncReport.UpdateSyncReport();
 
-            ++NetFrameNumber;
+            this.lastNetFrame = NetFrameNumber;
+            if (this.allowSendSyncData)
+            {
+                ++NetFrameNumber;
+            }
+            
         }
 
         bool disposed;
