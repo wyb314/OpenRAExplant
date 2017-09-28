@@ -36,7 +36,7 @@ namespace Engine.Network.Defaults
 
         public string ServerName { set; get; }
 
-        private int timeStep = 40;
+        private int timeStep = 23;
         public int Timestep
         {
             get { return this.timeStep; }

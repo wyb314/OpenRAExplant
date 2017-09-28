@@ -174,6 +174,7 @@
     <Compile Include="Assets\EasyTouchBundle\EasyTouchControls\Plugins\ETCJoystick.cs" />
     <Compile Include="Assets\EasyTouchBundle\EasyTouchControls\Plugins\ETCTouchPad.cs" />
     <Compile Include="Assets\Scripts\FPSCounter.cs" />
+    <Compile Include="Assets\Scripts\OAEngine.Unity\CameraBehaviour.cs" />
     <Compile Include="Assets\Scripts\OAEngine.Unity\Input\GameInputerGetter.cs" />
     <Compile Include="Assets\Scripts\OAEngine\Engine\Actor.cs" />
     <Compile Include="Assets\Scripts\OAEngine\Engine\ComponentAnim\_AniStates\AnimStateGoTo.cs" />
@@ -353,6 +354,7 @@
     <Compile Include="Assets\Scripts\OAUnityLayer\Support\UberLoggerWraper.cs" />
     <Compile Include="Assets\Test\SmothFollow1.cs" />
     <Compile Include="Assets\Test\Test0.cs" />
+    <Compile Include="Assets\Test\TestFixedUpdateMove.cs" />
     <Compile Include="Assets\UberLogger\Examples\TestUberLogger.cs" />
     <Compile Include="Assets\UberLogger\UberLoggerEditor.cs" />
   </ItemGroup>

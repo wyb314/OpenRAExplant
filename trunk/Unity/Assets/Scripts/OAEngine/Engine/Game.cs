@@ -32,7 +32,7 @@ namespace Engine
     public static class Game
     {
         public const int NetTickScale = 3;
-        public const int Timestep = 40;
+        public const int Timestep = 23;
         public const int TimestepJankThreshold = 250; // Don't catch up for delays larger than 250ms
 
         public static bool BenchmarkMode = false;

@@ -54,8 +54,8 @@ namespace Engine.Inputs
             float sqrLength = h * h + v * v;
             if (sqrLength > 0)
             {
-                float rad = MathUtils.Atan2(v, h);
-
+                float rad = MathUtils.Atan2(v, h) - MathUtils.Half_PI;
+                
                 if (rad < 0)
                 {
                     rad = 2*MathUtils.PI + rad;

@@ -11,6 +11,8 @@ namespace Engine
 
         public const float PI = 3.141593f;
 
+        public const float Half_PI = PI*0.5f;
+
         public static float Atan2(float y, float x)
         {
             return (float)Math.Atan2((double)y, (double)x);

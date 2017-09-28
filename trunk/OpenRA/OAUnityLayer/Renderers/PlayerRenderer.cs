@@ -30,18 +30,33 @@ namespace OAUnityLayer.Renderers
             this.tran.position = Vector3.zero;
         }
 
-
+        private int lastRot = int.MaxValue;
+        private WPos lastPos = new WPos(int.MaxValue, 0,int.MaxValue);
 
         public void Render(Actor self, IWorldRenderer wr)
         {
             //Vector3 pos = new Vector3(self.Pos.X * 1024,0,self.Pos.Y * 1024);
             //this.mCurPos = Vector3.Lerp(this.mCurPos, pos, Time.deltaTime*12);
 
-            int rot = self.Facing;
+            if (this.lastRot != self.Facing)
+            {
+                this.lastRot = self.Facing;
+                int rot = self.Facing;
 
-            float rad = rot * Mathf.PI / 128;
+                float rad = rot * Mathf.PI / 128;
 
-            this.tran.eulerAngles = new Vector3(0,90 - rad * Mathf.Rad2Deg, 0);
+                this.tran.eulerAngles = new Vector3(0, - rad * Mathf.Rad2Deg, 0);
+            }
+
+            if (this.lastPos != self.Pos)
+            {
+                this.lastPos = self.Pos;
+                //
+                Vector3 pos = new Vector3(((float)this.lastPos.X )/ 1024,0,-((float)this.lastPos.Y) / 1024);
+                this.tran.position = pos;
+            }
+
+
         }
 
         public bool IsPlaying(string name)

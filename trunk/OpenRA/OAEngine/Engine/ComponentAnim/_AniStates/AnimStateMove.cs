@@ -76,7 +76,7 @@ namespace Engine.ComponentAnim._AniStates
             Owner.BlackBoard.MoveDir = Owner.BlackBoard.DesiredDirection;
 
             var dir = new WVec(0, -1024, 0).Rotate(WRot.FromFacing(this.Owner.Facing));
-            WVec v = Owner.BlackBoard.Speed * dir / 1024;
+            WVec v = Owner.BlackBoard.Speed * dir * Game.Timestep / (1024 * 1024); 
 
             this.Owner.Position = this.Owner.Position + v;
             //// MOVE

@@ -29,7 +29,7 @@ public class SmothFollow1 : MonoBehaviour {
     public float rot_y_speed = 0;
 
     // Update is called once per frame
-    public void Update()
+    public void FixedUpdate()
     {
         // Early out if we don't have a target
         if (!target)
