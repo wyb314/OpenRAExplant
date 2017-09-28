@@ -181,7 +181,7 @@ public class Test0 : MonoBehaviour
                         maxFrame = kvp.Key;
                     }
                 }
-                if (maxFrame == -1)
+                if (maxFrame == -1 || maxFrame == 0)
                 {
                     GUILayout.EndVertical();
                     return;
@@ -191,9 +191,9 @@ public class Test0 : MonoBehaviour
                 {
                     maxFrame--;
                 }
-                Dictionary<int, byte[]> data = fdd.framePackets[maxFrame];
+                Dictionary<int, byte[]> data = fdd.framePackets[maxFrame-1];
                 StringBuilder sb = new StringBuilder();
-                sb.Append("MaxFrame->" + maxFrame + "  receiveCount-> " + data.Count + " : ");
+                sb.Append("MaxFrame->" + maxFrame + "  previous receiveCount-> " + data.Count + " : ");
                 foreach (var kvp in data)
                 {
                     sb.Append(string.Format(" c_{0} len->{1}   ", kvp.Key, kvp.Value.Length));
