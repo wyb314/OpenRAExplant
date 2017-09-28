@@ -160,6 +160,8 @@ public class Test0 : MonoBehaviour
             }
         }
 
+        GUILayout.BeginVertical();
+
         if (Engine.Game.OrderManager != null)
         {
             int clientId = Engine.Game.OrderManager.Connection.LocalClientId;
@@ -179,11 +181,17 @@ public class Test0 : MonoBehaviour
                         maxFrame = kvp.Key;
                     }
                 }
-                if (maxFrame == -1)
+                if (maxFrame != -1)
                 {
+                    GUILayout.EndVertical();
                     return;
                 }
-                Dictionary<int, byte[]> data = fdd.framePackets[maxFrame];
+
+                if (maxFrame > 0)
+                {
+                    maxFrame--;
+                }
+                Dictionary<int, byte[]> data = fdd.framePackets[maxFrame - 1];
                 StringBuilder sb = new StringBuilder();
                 sb.Append("MaxFrame->" + maxFrame + "  receiveCount-> " + data.Count + " : ");
                 foreach (var kvp in data)
@@ -200,7 +208,7 @@ public class Test0 : MonoBehaviour
         }
 
         
-
+        GUILayout.EndVertical();
         //if (GUILayout.Button("Start Mission game"))
         //{
         //    Order order = Order.Command("state {0}".F(ClientState.Ready));
