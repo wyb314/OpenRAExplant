@@ -60,6 +60,8 @@ namespace Engine.Network.Defaults
 
         public bool AuthenticationFailed { set; get; }
 
+        public ClientDefault LocalClient { get { return LobbyInfo.ClientWithIndex(Connection.LocalClientId); } }
+
         public OrderManagerDefault(string host, int port, string password, IConnection conn)
         {
             Host = host;

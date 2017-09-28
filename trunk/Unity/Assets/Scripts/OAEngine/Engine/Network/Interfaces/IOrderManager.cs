@@ -39,6 +39,8 @@ namespace Engine.Network.Interfaces
 
         INetWorld World { set; get; }
 
+        T LocalClient { get; }
+
         bool GameStarted { get; }
 
         bool IsReadyForNextFrame { get; }

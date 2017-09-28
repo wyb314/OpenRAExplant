@@ -1,5 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Engine;
+using Engine.Network.Defaults;
 using UnityEngine;
 
 public class CameraBehaviour : MonoBehaviour
@@ -21,6 +23,18 @@ public class CameraBehaviour : MonoBehaviour
     {
         if (targetTran == null)
         {
+            if (Game.OrderManager != null && Game.OrderManager.GameStarted)
+            {
+                string pName = string.Format("Client_{0}", Game.OrderManager.LocalClient.Index);
+
+                GameObject playerGo = GameObject.Find(pName);
+
+                if (playerGo != null)
+                {
+                    this.targetTran = playerGo.transform;
+                }
+                
+            }
             return;
         }
 
