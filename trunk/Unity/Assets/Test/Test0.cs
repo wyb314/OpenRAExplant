@@ -121,8 +121,6 @@ public class Test0 : MonoBehaviour
             return;
         }
         
-        Debug.Log("MaxFrame : "+maxFrame+" dataCount: "+ fdd.framePackets[maxFrame].Count+"  previousDataCount->"+ fdd.framePackets[maxFrame - 1].Count);
-
         previousFrameData = fdd.framePackets[maxFrame - 1];
     }
 
@@ -195,9 +193,7 @@ public class Test0 : MonoBehaviour
                 omd.allowSendSyncData = !pause;
             }
         }
-
-        GUILayout.BeginVertical();
-
+        
         if (Engine.Game.OrderManager != null)
         {
             int clientId = Engine.Game.OrderManager.Connection.LocalClientId;
@@ -217,14 +213,13 @@ public class Test0 : MonoBehaviour
 
                 string info = string.Format("TimeStep->{0} Id->{1} NetFrame->{3} LocalFrame->{4}  {5}", Game.Timestep, clientId, client.IsAdmin,
                     Engine.Game.OrderManager.NetFrameNumber, Engine.Game.OrderManager.LocalFrameNumber, sb.ToString());
-                GUILayout.Label(info, this.guiStyle);
+                GUI.Label(new Rect(10,Screen.height * 0.6f,Screen.width - 10,Screen.height * 0.35f), info, this.guiStyle);
 
             }
            
         }
 
         
-        GUILayout.EndVertical();
         //if (GUILayout.Button("Start Mission game"))
         //{
         //    Order order = Order.Command("state {0}".F(ClientState.Ready));
