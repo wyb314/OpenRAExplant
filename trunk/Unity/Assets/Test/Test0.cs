@@ -106,15 +106,17 @@ public class Test0 : MonoBehaviour
             return;
         }
 
+        maxFrame = Engine.Game.OrderManager.NetFrameNumber;
+
         FrameDataDefault fdd = Engine.Game.OrderManager.frameData as FrameDataDefault;
         
-        foreach (var kvp in fdd.framePackets)
-        {
-            if (maxFrame < kvp.Key)
-            {
-                maxFrame = kvp.Key;
-            }
-        }
+        //foreach (var kvp in fdd.framePackets)
+        //{
+        //    if (maxFrame < kvp.Key)
+        //    {
+        //        maxFrame = kvp.Key;
+        //    }
+        //}
         if (maxFrame == -1 || maxFrame == 0)
         {
             
