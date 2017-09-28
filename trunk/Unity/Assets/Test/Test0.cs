@@ -39,6 +39,11 @@ public class Test0 : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (this.pause)
+        {
+            return;
+        }
+
         if (platformInfo != null)
         {
             platformInfo.inputter.Update();
@@ -66,6 +71,10 @@ public class Test0 : MonoBehaviour
 
     void FixedUpdate()
     {
+        if (this.pause)
+        {
+            return;
+        }
         if (platformInfo != null)
         {
             platformInfo.LogicTick(Time.fixedDeltaTime);
@@ -79,6 +88,7 @@ public class Test0 : MonoBehaviour
         //}
     }
 
+    public bool pause = false;
     //Game.Mod=ra
     void OnGUI()
     {
@@ -137,6 +147,11 @@ public class Test0 : MonoBehaviour
             
         }
 
+        if (GUILayout.Button("Pause"+!pause))
+        {
+            pause = !pause;
+        }
+
         if (Engine.Game.OrderManager != null)
         {
             int clientId = Engine.Game.OrderManager.Connection.LocalClientId;
@@ -150,6 +165,8 @@ public class Test0 : MonoBehaviour
             }
            
         }
+
+        
 
         //if (GUILayout.Button("Start Mission game"))
         //{
