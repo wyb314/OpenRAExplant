@@ -115,6 +115,8 @@ public class Test0 : MonoBehaviour
             return;
         }
         
+        Debug.Log("MaxFrame : "+maxFrame+" dataCount: "+ fdd.framePackets[maxFrame].Count+"  previousDataCount->"+ fdd.framePackets[maxFrame - 1].Count);
+
         previousFrameData = fdd.framePackets[maxFrame - 1];
     }
 
