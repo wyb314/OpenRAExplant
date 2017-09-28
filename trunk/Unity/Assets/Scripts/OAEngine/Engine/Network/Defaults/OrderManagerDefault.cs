@@ -63,9 +63,7 @@ namespace Engine.Network.Defaults
         public bool AuthenticationFailed { set; get; }
 
         public ClientDefault LocalClient { get { return LobbyInfo.ClientWithIndex(Connection.LocalClientId); } }
-
-        public bool allowSendSyncData = true;
-
+        
         public OrderManagerDefault(string host, int port, string password, IConnection conn)
         {
             Host = host;
@@ -162,41 +160,23 @@ namespace Engine.Network.Defaults
             }
         }
         
-        public int processNetFrame = -1;
         public void Tick()
         {
             if (!IsReadyForNextFrame)
                 throw new InvalidOperationException();
 
-            if (this.allowSendSyncData)
+            Connection.Send(NetFrameNumber + FramesAhead, localOrders.Select(o => o.Serialize()).ToList());
+            localOrders.Clear();
+
+            foreach (var order in frameData.OrdersForFrame(this, World, NetFrameNumber))
             {
-                Connection.Send(NetFrameNumber + FramesAhead, localOrders.Select(o => o.Serialize()).ToList());
-                localOrders.Clear();
+                //Log.Write("wyb", "process order Client->{0} orderStr->{1} netFrameNum->{2}".F(order.Client, order.Order.OrderString, NetFrameNumber));
+                this.orderProcessor.ProcessOrder(this, World, order.Client, order.Order);
             }
             
-            if (this.processNetFrame != NetFrameNumber)
-            {
-                this.processNetFrame = NetFrameNumber;
-                foreach (var order in frameData.OrdersForFrame(this, World, NetFrameNumber))
-                {
-                    //Log.Write("wyb", "process order Client->{0} orderStr->{1} netFrameNum->{2}".F(order.Client, order.Order.OrderString, NetFrameNumber));
-                    this.orderProcessor.ProcessOrder(this, World, order.Client, order.Order);
-                }
-            }
+            Connection.SendSync(NetFrameNumber, OrderIO.SerializeSync(World.SyncHash()));
             
-
-            if (this.allowSendSyncData)
-            {
-                Connection.SendSync(NetFrameNumber, OrderIO.SerializeSync(World.SyncHash()));
-            }
-               
-
             syncReport.UpdateSyncReport();
-            
-            if (this.allowSendSyncData)
-            {
-                ++NetFrameNumber;
-            }
             
         }
 

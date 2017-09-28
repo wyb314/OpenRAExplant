@@ -89,43 +89,43 @@ public class Test0 : MonoBehaviour
         //    this.playTran.eulerAngles = new Vector3(0,rad * Mathf.Rad2Deg,0);
         //}
 
-        this.CalculateGameInfo();
+        //this.CalculateGameInfo();
     }
 
     private Dictionary<int, byte[]> previousFrameData;
     private int maxFrame = -1;
     private void CalculateGameInfo()
     {
-        if (Engine.Game.OrderManager == null || Engine.Game.OrderManager.LobbyInfo == null)
-        {
-            return;
-        }
-
-        //if (!Engine.Game.OrderManager.IsReadyForNextFrame)
+        //if (Engine.Game.OrderManager == null || Engine.Game.OrderManager.LobbyInfo == null)
         //{
         //    return;
         //}
 
-        maxFrame = ((OrderManagerDefault) Engine.Game.OrderManager).processNetFrame;
+        ////if (!Engine.Game.OrderManager.IsReadyForNextFrame)
+        ////{
+        ////    return;
+        ////}
+
+        //maxFrame = ((OrderManagerDefault) Engine.Game.OrderManager).processNetFrame;
 
         
         
-        //foreach (var kvp in fdd.framePackets)
+        ////foreach (var kvp in fdd.framePackets)
+        ////{
+        ////    if (maxFrame < kvp.Key)
+        ////    {
+        ////        maxFrame = kvp.Key;
+        ////    }
+        ////}
+        //if (maxFrame == -1 || maxFrame == 0)
         //{
-        //    if (maxFrame < kvp.Key)
-        //    {
-        //        maxFrame = kvp.Key;
-        //    }
-        //}
-        if (maxFrame == -1 || maxFrame == 0)
-        {
             
-            return;
-        }
+        //    return;
+        //}
 
-        FrameDataDefault fdd = Engine.Game.OrderManager.frameData as FrameDataDefault;
+        //FrameDataDefault fdd = Engine.Game.OrderManager.frameData as FrameDataDefault;
 
-        previousFrameData = fdd.framePackets[maxFrame - 1];
+        //previousFrameData = fdd.framePackets[maxFrame - 1];
     }
 
     public bool pause = false;
@@ -191,11 +191,11 @@ public class Test0 : MonoBehaviour
         {
             pause = !pause;
 
-            if (Engine.Game.OrderManager.LobbyInfo != null)
-            {
-                OrderManagerDefault omd = Engine.Game.OrderManager as OrderManagerDefault;
-                omd.allowSendSyncData = !pause;
-            }
+            //if (Engine.Game.OrderManager.LobbyInfo != null)
+            //{
+            //    OrderManagerDefault omd = Engine.Game.OrderManager as OrderManagerDefault;
+            //    omd.allowSendSyncData = !pause;
+            //}
         }
         
         if (Engine.Game.OrderManager != null)
@@ -208,15 +208,15 @@ public class Test0 : MonoBehaviour
 
 
                 
-                StringBuilder sb = new StringBuilder();
-                sb.Append("MaxFrame->" + maxFrame + "  previous receiveCount-> " + previousFrameData.Count + " : ");
-                foreach (var kvp in previousFrameData)
-                {
-                    sb.Append(string.Format(" c_{0} len->{1}   ", kvp.Key, kvp.Value.Length));
-                }
+                //StringBuilder sb = new StringBuilder();
+                //sb.Append("MaxFrame->" + maxFrame + "  previous receiveCount-> " + previousFrameData.Count + " : ");
+                //foreach (var kvp in previousFrameData)
+                //{
+                //    sb.Append(string.Format(" c_{0} len->{1}   ", kvp.Key, kvp.Value.Length));
+                //}
 
-                string info = string.Format("TimeStep->{0} Id->{1} NetFrame->{3} LocalFrame->{4}  {5}", Game.Timestep, clientId, client.IsAdmin,
-                    Engine.Game.OrderManager.NetFrameNumber, Engine.Game.OrderManager.LocalFrameNumber, sb.ToString());
+                string info = string.Format("TimeStep->{0} Id->{1} NetFrame->{3} LocalFrame->{4} ", Game.Timestep, clientId, client.IsAdmin,
+                    Engine.Game.OrderManager.NetFrameNumber, Engine.Game.OrderManager.LocalFrameNumber);
                 GUI.Label(new Rect(10,Screen.height * 0.6f,Screen.width - 10,Screen.height * 0.35f), info, this.guiStyle);
 
             }
