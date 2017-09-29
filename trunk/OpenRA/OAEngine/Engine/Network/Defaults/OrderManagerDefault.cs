@@ -177,7 +177,7 @@ namespace Engine.Network.Defaults
             Connection.SendSync(NetFrameNumber, OrderIO.SerializeSync(World.SyncHash()));
             
             syncReport.UpdateSyncReport();
-            
+            ++NetFrameNumber;
         }
 
         bool disposed;

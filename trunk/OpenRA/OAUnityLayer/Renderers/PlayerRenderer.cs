@@ -30,6 +30,103 @@ namespace OAUnityLayer.Renderers
             this.tran.position = Vector3.zero;
         }
 
+
+        private void InitAnimation()
+        {
+            Animation anims = this.animation;
+            anims.wrapMode = WrapMode.Once;
+
+            anims["idle"].layer = 0;
+            anims["idleSword"].layer = 0;
+            anims["run"].layer = 0;
+            anims["runSword"].layer = 0;
+            anims["walk"].layer = 0;
+            anims["walkSword"].layer = 0;
+
+            anims["deathBack"].layer = 2;
+            anims["deathFront"].layer = 2;
+
+
+            anims["injuryFrontSword"].layer = 1;
+            anims["injuryFrontSword"].speed = 0.9f;
+            anims["injuryBackSword"].layer = 1;
+            anims["injuryBackSword"].speed = 0.9f;
+
+            anims["evadeSword"].layer = 1;
+
+            anims["showSword"].layer = 0;
+            anims["hideSword"].layer = 0;
+            anims["showSwordRun"].layer = 0;
+            anims["hidSwordRun"].layer = 0;
+            //  anims["showSwordRun"].blendMode = AnimationBlendMode.Additive;
+            //  anims["hidSwordRun"].blendMode = AnimationBlendMode.Additive;
+
+            anims["useLever"].layer = 0;
+            // combo XXXXXX
+            anims["attackX"].speed = 0.9f;
+            anims["attackXX"].speed = 0.8f;
+            anims["attackXXX"].speed = 0.8f;
+            anims["attackXXXX"].speed = 0.8f;
+            anims["attackXXXXX"].speed = 0.8f;
+
+            anims["attackX"].layer = 1;
+            anims["attackXX"].layer = 1;
+            anims["attackXXX"].layer = 1;
+            anims["attackXXXX"].layer = 1;
+            anims["attackXXXXX"].layer = 1;
+            // combo OOOXX
+            anims["attackO"].speed = 1.2f;
+            anims["attackOO"].speed = 1.5f;
+            anims["attackOOO"].speed = 1.1f;
+            anims["attackOOOX"].speed = 1;
+            anims["attackOOOXX"].speed = 1.4f;
+
+            anims["attackO"].layer = 1;
+            anims["attackOO"].layer = 1;
+            anims["attackOOO"].layer = 1;
+            anims["attackOOOX"].layer = 1;
+            anims["attackOOOXX"].layer = 1;
+            // COMBO X00XX
+            anims["attackXO"].speed = 1;
+            anims["attackXOO"].speed = 1.2f;
+            anims["attackXOOX"].speed = 1.2f;
+            anims["attackXOOXX"].speed = 1.2f;
+
+            anims["attackXO"].layer = 1;
+            anims["attackXOO"].layer = 1;
+            anims["attackXOOX"].layer = 1;
+            anims["attackXOOXX"].layer = 1;
+
+            // COMBO XX0XX
+            anims["attackXXO"].speed = 1;
+            anims["attackXXOX"].speed = 1.2f;
+            anims["attackXXOXX"].speed = 1.3f;
+
+            anims["attackXXO"].layer = 1;
+            anims["attackXXOX"].layer = 1;
+            anims["attackXXOXX"].layer = 1;
+
+            // Combo OOXOO
+            anims["attackOOX"].speed = 1;
+            anims["attackOOXO"].speed = 1;
+            anims["attackOOXOO"].speed = 1.3f;
+
+            anims["attackOOX"].layer = 1;
+            anims["attackOOXO"].layer = 1;
+            anims["attackOOXOO"].layer = 1;
+
+            // COMBO OXOOO
+            anims["attackOX"].speed = 1.1f;
+            anims["attackOXO"].speed = 1.2f;
+            anims["attackOXOX"].speed = 1;
+            anims["attackOXOXO"].speed = 1;
+
+            anims["attackOX"].layer = 1;
+            anims["attackOXO"].layer = 1;
+            anims["attackOXOX"].layer = 1;
+            anims["attackOXOXO"].layer = 1;
+        }
+
         private int lastRot = int.MaxValue;
         private WPos lastPos = new WPos(int.MaxValue, 0,int.MaxValue);
 

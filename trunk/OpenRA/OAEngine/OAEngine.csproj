@@ -37,6 +37,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Engine\Actor.cs" />
+    <Compile Include="Engine\ComponentAnim\AnimSetPlayer.cs" />
     <Compile Include="Engine\ComponentAnim\Core\Animation.cs" />
     <Compile Include="Engine\ComponentAnim\Core\AnimationState.cs" />
     <Compile Include="Engine\ComponentAnim\Core\AnimComponent.cs" />
