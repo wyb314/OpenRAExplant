@@ -27,10 +27,15 @@ namespace OAUnityLayer.Renderers
             this.go = player;
             this.tran = this.go.transform;
             this.animation = this.go.GetComponent<Animation>();
-            this.tran.position = Vector3.zero;
-            this.InitAnimation();
         }
 
+        private SmothPos sp;
+        public void Init()
+        {
+            sp = this.go.AddComponent<SmothPos>();
+           
+            this.InitAnimation();
+        }
 
         private void InitAnimation()
         {
@@ -135,6 +140,8 @@ namespace OAUnityLayer.Renderers
         private Quaternion curRot;
         public void Render(Actor self, IWorldRenderer wr)
         {
+            sp.SetActor(self);
+            return;
             //Vector3 pos = new Vector3(self.Pos.X * 1024,0,self.Pos.Y * 1024);
             //this.mCurPos = Vector3.Lerp(this.mCurPos, pos, Time.deltaTime*12);
 
@@ -197,6 +204,39 @@ namespace OAUnityLayer.Renderers
         public void SetAnimationStateSpeed(string name, float speed)
         {
             this.animation[name].speed = speed;
+        }
+    }
+
+    public class SmothPos : MonoBehaviour
+    {
+        private Transform tran;
+        void Start()
+        {
+            tran = transform;
+        }
+
+        public Actor actor;
+        public void SetActor(Actor actor)
+        {
+            this.actor = actor;
+        }
+
+        void Update()
+        {
+            if (actor == null)
+            {
+                return;
+            }
+
+            float rad = this.actor.Facing * Mathf.PI / 128;
+
+            Quaternion rot = Quaternion.Euler(new Vector3(0, -rad * Mathf.Rad2Deg, 0));
+
+            this.tran.rotation = Quaternion.Lerp(this.tran.rotation, rot, Time.deltaTime*8);
+
+            Vector3 curPos = new Vector3(((float)actor.Pos.X) / 1024, 0, -((float)actor.Pos.Y) / 1024);
+
+            this.tran.position = Vector3.Lerp(this.tran.position, curPos, ((float)Game.Timestep) * 13); 
         }
     }
 }

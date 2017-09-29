@@ -19,6 +19,8 @@ namespace OAUnityLayer.Factories
             Vector3 unityPos = pos.ConvertWPos2UnityPos();
             go.transform.position = unityPos;
             PlayerRenderer pr = new PlayerRenderer(go);
+
+            pr.Init();
             return pr;
         }
     }
