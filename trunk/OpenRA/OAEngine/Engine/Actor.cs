@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Engine.ComponentAnim;
 using Engine.ComponentAnim.Core;
 using Engine.ComponentsAI;
 using Engine.ComponentsAI.ComponentPlayer;
@@ -34,6 +35,7 @@ namespace Engine
         private AnimComponent AnimComponent;
 
         private PlayerAgent Agent;
+        private AnimSet AnimSet;
 
 
         public Actor(World world, int clientIdx ,string name, TypeDictionary initDict)
@@ -48,8 +50,10 @@ namespace Engine
 
         public void Init()
         {
-            this.Agent = new PlayerAgent(this,this.render);
+            this.AnimSet = new AnimSetPlayer();
+            this.Agent = new PlayerAgent(this,this.render,this.AnimSet);
             this.Agent.Init();
+            
             Animation anim = new Animation(this.render);
             this.AnimComponent = new AnimComponent(this.Agent,anim);
             this.AnimComponent.Init();

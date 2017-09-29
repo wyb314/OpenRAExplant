@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Engine.ComponentAnim;
+using Engine.ComponentAnim.Core;
 using Engine.ComponentsAI.AStarMachine;
 using Engine.ComponentsAI.GOAP;
 using Engine.ComponentsAI.GOAP.Core;
@@ -36,10 +38,11 @@ namespace Engine.ComponentsAI
 
         public IRender rendererProxy { private set; get; }
 
-        public PlayerAgent(Actor self, IRender render)
+        public PlayerAgent(Actor self, IRender render,AnimSet animSet)
         {
             this.self = self;
             this.rendererProxy = render;
+            this.AnimSet = animSet;
         }
 
         public void Init()

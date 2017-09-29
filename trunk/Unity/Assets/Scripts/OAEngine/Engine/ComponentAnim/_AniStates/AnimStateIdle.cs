@@ -78,8 +78,7 @@ namespace Engine.ComponentAnim._AniStates
 
         void PlayIdleAnim()
         {
-            //string s = Owner.AnimSet.GetIdleAnim(Owner.BlackBoard.WeaponSelected, Owner.BlackBoard.WeaponState);
-            string s = "idle";
+            string s = Owner.AnimSet.GetIdleAnim(Owner.BlackBoard.WeaponSelected, Owner.BlackBoard.WeaponState);
             CrossFade(s,0.2f);
         }
 

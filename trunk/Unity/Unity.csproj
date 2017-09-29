@@ -181,6 +181,7 @@
     <Compile Include="Assets\Scripts\OAEngine\Engine\ComponentAnim\_AniStates\AnimStateIdle.cs" />
     <Compile Include="Assets\Scripts\OAEngine\Engine\ComponentAnim\_AniStates\AnimStateMove.cs" />
     <Compile Include="Assets\Scripts\OAEngine\Engine\ComponentAnim\_FSMs\AnimFSMPlayer.cs" />
+    <Compile Include="Assets\Scripts\OAEngine\Engine\ComponentAnim\AnimSetPlayer.cs" />
     <Compile Include="Assets\Scripts\OAEngine\Engine\ComponentAnim\Core\Animation.cs" />
     <Compile Include="Assets\Scripts\OAEngine\Engine\ComponentAnim\Core\AnimationState.cs" />
     <Compile Include="Assets\Scripts\OAEngine\Engine\ComponentAnim\Core\AnimComponent.cs" />

@@ -83,9 +83,9 @@ namespace Engine.ComponentAnim._AniStates
             //if (Move(Owner.BlackBoard.MoveDir * Owner.BlackBoard.Speed * Time.deltaTime) == false)
             //    Release();
 
-            //E_MotionType motion = GetMotionType();
-            //if (motion != Owner.BlackBoard.MotionType)
-            //    PlayAnim(motion);
+            E_MotionType motion = GetMotionType();
+            if (motion != Owner.BlackBoard.MotionType)
+                PlayAnim(motion);
 
         }
         
