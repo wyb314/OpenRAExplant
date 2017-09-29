@@ -14,7 +14,6 @@ namespace Engine.ComponentsAI.GOAP.Goals
 
         public override void InitGoal()
         {
-            Log.Write("wyb", "Enter GOAPGoalGoTo goal!");
         }
 
         public override float GetMaxRelevancy()

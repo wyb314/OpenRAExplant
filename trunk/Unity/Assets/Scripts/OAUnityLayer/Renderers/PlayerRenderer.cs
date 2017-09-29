@@ -28,6 +28,7 @@ namespace OAUnityLayer.Renderers
             this.tran = this.go.transform;
             this.animation = this.go.GetComponent<Animation>();
             this.tran.position = Vector3.zero;
+            this.InitAnimation();
         }
 
 
@@ -153,8 +154,8 @@ namespace OAUnityLayer.Renderers
                 curPos = new Vector3(((float)self.Pos.X) / 1024, 0, -((float)self.Pos.Y) / 1024);
             }
             
-            this.tran.position = Vector3.Lerp(this.tran.position,curPos,((float)Game.Timestep) * 13);
-            
+            //this.tran.position = Vector3.Lerp(this.tran.position,curPos,((float)Game.Timestep) * 13);
+            this.tran.position = curPos;
 
         }
 

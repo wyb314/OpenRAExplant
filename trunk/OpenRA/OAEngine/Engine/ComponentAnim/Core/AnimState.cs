@@ -56,9 +56,14 @@ namespace Engine.ComponentAnim.Core
             //if (Owner.debugAnims) Debug.Log(Time.timeSinceLevelLoad + " " + this.ToString() + " cross fade anim: " + anim + " in " + fadeInTime + "s.");
 
             if (AnimEngine.IsPlaying(anim))
+            {
                 AnimEngine.CrossFadeQueued(anim, fadeInTime, QueueMode.PlayNow);
+            }
             else
+            {
                 AnimEngine.CrossFade(anim, fadeInTime);
+            }
+                
         }
 
         //protected bool Move(Vector3 velocity, bool slide = true)

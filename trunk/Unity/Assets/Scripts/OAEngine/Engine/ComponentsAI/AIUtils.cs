@@ -18,5 +18,36 @@ namespace Engine.ComponentsAI
             else
                 return (facing - rot) & 0xFF;
         }
+
+
+        public static int RoundFacing(int facing)
+        {
+            facing = facing % 256;
+
+            if (facing < 0)
+            {
+                facing += 256;
+            }
+            return facing;
+
+        }
+
+        public static int AngleBetween(int facing0 , int facing1)
+        {
+            facing0 = RoundFacing(facing0);
+            facing1 = RoundFacing(facing1);
+
+            if (facing0 > facing1 && facing0 - facing1 > 128)
+            {
+                return facing1 + 256 - facing0;
+            }
+
+            if (facing1 > facing0 && facing1 - facing0 > 128)
+            {
+                return facing0 + 256 - facing1;
+            }
+
+            return MathUtils.Abs(facing0 - facing1);
+        }
     }
 }

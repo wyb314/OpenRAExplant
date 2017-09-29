@@ -52,14 +52,14 @@ namespace OAEngine.Engine.ComponentsAI
         public E_LookType LookType;
 
         public int MaxSprintSpeed = 8 * 1024;
-        public int MaxRunSpeed = 4 * 1024;
-        public int MaxWalkSpeed = 1536;
+        public int MaxRunSpeed = 9 * 512;
+        public int MaxWalkSpeed = 1843;
         public int MaxCombatMoveSpeed = 1024;
         //public int MaxHealth = 100;
         public int MaxKnockdownTime = 4000;
 
-        public int SpeedSmooth = 200;
-        public int RotationSmooth = 2;
+        public int SpeedSmooth = 800;
+        public int RotationSmooth = 8;
         public float RotationSmoothInMove = 8.0f;
         public float RollDistance = 4.0f;
         public int MoveSpeedModifier = 100;
