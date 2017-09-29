@@ -132,6 +132,7 @@ namespace OAUnityLayer.Renderers
         private WPos lastPos = new WPos(int.MaxValue, 0,int.MaxValue);
 
         private Vector3 curPos = Vector3.zero;
+        private Quaternion curRot;
         public void Render(Actor self, IWorldRenderer wr)
         {
             //Vector3 pos = new Vector3(self.Pos.X * 1024,0,self.Pos.Y * 1024);
@@ -144,18 +145,27 @@ namespace OAUnityLayer.Renderers
 
                 float rad = rot * Mathf.PI / 128;
 
-                this.tran.eulerAngles = new Vector3(0, - rad * Mathf.Rad2Deg, 0);
+                curRot = Quaternion.Euler(new Vector3(0, -rad*Mathf.Rad2Deg, 0));
+
+                this.tran.rotation = curRot;
+
             }
+
+            //this.tran.eulerAngles = new Vector3(0, -rad * Mathf.Rad2Deg, 0);
+
+            
 
             if (this.lastPos != self.Pos)
             {
                 this.lastPos = self.Pos;
                 //
                 curPos = new Vector3(((float)self.Pos.X) / 1024, 0, -((float)self.Pos.Y) / 1024);
+
+                this.tran.position = curPos;
             }
             
             //this.tran.position = Vector3.Lerp(this.tran.position,curPos,((float)Game.Timestep) * 13);
-            this.tran.position = curPos;
+           
 
         }
 

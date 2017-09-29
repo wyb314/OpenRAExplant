@@ -17,8 +17,9 @@ namespace OAUnityLayer.Factories
             GameObject go = GameObject.Instantiate(Resources.Load<GameObject>(pfbName));
             go.name = string.Format("Client_{0}", PlayerId);
             Vector3 unityPos = pos.ConvertWPos2UnityPos();
-
-            return new PlayerRenderer(go);
+            go.transform.position = unityPos;
+            PlayerRenderer pr = new PlayerRenderer(go);
+            return pr;
         }
     }
 }

@@ -210,7 +210,7 @@ namespace Engine.ComponentAnim._AniStates
 
             StartRotation = Owner.Facing;
 
-            Owner.BlackBoard.MotionType = GetMotionType();
+            //Owner.BlackBoard.MotionType = GetMotionType();
             //Log.Write("wyb","AnimStateMove initialize!");
             RotationProgress = 0;
         }
