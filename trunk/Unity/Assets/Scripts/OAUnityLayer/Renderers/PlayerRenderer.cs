@@ -130,6 +130,7 @@ namespace OAUnityLayer.Renderers
         private int lastRot = int.MaxValue;
         private WPos lastPos = new WPos(int.MaxValue, 0,int.MaxValue);
 
+        private Vector3 curPos = Vector3.zero;
         public void Render(Actor self, IWorldRenderer wr)
         {
             //Vector3 pos = new Vector3(self.Pos.X * 1024,0,self.Pos.Y * 1024);
@@ -149,10 +150,11 @@ namespace OAUnityLayer.Renderers
             {
                 this.lastPos = self.Pos;
                 //
-                Vector3 pos = new Vector3(((float)this.lastPos.X )/ 1024,0,-((float)this.lastPos.Y) / 1024);
-                this.tran.position = pos;
+                curPos = new Vector3(((float)self.Pos.X) / 1024, 0, -((float)self.Pos.Y) / 1024);
             }
-
+            
+            this.tran.position = Vector3.Lerp(this.tran.position,curPos,((float)Game.Timestep) * 13);
+            
 
         }
 
