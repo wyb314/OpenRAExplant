@@ -24,7 +24,7 @@ namespace Engine.Network.Defaults
 
         public string Map { set; get; }
 
-        private int orderLatency = 3;
+        private int orderLatency = 1;
         public int OrderLatency
         {
             get { return this.orderLatency; }
