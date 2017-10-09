@@ -1,0 +1,76 @@
+Game Toolbox 0.2.1
+Release Notes
+------------------
+
+
+Fixed:
+- Fixed suboptimal plan. It was just an issue with how the problem was set up (the equality comparison for Food was a straight equality comparison, rather than allowing a subset to be considered equal).
+
+Game Toolbox 0.2.0
+Release Notes
+------------------
+
+
+New:
+- Added ability for planner to handle continuous values (integers and floats, for instance) rather than just discrete values (such as enums). This requires the specification of comparison delegates for each symbol type.
+- Added XML<T> generic static class to ease XML serialization/deserialization. Use XML<T>.Initialize() before using it to save or load an object. It uses reflection to determine which classes the XmlSerializer needs to be able to serialize, so the XmlInclude attribute is no longer necessary; properties with polymorphic types can be serialized and deserialized without knowing the actual type of the value at compile time.
+- Added Combinations static class and Combination generic classes, which can be useful for combinatorics problems.
+- Added FlyweightPool<T> generic class which implements the Flyweight design pattern by attempting to load and retain one instance of T (if it is not abstract) and each non-abstract subclass of T using reflection. Each class to be loaded must have a default constructor, which will be used to create its flyweight instance. If preferred, preloading can optionally be disabled (use the constructor with the "preload" parameter).
+- Added PlannerActionPool, a FlyweightPool of planner actions. This contains each non-abstract PlannerAction in the program, and has a helper method to easily get a PlannerActionSet containing all available PlannerActions.
+- Added Tuple classes for 2- through 10-tuples.
+- Added parameters to PlannerAction functions. Added ability for planner to infer parameter values from the needs of the plan, allowing a GoTo action, for instance, which can set the "Location" symbol to any valid value needed by the planner. Actions which remove a symbol with any value and convert it to something else (such as a generalized EatFood action) are still not possible, however.
+- Updated to allow XML serialization of PlannerActionSet. This enables saving and loading of what actions are available to which agents in data.
+- Updated GOAP test in test app to show continuous value support ("Money") and parameterized action support ("GoTo").
+
+Fixed:
+- Fixed problem where planner was unable to detect certain problems where a valid plan did not extist (problem was created by the addition of support for continuous values).
+
+Known Issues:
+- The planner seems to be making suboptimal plans. In the GOAP test in the test app, it eats the ice cream, even though that brings it no closer to the goal state (and an alternative, just eating the steak, does).
+- Comparison delegates should probably be per-symbol rather than per-type, in case the same type is used for two different symbols which should nonetheless be compared differently.
+- Fixed a bug in ShuffleRemaining() function in Deck<T>.
+
+Game Toolbox 0.1.0
+
+Release Notes
+
+------------------
+
+
+Game Toolbox is public domain software. It is free to modify and use for any purpose with no restrictions.
+
+This is the first release of Game Toolbox. Please report any bugs you find to the bug tracker for this project at https://sourceforge.net/tracker/?group_id=279894&atid=1187912
+
+
+
+Initial description of Game Toolbox (from http://iamelias.com/2009/08/28/game-toolbox/):
+
+“Game Toolbox” is a .NET library written in C# that I have been working on in my spare time for the last few months. It is now almost ready to release, so I thought I’d take a few moments to describe it here.
+
+
+The primary purpose of Game Toolbox is to facilitate the rapid creation of game prototypes, but it can also be used in full production-quality games. It is intended to provide useful functionality for a variety of different types of games, to be as reusable as possible. That means it does not include any graphics code, nor does it depend on XNA or any other libraries besides the .NET Framework (currently version 3.5, and it is also compatible with Mono so it can be used on non-Microsoft platforms). So what does it do?
+
+It currently includes these main classes:
+
+- PriorityQueue<T>
+This is a generic priority queue (heap) class. It holds values of any type, and uses a user-provided delegate to determine priority. The user-supplied delegate is a Comparison<T> (see http://msdn.microsoft.com/en-us/library/tfakywbh.aspx), which can be confusing to implement; if the items are coming out in the opposite of expected order, the return values of the comparison are reversed.
+
+- Deck<T>
+This is a generic deck of “cards,” which can be of any type. It keeps track of cards that have been drawn as well as cards that remain undrawn, provides properties and functions to peek at the top and bottom cards (even a few at a time) as well as functions to draw from the top or bottom, add cards to or remove them from the top or bottom, remove a specific card, iterate through the entire deck, and of course shuffle (either the undrawn cards alone, or shuffle all drawn cards back in).
+
+- DNA
+This is the basis of a genetic algorithm. It is based on an array of byte values (of user-specified length), but provides functionality to randomize the bytes as well as create new instances which are “children” of one or two other DNA objects, with a user-specified probability of mutation. It is up to the user to come up with a meaning for each gene.
+
+- Algorithms
+This static class is where most algorithms in the library will end up. At the moment it includes Heapsort<T>, a heapsort algorithm which uses PriorityQueue<T>, and Genetic, a genetic algorithm implementation which allows the user to specify the number of genes in the DNA, the population size for each generation, the number of generations to iterate, the number of survivors to preserve each generation, the probability of genes mutating, and the fitness function used to determine which DNA survive. It returns an IEnumerable which can be used to see the DNA from each successive generation.
+
+- Graph<TNode, TEdge>
+This is a generic directed graph implementation, useful for many things in games. Data stored at nodes and edges can be of any type. Because .NET has garbage collection with reference counting (which takes into account circular references), the nodes and edges have references to each other directly.
+
+- AStar<TNode, TEdge>
+This is an implementation of the A* graph search algorithm. It runs on graphs of type Graph<TNode, TEdge>, though it doesn’t require the actual graph object, just the start node and target node. The user must specify the cost function and expected cost function (heuristic expected cost from any given node to the target node), and may optionally also specify a CloseEnough function which should return true if a node is reached that is not the target node but is still acceptable, and a function to allow the algorithm to be halted early. The user may also limit the size of the priority queue used for the algorithm, which can make searches faster but removes the guarantee that an optimal path will be found, if one exists. It returns paths as a series of edges between nodes, with the values which were stored in the graph at all nodes and edges along the way.
+
+- GoalOrientedActionPlanner
+This static class implements a Goal-Oriented Action Planner (see http://web.media.mit.edu/~jorkin/gdc2006_orkin_jeff_fear.pdf). The values for each symbol in the planner states can be of any type, and each state can contain any number of symbols (limited by memory and such things, of course). The user specifies the actions available, the current state, and the goal state, and the planner will find a plan to fulfill the goal if the available actions allow for it. In addition to the features mentioned in the paper, this planner implementation supports conditional goals and continuous values for symbols (for example, a goal that includes the condition that remaining cash be greater than a certain amount, with a double to represent the money). I am currently working on supporting conditions in the prerequisites for actions, which is the last thing I want to get done before Game Toolbox is released.
+
+When it is ready, a project will be created for it on SourceForge. Game Toolbox will be released as public domain–basically, no license. Free to use for any purpose, commercial or otherwise. Free to modify with no obligation to include any license information, attribution, or to release any modifications to the community (though I will update it with my modifications).
