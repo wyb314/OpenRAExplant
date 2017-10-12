@@ -222,7 +222,7 @@ namespace OAUnityLayer.Renderers
             this.actor = actor;
         }
 
-        void Update()
+        void FixedUpdate()
         {
             if (actor == null)
             {
@@ -245,11 +245,11 @@ namespace OAUnityLayer.Renderers
                 this.actor.Facing.z.AsFloat(),
                 this.actor.Facing.w.AsFloat());
 
-            this.tran.rotation = Quaternion.Lerp(this.tran.rotation, rot, Time.deltaTime * 8);
+            this.tran.rotation = rot;
 
-            Vector3 curPos = new Vector3(((float)actor.Pos.x) / 1024, 0, -((float)actor.Pos.y) / 1024);
+            Vector3 curPos = new Vector3(((float)actor.Pos.x), 0, (float)actor.Pos.y);
 
-            this.tran.position = Vector3.Lerp(this.tran.position, curPos, ((float)Game.Timestep) * 13);
+            this.tran.position = curPos;
         }
     }
 }

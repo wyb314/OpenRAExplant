@@ -106,9 +106,9 @@ namespace Engine
                     }
                     else
                     {
-                        FP MoveSpeedModifier = new FP(force)/256;
-                        FP rad = angle*new FP(360) * TSMath.Deg2Rad / new FP(256) ;
-                        this.CurJoystickDir = new TSVector2(1, TSMath.Tan(rad));
+                        FP MoveSpeedModifier = new FP(force) / 256;
+                        FP rad = angle * new FP(360) * TSMath.Deg2Rad / new FP(256);
+                        this.CurJoystickDir = new TSVector2(TSMath.Cos(rad), TSMath.Sin(rad));
                         this.CurJoystickDir.Normalize();
                         this.ComponentPlayer.CreateOrderGoTo(MoveSpeedModifier);
                         //this.SetMoveDir(angle);
