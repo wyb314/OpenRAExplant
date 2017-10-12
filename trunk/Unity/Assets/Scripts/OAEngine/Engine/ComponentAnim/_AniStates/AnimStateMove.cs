@@ -7,17 +7,18 @@ using Engine.ComponentsAI.AStarMachine;
 using Engine.Primitives;
 using Engine.Support;
 using OAEngine.Engine.ComponentsAI;
+using TrueSync;
 
 namespace Engine.ComponentAnim._AniStates
 {
     public class AnimStateMove : AnimState
     {
         AgentActionMove Action;
-        int MaxSpeed;
+        FP MaxSpeed;
 
-        private int FinalRotation;
-        private int StartRotation;
-        int RotationProgress;
+        private TSQuaternion FinalRotation;
+        private TSQuaternion StartRotation;
+        FP RotationProgress;
 
 
         public AnimStateMove(Animation anims, Agent owner)
@@ -59,87 +60,111 @@ namespace Engine.ComponentAnim._AniStates
                 return;
             }
 
-            RotationProgress += Owner.BlackBoard.RotationSmooth * Game.Timestep;
-            RotationProgress = MathUtils.Min(RotationProgress, 1000);
 
-            int curFacing = AIUtils.RoundFacing(this.Owner.Facing);
-            int targetFacing = AIUtils.RoundFacing(FinalRotation);
+            #region
+            //RotationProgress += Owner.BlackBoard.RotationSmooth * Game.Timestep;
+            //RotationProgress = MathUtils.Min(RotationProgress, 1000);
+
+            //int curFacing = AIUtils.RoundFacing(this.Owner.Facing);
+            //int targetFacing = AIUtils.RoundFacing(FinalRotation);
 
 
-            if (curFacing > targetFacing && curFacing - targetFacing > 128)
-            {
-                curFacing -= 256;
-            }
+            //if (curFacing > targetFacing && curFacing - targetFacing > 128)
+            //{
+            //    curFacing -= 256;
+            //}
 
-            if (curFacing < targetFacing && targetFacing - curFacing > 128)
-            {
-                targetFacing -= 256;
-            }
+            //if (curFacing < targetFacing && targetFacing - curFacing > 128)
+            //{
+            //    targetFacing -= 256;
+            //}
 
-            targetFacing = curFacing + (int)((targetFacing - curFacing) * (((float)RotationProgress) / 1000));
+            //targetFacing = curFacing + (int)((targetFacing - curFacing) * (((float)RotationProgress) / 1000));
 
-            targetFacing = AIUtils.RoundFacing(targetFacing);
-            curFacing = AIUtils.RoundFacing(curFacing);
-            var deltaAngle = MathUtils.Abs(curFacing - targetFacing);
+            //targetFacing = AIUtils.RoundFacing(targetFacing);
+            //curFacing = AIUtils.RoundFacing(curFacing);
+            //var deltaAngle = MathUtils.Abs(curFacing - targetFacing);
 
-            if (deltaAngle < this.Owner.TurnSpeed)
-            {
-                this.Owner.Facing = targetFacing;
-            }
-            else
-            {
-                bool overHalfPi = false;
-                if (deltaAngle > 128)
-                {
-                    overHalfPi = true;
-                }
+            //if (deltaAngle < this.Owner.TurnSpeed)
+            //{
+            //    this.Owner.Facing = targetFacing;
+            //}
+            //else
+            //{
+            //    bool overHalfPi = false;
+            //    if (deltaAngle > 128)
+            //    {
+            //        overHalfPi = true;
+            //    }
 
-                if (overHalfPi)
-                {
-                    if (curFacing > targetFacing)
-                    {
-                        curFacing += this.Owner.TurnSpeed;
-                    }
-                    else
-                    {
-                        curFacing -= this.Owner.TurnSpeed;
-                    }
-                }
-                else
-                {
-                    if (curFacing > targetFacing)
-                    {
-                        curFacing -= this.Owner.TurnSpeed;
-                    }
-                    else
-                    {
-                        curFacing += this.Owner.TurnSpeed;
-                    }
-                }
+            //    if (overHalfPi)
+            //    {
+            //        if (curFacing > targetFacing)
+            //        {
+            //            curFacing += this.Owner.TurnSpeed;
+            //        }
+            //        else
+            //        {
+            //            curFacing -= this.Owner.TurnSpeed;
+            //        }
+            //    }
+            //    else
+            //    {
+            //        if (curFacing > targetFacing)
+            //        {
+            //            curFacing -= this.Owner.TurnSpeed;
+            //        }
+            //        else
+            //        {
+            //            curFacing += this.Owner.TurnSpeed;
+            //        }
+            //    }
 
-            }
+            //}
 
-            this.Owner.Facing = curFacing;
-            deltaAngle = AIUtils.AngleBetween(FinalRotation, this.Owner.Facing);
-            if (deltaAngle > 27)
+            //this.Owner.Facing = curFacing;
+            //deltaAngle = AIUtils.AngleBetween(FinalRotation, this.Owner.Facing);
+            //if (deltaAngle > 27)
+            //    return;
+
+            //MaxSpeed = MathUtils.Max(Owner.BlackBoard.MaxWalkSpeed, (int)((Owner.BlackBoard.MaxRunSpeed * Owner.BlackBoard.MoveSpeedModifier) / 100));
+
+            //// Smooth the speed based on the current target direction
+            //int curSmooth = (int)((float)Owner.BlackBoard.SpeedSmooth * Game.Timestep / 100);
+
+            //Owner.BlackBoard.Speed = Owner.BlackBoard.Speed + (int)(MaxSpeed - Owner.BlackBoard.Speed) * curSmooth / 1000;
+            //Owner.BlackBoard.MoveDir = Owner.BlackBoard.DesiredDirection;
+
+            //var dir = new WVec(0, -1024, 0).Rotate(WRot.FromFacing(this.Owner.Facing));
+            //WVec v = Owner.BlackBoard.Speed * dir * Game.Timestep / (1024 * 1000);
+
+
+            //this.Owner.Position = this.Owner.Position + v;
+            ////// MOVE
+            ////if (Move(Owner.BlackBoard.MoveDir * Owner.BlackBoard.Speed * Time.deltaTime) == false)
+            ////    Release();
+
+            #endregion old code
+
+            FP deltaTime = Game.Timestep/1000f;
+            RotationProgress += deltaTime * Owner.BlackBoard.RotationSmooth;
+            RotationProgress = TSMath.Min(RotationProgress, 1);
+            TSQuaternion q = TSQuaternion.Slerp(StartRotation, FinalRotation, RotationProgress);
+            Owner.Rotation = q;
+
+            if (TSQuaternion.Angle(q, FinalRotation) > 40.0f)
                 return;
 
-            MaxSpeed = MathUtils.Max(Owner.BlackBoard.MaxWalkSpeed, (int)((Owner.BlackBoard.MaxRunSpeed * Owner.BlackBoard.MoveSpeedModifier) / 100));
+            MaxSpeed = TSMath.Max(Owner.BlackBoard.MaxWalkSpeed, Owner.BlackBoard.MaxRunSpeed * Owner.BlackBoard.MoveSpeedModifier);
 
             // Smooth the speed based on the current target direction
-            int curSmooth = (int)((float)Owner.BlackBoard.SpeedSmooth * Game.Timestep / 100);
+            FP curSmooth = Owner.BlackBoard.SpeedSmooth * deltaTime;
 
-            Owner.BlackBoard.Speed = Owner.BlackBoard.Speed + (int)(MaxSpeed - Owner.BlackBoard.Speed) * curSmooth / 1000;
+            Owner.BlackBoard.Speed = TSMath.Lerp(Owner.BlackBoard.Speed, MaxSpeed, curSmooth);
             Owner.BlackBoard.MoveDir = Owner.BlackBoard.DesiredDirection;
 
-            var dir = new WVec(0, -1024, 0).Rotate(WRot.FromFacing(this.Owner.Facing));
-            WVec v = Owner.BlackBoard.Speed * dir * Game.Timestep / (1024 * 1000);
-
-
-            this.Owner.Position = this.Owner.Position + v;
-            //// MOVE
-            //if (Move(Owner.BlackBoard.MoveDir * Owner.BlackBoard.Speed * Time.deltaTime) == false)
-            //    Release();
+            TSVector2 velocity = Owner.BlackBoard.MoveDir*Owner.BlackBoard.Speed;
+            Owner.Position += velocity * deltaTime; 
 
             E_MotionType motion = GetMotionType();
             //Log.Write("wyb", "Speed->" + Owner.BlackBoard.Speed+" motion: "+motion);
@@ -206,9 +231,12 @@ namespace Engine.ComponentAnim._AniStates
 
             Action = action as AgentActionMove;
 
-            FinalRotation = Owner.BlackBoard.DesiredDirection;
+            TSVector forward = new TSVector(Owner.BlackBoard.DesiredDirection.x,0,Owner.BlackBoard.DesiredDirection.y);
+            FinalRotation = TSQuaternion.LookRotation(forward);
+            //FinalRotation.SetLookRotation(Owner.BlackBoard.DesiredDirection);
+            //FinalRotation.s(Owner.BlackBoard.DesiredDirection);
 
-            StartRotation = Owner.Facing;
+            StartRotation = Owner.Rotation;
 
             //Owner.BlackBoard.MotionType = GetMotionType();
             //Log.Write("wyb","AnimStateMove initialize!");

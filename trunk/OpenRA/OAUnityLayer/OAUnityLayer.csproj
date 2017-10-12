@@ -51,6 +51,10 @@
     <Compile Include="Support\WPos.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\FixMath\FixMath.csproj">
+      <Project>{61da629b-524b-4351-9163-0077c1024bc6}</Project>
+      <Name>FixMath</Name>
+    </ProjectReference>
     <ProjectReference Include="..\OAEngine\OAEngine.csproj">
       <Project>{0f947cab-b84c-41e5-a9fe-fb831a7c490f}</Project>
       <Name>OAEngine</Name>

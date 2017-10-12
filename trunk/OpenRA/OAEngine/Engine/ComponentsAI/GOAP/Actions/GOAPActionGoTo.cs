@@ -6,6 +6,7 @@ using Engine.ComponentsAI.Factories;
 using Engine.ComponentsAI.GOAP.Core;
 using Engine.Primitives;
 using OAEngine.Engine.ComponentsAI;
+using TrueSync;
 
 namespace Engine.ComponentsAI.GOAP.Actions
 {
@@ -13,7 +14,7 @@ namespace Engine.ComponentsAI.GOAP.Actions
     {
         private AgentActionGoTo Action;
 
-        private WPos FinalPos;
+        private TSVector2 FinalPos;
 
         public GOAPActionGoTo(Agent owner) : base(E_GOAPAction.gotoPos, owner) { }
 
@@ -88,7 +89,7 @@ namespace Engine.ComponentsAI.GOAP.Actions
             Owner.BlackBoard.ActionAdd(RotateAction);
         }*/
 
-        private void ActionGoTo(WPos finalPos)
+        private void ActionGoTo(TSVector2 finalPos)
         {
             FinalPos = finalPos;
 

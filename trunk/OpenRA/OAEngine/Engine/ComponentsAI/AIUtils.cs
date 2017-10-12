@@ -29,7 +29,6 @@ namespace Engine.ComponentsAI
                 facing += 256;
             }
             return facing;
-
         }
 
         public static int AngleBetween(int facing0 , int facing1)

@@ -7,6 +7,7 @@ using Engine.ComponentsAI.GOAP;
 using Engine.ComponentsAI.GOAP.Core;
 using Engine.Support;
 using OAEngine.Engine.ComponentsAI;
+using TrueSync;
 
 namespace Engine.ComponentsAI.ComponentPlayer
 {
@@ -140,9 +141,20 @@ namespace Engine.ComponentsAI.ComponentPlayer
             if (Owner.BlackBoard.IsOrderAddPossible(AgentOrder.E_OrderType.E_DODGE) == false)
                 return;
 
-            
+            TSVector2 rollDir;
+
+            if (this.Owner.CurJoystickDir != TSVector2.zero)
+            {
+                rollDir = this.Owner.CurJoystickDir;
+            }
+            else
+            {
+                rollDir = TSVector2.up;
+            }
+               
+            rollDir.Normalize();
             AgentOrder order = AgentOrderFactory.Create(AgentOrder.E_OrderType.E_DODGE);
-            order.Direction = this.force;
+            order.Direction = rollDir;
 
             Owner.BlackBoard.OrderAdd(order);
 
@@ -156,7 +168,7 @@ namespace Engine.ComponentsAI.ComponentPlayer
         }
 
 
-        public void CreateOrderGoTo(int angle , int force)
+        public void CreateOrderGoTo(FP MoveSpeedModifier)
         {
             this.force = force;
 
@@ -164,8 +176,8 @@ namespace Engine.ComponentsAI.ComponentPlayer
                 return;
             
             AgentOrder order = AgentOrderFactory.Create(AgentOrder.E_OrderType.E_GOTO);
-            order.Direction = angle;
-            order.MoveSpeedModifier = force;
+            order.Direction = this.Owner.CurJoystickDir;
+            order.MoveSpeedModifier = MoveSpeedModifier;
 
             Owner.BlackBoard.OrderAdd(order);
         }

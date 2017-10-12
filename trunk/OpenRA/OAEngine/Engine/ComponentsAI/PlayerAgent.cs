@@ -11,27 +11,33 @@ using Engine.ComponentsAI.WorkingMemory;
 using Engine.Interfaces;
 using Engine.Primitives;
 using OAEngine.Engine.ComponentsAI;
+using TrueSync;
 
 namespace Engine.ComponentsAI
 {
     public class PlayerAgent : Agent
     {
-        public override WPos Position
+        public override TSVector2 Position
         {
             set { this.self.Pos = value; }
             get { return this.self.Pos; }
         }
 
-        public override int Facing
+        public override TSQuaternion Rotation
         {
             get { return this.self.Facing; }
             set { this.self.Facing = value; }
         }
 
-        public override int TurnSpeed
+        public override FP TurnSpeed
         {
             get { return this.self.TurnSpeed; }
             set { this.self.TurnSpeed = value; }
+        }
+
+        public override TSVector2 CurJoystickDir
+        {
+            get { return this.self.CurJoystickDir; }
         }
 
         public Actor self { private set; get; }

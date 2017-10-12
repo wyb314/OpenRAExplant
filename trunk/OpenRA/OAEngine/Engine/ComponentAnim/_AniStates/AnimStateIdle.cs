@@ -5,6 +5,7 @@ using Engine.ComponentsAI.AgentActions;
 using Engine.ComponentsAI.AStarMachine;
 using Engine.Primitives;
 using OAEngine.Engine.ComponentsAI;
+using TrueSync;
 
 namespace Engine.ComponentAnim._AniStates
 {
@@ -87,7 +88,7 @@ namespace Engine.ComponentAnim._AniStates
             base.Initialize(action);
 
             Owner.BlackBoard.MotionType = E_MotionType.None;
-            Owner.BlackBoard.MoveDir = 0;
+            Owner.BlackBoard.MoveDir = TSVector2.up;
             Owner.BlackBoard.Speed = 0;
 
             if (WeaponAction == null)

@@ -7,6 +7,7 @@ using Engine.Interfaces;
 using Engine.Primitives;
 using UnityEngine;
 using Animation = UnityEngine.Animation;
+using TrueSync;
 
 namespace OAUnityLayer.Renderers
 {
@@ -145,31 +146,31 @@ namespace OAUnityLayer.Renderers
             //Vector3 pos = new Vector3(self.Pos.X * 1024,0,self.Pos.Y * 1024);
             //this.mCurPos = Vector3.Lerp(this.mCurPos, pos, Time.deltaTime*12);
 
-            if (this.lastRot != self.Facing)
-            {
-                this.lastRot = self.Facing;
-                int rot = self.Facing;
+            //if (this.lastRot != self.Facing)
+            //{
+            //    this.lastRot = self.Facing;
+            //    int rot = self.Facing;
 
-                float rad = rot * Mathf.PI / 128;
+            //    float rad = rot * Mathf.PI / 128;
 
-                curRot = Quaternion.Euler(new Vector3(0, -rad*Mathf.Rad2Deg, 0));
+            //    curRot = Quaternion.Euler(new Vector3(0, -rad*Mathf.Rad2Deg, 0));
 
-                this.tran.rotation = curRot;
+            //    this.tran.rotation = curRot;
 
-            }
+            //}
 
-            //this.tran.eulerAngles = new Vector3(0, -rad * Mathf.Rad2Deg, 0);
+            ////this.tran.eulerAngles = new Vector3(0, -rad * Mathf.Rad2Deg, 0);
 
             
 
-            if (this.lastPos != self.Pos)
-            {
-                this.lastPos = self.Pos;
-                //
-                curPos = new Vector3(((float)self.Pos.X) / 1024, 0, -((float)self.Pos.Y) / 1024);
+            //if (this.lastPos != self.Pos)
+            //{
+            //    this.lastPos = self.Pos;
+            //    //
+            //    curPos = new Vector3(((float)self.Pos.X) / 1024, 0, -((float)self.Pos.Y) / 1024);
 
-                this.tran.position = curPos;
-            }
+            //    this.tran.position = curPos;
+            //}
             
             //this.tran.position = Vector3.Lerp(this.tran.position,curPos,((float)Game.Timestep) * 13);
            
@@ -228,15 +229,27 @@ namespace OAUnityLayer.Renderers
                 return;
             }
 
-            float rad = this.actor.Facing * Mathf.PI / 128;
+            //float rad = this.actor.Facing * Mathf.PI / 128;
 
-            Quaternion rot = Quaternion.Euler(new Vector3(0, -rad * Mathf.Rad2Deg, 0));
+            //Quaternion rot = Quaternion.Euler(new Vector3(0, -rad * Mathf.Rad2Deg, 0));
 
-            this.tran.rotation = Quaternion.Lerp(this.tran.rotation, rot, Time.deltaTime*8);
+            //this.tran.rotation = Quaternion.Lerp(this.tran.rotation, rot, Time.deltaTime*8);
 
-            Vector3 curPos = new Vector3(((float)actor.Pos.X) / 1024, 0, -((float)actor.Pos.Y) / 1024);
+            //Vector3 curPos = new Vector3(((float)actor.Pos.X) / 1024, 0, -((float)actor.Pos.Y) / 1024);
 
-            this.tran.position = Vector3.Lerp(this.tran.position, curPos, ((float)Game.Timestep) * 13); 
+            //this.tran.position = Vector3.Lerp(this.tran.position, curPos, ((float)Game.Timestep) * 13);
+            
+
+            Quaternion rot = new Quaternion(this.actor.Facing.x.AsFloat(),
+                this.actor.Facing.y.AsFloat(),
+                this.actor.Facing.z.AsFloat(),
+                this.actor.Facing.w.AsFloat());
+
+            this.tran.rotation = Quaternion.Lerp(this.tran.rotation, rot, Time.deltaTime * 8);
+
+            Vector3 curPos = new Vector3(((float)actor.Pos.x) / 1024, 0, -((float)actor.Pos.y) / 1024);
+
+            this.tran.position = Vector3.Lerp(this.tran.position, curPos, ((float)Game.Timestep) * 13);
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using TrueSync;
 
 namespace Engine
 {
@@ -107,6 +108,11 @@ namespace Engine
         }
         
         public static float Min(float a, float b)
+        {
+            return (double)a >= (double)b ? b : a;
+        }
+
+        public static FP Min(FP a, FP b)
         {
             return (double)a >= (double)b ? b : a;
         }

@@ -11,19 +11,20 @@ using Engine.Network.Defaults;
 using Engine.Network.Interfaces;
 using Engine.Primitives;
 using Engine.Support;
+using TrueSync;
 
 namespace Engine
 {
     public class Actor
     {
 
-        public WPos Pos;
+        public TSVector2 Pos;
 
         public int MoveSpeed = 3000;
 
-        public int Facing;
+        public TSQuaternion Facing;
 
-        public int TurnSpeed = 4;
+        public FP TurnSpeed = 4;
 
         public readonly World World;
 
@@ -37,6 +38,7 @@ namespace Engine
         private PlayerAgent Agent;
         private AnimSet AnimSet;
 
+        public TSVector2 CurJoystickDir { private set; get; }
 
         public Actor(World world, int clientIdx ,string name, TypeDictionary initDict)
         {
@@ -69,11 +71,11 @@ namespace Engine
             this.ComponentPlayer.Update();
         }
 
-        public void SetMoveDir(byte angle)
-        {
-            this.Facing = angle;
-            //this.Pos += this.MoveSpeed*new CVec();
-        }
+        //public void SetMoveDir(byte angle)
+        //{
+        //    this.Facing = angle;
+        //    //this.Pos += this.MoveSpeed*new CVec();
+        //}
 
         public void ProcessOrder(IOrder order)
         {
@@ -98,12 +100,17 @@ namespace Engine
 
                     if (force == 0)
                     {
+                        this.CurJoystickDir = TSVector2.zero;
                         this.ComponentPlayer.CreateOrderStop();
                         //Log.Write("wyb","Joystick end!");
                     }
                     else
                     {
-                        this.ComponentPlayer.CreateOrderGoTo(angle,force);
+                        FP MoveSpeedModifier = new FP(force)/256;
+                        FP rad = angle*new FP(360) * TSMath.Deg2Rad / new FP(256) ;
+                        this.CurJoystickDir = new TSVector2(1, TSMath.Tan(rad));
+                        this.CurJoystickDir.Normalize();
+                        this.ComponentPlayer.CreateOrderGoTo(MoveSpeedModifier);
                         //this.SetMoveDir(angle);
                         //Log.Write("wyb", "Joystick angle->" + angle+" force->"+force);
                     }

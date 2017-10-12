@@ -25,5 +25,7 @@ E:\GitHubProjects\OpenRAExplant\trunk\OpenRA\OAUnityLayer\bin\Debug\UberLogger.d
 E:\GitHubProjects\OpenRAExplant\trunk\OpenRA\OAUnityLayer\bin\Debug\UberLogger.pdb
 E:\GitHubProjects\OpenRAExplant\trunk\OpenRA\OAUnityLayer\bin\Debug\OAEngine.dll
 E:\GitHubProjects\OpenRAExplant\trunk\OpenRA\OAUnityLayer\bin\Debug\OAEngine.pdb
+E:\GitHubProjects\OpenRAExplant\trunk\OpenRA\OAUnityLayer\bin\Debug\FixMath.dll
 E:\GitHubProjects\OpenRAExplant\trunk\OpenRA\OAUnityLayer\bin\Debug\YamlDotNet.dll
+E:\GitHubProjects\OpenRAExplant\trunk\OpenRA\OAUnityLayer\bin\Debug\FixMath.pdb
 E:\GitHubProjects\OpenRAExplant\trunk\OpenRA\OAUnityLayer\bin\Debug\YamlDotNet.pdb

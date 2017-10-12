@@ -9,6 +9,7 @@ using Engine.ComponentsAI.Factories;
 using Engine.ComponentsAI.GOAP;
 using Engine.ComponentsAI.GOAP.Core;
 using Engine.Primitives;
+using TrueSync;
 
 namespace OAEngine.Engine.ComponentsAI
 {
@@ -51,26 +52,26 @@ namespace OAEngine.Engine.ComponentsAI
 
         public E_LookType LookType;
 
-        public int MaxSprintSpeed = 8 * 1024;
-        public int MaxRunSpeed = 7 * 512;
-        public int MaxWalkSpeed = 1843;
-        public int MaxCombatMoveSpeed = 1024;
-        //public int MaxHealth = 100;
-        public int MaxKnockdownTime = 4000;
+        public FP MaxSprintSpeed = 8f;
+        public FP MaxRunSpeed = 4f;
+        public FP MaxWalkSpeed = 1.5f;
+        public FP MaxCombatMoveSpeed = 1f;
+        public FP MaxHealth = 100f;
+        public FP MaxKnockdownTime = 4f;
 
-        public int SpeedSmooth = 800;
-        public int RotationSmooth = 8;
-        public float RotationSmoothInMove = 8.0f;
-        public float RollDistance = 4.0f;
-        public int MoveSpeedModifier = 100;
-
-
-        public int Speed = 0;
-        public int MoveDir;
+        public FP SpeedSmooth = 2f;
+        public FP RotationSmooth = 2f;
+        public FP RotationSmoothInMove = 8.0f;
+        public FP RollDistance = 4.0f;
+        public FP MoveSpeedModifier = 100f;
 
 
-        public WPos DesiredPosition;
-        public int DesiredDirection;
+        public FP Speed = 0;
+        public TSVector2 MoveDir;
+
+
+        public TSVector2 DesiredPosition;
+        public TSVector2 DesiredDirection;
 
         public Agent DesiredTarget;
         public E_AttackType DesiredAttackType;
@@ -235,10 +236,10 @@ namespace OAEngine.Engine.ComponentsAI
             //Fear = FearMin;
             IdleTimer = 0;
 
-            MoveDir = 0;
+            MoveDir = TSVector2.zero;
 
-            DesiredPosition = WPos.Zero;
-            DesiredDirection = 0;
+            DesiredPosition = TSVector2.zero;
+            DesiredDirection = TSVector2.zero;
 
             //InteractionObject = null;
             //Interaction = E_InteractionType.None;

@@ -5,3 +5,5 @@ E:\GitHubProjects\OpenRAExplant\trunk\OpenRA\OAEngine\obj\Debug\OAEngine.pdb
 E:\GitHubProjects\OpenRAExplant\trunk\OpenRA\OAEngine\bin\Debug\YamlDotNet.dll
 E:\GitHubProjects\OpenRAExplant\trunk\OpenRA\OAEngine\bin\Debug\YamlDotNet.pdb
 E:\GitHubProjects\OpenRAExplant\trunk\OpenRA\OAEngine\obj\Debug\OAEngine.csprojResolveAssemblyReference.cache
+E:\GitHubProjects\OpenRAExplant\trunk\OpenRA\OAEngine\bin\Debug\FixMath.dll
+E:\GitHubProjects\OpenRAExplant\trunk\OpenRA\OAEngine\bin\Debug\FixMath.pdb

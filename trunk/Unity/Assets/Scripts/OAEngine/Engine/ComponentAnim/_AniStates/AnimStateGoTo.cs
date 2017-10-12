@@ -162,36 +162,36 @@ namespace Engine.ComponentAnim._AniStates
         {
             base.Initialize(action);
 
-            Action = action as AgentActionGoTo;
+            //Action = action as AgentActionGoTo;
 
-            WVec dir;
+            //WVec dir;
 
-            if (Owner.BlackBoard.LookType == E_LookType.TrackTarget && Owner.BlackBoard.DesiredTarget != null)
-            {
-                dir = Owner.BlackBoard.DesiredTarget.Position - Owner.Position;
-            }
-            else
-            {
-                dir = Action.FinalPosition - Owner.Position;
+            //if (Owner.BlackBoard.LookType == E_LookType.TrackTarget && Owner.BlackBoard.DesiredTarget != null)
+            //{
+            //    dir = Owner.BlackBoard.DesiredTarget.Position - Owner.Position;
+            //}
+            //else
+            //{
+            //    dir = Action.FinalPosition - Owner.Position;
       
-            }
+            //}
             
-            StartRotation = WRot.FromFacing(Owner.Facing);
+            //StartRotation = WRot.FromFacing(Owner.Facing);
 
-            if (dir != WVec.Zero)
-                FinalRotation = WRot.FromFacing(dir.Yaw.Facing);
+            //if (dir != WVec.Zero)
+            //    FinalRotation = WRot.FromFacing(dir.Yaw.Facing);
 
-            Owner.BlackBoard.MotionType = GetMotionType();
+            //Owner.BlackBoard.MotionType = GetMotionType();
 
-            if (Action.Motion == E_MotionType.Sprint)
-            {
-                MaxSpeed = Owner.BlackBoard.MaxSprintSpeed;
+            //if (Action.Motion == E_MotionType.Sprint)
+            //{
+            //    MaxSpeed = Owner.BlackBoard.MaxSprintSpeed;
 
-            }
-            else if (Action.Motion == E_MotionType.Run)
-                MaxSpeed = Owner.BlackBoard.MaxRunSpeed;
-            else
-                MaxSpeed = Owner.BlackBoard.MaxWalkSpeed;
+            //}
+            //else if (Action.Motion == E_MotionType.Run)
+            //    MaxSpeed = Owner.BlackBoard.MaxRunSpeed;
+            //else
+            //    MaxSpeed = Owner.BlackBoard.MaxWalkSpeed;
 
             RotationProgress = 0;
         }

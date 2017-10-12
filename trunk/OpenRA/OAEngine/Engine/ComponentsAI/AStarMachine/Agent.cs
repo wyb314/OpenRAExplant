@@ -9,6 +9,7 @@ using Engine.ComponentsAI.GOAP.Core;
 using Engine.ComponentsAI.WorkingMemory;
 using Engine.Primitives;
 using OAEngine.Engine.ComponentsAI;
+using TrueSync;
 
 namespace Engine.ComponentsAI.AStarMachine
 {
@@ -49,10 +50,16 @@ namespace Engine.ComponentsAI.AStarMachine
         }
         
 
-        public abstract WPos Position { set;get; }
-        public abstract int Facing { set;get; }
+        public abstract TSVector2 CurJoystickDir { get; }
 
-        public abstract int TurnSpeed { set;get; }
+        //public abstract WPos Position { set;get; }
+        //public abstract FP Facing { set;get; }
+
+        public abstract TSVector2 Position { set; get; }
+        
+        public abstract TSQuaternion Rotation { set; get; }
+
+        public abstract FP TurnSpeed { set;get; }
         //public abstract WVec Right { get; }
 
 

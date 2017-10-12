@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Engine.ComponentsAI.Factories;
 using Engine.Primitives;
 using OAEngine.Engine.ComponentsAI;
+using TrueSync;
 
 namespace Engine.ComponentsAI.AgentActions
 {
@@ -16,7 +17,7 @@ namespace Engine.ComponentsAI.AgentActions
             E_STRAFE_RIGHT,
         }
 
-        public WPos FinalPosition;
+        public TSVector2 FinalPosition;
         public E_MoveType MoveType;
         public E_MotionType Motion;
 
