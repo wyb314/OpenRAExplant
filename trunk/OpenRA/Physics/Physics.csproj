@@ -1,0 +1,255 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{52FCFA5D-0813-444A-87B3-EE843142B3CC}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Physics</RootNamespace>
+    <AssemblyName>Physics</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Physics\Farseer\Collision\Collision.cs" />
+    <Compile Include="Physics\Farseer\Collision\Distance.cs" />
+    <Compile Include="Physics\Farseer\Collision\DynamicTree.cs" />
+    <Compile Include="Physics\Farseer\Collision\DynamicTreeBroadPhase.cs" />
+    <Compile Include="Physics\Farseer\Collision\IBroadPhase.cs" />
+    <Compile Include="Physics\Farseer\Collision\Shapes\ChainShape.cs" />
+    <Compile Include="Physics\Farseer\Collision\Shapes\CircleShape.cs" />
+    <Compile Include="Physics\Farseer\Collision\Shapes\EdgeShape.cs" />
+    <Compile Include="Physics\Farseer\Collision\Shapes\PolygonShape.cs" />
+    <Compile Include="Physics\Farseer\Collision\Shapes\Shape.cs" />
+    <Compile Include="Physics\Farseer\Collision\TimeOfImpact.cs" />
+    <Compile Include="Physics\Farseer\Common\ConvexHull\ChainHull.cs" />
+    <Compile Include="Physics\Farseer\Common\ConvexHull\GiftWrap.cs" />
+    <Compile Include="Physics\Farseer\Common\ConvexHull\Melkman.cs" />
+    <Compile Include="Physics\Farseer\Common\Curve.cs" />
+    <Compile Include="Physics\Farseer\Common\CurveKey.cs" />
+    <Compile Include="Physics\Farseer\Common\CurveKeyCollection.cs" />
+    <Compile Include="Physics\Farseer\Common\Decomposition\BayazitDecomposer.cs" />
+    <Compile Include="Physics\Farseer\Common\Decomposition\CDTDecomposer.cs" />
+    <Compile Include="Physics\Farseer\Common\Decomposition\CDT\Delaunay\DelaunayTriangle.cs" />
+    <Compile Include="Physics\Farseer\Common\Decomposition\CDT\Delaunay\Sweep\AdvancingFront.cs" />
+    <Compile Include="Physics\Farseer\Common\Decomposition\CDT\Delaunay\Sweep\AdvancingFrontNode.cs" />
+    <Compile Include="Physics\Farseer\Common\Decomposition\CDT\Delaunay\Sweep\DTSweep.cs" />
+    <Compile Include="Physics\Farseer\Common\Decomposition\CDT\Delaunay\Sweep\DTSweepConstraint.cs" />
+    <Compile Include="Physics\Farseer\Common\Decomposition\CDT\Delaunay\Sweep\DTSweepContext.cs" />
+    <Compile Include="Physics\Farseer\Common\Decomposition\CDT\Delaunay\Sweep\DTSweepPointComparator.cs" />
+    <Compile Include="Physics\Farseer\Common\Decomposition\CDT\Delaunay\Sweep\PointOnEdgeException.cs" />
+    <Compile Include="Physics\Farseer\Common\Decomposition\CDT\ITriangulatable.cs" />
+    <Compile Include="Physics\Farseer\Common\Decomposition\CDT\Orientation.cs" />
+    <Compile Include="Physics\Farseer\Common\Decomposition\CDT\Polygon\Polygon.cs" />
+    <Compile Include="Physics\Farseer\Common\Decomposition\CDT\Polygon\PolygonPoint.cs" />
+    <Compile Include="Physics\Farseer\Common\Decomposition\CDT\Polygon\PolygonSet.cs" />
+    <Compile Include="Physics\Farseer\Common\Decomposition\CDT\Sets\ConstrainedPointSet.cs" />
+    <Compile Include="Physics\Farseer\Common\Decomposition\CDT\Sets\PointSet.cs" />
+    <Compile Include="Physics\Farseer\Common\Decomposition\CDT\TriangulationConstraint.cs" />
+    <Compile Include="Physics\Farseer\Common\Decomposition\CDT\TriangulationContext.cs" />
+    <Compile Include="Physics\Farseer\Common\Decomposition\CDT\TriangulationMode.cs" />
+    <Compile Include="Physics\Farseer\Common\Decomposition\CDT\TriangulationPoint.cs" />
+    <Compile Include="Physics\Farseer\Common\Decomposition\CDT\TriangulationUtil.cs" />
+    <Compile Include="Physics\Farseer\Common\Decomposition\CDT\Util\FixedArray3.cs" />
+    <Compile Include="Physics\Farseer\Common\Decomposition\CDT\Util\FixedBitArray3.cs" />
+    <Compile Include="Physics\Farseer\Common\Decomposition\CDT\Util\PointGenerator.cs" />
+    <Compile Include="Physics\Farseer\Common\Decomposition\CDT\Util\PolygonGenerator.cs" />
+    <Compile Include="Physics\Farseer\Common\Decomposition\EarclipDecomposer.cs" />
+    <Compile Include="Physics\Farseer\Common\Decomposition\FlipcodeDecomposer.cs" />
+    <Compile Include="Physics\Farseer\Common\Decomposition\SeidelDecomposer.cs" />
+    <Compile Include="Physics\Farseer\Common\Decomposition\Seidel\Edge.cs" />
+    <Compile Include="Physics\Farseer\Common\Decomposition\Seidel\MonotoneMountain.cs" />
+    <Compile Include="Physics\Farseer\Common\Decomposition\Seidel\Node.cs" />
+    <Compile Include="Physics\Farseer\Common\Decomposition\Seidel\Point.cs" />
+    <Compile Include="Physics\Farseer\Common\Decomposition\Seidel\QueryGraph.cs" />
+    <Compile Include="Physics\Farseer\Common\Decomposition\Seidel\Sink.cs" />
+    <Compile Include="Physics\Farseer\Common\Decomposition\Seidel\Trapezoid.cs" />
+    <Compile Include="Physics\Farseer\Common\Decomposition\Seidel\TrapezoidalMap.cs" />
+    <Compile Include="Physics\Farseer\Common\Decomposition\Seidel\Triangulator.cs" />
+    <Compile Include="Physics\Farseer\Common\Decomposition\Seidel\XNode.cs" />
+    <Compile Include="Physics\Farseer\Common\Decomposition\Seidel\YNode.cs" />
+    <Compile Include="Physics\Farseer\Common\Decomposition\Triangulate.cs" />
+    <Compile Include="Physics\Farseer\Common\FixedArray.cs" />
+    <Compile Include="Physics\Farseer\Common\HashSet.cs" />
+    <Compile Include="Physics\Farseer\Common\LineTools.cs" />
+    <Compile Include="Physics\Farseer\Common\MathUtils.cs" />
+    <Compile Include="Physics\Farseer\Common\Path.cs" />
+    <Compile Include="Physics\Farseer\Common\PathManager.cs" />
+    <Compile Include="Physics\Farseer\Common\PhysicsLogic\FilterData.cs" />
+    <Compile Include="Physics\Farseer\Common\PhysicsLogic\PhysicsLogic.cs" />
+    <Compile Include="Physics\Farseer\Common\PhysicsLogic\RealExplosion.cs" />
+    <Compile Include="Physics\Farseer\Common\PhysicsLogic\SimpleExplosion.cs" />
+    <Compile Include="Physics\Farseer\Common\PolygonManipulation\CuttingTools.cs" />
+    <Compile Include="Physics\Farseer\Common\PolygonManipulation\SimpleCombiner.cs" />
+    <Compile Include="Physics\Farseer\Common\PolygonManipulation\SimplifyTools.cs" />
+    <Compile Include="Physics\Farseer\Common\PolygonManipulation\YuPengClipper.cs" />
+    <Compile Include="Physics\Farseer\Common\PolygonTools.cs" />
+    <Compile Include="Physics\Farseer\Common\Serialization.cs" />
+    <Compile Include="Physics\Farseer\Common\Stopwatch.cs" />
+    <Compile Include="Physics\Farseer\Common\TextureTools\MarchingSquares.cs" />
+    <Compile Include="Physics\Farseer\Common\TextureTools\Terrain.cs" />
+    <Compile Include="Physics\Farseer\Common\Vertices.cs" />
+    <Compile Include="Physics\Farseer\Controllers\AbstractForceController.cs" />
+    <Compile Include="Physics\Farseer\Controllers\BuoyancyController.cs" />
+    <Compile Include="Physics\Farseer\Controllers\Controller.cs" />
+    <Compile Include="Physics\Farseer\Controllers\GravityController.cs" />
+    <Compile Include="Physics\Farseer\Controllers\SimpleWindForce.cs" />
+    <Compile Include="Physics\Farseer\Controllers\VelocityLimitController.cs" />
+    <Compile Include="Physics\Farseer\ConvertUnits.cs" />
+    <Compile Include="Physics\Farseer\DebugViewBase.cs" />
+    <Compile Include="Physics\Farseer\Dynamics\Body.cs" />
+    <Compile Include="Physics\Farseer\Dynamics\BreakableBody.cs" />
+    <Compile Include="Physics\Farseer\Dynamics\ContactManager.cs" />
+    <Compile Include="Physics\Farseer\Dynamics\Contacts\Contact.cs" />
+    <Compile Include="Physics\Farseer\Dynamics\Contacts\ContactSolver.cs" />
+    <Compile Include="Physics\Farseer\Dynamics\Fixture.cs" />
+    <Compile Include="Physics\Farseer\Dynamics\Island.cs" />
+    <Compile Include="Physics\Farseer\Dynamics\Joints\AngleJoint.cs" />
+    <Compile Include="Physics\Farseer\Dynamics\Joints\DistanceJoint.cs" />
+    <Compile Include="Physics\Farseer\Dynamics\Joints\FixedMouseJoint.cs" />
+    <Compile Include="Physics\Farseer\Dynamics\Joints\FrictionJoint.cs" />
+    <Compile Include="Physics\Farseer\Dynamics\Joints\GearJoint.cs" />
+    <Compile Include="Physics\Farseer\Dynamics\Joints\Joint.cs" />
+    <Compile Include="Physics\Farseer\Dynamics\Joints\MotorJoint.cs" />
+    <Compile Include="Physics\Farseer\Dynamics\Joints\PrismaticJoint.cs" />
+    <Compile Include="Physics\Farseer\Dynamics\Joints\PulleyJoint.cs" />
+    <Compile Include="Physics\Farseer\Dynamics\Joints\RevoluteJoint.cs" />
+    <Compile Include="Physics\Farseer\Dynamics\Joints\RopeJoint.cs" />
+    <Compile Include="Physics\Farseer\Dynamics\Joints\WeldJoint.cs" />
+    <Compile Include="Physics\Farseer\Dynamics\Joints\WheelJoint.cs" />
+    <Compile Include="Physics\Farseer\Dynamics\TimeStep.cs" />
+    <Compile Include="Physics\Farseer\Dynamics\World.cs" />
+    <Compile Include="Physics\Farseer\Dynamics\WorldCallbacks.cs" />
+    <Compile Include="Physics\Farseer\Extra\Clones\BodyClone2D.cs" />
+    <Compile Include="Physics\Farseer\Extra\Clones\ContactClone2D.cs" />
+    <Compile Include="Physics\Farseer\Extra\Clones\ContactEdgeClone2D.cs" />
+    <Compile Include="Physics\Farseer\Extra\Clones\DynamicTreeBroadPhaseClone2D.cs" />
+    <Compile Include="Physics\Farseer\Extra\Clones\DynamicTreeClone2D.cs" />
+    <Compile Include="Physics\Farseer\Extra\Clones\GenericShapeClone2D.cs" />
+    <Compile Include="Physics\Farseer\Extra\Clones\IslandClone2D.cs" />
+    <Compile Include="Physics\Farseer\Extra\Clones\PoolClones2D.cs" />
+    <Compile Include="Physics\Farseer\Extra\Clones\TOIClone2D.cs" />
+    <Compile Include="Physics\Farseer\Extra\Clones\WorldClone2D.cs" />
+    <Compile Include="Physics\Farseer\Extra\ConstraintHierarchy2D.cs" />
+    <Compile Include="Physics\Farseer\Factories\BodyFactory.cs" />
+    <Compile Include="Physics\Farseer\Factories\FixtureFactory.cs" />
+    <Compile Include="Physics\Farseer\Factories\JointFactory.cs" />
+    <Compile Include="Physics\Farseer\Factories\LinkFactory.cs" />
+    <Compile Include="Physics\Farseer\Settings.cs" />
+    <Compile Include="Physics\IBody2D.cs" />
+    <Compile Include="Physics\IBody3D.cs" />
+    <Compile Include="Physics\IBodyConstraint.cs" />
+    <Compile Include="Physics\IPhysicsManager.cs" />
+    <Compile Include="Physics\Jitter\Collision\CollisionIsland.cs" />
+    <Compile Include="Physics\Jitter\Collision\CollisionSystem.cs" />
+    <Compile Include="Physics\Jitter\Collision\CollisionSystemBrute.cs" />
+    <Compile Include="Physics\Jitter\Collision\CollisionSystemPersistentSAP.cs" />
+    <Compile Include="Physics\Jitter\Collision\CollisionSystemSAP.cs" />
+    <Compile Include="Physics\Jitter\Collision\DynamicTree.cs" />
+    <Compile Include="Physics\Jitter\Collision\GJKCollide.cs" />
+    <Compile Include="Physics\Jitter\Collision\IslandManager.cs" />
+    <Compile Include="Physics\Jitter\Collision\Octree.cs" />
+    <Compile Include="Physics\Jitter\Collision\Shapes\BoxShape.cs" />
+    <Compile Include="Physics\Jitter\Collision\Shapes\CapsuleShape.cs" />
+    <Compile Include="Physics\Jitter\Collision\Shapes\CompoundShape.cs" />
+    <Compile Include="Physics\Jitter\Collision\Shapes\ConeShape.cs" />
+    <Compile Include="Physics\Jitter\Collision\Shapes\ConvexHullShape.cs" />
+    <Compile Include="Physics\Jitter\Collision\Shapes\CylinderShape.cs" />
+    <Compile Include="Physics\Jitter\Collision\Shapes\MinkowskiSumShape.cs" />
+    <Compile Include="Physics\Jitter\Collision\Shapes\Multishape.cs" />
+    <Compile Include="Physics\Jitter\Collision\Shapes\Shape.cs" />
+    <Compile Include="Physics\Jitter\Collision\Shapes\SphereShape.cs" />
+    <Compile Include="Physics\Jitter\Collision\Shapes\TerrainShape.cs" />
+    <Compile Include="Physics\Jitter\Collision\Shapes\TriangleMeshShape.cs" />
+    <Compile Include="Physics\Jitter\Collision\XenoCollide.cs" />
+    <Compile Include="Physics\Jitter\DataStructures\ReadOnlyHashset.cs" />
+    <Compile Include="Physics\Jitter\Dynamics\Arbiter.cs" />
+    <Compile Include="Physics\Jitter\Dynamics\ArbiterMap.cs" />
+    <Compile Include="Physics\Jitter\Dynamics\BodyMaterial.cs" />
+    <Compile Include="Physics\Jitter\Dynamics\Constraint.cs" />
+    <Compile Include="Physics\Jitter\Dynamics\Constraints\Constraint2D.cs" />
+    <Compile Include="Physics\Jitter\Dynamics\Constraints\ConstraintHierarchy.cs" />
+    <Compile Include="Physics\Jitter\Dynamics\Constraints\FixedAngle.cs" />
+    <Compile Include="Physics\Jitter\Dynamics\Constraints\PointOnLine.cs" />
+    <Compile Include="Physics\Jitter\Dynamics\Constraints\PointOnPoint.cs" />
+    <Compile Include="Physics\Jitter\Dynamics\Constraints\PointPointDistance.cs" />
+    <Compile Include="Physics\Jitter\Dynamics\Constraints\TSRigidBodyConstraints.cs" />
+    <Compile Include="Physics\Jitter\Dynamics\Contact.cs" />
+    <Compile Include="Physics\Jitter\Dynamics\IConstraint.cs" />
+    <Compile Include="Physics\Jitter\Dynamics\Joints\HingeJoint3D.cs" />
+    <Compile Include="Physics\Jitter\Dynamics\Joints\Joint3D.cs" />
+    <Compile Include="Physics\Jitter\Dynamics\Joints\PrismaticJoint3D.cs" />
+    <Compile Include="Physics\Jitter\Dynamics\RigidBody.cs" />
+    <Compile Include="Physics\Jitter\Dynamics\SoftBody.cs" />
+    <Compile Include="Physics\Jitter\Extra\Clones\ArbiterClone.cs" />
+    <Compile Include="Physics\Jitter\Extra\Clones\CollisionIslandClone.cs" />
+    <Compile Include="Physics\Jitter\Extra\Clones\CollisionSystemPersistentSAPClone.cs" />
+    <Compile Include="Physics\Jitter\Extra\Clones\ContactClone.cs" />
+    <Compile Include="Physics\Jitter\Extra\Clones\GenericShapeClone.cs" />
+    <Compile Include="Physics\Jitter\Extra\Clones\PoolClones3D.cs" />
+    <Compile Include="Physics\Jitter\Extra\Clones\RigidBodyClone.cs" />
+    <Compile Include="Physics\Jitter\Extra\Clones\SweetPointClone.cs" />
+    <Compile Include="Physics\Jitter\Extra\Clones\WorldClone.cs" />
+    <Compile Include="Physics\Jitter\IDebugDraw.cs" />
+    <Compile Include="Physics\Jitter\LinearMath\TSBBox.cs" />
+    <Compile Include="Physics\Jitter\LinearMath\TSConvexHull.cs" />
+    <Compile Include="Physics\Jitter\World.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Physics\Farseer\license.txt" />
+    <Content Include="Physics\Jitter\license.txt" />
+    <Content Include="Physics\readme.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\FixMath\FixMath.csproj">
+      <Project>{61da629b-524b-4351-9163-0077c1024bc6}</Project>
+      <Name>FixMath</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

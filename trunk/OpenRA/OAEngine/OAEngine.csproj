@@ -211,6 +211,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\FixMath\FixMath.csproj">
+      <Project>{61da629b-524b-4351-9163-0077c1024bc6}</Project>
+      <Name>FixMath</Name>
+    </ProjectReference>
     <ProjectReference Include="..\YamlDotNet\YamlDotNet.csproj">
       <Project>{f295d967-e67e-44ad-af2a-a4cf9154bc79}</Project>
       <Name>YamlDotNet</Name>
