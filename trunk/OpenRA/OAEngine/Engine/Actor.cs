@@ -38,6 +38,10 @@ namespace Engine
         private PlayerAgent Agent;
         private AnimSet AnimSet;
 
+        public MersenneTwister Random {
+            get { return this.World.SharedRandom; }
+        }
+
         public TSVector2 CurJoystickDir { private set; get; }
 
         public Actor(World world, int clientIdx ,string name, TypeDictionary initDict)

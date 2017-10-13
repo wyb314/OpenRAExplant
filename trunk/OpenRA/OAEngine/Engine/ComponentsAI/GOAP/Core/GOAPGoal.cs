@@ -2,20 +2,21 @@
 using System.Collections.Generic;
 using Engine.ComponentsAI.AStarMachine;
 using Engine.ComponentsAI.Factories;
+using TrueSync;
 
 namespace Engine.ComponentsAI.GOAP.Core
 {
     public abstract class GOAPGoal
     {
         public Agent Owner;// { get { return Ai; } private set { Ai = value; } }
-        public float GoalRelevancy;//{ get { return GoalRelevancy; } protected set { GoalRelevancy = value; } }
+        public FP GoalRelevancy;//{ get { return GoalRelevancy; } protected set { GoalRelevancy = value; } }
         public E_GOAPGoals GoalType;// { get { return GoalType; } private set { GoalType = value; } }
 
         public bool Active = false;// { get { return Active; } private set { Active = value; } }
         public bool Critical = false; // Its top most goal, if it set to higher value it could terminate other goal !!!
 
         private GOAPPlan Plan;
-        protected long NextEvaluationTime;// { get { return NextEvaluationTime; } protected set { NextEvaluationTime = value; } }
+        protected FP NextEvaluationTime;// { get { return NextEvaluationTime; } protected set { NextEvaluationTime = value; } }
 
         static int id;
         public int UID;
@@ -25,15 +26,15 @@ namespace Engine.ComponentsAI.GOAP.Core
 
 
 
-        public abstract float GetMaxRelevancy();
+        public abstract FP GetMaxRelevancy();
         public abstract void CalculateGoalRelevancy(); // how important is this goal !!!
         public void ClearGoalRelevancy() { GoalRelevancy = 0; }
 
-        public virtual void SetDisableTime() { NextEvaluationTime = Game.RunTime + 300; }
+        public virtual void SetDisableTime() { NextEvaluationTime = Game.WorldTime + this.Owner.Random.Next(0.1f,0.2f); }
 
         public virtual bool ReplanRequired() { return false; }// if goal need to be replanned !!!!
         public abstract bool IsSatisfied();
-        public virtual bool IsDisabled() { return NextEvaluationTime > Game.RunTime; }
+        public virtual bool IsDisabled() { return NextEvaluationTime > Game.WorldTime; }
 
         protected GOAPGoal(E_GOAPGoals type, Agent ai)
         {

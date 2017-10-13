@@ -10,6 +10,7 @@ using Engine.ComponentsAI.GOAP.Core;
 using Engine.ComponentsAI.WorkingMemory;
 using Engine.Interfaces;
 using Engine.Primitives;
+using Engine.Support;
 using OAEngine.Engine.ComponentsAI;
 using TrueSync;
 
@@ -38,6 +39,11 @@ namespace Engine.ComponentsAI
         public override TSVector2 CurJoystickDir
         {
             get { return this.self.CurJoystickDir; }
+        }
+
+        public override MersenneTwister Random
+        {
+            get { return this.self.Random; }
         }
 
         public Actor self { private set; get; }

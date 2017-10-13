@@ -8,6 +8,7 @@ using Engine.ComponentsAI.Factories;
 using Engine.ComponentsAI.GOAP.Core;
 using Engine.ComponentsAI.WorkingMemory;
 using Engine.Primitives;
+using Engine.Support;
 using OAEngine.Engine.ComponentsAI;
 using TrueSync;
 
@@ -62,6 +63,7 @@ namespace Engine.ComponentsAI.AStarMachine
         public abstract FP TurnSpeed { set;get; }
         //public abstract WVec Right { get; }
 
+        public abstract MersenneTwister Random { get; }
 
     }
 }

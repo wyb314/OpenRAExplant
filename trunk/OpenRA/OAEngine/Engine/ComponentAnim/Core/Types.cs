@@ -66,6 +66,13 @@ namespace Engine.ComponentAnim.Core
         Enviroment,
     }
 
+    public enum E_CriticalHitType
+    {
+        None,
+        Vertical,
+        Horizontal,
+    }
+
     public enum E_InteractionObjects
     {
         None,

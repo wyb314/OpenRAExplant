@@ -4,6 +4,7 @@ using System.Diagnostics;
 using Engine.ComponentsAI.AStarMachine;
 using Engine.ComponentsAI.Factories;
 using Engine.Support;
+using TrueSync;
 
 namespace Engine.ComponentsAI.GOAP.Core
 {
@@ -319,7 +320,7 @@ namespace Engine.ComponentsAI.GOAP.Core
             GOAPPlan plan = BuildPlan(goal);
             if (plan == null)
             {
-                Log.LogError(Game.RunTime + " " + goal.ToString() + " - BUILD PLAN FAILED !!!","wyb");
+                Log.LogError("World Tick->"+Game.WorldTick + " " + goal.ToString() + " - BUILD PLAN FAILED !!!","wyb");
                 return;
             }
 
@@ -328,10 +329,10 @@ namespace Engine.ComponentsAI.GOAP.Core
         }
 
 
-        GOAPGoal GetMostImportantGoal(float minRelevancy)
+        GOAPGoal GetMostImportantGoal(FP minRelevancy)
         {
             GOAPGoal maxGoal = null;
-            float highestRelevancy = minRelevancy;
+            FP highestRelevancy = minRelevancy;
 
             GOAPGoal goal;
             for (int i = 0; i < m_GoalSet.Count; i++)
@@ -370,9 +371,9 @@ namespace Engine.ComponentsAI.GOAP.Core
         GOAPGoal GetCriticalGoal()
         {
             GOAPGoal maxGoal = null;
-            float highestRelevancy = 0.0f;
+            FP highestRelevancy = 0.0f;
 
-            float goalRelevance = 0.0f;
+            FP goalRelevance = 0.0f;
 
             if (CurrentGoal != null && CurrentGoal.Active)
                 goalRelevance = CurrentGoal.GoalRelevancy;
@@ -483,7 +484,7 @@ namespace Engine.ComponentsAI.GOAP.Core
 
             if (currNode == null || currNode.NodeID == -1)
             {
-                Log.LogError(Game.RunTime + " " + goal.ToString() + " - FAILED , no node ", "wyb");
+                Log.LogError(Game.WorldTick + " " + goal.ToString() + " - FAILED , no node ", "wyb");
                 return null;        //Building of plan failed
             }
 
@@ -503,7 +504,7 @@ namespace Engine.ComponentsAI.GOAP.Core
 
                 if (action == null)//If we tried to cast an node to an action that can't be done, quit out
                 {
-                    Log.LogError(Game.RunTime + " " + goal.ToString() + ": canot find action (" + currNode.NodeID + ")", "wyb");
+                    Log.LogError("World Tick->"+Game.WorldTick + " " + goal.ToString() + ": canot find action (" + currNode.NodeID + ")", "wyb");
                     return null;
                 }
 
@@ -514,7 +515,7 @@ namespace Engine.ComponentsAI.GOAP.Core
             //Finally tell the ai what its plan is
             if (plan.IsDone())
             {
-                Log.LogError(Game.RunTime + " " + goal.ToString() + ": plan is already  done !!! (" + plan.CurrentStepIndex + "," + plan.NumberOfSteps + ")", "wyb");
+                Log.LogError(Game.WorldTick + " " + goal.ToString() + ": plan is already  done !!! (" + plan.CurrentStepIndex + "," + plan.NumberOfSteps + ")", "wyb");
                 return null;
             }
 

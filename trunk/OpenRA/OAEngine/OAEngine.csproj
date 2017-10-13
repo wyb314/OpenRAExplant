@@ -85,6 +85,7 @@
     <Compile Include="Engine\ComponentsAI\GOAP\Core\WorldState.cs" />
     <Compile Include="Engine\ComponentsAI\GOAP\Goals\GOAPGoalGoTo.cs" />
     <Compile Include="Engine\ComponentsAI\GOAP\Goals\GOAPGoalIdle.cs" />
+    <Compile Include="Engine\ComponentsAI\GOAP\Goals\GOAPGoalOrderAttack.cs" />
     <Compile Include="Engine\ComponentsAI\PlayerAgent.cs" />
     <Compile Include="Engine\ComponentsAI\PlayerSensorEyes.cs" />
     <Compile Include="Engine\ComponentsAI\WorkingMemory\Fact.cs" />

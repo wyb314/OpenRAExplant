@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using Engine.ComponentsAI.AStarMachine;
 using Engine.ComponentsAI.Factories;
+using TrueSync;
 
 namespace Engine.ComponentsAI.GOAP.Core
 {
@@ -126,7 +127,7 @@ namespace Engine.ComponentsAI.GOAP.Core
         public string PropName { get { return PropKey.ToString(); } }
         public System.Object PropValue;// { get { return PropState; } set {PropState = value;} }
         public E_PropType PropType;
-        public float Time;
+        public int Time;
 
         public WorldStateProp(bool state) { PropValue = new ValueBool(state); PropType = E_PropType.E_BOOL; }
         public WorldStateProp(int state) { PropValue = new ValueInt(state); PropType = E_PropType.E_INT; }

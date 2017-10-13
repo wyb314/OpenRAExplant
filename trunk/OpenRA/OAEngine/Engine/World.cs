@@ -8,6 +8,7 @@ using Engine.Network;
 using Engine.Network.Defaults;
 using Engine.Network.Interfaces;
 using Engine.OrderGenerators;
+using Engine.Support;
 
 namespace Engine
 {
@@ -23,6 +24,8 @@ namespace Engine
         internal readonly IOrderManager<ClientDefault> OrderManager;
         public Session<ClientDefault> LobbyInfo { get { return OrderManager.LobbyInfo; } }
 
+        public readonly MersenneTwister SharedRandom;
+
         public Player[] Players = new Player[0];
 
         readonly Queue<Action<World>> frameEndActions = new Queue<Action<World>>();
@@ -33,6 +36,9 @@ namespace Engine
             Timestep = orderManager.LobbyInfo.GlobalSettings.Timestep;
             this.Map = map;
             this.orderGenerator = new PlayerControllerOrderGenerator();
+
+            SharedRandom = new MersenneTwister(orderManager.LobbyInfo.GlobalSettings.RandomSeed);
+
             this.CreatePlayers(orderManager);
         }
 

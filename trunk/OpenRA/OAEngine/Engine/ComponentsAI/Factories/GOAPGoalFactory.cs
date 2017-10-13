@@ -41,9 +41,9 @@ namespace Engine.ComponentsAI.Factories
             GOAPGoal g;
             switch (type)
             {
-                //case E_GOAPGoals.E_ORDER_ATTACK:
-                //    g = new GOAPGoalOrderAttack(owner);
-                //    break;
+                case E_GOAPGoals.E_ORDER_ATTACK:
+                    g = new GOAPGoalOrderAttack(owner);
+                    break;
                 //case E_GOAPGoals.E_ORDER_DODGE:
                 //    g = new GOAPGoalOrderDodge(owner);
                 //    break;

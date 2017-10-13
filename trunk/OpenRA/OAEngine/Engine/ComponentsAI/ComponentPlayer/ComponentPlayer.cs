@@ -73,7 +73,6 @@ namespace Engine.ComponentsAI.ComponentPlayer
             this.Owner.InitializeGOAP();
 
             Owner.BlackBoard.ActionHandlerAdd(this);
-            Owner.BlackBoard.ActionHandlerAdd(this);
         }
 
 

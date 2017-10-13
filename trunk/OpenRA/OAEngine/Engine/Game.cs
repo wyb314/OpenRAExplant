@@ -18,6 +18,7 @@ using Engine;
 using Engine.FileSystem;
 using Engine.Interfaces;
 using Engine.Maps;
+using TrueSync;
 using YamlDotNet.Serialization;
 using YamlDotNet.Serialization.NamingConventions;
 
@@ -142,6 +143,10 @@ namespace Engine
         }
 
         public static int LocalTick { get { return OrderManager.LocalFrameNumber; } }
+
+        public static int WorldTick { get { return OrderManager.World.WorldTick; } }
+
+        public static FP WorldTime { get { return OrderManager.World.WorldTick * Game.Timestep / new FP(1000); } }
 
         static void LogicTick(float elapsedTime)
         {

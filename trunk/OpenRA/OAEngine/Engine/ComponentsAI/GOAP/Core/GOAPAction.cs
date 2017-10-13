@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using Engine.ComponentsAI.AStarMachine;
 using Engine.ComponentsAI.Factories;
+using TrueSync;
 
 namespace Engine.ComponentsAI.GOAP.Core
 {
@@ -16,7 +17,7 @@ namespace Engine.ComponentsAI.GOAP.Core
         public WorldState WorldEffects;// { get { return WorldEffects; } private set { WorldEffects = value; } }
 
         // cost of action, needed for heuristic
-        public float Cost;// { get { return Cost; } private set { Cost = value; } }
+        public FP Cost;// { get { return Cost; } private set { Cost = value; } }
 
         // if we could interup this action
         public bool Interruptible = true;// { get { return Interruptible; } protected set { Interruptible = value; } }

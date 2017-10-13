@@ -23,7 +23,7 @@ namespace Engine.ComponentsAI.Factories
             else
                 p = new WorldStateProp(state);
 
-            p.Time = Game.RunTime;
+            p.Time = Game.WorldTick;
             p.PropKey = key;
             return p;
         }
@@ -41,7 +41,7 @@ namespace Engine.ComponentsAI.Factories
             else
                 p = new WorldStateProp(state);
 
-            p.Time = Game.RunTime;
+            p.Time = Game.WorldTick;
             p.PropKey = key;
             return p;
         }
@@ -59,7 +59,7 @@ namespace Engine.ComponentsAI.Factories
             else
                 p = new WorldStateProp(state);
 
-            p.Time = Game.RunTime;
+            p.Time = Game.WorldTick;
             p.PropType = E_PropType.E_FLOAT;
             return p;
         }
@@ -77,7 +77,7 @@ namespace Engine.ComponentsAI.Factories
             else
                 p = new WorldStateProp(state);
 
-            p.Time = Game.RunTime;
+            p.Time = Game.WorldTick;
             p.PropKey = key;
             return p;
         }
@@ -113,7 +113,7 @@ namespace Engine.ComponentsAI.Factories
             else
                 p = new WorldStateProp(eventType);
 
-            p.Time = Game.RunTime;
+            p.Time = Game.WorldTick;
             p.PropKey = key;
             return p;
         }
@@ -131,7 +131,7 @@ namespace Engine.ComponentsAI.Factories
             else
                 p = new WorldStateProp(orderType);
 
-            p.Time = Game.RunTime;
+            p.Time = Game.WorldTick;
             p.PropKey = key;
             return p;
         }

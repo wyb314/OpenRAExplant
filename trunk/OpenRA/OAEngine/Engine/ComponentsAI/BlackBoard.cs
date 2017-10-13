@@ -78,39 +78,39 @@ namespace OAEngine.Engine.ComponentsAI
         public E_AttackType DesiredAttackType;
 
         #region Goal Setting
-        public float GOAP_AlertRelevancy = 0.7f;
-        public float GOAP_CalmRelevancy = 0.2f;
-        public float GOAP_BlockRelevancy = 0.7f;
-        public float GOAP_DodgeRelevancy = 0.9f;
-        public float GOAP_GoToRelevancy = 0.5f;
-        public float GOAP_CombatMoveBackwardRelevancy = 0.7f;
-        public float GOAP_CombatMoveForwardRelevancy = 0.75f;
-        public float GOAP_CombatMoveLeftRelevancy = 0.6f;
-        public float GOAP_CombatMoveRightRelevancy = 0.6f;
-        public float GOAP_LookAtTargetRelevancy = 0.7f;
-        public float GOAP_KillTargetRelevancy = 0.8f;
-        public float GOAP_PlayAnimRelevancy = 0.95f;
-        public float GOAP_UseWorlObjectRelevancy = 0.9f;
-        public float GOAP_ReactToDamageRelevancy = 1.0f;
-        public float GOAP_IdleActionRelevancy = 0.4f;
-        public float GOAP_TeleportRelevancy = 0.9f;
+        public FP GOAP_AlertRelevancy = 0.7f;
+        public FP GOAP_CalmRelevancy = 0.2f;
+        public FP GOAP_BlockRelevancy = 0.7f;
+        public FP GOAP_DodgeRelevancy = 0.9f;
+        public FP GOAP_GoToRelevancy = 0.5f;
+        public FP GOAP_CombatMoveBackwardRelevancy = 0.7f;
+        public FP GOAP_CombatMoveForwardRelevancy = 0.75f;
+        public FP GOAP_CombatMoveLeftRelevancy = 0.6f;
+        public FP GOAP_CombatMoveRightRelevancy = 0.6f;
+        public FP GOAP_LookAtTargetRelevancy = 0.7f;
+        public FP GOAP_KillTargetRelevancy = 0.8f;
+        public FP GOAP_PlayAnimRelevancy = 0.95f;
+        public FP GOAP_UseWorlObjectRelevancy = 0.9f;
+        public FP GOAP_ReactToDamageRelevancy = 1.0f;
+        public FP GOAP_IdleActionRelevancy = 0.4f;
+        public FP GOAP_TeleportRelevancy = 0.9f;
 
-        public float GOAP_AlertDelay = 0;
-        public float GOAP_CalmDelay = 0;
-        public float GOAP_BlockDelay = 2.7f;
-        public float GOAP_DodgeDelay = 0;
-        public int GOAP_GoToDelay = 0;
-        public float GOAP_CombatMoveDelay = 0.5f;
-        public float GOAP_CombatMoveLeftDelay = 2.6f;
-        public float GOAP_CombatMoveRightDelay = 2.6f;
-        public float GOAP_LookAtTargetDelay = 0.4f;
-        public float GOAP_KillTargetDelay = 0f;
-        public float GOAP_PlayAnimDelay = 0.0f;
-        public float GOAP_UseWorlObjectDelay = 0f;
-        public float GOAP_CombatMoveBackwardDelay = 3.5f;
-        public float GOAP_CombatMoveForwardDelay = 3.5f;
-        public int GOAP_IdleActionDelay = 10 * 1000;
-        public float GOAP_TeleportDelay = 4;
+        public FP GOAP_AlertDelay = 0;
+        public FP GOAP_CalmDelay = 0;
+        public FP GOAP_BlockDelay = 2.7f;
+        public FP GOAP_DodgeDelay = 0;
+        public FP GOAP_GoToDelay = 0;
+        public FP GOAP_CombatMoveDelay = 0.5f;
+        public FP GOAP_CombatMoveLeftDelay = 2.6f;
+        public FP GOAP_CombatMoveRightDelay = 2.6f;
+        public FP GOAP_LookAtTargetDelay = 0.4f;
+        public FP GOAP_KillTargetDelay = 0f;
+        public FP GOAP_PlayAnimDelay = 0.0f;
+        public FP GOAP_UseWorlObjectDelay = 0f;
+        public FP GOAP_CombatMoveBackwardDelay = 3.5f;
+        public FP GOAP_CombatMoveForwardDelay = 3.5f;
+        public FP GOAP_IdleActionDelay = 10 * 1000;
+        public FP GOAP_TeleportDelay = 4;
 
         #endregion
 
