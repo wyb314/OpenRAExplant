@@ -23,7 +23,7 @@ namespace Engine.ComponentsAI
             get { return this.self.Pos; }
         }
 
-        public override TSQuaternion Rotation
+        public override FP Facing
         {
             get { return this.self.Facing; }
             set { this.self.Facing = value; }

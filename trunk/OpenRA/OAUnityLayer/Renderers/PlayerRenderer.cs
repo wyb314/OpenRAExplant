@@ -239,11 +239,7 @@ namespace OAUnityLayer.Renderers
 
             //this.tran.position = Vector3.Lerp(this.tran.position, curPos, ((float)Game.Timestep) * 13);
             
-
-            Quaternion rot = new Quaternion(this.actor.Facing.x.AsFloat(),
-                this.actor.Facing.y.AsFloat(),
-                this.actor.Facing.z.AsFloat(),
-                this.actor.Facing.w.AsFloat());
+            Quaternion rot = Quaternion.Euler(0,90 - (float)this.actor.Facing.AsFloat(),0);
 
             this.tran.rotation = rot;
 

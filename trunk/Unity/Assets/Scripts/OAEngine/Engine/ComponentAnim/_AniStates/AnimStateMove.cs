@@ -16,8 +16,8 @@ namespace Engine.ComponentAnim._AniStates
         AgentActionMove Action;
         FP MaxSpeed;
 
-        private TSQuaternion FinalRotation;
-        private TSQuaternion StartRotation;
+        private FP FinalRotation;
+        private FP StartRotation;
         FP RotationProgress;
 
 
@@ -31,7 +31,7 @@ namespace Engine.ComponentAnim._AniStates
         {
             // Time.timeScale = 0.1f;
             base.OnActivate(action);
-            //PlayAnim(GetMotionType());
+            PlayAnim(GetMotionType());
         }
 
         override public void OnDeactivate()
@@ -145,14 +145,46 @@ namespace Engine.ComponentAnim._AniStates
             ////    Release();
 
             #endregion old code
-
+            
             FP deltaTime = Game.Timestep/1000f;
             RotationProgress += deltaTime * Owner.BlackBoard.RotationSmooth;
             RotationProgress = TSMath.Min(RotationProgress, 1);
-            TSQuaternion q = TSQuaternion.Slerp(StartRotation, FinalRotation, RotationProgress);
-            Owner.Rotation = q;
 
-            if (TSQuaternion.Angle(q, FinalRotation) > 40.0f)
+            FP curFacing = AIUtils.RoundFacing(StartRotation);
+            FP targetFacing = AIUtils.RoundFacing(FinalRotation);
+            if (curFacing > targetFacing && curFacing - targetFacing > 128)
+            {
+                curFacing -= 256;
+            }
+
+            if (curFacing < targetFacing && targetFacing - curFacing > 128)
+            {
+                targetFacing -= 256;
+            }
+            FP facing = TSMath.Lerp(curFacing, targetFacing, RotationProgress);
+       
+            //TSQuaternion q = TSQuaternion.Slerp(StartRotation, FinalRotation, RotationProgress);
+            //if (TSQuaternion.Angle(q, FinalRotation) != 0)
+            //{
+            //    Owner.Facing = q;
+            //}
+            Log.Write("wyb",string.Format("facing {0}  [{1} {2} {3} ]",facing,curFacing,targetFacing,RotationProgress));
+            Owner.Facing = facing * new FP(360) / 256f;
+            facing = AIUtils.RoundFacing(facing);
+            targetFacing = AIUtils.RoundFacing(FinalRotation);
+            if (curFacing > targetFacing && curFacing - targetFacing > 128)
+            {
+                curFacing -= 256;
+            }
+
+            if (curFacing < targetFacing && targetFacing - curFacing > 128)
+            {
+                targetFacing -= 256;
+            }
+            //Log.Write("wyb",string.Format("S->{0} Final->{1} cur->{2} progress->{3}"
+            //    ,StartRotation.eulerAngles,FinalRotation.eulerAngles,Owner.Facing.eulerAngles,RotationProgress) );
+
+            if (TSMath.Abs(facing - targetFacing) > 28)
                 return;
 
             MaxSpeed = TSMath.Max(Owner.BlackBoard.MaxWalkSpeed, Owner.BlackBoard.MaxRunSpeed * Owner.BlackBoard.MoveSpeedModifier);
@@ -217,9 +249,9 @@ namespace Engine.ComponentAnim._AniStates
 
         private E_MotionType GetMotionType()
         {
-            if (Owner.BlackBoard.Speed > (int)((int)Owner.BlackBoard.MaxRunSpeed * 1.5f))
+            if (Owner.BlackBoard.Speed > Owner.BlackBoard.MaxRunSpeed * 1.5f)
                 return E_MotionType.Sprint;
-            else if (Owner.BlackBoard.Speed > (int)(Owner.BlackBoard.MaxWalkSpeed * 1.5f))
+            else if (Owner.BlackBoard.Speed > Owner.BlackBoard.MaxWalkSpeed * 1.5f)
                 return E_MotionType.Run;
 
             return E_MotionType.Walk;
@@ -230,14 +262,18 @@ namespace Engine.ComponentAnim._AniStates
             //base.Initialize(action);
 
             Action = action as AgentActionMove;
+            if (FinalRotation == Owner.BlackBoard.DesiredFacing)
+            {
+                return;
+            }
 
-            TSVector forward = new TSVector(Owner.BlackBoard.DesiredDirection.x,0,Owner.BlackBoard.DesiredDirection.y);
-            FinalRotation = TSQuaternion.LookRotation(forward);
+            //TSVector forward = new TSVector(Owner.BlackBoard.DesiredDirection.x,0,Owner.BlackBoard.DesiredDirection.y);
+            FinalRotation = AIUtils.RoundFacing(Owner.BlackBoard.DesiredFacing);
             //FinalRotation.SetLookRotation(Owner.BlackBoard.DesiredDirection);
             //FinalRotation.s(Owner.BlackBoard.DesiredDirection);
 
-            StartRotation = Owner.Rotation;
-
+            StartRotation =AIUtils.RoundFacing(Owner.Facing * 256 / 360);
+            Owner.BlackBoard.MotionType = GetMotionType();
             //Owner.BlackBoard.MotionType = GetMotionType();
             //Log.Write("wyb","AnimStateMove initialize!");
             RotationProgress = 0;

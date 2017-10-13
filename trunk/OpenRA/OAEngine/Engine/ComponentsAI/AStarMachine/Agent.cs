@@ -57,7 +57,7 @@ namespace Engine.ComponentsAI.AStarMachine
 
         public abstract TSVector2 Position { set; get; }
         
-        public abstract TSQuaternion Rotation { set; get; }
+        public abstract FP Facing { set; get; }
 
         public abstract FP TurnSpeed { set;get; }
         //public abstract WVec Right { get; }

@@ -21,6 +21,7 @@ namespace Engine.ComponentsAI.GOAP
         public E_OrderType Type;
         public TSVector2 Position;
         public TSVector2 Direction;
+        public FP Facing;
         public E_AttackType AttackType;
         public FP MoveSpeedModifier;
 

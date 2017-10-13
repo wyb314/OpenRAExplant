@@ -53,17 +53,17 @@ namespace OAEngine.Engine.ComponentsAI
         public E_LookType LookType;
 
         public FP MaxSprintSpeed = 8f;
-        public FP MaxRunSpeed = 4f;
-        public FP MaxWalkSpeed = 1.5f;
+        public FP MaxRunSpeed = 5f;
+        public FP MaxWalkSpeed = 1.8f;
         public FP MaxCombatMoveSpeed = 1f;
-        public FP MaxHealth = 100f;
+        public FP MaxHealth = 50f;
         public FP MaxKnockdownTime = 4f;
 
-        public FP SpeedSmooth = 2f;
-        public FP RotationSmooth = 2f;
+        public FP SpeedSmooth = 8f;
+        public FP RotationSmooth = 20f;
         public FP RotationSmoothInMove = 8.0f;
         public FP RollDistance = 4.0f;
-        public FP MoveSpeedModifier = 100f;
+        public FP MoveSpeedModifier = 1;
 
 
         public FP Speed = 0;
@@ -72,6 +72,7 @@ namespace OAEngine.Engine.ComponentsAI
 
         public TSVector2 DesiredPosition;
         public TSVector2 DesiredDirection;
+        public FP DesiredFacing;
 
         public Agent DesiredTarget;
         public E_AttackType DesiredAttackType;
@@ -141,11 +142,13 @@ namespace OAEngine.Engine.ComponentsAI
                     case AgentOrder.E_OrderType.E_STOPMOVE:
                         Owner.WorldState.SetWSProperty(E_PropKey.E_AT_TARGET_POS, true);
                         DesiredPosition = Owner.Position;
+                        DesiredFacing = 0;
                         break;
                     case AgentOrder.E_OrderType.E_GOTO:
                         Owner.WorldState.SetWSProperty(E_PropKey.E_AT_TARGET_POS, false);
                         DesiredPosition = order.Position;
                         DesiredDirection = order.Direction;
+                        DesiredFacing = order.Facing;
                         MoveSpeedModifier = order.MoveSpeedModifier;
                         break;
                     case AgentOrder.E_OrderType.E_DODGE:

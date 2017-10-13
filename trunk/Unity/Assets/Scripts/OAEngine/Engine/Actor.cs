@@ -22,7 +22,7 @@ namespace Engine
 
         public int MoveSpeed = 3000;
 
-        public TSQuaternion Facing;
+        public FP Facing = 64;
 
         public FP TurnSpeed = 4;
 
@@ -110,7 +110,7 @@ namespace Engine
                         FP rad = angle * new FP(360) * TSMath.Deg2Rad / new FP(256);
                         this.CurJoystickDir = new TSVector2(TSMath.Cos(rad), TSMath.Sin(rad));
                         this.CurJoystickDir.Normalize();
-                        this.ComponentPlayer.CreateOrderGoTo(MoveSpeedModifier);
+                        this.ComponentPlayer.CreateOrderGoTo(MoveSpeedModifier,angle);
                         //this.SetMoveDir(angle);
                         //Log.Write("wyb", "Joystick angle->" + angle+" force->"+force);
                     }

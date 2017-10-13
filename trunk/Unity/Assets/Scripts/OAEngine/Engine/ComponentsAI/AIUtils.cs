@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using TrueSync;
 
 namespace Engine.ComponentsAI
 {
@@ -21,6 +22,17 @@ namespace Engine.ComponentsAI
 
 
         public static int RoundFacing(int facing)
+        {
+            facing = facing % 256;
+
+            if (facing < 0)
+            {
+                facing += 256;
+            }
+            return facing;
+        }
+
+        public static FP RoundFacing(FP facing)
         {
             facing = facing % 256;
 

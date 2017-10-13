@@ -168,7 +168,7 @@ namespace Engine.ComponentsAI.ComponentPlayer
         }
 
 
-        public void CreateOrderGoTo(FP MoveSpeedModifier)
+        public void CreateOrderGoTo(FP MoveSpeedModifier , FP facing)
         {
             this.force = force;
 
@@ -178,7 +178,7 @@ namespace Engine.ComponentsAI.ComponentPlayer
             AgentOrder order = AgentOrderFactory.Create(AgentOrder.E_OrderType.E_GOTO);
             order.Direction = this.Owner.CurJoystickDir;
             order.MoveSpeedModifier = MoveSpeedModifier;
-
+            order.Facing = facing;
             Owner.BlackBoard.OrderAdd(order);
         }
 
