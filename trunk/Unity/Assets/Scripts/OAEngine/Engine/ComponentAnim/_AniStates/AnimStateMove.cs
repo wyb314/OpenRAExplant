@@ -168,9 +168,9 @@ namespace Engine.ComponentAnim._AniStates
             //{
             //    Owner.Facing = q;
             //}
-            Log.Write("wyb",string.Format("facing {0}  [{1} {2} {3} ]",facing,curFacing,targetFacing,RotationProgress));
+            //Log.Write("wyb",string.Format("facing {0}  [{1} {2} {3} ]",facing,curFacing,targetFacing,RotationProgress));
             Owner.Facing = facing * new FP(360) / 256f;
-            facing = AIUtils.RoundFacing(facing);
+            curFacing = AIUtils.RoundFacing(facing);
             targetFacing = AIUtils.RoundFacing(FinalRotation);
             if (curFacing > targetFacing && curFacing - targetFacing > 128)
             {
@@ -184,7 +184,7 @@ namespace Engine.ComponentAnim._AniStates
             //Log.Write("wyb",string.Format("S->{0} Final->{1} cur->{2} progress->{3}"
             //    ,StartRotation.eulerAngles,FinalRotation.eulerAngles,Owner.Facing.eulerAngles,RotationProgress) );
 
-            if (TSMath.Abs(facing - targetFacing) > 28)
+            if (TSMath.Abs(curFacing - targetFacing) > 28)
                 return;
 
             MaxSpeed = TSMath.Max(Owner.BlackBoard.MaxWalkSpeed, Owner.BlackBoard.MaxRunSpeed * Owner.BlackBoard.MoveSpeedModifier);
@@ -262,10 +262,6 @@ namespace Engine.ComponentAnim._AniStates
             //base.Initialize(action);
 
             Action = action as AgentActionMove;
-            if (FinalRotation == Owner.BlackBoard.DesiredFacing)
-            {
-                return;
-            }
 
             //TSVector forward = new TSVector(Owner.BlackBoard.DesiredDirection.x,0,Owner.BlackBoard.DesiredDirection.y);
             FinalRotation = AIUtils.RoundFacing(Owner.BlackBoard.DesiredFacing);

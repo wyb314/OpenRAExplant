@@ -30,10 +30,10 @@ namespace OAUnityLayer.Renderers
             this.animation = this.go.GetComponent<Animation>();
         }
 
-        private SmothPos sp;
+        //private SmothPos sp;
         public void Init()
         {
-            sp = this.go.AddComponent<SmothPos>();
+            //sp = this.go.AddComponent<SmothPos>();
            
             this.InitAnimation();
         }
@@ -141,8 +141,8 @@ namespace OAUnityLayer.Renderers
         private Quaternion curRot;
         public void Render(Actor self, IWorldRenderer wr)
         {
-            sp.SetActor(self);
-            return;
+            //sp.SetActor(self);
+            //return;
             //Vector3 pos = new Vector3(self.Pos.X * 1024,0,self.Pos.Y * 1024);
             //this.mCurPos = Vector3.Lerp(this.mCurPos, pos, Time.deltaTime*12);
 
@@ -161,7 +161,7 @@ namespace OAUnityLayer.Renderers
 
             ////this.tran.eulerAngles = new Vector3(0, -rad * Mathf.Rad2Deg, 0);
 
-            
+
 
             //if (this.lastPos != self.Pos)
             //{
@@ -171,9 +171,17 @@ namespace OAUnityLayer.Renderers
 
             //    this.tran.position = curPos;
             //}
-            
+
             //this.tran.position = Vector3.Lerp(this.tran.position,curPos,((float)Game.Timestep) * 13);
-           
+
+            Quaternion rot = Quaternion.Euler(0, 90 - (float)self.Facing.AsFloat(), 0);
+
+            this.tran.rotation = rot;
+
+            Vector3 targetPos = new Vector3(((float)self.Pos.x), 0, (float)self.Pos.y);
+            //this.tran.position = Vector3.Lerp(this.tran.position, targetPos, 0.8f);
+            this.tran.position = targetPos;
+
 
         }
 
@@ -222,7 +230,7 @@ namespace OAUnityLayer.Renderers
             this.actor = actor;
         }
 
-        void FixedUpdate()
+        void Update()
         {
             if (actor == null)
             {
@@ -243,9 +251,12 @@ namespace OAUnityLayer.Renderers
 
             this.tran.rotation = rot;
 
-            Vector3 curPos = new Vector3(((float)actor.Pos.x), 0, (float)actor.Pos.y);
+            Vector3 targetPos = new Vector3(((float)actor.Pos.x), 0, (float)actor.Pos.y);
+            this.tran.position = Vector3.Lerp(this.tran.position, targetPos, Time.deltaTime * 13);
 
-            this.tran.position = curPos;
+            //Vector3 curPos = new Vector3(((float)actor.Pos.x), 0, (float)actor.Pos.y);
+
+            //this.tran.position = curPos;
         }
     }
 }

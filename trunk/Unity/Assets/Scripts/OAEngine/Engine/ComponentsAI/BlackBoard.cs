@@ -143,6 +143,7 @@ namespace OAEngine.Engine.ComponentsAI
                         Owner.WorldState.SetWSProperty(E_PropKey.E_AT_TARGET_POS, true);
                         DesiredPosition = Owner.Position;
                         DesiredFacing = 0;
+                        //MoveSpeedModifier = 0;
                         break;
                     case AgentOrder.E_OrderType.E_GOTO:
                         Owner.WorldState.SetWSProperty(E_PropKey.E_AT_TARGET_POS, false);

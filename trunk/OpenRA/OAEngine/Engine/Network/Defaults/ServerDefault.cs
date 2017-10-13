@@ -399,8 +399,8 @@ namespace Engine.Network.Defaults
         /// <param name="so"></param>
         public void InterpretServerOrder(IServerConnectoin<ClientDefault> conn, IServerOrder so)
         {
-            string log = "InterpretServerOrder so name->{0}".F(so.Name);
-            Log.Write("wybserver", log);
+            ////string log = "InterpretServerOrder so name->{0}".F(so.Name);
+            //Log.Write("wybserver", log);
 
             switch (so.Name)
             {
