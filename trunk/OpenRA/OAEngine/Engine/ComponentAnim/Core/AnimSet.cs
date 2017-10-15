@@ -7,6 +7,8 @@ namespace Engine.ComponentAnim.Core
 {
     public abstract class AnimSet
     {
+
+        public virtual void Init() { }
         public abstract string GetIdleAnim(E_WeaponType weapon, E_WeaponState weaponState);
 
         public abstract string GetIdleActionAnim(E_WeaponType weapon, E_WeaponState weaponState);
@@ -27,10 +29,10 @@ namespace Engine.ComponentAnim.Core
 
         public abstract string GetUseAnim(E_InteractionObjects objectType, E_InteractionType interaction);
 
-        //public abstract AnimAttackData GetFirstAttackAnim(E_WeaponType weapon, E_AttackType attackType);
-        //public abstract AnimAttackData GetChainedAttackAnim(AnimAttackData parent, E_AttackType attackType);
-        //public virtual AnimAttackData GetRollAttackAnim() { return null; }
-        //public virtual AnimAttackData GetWhirlAttackAnim() { return null; }
+        public abstract AnimAttackData GetFirstAttackAnim(E_WeaponType weapon, E_AttackType attackType);
+        public abstract AnimAttackData GetChainedAttackAnim(AnimAttackData parent, E_AttackType attackType);
+        public virtual AnimAttackData GetRollAttackAnim() { return null; }
+        public virtual AnimAttackData GetWhirlAttackAnim() { return null; }
         public virtual string GetInjuryPhaseAnim(int phase) { return null; }
 
         public abstract string GetInjuryAnim(E_WeaponType weapon, E_DamageType type);

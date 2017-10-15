@@ -48,6 +48,8 @@ namespace Engine
         {
             this.World = world;
             ActorID = world.NextAID();
+
+            //TODO:
             this.render = Platform.platformInfo.actorRendererFactory.CreateActorRenderer(WPos.Zero,clientIdx,"Player");
 
             
@@ -57,6 +59,7 @@ namespace Engine
         public void Init()
         {
             this.AnimSet = new AnimSetPlayer();
+            this.AnimSet.Init();
             this.Agent = new PlayerAgent(this,this.render,this.AnimSet);
             this.Agent.Init();
             
@@ -89,13 +92,13 @@ namespace Engine
             switch (opType)
             {
                 case E_OpType.X:
-                    //this.ComponentPlayer.CreateOrderAttack(E_AttackType.X);
+                    this.ComponentPlayer.CreateOrderAttack(E_AttackType.X);
                     break;
                 case E_OpType.O:
-                    //this.ComponentPlayer.CreateOrderAttack(E_AttackType.O);
+                    this.ComponentPlayer.CreateOrderAttack(E_AttackType.O);
                     break;
                 case E_OpType.Dodge:
-                    //this.ComponentPlayer.CreateOrderDodge();
+                    this.ComponentPlayer.CreateOrderDodge();
                     break;
                 case E_OpType.Joystick:
                     ushort data = _order.OpData;

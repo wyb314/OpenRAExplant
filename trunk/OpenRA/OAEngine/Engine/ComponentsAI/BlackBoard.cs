@@ -76,6 +76,8 @@ namespace OAEngine.Engine.ComponentsAI
 
         public Agent DesiredTarget;
         public E_AttackType DesiredAttackType;
+        public AnimAttackData DesiredAttackPhase;
+
 
         #region Goal Setting
         public FP GOAP_AlertRelevancy = 0.7f;
@@ -113,6 +115,13 @@ namespace OAEngine.Engine.ComponentsAI
         public FP GOAP_TeleportDelay = 4;
 
         #endregion
+
+
+
+        
+
+
+
 
         public bool _Stop = false;
         /// <summary>

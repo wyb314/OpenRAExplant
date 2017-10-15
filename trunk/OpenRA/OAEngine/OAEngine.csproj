@@ -40,6 +40,7 @@
     <Compile Include="Engine\ComponentAnim\AnimSetPlayer.cs" />
     <Compile Include="Engine\ComponentAnim\Core\Animation.cs" />
     <Compile Include="Engine\ComponentAnim\Core\AnimationState.cs" />
+    <Compile Include="Engine\ComponentAnim\Core\AnimAttackData.cs" />
     <Compile Include="Engine\ComponentAnim\Core\AnimComponent.cs" />
     <Compile Include="Engine\ComponentAnim\Core\AnimFSM.cs" />
     <Compile Include="Engine\ComponentAnim\Core\AnimSet.cs" />
@@ -55,6 +56,7 @@
     <Compile Include="Engine\ComponentsAI\AgentActions\AgentActionIdle.cs" />
     <Compile Include="Engine\ComponentsAI\AgentActions\AgentActionMove.cs" />
     <Compile Include="Engine\ComponentsAI\AgentActions\AgentActionPlayIdleAnim.cs" />
+    <Compile Include="Engine\ComponentsAI\AgentActions\AgentActionRoll.cs" />
     <Compile Include="Engine\ComponentsAI\AgentActions\AgentActionWeaponShow.cs" />
     <Compile Include="Engine\ComponentsAI\AIUtils.cs" />
     <Compile Include="Engine\ComponentsAI\AStarMachine\Agent.cs" />
@@ -74,6 +76,9 @@
     <Compile Include="Engine\ComponentsAI\GOAP\Actions\GOAPActionGoTo.cs" />
     <Compile Include="Engine\ComponentsAI\GOAP\Actions\GOAPActionIdleActionTount.cs" />
     <Compile Include="Engine\ComponentsAI\GOAP\Actions\GOAPActionMove.cs" />
+    <Compile Include="Engine\ComponentsAI\GOAP\Actions\GOAPActionOrderAttack.cs" />
+    <Compile Include="Engine\ComponentsAI\GOAP\Actions\GOAPActionWeaponHide.cs" />
+    <Compile Include="Engine\ComponentsAI\GOAP\Actions\GOAPActionWeaponShow.cs" />
     <Compile Include="Engine\ComponentsAI\GOAP\AgentOrder.cs" />
     <Compile Include="Engine\ComponentsAI\GOAP\Core\AStarGOAPGoal.cs" />
     <Compile Include="Engine\ComponentsAI\GOAP\Core\AStarGOAPMap.cs" />

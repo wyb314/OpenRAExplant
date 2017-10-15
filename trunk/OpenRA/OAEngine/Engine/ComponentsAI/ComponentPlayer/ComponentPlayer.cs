@@ -91,18 +91,18 @@ namespace Engine.ComponentsAI.ComponentPlayer
 
             AgentAction action;
 
-            //for (int i = 0; i < Owner.BlackBoard.ActionCount(); i++)
-            //{
-            //    action = Owner.BlackBoard.ActionGet(i);
-            //    if (action is AgentActionAttack && (action as AgentActionAttack).AttackPhaseDone == false)
-            //        return false;
-            //    else if (action is AgentActionRoll)
-            //        return false;
-            //    else if (action is AgentActionUseLever)
-            //        return false;
-            //    else if (action is AgentActionGoTo && (action as AgentActionGoTo).Motion == E_MotionType.Sprint)
-            //        return false;
-            //}
+            for (int i = 0; i < Owner.BlackBoard.ActionCount(); i++)
+            {
+                action = Owner.BlackBoard.ActionGet(i);
+                if (action is AgentActionAttack && (action as AgentActionAttack).AttackPhaseDone == false)
+                    return false;
+                else if (action is AgentActionRoll)
+                    return false;
+                else if (action is AgentActionUseLever)
+                    return false;
+                else if (action is AgentActionGoTo && (action as AgentActionGoTo).Motion == E_MotionType.Sprint)
+                    return false;
+            }
             return true;
         }
 

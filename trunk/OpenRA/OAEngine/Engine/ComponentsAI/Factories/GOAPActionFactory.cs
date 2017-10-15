@@ -82,12 +82,12 @@ namespace Engine.ComponentsAI.Factories
                 //case E_GOAPAction.gotoMeleeRange:
                 //    a = new GOAPActionGoToMeleeRange(owner);
                 //    break;
-                //case E_GOAPAction.weaponShow:
-                //    a = new GOAPActionWeaponShow(owner);
-                //    break;
-                //case E_GOAPAction.weaponHide:
-                //    a = new GOAPActionWeaponHide(owner);
-                //    break;
+                case E_GOAPAction.weaponShow:
+                    a = new GOAPActionWeaponShow(owner);
+                    break;
+                case E_GOAPAction.weaponHide:
+                    a = new GOAPActionWeaponHide(owner);
+                    break;
                 //case E_GOAPAction.attackMeleeOnce:
                 //    a = new GOAPActionAttackMeleeOnce(owner);
                 //    break;
