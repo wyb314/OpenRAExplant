@@ -33,12 +33,38 @@ namespace Engine.ComponentsAI
             //    return;
             //}
 
-            List<Agent> enemies = this.Owner.world.Ememys;
+            //List<Agent> enemies = this.Owner.world.Ememys;
+            
+            //if (Owner.WorldState.GetWSProperty(E_PropKey.E_ALERTED).GetBool() == true)
+            //{
+            //    if (enemies== null || enemies.Count == 0)
+            //        Owner.WorldState.SetWSProperty(E_PropKey.E_ALERTED, false);
+            //}
+            //else
+            //{
+            //    if (enemies != null)
+            //    {
+            //        for (int i = 0; i < enemies.Count; i++)
+            //        {
+            //            if ((Owner.Position - enemies[i].Position).LengthSquared() < sqrEyeRange)
+            //            {
+            //                Owner.WorldState.SetWSProperty(E_PropKey.E_ALERTED, true);
+            //                return;
+            //            }
+            //        }
+            //    }
+               
 
-            if (Owner.WorldState.GetWSProperty(E_PropKey.E_ALERTED).GetBool() == true)
+            //    Owner.WorldState.SetWSProperty(E_PropKey.E_ALERTED, false);
+            //}
+
+            List<Agent> enemies = this.Owner.world.Ememys;
+            if (enemies == null || enemies.Count == 0)
             {
-                if (enemies== null || enemies.Count == 0)
+                if (Owner.WorldState.GetWSProperty(E_PropKey.E_ALERTED).GetBool() == true)
+                {
                     Owner.WorldState.SetWSProperty(E_PropKey.E_ALERTED, false);
+                }
             }
             else
             {
@@ -53,7 +79,7 @@ namespace Engine.ComponentsAI
                         }
                     }
                 }
-               
+
 
                 Owner.WorldState.SetWSProperty(E_PropKey.E_ALERTED, false);
             }
