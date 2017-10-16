@@ -190,6 +190,7 @@
     <Compile Include="Assets\Scripts\OAEngine\Engine\ComponentAnim\_AniStates\AnimStateGoTo.cs" />
     <Compile Include="Assets\Scripts\OAEngine\Engine\ComponentAnim\_AniStates\AnimStateIdle.cs" />
     <Compile Include="Assets\Scripts\OAEngine\Engine\ComponentAnim\_AniStates\AnimStateMove.cs" />
+    <Compile Include="Assets\Scripts\OAEngine\Engine\ComponentAnim\_AniStates\AnimStateRoll.cs" />
     <Compile Include="Assets\Scripts\OAEngine\Engine\ComponentAnim\_FSMs\AnimFSMPlayer.cs" />
     <Compile Include="Assets\Scripts\OAEngine\Engine\ComponentAnim\AnimSetPlayer.cs" />
     <Compile Include="Assets\Scripts\OAEngine\Engine\ComponentAnim\Core\Animation.cs" />
@@ -227,6 +228,7 @@
     <Compile Include="Assets\Scripts\OAEngine\Engine\ComponentsAI\GOAP\Actions\GOAPActionIdleActionTount.cs" />
     <Compile Include="Assets\Scripts\OAEngine\Engine\ComponentsAI\GOAP\Actions\GOAPActionMove.cs" />
     <Compile Include="Assets\Scripts\OAEngine\Engine\ComponentsAI\GOAP\Actions\GOAPActionOrderAttack.cs" />
+    <Compile Include="Assets\Scripts\OAEngine\Engine\ComponentsAI\GOAP\Actions\GOAPActionOrderDodge.cs" />
     <Compile Include="Assets\Scripts\OAEngine\Engine\ComponentsAI\GOAP\Actions\GOAPActionWeaponHide.cs" />
     <Compile Include="Assets\Scripts\OAEngine\Engine\ComponentsAI\GOAP\Actions\GOAPActionWeaponShow.cs" />
     <Compile Include="Assets\Scripts\OAEngine\Engine\ComponentsAI\GOAP\AgentOrder.cs" />
@@ -242,6 +244,7 @@
     <Compile Include="Assets\Scripts\OAEngine\Engine\ComponentsAI\GOAP\Goals\GOAPGoalGoTo.cs" />
     <Compile Include="Assets\Scripts\OAEngine\Engine\ComponentsAI\GOAP\Goals\GOAPGoalIdle.cs" />
     <Compile Include="Assets\Scripts\OAEngine\Engine\ComponentsAI\GOAP\Goals\GOAPGoalOrderAttack.cs" />
+    <Compile Include="Assets\Scripts\OAEngine\Engine\ComponentsAI\GOAP\Goals\GOAPGoalOrderDodge.cs" />
     <Compile Include="Assets\Scripts\OAEngine\Engine\ComponentsAI\PlayerAgent.cs" />
     <Compile Include="Assets\Scripts\OAEngine\Engine\ComponentsAI\PlayerSensorEyes.cs" />
     <Compile Include="Assets\Scripts\OAEngine\Engine\ComponentsAI\WorkingMemory\Fact.cs" />

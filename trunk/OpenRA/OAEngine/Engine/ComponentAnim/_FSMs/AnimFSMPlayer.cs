@@ -43,8 +43,8 @@ namespace Engine.ComponentAnim._FSMs
                     NextAnimState = AnimStates[(int)E_MyAnimState.E_MOVE];
                 else if (action is AgentActionAttack)
                     NextAnimState = AnimStates[(int)E_MyAnimState.E_ATTACK_MELEE];
-                //else if (action is AgentActionRoll)
-                //    NextAnimState = AnimStates[(int)E_MyAnimState.E_ROLL];
+                else if (action is AgentActionRoll)
+                    NextAnimState = AnimStates[(int)E_MyAnimState.E_ROLL];
                 else if (action is AgentActionWeaponShow)
                     NextAnimState = AnimStates[(int)E_MyAnimState.E_IDLE];
                 //else if (action is AgentActionUseLever)
@@ -70,7 +70,7 @@ namespace Engine.ComponentAnim._FSMs
             AnimStates.Add(new AnimStateGoTo(AnimEngine, Owner)); //E_MyAnimState.E_GOTO
             AnimStates.Add(new AnimStateMove(AnimEngine, Owner)); //E_MyAnimState.E_MOVE
             AnimStates.Add(new AnimStateAttackMelee(AnimEngine, Owner)); //E_MyAnimState.E_ATTACK_MELEE
-            //AnimStates.Add(new AnimStateRoll(AnimEngine, Owner)); //E_MyAnimState.E_ROLL
+            AnimStates.Add(new AnimStateRoll(AnimEngine, Owner)); //E_MyAnimState.E_ROLL
             //AnimStates.Add(new AnimStateUseLever(AnimEngine, Owner)); //use lever
             //AnimStates.Add(new AnimStateTeleport(AnimEngine, Owner)); // teleport
             //AnimStates.Add(new AnimStateInjury(AnimEngine, Owner)); //E_MyAnimState.E_INJURY

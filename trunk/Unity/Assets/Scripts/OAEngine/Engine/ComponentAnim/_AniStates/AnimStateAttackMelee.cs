@@ -104,8 +104,8 @@ namespace Engine.ComponentAnim._AniStates
                     }
 
                     FP progress = CurrentRotationTime / RotationTime;
-                    FP curFacing = AIUtils.RoundFacing(StartRotation,360);
-                    FP targetFacing = AIUtils.RoundFacing(FinalRotation,360);
+                    FP curFacing = AIUtils.RoundFacing(StartRotation);
+                    FP targetFacing = AIUtils.RoundFacing(FinalRotation);
                     if (curFacing > targetFacing && curFacing - targetFacing > 180)
                     {
                         curFacing -= 360;
@@ -144,7 +144,7 @@ namespace Engine.ComponentAnim._AniStates
 
                         this.Owner.Position = finalPos;
 
-                        PositionOK = true;
+                        //PositionOK = true;
 
                     }
                 }

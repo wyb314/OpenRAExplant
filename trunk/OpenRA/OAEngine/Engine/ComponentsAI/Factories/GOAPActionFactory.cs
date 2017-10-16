@@ -115,9 +115,9 @@ namespace Engine.ComponentsAI.Factories
                 //case E_GOAPAction.attackRoll:
                 //    a = new GOAPActionAttackRoll(owner);
                 //    break;
-                //case E_GOAPAction.orderDodge:
-                //    a = new GOAPActioOrderDodge(owner);
-                //    break;
+                case E_GOAPAction.orderDodge:
+                    a = new GOAPActionOrderDodge(owner);
+                    break;
                 //case E_GOAPAction.rollToTarget:
                 //    a = new GOAPActionRollToTarget(owner);
                 //    break;

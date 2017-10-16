@@ -25,7 +25,11 @@ namespace Engine.ComponentsAI.GOAP.Core
         public abstract bool IsWSSatisfiedForPlanning(WorldState worldState);
 
 
-
+        /// <summary>
+        /// 只是做一个优化，在寻找关联程度更高的目标时，如果当前找到的关联程度值最大的目标的关联值比某个目标的关联程度值还大，则可
+        /// 跳过该目标进而比较下一个目标（如果下一个目标存在）
+        /// </summary>
+        /// <returns></returns>
         public abstract FP GetMaxRelevancy();
         public abstract void CalculateGoalRelevancy(); // how important is this goal !!!
         public void ClearGoalRelevancy() { GoalRelevancy = 0; }

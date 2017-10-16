@@ -403,7 +403,7 @@ namespace Engine.ComponentsAI.ComponentPlayer
             }
             else
             {
-                rollDir = TSVector2.up;
+                rollDir = this.Owner.Forward;
             }
                
             rollDir.Normalize();
@@ -411,7 +411,7 @@ namespace Engine.ComponentsAI.ComponentPlayer
             order.Direction = rollDir;
 
             Owner.BlackBoard.OrderAdd(order);
-
+            ComboProgress.Clear();
             ClearBufferedOrder();
         }
 
