@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Engine.ComponentsAI.AStarMachine;
 using Engine.ComponentsAI.GOAP;
 using Engine.ComponentsAI.GOAP.Core;
+using TrueSync;
 
 namespace Engine.ComponentsAI.Factories
 {
@@ -46,7 +47,7 @@ namespace Engine.ComponentsAI.Factories
             return p;
         }
 
-        static public WorldStateProp Create(E_PropKey key, float state)
+        static public WorldStateProp Create(E_PropKey key, FP state)
         {
             WorldStateProp p;
 

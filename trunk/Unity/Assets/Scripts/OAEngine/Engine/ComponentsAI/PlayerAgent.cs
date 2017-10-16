@@ -10,6 +10,7 @@ using Engine.ComponentsAI.GOAP.Core;
 using Engine.ComponentsAI.WorkingMemory;
 using Engine.Interfaces;
 using Engine.Primitives;
+using Engine.Support;
 using OAEngine.Engine.ComponentsAI;
 using TrueSync;
 
@@ -40,9 +41,34 @@ namespace Engine.ComponentsAI
             get { return this.self.CurJoystickDir; }
         }
 
+        public override MersenneTwister Random
+        {
+            get { return this.self.Random; }
+        }
+
         public Actor self { private set; get; }
 
         public IRender rendererProxy { private set; get; }
+
+        public override E_ComboLevel[] ComboLevel
+        {
+            get { return this.self.ComboLevel; }
+        }
+
+        public override E_SwordLevel SwordLevel
+        {
+            get { return this.self.SwordLevel; }
+        }
+
+        public override TSVector2 Forward
+        {
+            get { return MathUtils.FacingToTSVector2(this.Facing); }
+        }
+
+        public override World world
+        {
+            get { return this.self.World; }
+        }
 
         public PlayerAgent(Actor self, IRender render,AnimSet animSet)
         {

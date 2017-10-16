@@ -1,4 +1,5 @@
 ﻿using System;
+using TrueSync;
 
 namespace Engine.Support
 {
@@ -9,6 +10,8 @@ namespace Engine.Support
 
         public int Last;
         public int TotalCount = 0;
+
+        public static int MaxRandomInt { get { return 0x7fffffff; } }
 
         public MersenneTwister() : this(Environment.TickCount) { }
 
@@ -52,9 +55,29 @@ namespace Engine.Support
             return Next(0, high);
         }
 
-        public float NextFloat()
+        public FP NextFloat()
         {
             return Math.Abs(Next() / (float)0x7fffffff);
+        }
+
+        public FP Next(float minValue, float maxValue)
+        {
+            int minValueInt = (int)(minValue * 1000), maxValueInt = (int)(maxValue * 1000);
+
+            if (minValueInt > maxValueInt)
+            {
+                int tmp = maxValueInt;
+                maxValueInt = minValueInt;
+                minValueInt = tmp;
+            }
+
+            return (FP.Floor((maxValueInt - minValueInt + 1) * NextFP() +
+                minValueInt)) / 1000;
+        }
+
+        public FP NextFP()
+        {
+            return ((FP)Next()) / (MaxRandomInt);
         }
 
         void Generate()

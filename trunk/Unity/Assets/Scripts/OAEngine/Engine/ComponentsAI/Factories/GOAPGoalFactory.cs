@@ -41,9 +41,9 @@ namespace Engine.ComponentsAI.Factories
             GOAPGoal g;
             switch (type)
             {
-                //case E_GOAPGoals.E_ORDER_ATTACK:
-                //    g = new GOAPGoalOrderAttack(owner);
-                //    break;
+                case E_GOAPGoals.E_ORDER_ATTACK:
+                    g = new GOAPGoalOrderAttack(owner);
+                    break;
                 //case E_GOAPGoals.E_ORDER_DODGE:
                 //    g = new GOAPGoalOrderDodge(owner);
                 //    break;
@@ -80,9 +80,9 @@ namespace Engine.ComponentsAI.Factories
                 //case E_GOAPGoals.E_ALERT:
                 //    g = new GOAPGoalAlert(owner);
                 //    break;
-                //case E_GOAPGoals.E_CALM:
-                //    g = new GOAPGoalCalm(owner);
-                //    break;
+                case E_GOAPGoals.E_CALM:
+                    g = new GOAPGoalCalm(owner);
+                    break;
                 //case E_GOAPGoals.E_USE_WORLD_OBJECT:
                 //    g = new GOAPGoalUseWorldObject(owner);
                 //    break;

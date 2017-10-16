@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using TrueSync;
 
 namespace Engine.ComponentsAI.AStarMachine
 {
@@ -18,15 +19,15 @@ namespace Engine.ComponentsAI.AStarMachine
             NodeID = -1;
             G = 0;
             H = 0;
-            F = float.MaxValue;
+            F = FP.MaxValue;
 
             Flag = E_AStarFlags.Unchecked;
         }
 
         public short NodeID;
-        public float G;
-        public float H;
-        public float F;
+        public FP G;
+        public FP H;
+        public FP F;
         public AStarNode Next;
         public AStarNode Previous;
         public AStarNode Parent;

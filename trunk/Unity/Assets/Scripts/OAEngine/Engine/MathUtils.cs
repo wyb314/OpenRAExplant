@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Engine.ComponentsAI;
 using TrueSync;
 
 namespace Engine
@@ -131,6 +132,86 @@ namespace Engine
             return (float) Math.Sqrt(f);
         }
 
+
+        public static FP DeltaAngle(FP from ,FP to)
+        {
+            from = RoundFacing(from);
+            to = RoundFacing(to);
+            if (from > to && from - to > 180)
+            {
+                from -= 360;
+            }
+
+            if (from < to && to - from > 180)
+            {
+                to -= 360;
+            }
+
+            return TSMath.Abs(from - to);
+        }
+
+        public static FP RoundFacing(FP facing)
+        {
+            facing = facing % 360;
+
+            if (facing < 0)
+            {
+                facing += 360;
+            }
+            return facing;
+        }
+
+
+        public static TSVector2 FacingToTSVector2(FP facing)
+        {
+            facing = RoundFacing(facing);
+            FP rad = facing*TSMath.Deg2Rad;
+            FP cos = TSMath.Cos(rad);
+            FP sin = TSMath.Sin(rad);
+
+            return new TSVector2(cos, sin);
+        }
+
+        public static FP TSVector2ToFacing(TSVector2 dir, FP TwoPi2Period)
+        {
+            FP facing = TSMath.Atan2(dir.y, dir.x);
+            facing = facing * TwoPi2Period * 0.5f / TSMath.Pi;
+
+            if (dir.x >= 0)
+            {
+                if (dir.y >= 0) // in quadrant 1
+                {
+
+                }
+                else// in quadrant 4
+                {
+                    facing = TwoPi2Period + facing;
+                }
+            }
+            else
+            {
+                if (dir.y >= 0)// in quadrant 2
+                {
+                }
+                else // in quadrant 3
+                {
+                    facing = TwoPi2Period + facing;
+                }
+            }
+
+            return facing;
+        }
+
+
+        public static FP Hermite(FP start, FP end, FP value)
+        {
+            return TSMath.Lerp(start, end, value * value * (3.0f - 2.0f * value));
+        }
+
+        public static TSVector2 Hermite(TSVector2 start, TSVector2 end, FP value)
+        {
+            return new TSVector2(Hermite(start.x, end.x, value), Hermite(start.y, end.y, value));
+        }
         
 
     }

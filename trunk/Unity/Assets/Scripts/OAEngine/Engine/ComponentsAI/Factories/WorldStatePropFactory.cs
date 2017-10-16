@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Engine.ComponentsAI.AStarMachine;
 using Engine.ComponentsAI.GOAP;
 using Engine.ComponentsAI.GOAP.Core;
+using TrueSync;
 
 namespace Engine.ComponentsAI.Factories
 {
@@ -23,7 +24,7 @@ namespace Engine.ComponentsAI.Factories
             else
                 p = new WorldStateProp(state);
 
-            p.Time = Game.RunTime;
+            p.Time = Game.WorldTick;
             p.PropKey = key;
             return p;
         }
@@ -41,12 +42,12 @@ namespace Engine.ComponentsAI.Factories
             else
                 p = new WorldStateProp(state);
 
-            p.Time = Game.RunTime;
+            p.Time = Game.WorldTick;
             p.PropKey = key;
             return p;
         }
 
-        static public WorldStateProp Create(E_PropKey key, float state)
+        static public WorldStateProp Create(E_PropKey key, FP state)
         {
             WorldStateProp p;
 
@@ -59,7 +60,7 @@ namespace Engine.ComponentsAI.Factories
             else
                 p = new WorldStateProp(state);
 
-            p.Time = Game.RunTime;
+            p.Time = Game.WorldTick;
             p.PropType = E_PropType.E_FLOAT;
             return p;
         }
@@ -77,7 +78,7 @@ namespace Engine.ComponentsAI.Factories
             else
                 p = new WorldStateProp(state);
 
-            p.Time = Game.RunTime;
+            p.Time = Game.WorldTick;
             p.PropKey = key;
             return p;
         }
@@ -113,7 +114,7 @@ namespace Engine.ComponentsAI.Factories
             else
                 p = new WorldStateProp(eventType);
 
-            p.Time = Game.RunTime;
+            p.Time = Game.WorldTick;
             p.PropKey = key;
             return p;
         }
@@ -131,7 +132,7 @@ namespace Engine.ComponentsAI.Factories
             else
                 p = new WorldStateProp(orderType);
 
-            p.Time = Game.RunTime;
+            p.Time = Game.WorldTick;
             p.PropKey = key;
             return p;
         }

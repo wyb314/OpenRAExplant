@@ -5,6 +5,7 @@ using Engine.ComponentsAI.AgentActions;
 using Engine.ComponentsAI.AStarMachine;
 using Engine.Primitives;
 using OAEngine.Engine.ComponentsAI;
+using TrueSync;
 
 namespace Engine.ComponentAnim._AniStates
 {
@@ -16,7 +17,7 @@ namespace Engine.ComponentAnim._AniStates
 
         WRot FinalRotation = new WRot();
         WRot StartRotation = new WRot();
-        float RotationProgress;
+        FP RotationProgress;
 
 
         public AnimStateGoTo(Animation anims, Agent owner)

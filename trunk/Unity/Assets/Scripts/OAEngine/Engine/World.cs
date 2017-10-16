@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Engine.ComponentsAI.AStarMachine;
 using Engine.Interfaces;
 using Engine.Maps;
 using Engine.Network;
 using Engine.Network.Defaults;
 using Engine.Network.Interfaces;
 using Engine.OrderGenerators;
+using Engine.Support;
 
 namespace Engine
 {
@@ -23,7 +25,12 @@ namespace Engine
         internal readonly IOrderManager<ClientDefault> OrderManager;
         public Session<ClientDefault> LobbyInfo { get { return OrderManager.LobbyInfo; } }
 
+        public readonly MersenneTwister SharedRandom;
+
         public Player[] Players = new Player[0];
+
+        public readonly List<Agent> WorldAgents = new List<Agent>();
+        
 
         readonly Queue<Action<World>> frameEndActions = new Queue<Action<World>>();
 
@@ -33,6 +40,9 @@ namespace Engine
             Timestep = orderManager.LobbyInfo.GlobalSettings.Timestep;
             this.Map = map;
             this.orderGenerator = new PlayerControllerOrderGenerator();
+
+            SharedRandom = new MersenneTwister(orderManager.LobbyInfo.GlobalSettings.RandomSeed);
+
             this.CreatePlayers(orderManager);
         }
 
@@ -80,6 +90,32 @@ namespace Engine
 
         public void LoadComplete(IWorldRenderer worldRenderer)
         {
+        }
+
+
+        public void AddAgent(Agent agent)
+        {
+            if (!this.WorldAgents.Contains(agent))
+            {
+                this.WorldAgents.Add(agent);
+            }
+        }
+
+        public List<Agent> Ememys
+        {
+            get
+            {
+                List<Agent> result = null;
+                foreach (var play in this.Players)
+                {
+                    if (play.ClientIndex != OrderManager.LocalClient.Index)
+                    {
+                        if (result == null) result = new List<Agent>();
+                        result.Add(play.PlayerActor.agent);
+                    }
+                }
+                return result;
+            }
         }
 
         public int SyncHash()

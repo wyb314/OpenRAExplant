@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Engine.Network.Server;
+using TrueSync;
 
 namespace Engine
 {
@@ -137,7 +138,7 @@ namespace Engine
         public bool PerfText { set; get; }
         public bool PerfGraph { set; get; }
 
-        public float LongTickThresholdMs = 1;
+        public FP LongTickThresholdMs = 1;
         public bool SanityCheckUnsyncedCode { set; get; }
         public int Samples { set; get; }
         public bool IgnoreVersionMismatch { set; get; }

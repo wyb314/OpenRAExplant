@@ -18,6 +18,10 @@ namespace Engine
     public class Actor
     {
 
+        public E_ComboLevel[] ComboLevel = { E_ComboLevel.One, E_ComboLevel.One, E_ComboLevel.Two, E_ComboLevel.Two, E_ComboLevel.Two, E_ComboLevel.Three };
+
+        public E_SwordLevel SwordLevel = E_SwordLevel.Four;
+
         public TSVector2 Pos;
 
         public int MoveSpeed = 3000;
@@ -36,7 +40,19 @@ namespace Engine
         private AnimComponent AnimComponent;
 
         private PlayerAgent Agent;
+
+        public PlayerAgent agent
+        {
+            get { return this.Agent; }
+        }
+
+        public PlayerSensorEyes SensorEyes;
+
         private AnimSet AnimSet;
+
+        public MersenneTwister Random {
+            get { return this.World.SharedRandom; }
+        }
 
         public TSVector2 CurJoystickDir { private set; get; }
 
@@ -44,6 +60,8 @@ namespace Engine
         {
             this.World = world;
             ActorID = world.NextAID();
+
+            //TODO:
             this.render = Platform.platformInfo.actorRendererFactory.CreateActorRenderer(WPos.Zero,clientIdx,"Player");
 
             
@@ -53,19 +71,24 @@ namespace Engine
         public void Init()
         {
             this.AnimSet = new AnimSetPlayer();
+            this.AnimSet.Init();
             this.Agent = new PlayerAgent(this,this.render,this.AnimSet);
             this.Agent.Init();
-            
+            this.SensorEyes = new PlayerSensorEyes(this.agent);
+
+
             Animation anim = new Animation(this.render);
+            anim.Init();
             this.AnimComponent = new AnimComponent(this.Agent,anim);
             this.AnimComponent.Init();
             this.ComponentPlayer = new ComponentPlayer(this.Agent);
-            this.ComponentPlayer.Init();
+            this.ComponentPlayer.Init((AnimSetPlayer)this.AnimSet);
         }
 
 
         public void Tick()
         {
+            this.SensorEyes.Tick();
             this.Agent.Tick();
             this.AnimComponent.Update();
             this.ComponentPlayer.Update();
@@ -85,13 +108,13 @@ namespace Engine
             switch (opType)
             {
                 case E_OpType.X:
-                    //this.ComponentPlayer.CreateOrderAttack(E_AttackType.X);
+                    this.ComponentPlayer.CreateOrderAttack(E_AttackType.X);
                     break;
                 case E_OpType.O:
-                    //this.ComponentPlayer.CreateOrderAttack(E_AttackType.O);
+                    this.ComponentPlayer.CreateOrderAttack(E_AttackType.O);
                     break;
                 case E_OpType.Dodge:
-                    //this.ComponentPlayer.CreateOrderDodge();
+                    this.ComponentPlayer.CreateOrderDodge();
                     break;
                 case E_OpType.Joystick:
                     ushort data = _order.OpData;

@@ -69,7 +69,7 @@ namespace Engine.ComponentAnim._FSMs
             AnimStates.Add(new AnimStateIdle(AnimEngine, Owner)); //E_MyAnimState.E_IDLE
             AnimStates.Add(new AnimStateGoTo(AnimEngine, Owner)); //E_MyAnimState.E_GOTO
             AnimStates.Add(new AnimStateMove(AnimEngine, Owner)); //E_MyAnimState.E_MOVE
-            //AnimStates.Add(new AnimStateAttackMelee(AnimEngine, Owner)); //E_MyAnimState.E_ATTACK_MELEE
+            AnimStates.Add(new AnimStateAttackMelee(AnimEngine, Owner)); //E_MyAnimState.E_ATTACK_MELEE
             //AnimStates.Add(new AnimStateRoll(AnimEngine, Owner)); //E_MyAnimState.E_ROLL
             //AnimStates.Add(new AnimStateUseLever(AnimEngine, Owner)); //use lever
             //AnimStates.Add(new AnimStateTeleport(AnimEngine, Owner)); // teleport

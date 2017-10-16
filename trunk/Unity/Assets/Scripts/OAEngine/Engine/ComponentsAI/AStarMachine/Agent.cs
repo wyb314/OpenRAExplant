@@ -7,7 +7,9 @@ using Engine.ComponentAnim.Core;
 using Engine.ComponentsAI.Factories;
 using Engine.ComponentsAI.GOAP.Core;
 using Engine.ComponentsAI.WorkingMemory;
+using Engine.Interfaces;
 using Engine.Primitives;
+using Engine.Support;
 using OAEngine.Engine.ComponentsAI;
 using TrueSync;
 
@@ -49,6 +51,7 @@ namespace Engine.ComponentsAI.AStarMachine
             m_GoalManager.Initialize();
         }
         
+        public abstract World world { get; }
 
         public abstract TSVector2 CurJoystickDir { get; }
 
@@ -59,9 +62,15 @@ namespace Engine.ComponentsAI.AStarMachine
         
         public abstract FP Facing { set; get; }
 
+        public abstract TSVector2 Forward { get; }
+
         public abstract FP TurnSpeed { set;get; }
         //public abstract WVec Right { get; }
 
+        public abstract MersenneTwister Random { get; }
 
+        public abstract E_ComboLevel[] ComboLevel { get; }
+
+        public abstract E_SwordLevel SwordLevel { get; }
     }
 }

@@ -46,6 +46,7 @@
     <Compile Include="Engine\ComponentAnim\Core\AnimSet.cs" />
     <Compile Include="Engine\ComponentAnim\Core\AnimState.cs" />
     <Compile Include="Engine\ComponentAnim\Core\Types.cs" />
+    <Compile Include="Engine\ComponentAnim\_AniStates\AnimStateAttackMelee.cs" />
     <Compile Include="Engine\ComponentAnim\_AniStates\AnimStateGoTo.cs" />
     <Compile Include="Engine\ComponentAnim\_AniStates\AnimStateIdle.cs" />
     <Compile Include="Engine\ComponentAnim\_AniStates\AnimStateMove.cs" />
@@ -88,6 +89,7 @@
     <Compile Include="Engine\ComponentsAI\GOAP\Core\GOAPManager.cs" />
     <Compile Include="Engine\ComponentsAI\GOAP\Core\GOAPPlan.cs" />
     <Compile Include="Engine\ComponentsAI\GOAP\Core\WorldState.cs" />
+    <Compile Include="Engine\ComponentsAI\GOAP\Goals\GOAPGoalCalm.cs" />
     <Compile Include="Engine\ComponentsAI\GOAP\Goals\GOAPGoalGoTo.cs" />
     <Compile Include="Engine\ComponentsAI\GOAP\Goals\GOAPGoalIdle.cs" />
     <Compile Include="Engine\ComponentsAI\GOAP\Goals\GOAPGoalOrderAttack.cs" />

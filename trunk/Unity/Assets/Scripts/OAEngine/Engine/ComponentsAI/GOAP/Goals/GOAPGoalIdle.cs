@@ -4,6 +4,7 @@ using Engine.ComponentsAI.AStarMachine;
 using Engine.ComponentsAI.Factories;
 using Engine.ComponentsAI.GOAP.Core;
 using Engine.Support;
+using TrueSync;
 
 namespace Engine.ComponentsAI.GOAP.Goals
 {
@@ -16,7 +17,7 @@ namespace Engine.ComponentsAI.GOAP.Goals
             Log.Write("wyb", "Enter GOAPGoalIdle goal!");
         }
 
-        public override float GetMaxRelevancy()
+        public override FP GetMaxRelevancy()
         {
             return Owner.BlackBoard.GOAP_IdleActionRelevancy;
         }
@@ -32,7 +33,7 @@ namespace Engine.ComponentsAI.GOAP.Goals
                 GoalRelevancy = 0;
         }
 
-        public override void SetDisableTime() { NextEvaluationTime = Owner.BlackBoard.GOAP_IdleActionDelay + Game.LocalTick * Game.Timestep; }
+        public override void SetDisableTime() { NextEvaluationTime = Owner.BlackBoard.GOAP_IdleActionDelay + Game.WorldTime; }
 
         public override void SetWSSatisfactionForPlanning(WorldState worldState)
         {

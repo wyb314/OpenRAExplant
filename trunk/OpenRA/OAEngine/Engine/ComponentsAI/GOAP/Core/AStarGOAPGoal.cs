@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Engine.ComponentsAI.AStarMachine;
+using TrueSync;
 
 namespace Engine.ComponentsAI.GOAP.Core
 {
@@ -21,7 +22,7 @@ namespace Engine.ComponentsAI.GOAP.Core
         /********************************************
         *			GETTERS/SETTERS
         ********************************************/
-        public override float GetHeuristicDistance(Agent ai, AStarNode aStarNode, bool firstRun)
+        public override FP GetHeuristicDistance(Agent ai, AStarNode aStarNode, bool firstRun)
         {
             //If we are on the first run then we know that we have no node so we need to setup the first node
             AStarGOAPNode node = (AStarGOAPNode)aStarNode;
@@ -58,7 +59,7 @@ namespace Engine.ComponentsAI.GOAP.Core
             return node.GoalState.GetNumWorldStateDifferences(node.CurrentState);
         }
 
-        public override float GetActualCost(AStarNode nodeOne, AStarNode nodeTwo)
+        public override FP GetActualCost(AStarNode nodeOne, AStarNode nodeTwo)
         {
             /**
             * When getting the actual cost we must first copy over the states from one node to another
@@ -78,7 +79,7 @@ namespace Engine.ComponentsAI.GOAP.Core
                 return action.Cost;
 
             //Something went wrong, return a high value
-            return float.MaxValue;
+            return FP.MaxValue;
         }
 
         public override bool IsAStarFinished(AStarNode currNode)

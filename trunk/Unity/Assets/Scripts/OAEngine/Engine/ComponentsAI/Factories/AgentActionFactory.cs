@@ -90,9 +90,9 @@ namespace Engine.ComponentsAI.Factories
                     //case E_Type.E_BLOCK:
                     //    a = new AgentActionBlock();
                     //    break;
-                    //case E_Type.E_ROLL:
-                    //    a = new AgentActionRoll();
-                    //    break;
+                    case E_Type.E_ROLL:
+                        a = new AgentActionRoll();
+                        break;
                     //case E_Type.E_INCOMMING_ATTACK:
                     //    a = new AgentActionIncommingAttack();
                     //    break;

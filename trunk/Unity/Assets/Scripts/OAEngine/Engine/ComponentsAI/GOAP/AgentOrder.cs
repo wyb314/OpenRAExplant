@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using Engine.ComponentAnim.Core;
 using Engine.ComponentsAI.ComponentPlayer;
 using Engine.Primitives;
 using TrueSync;
+using Engine.ComponentsAI.AStarMachine;
 
 namespace Engine.ComponentsAI.GOAP
 {
@@ -22,8 +24,10 @@ namespace Engine.ComponentsAI.GOAP
         public TSVector2 Position;
         public TSVector2 Direction;
         public FP Facing;
+        public Agent Target;
         public E_AttackType AttackType;
         public FP MoveSpeedModifier;
+        public AnimAttackData AnimAttackData;
 
         private AgentOrder() { Type = E_OrderType.E_NONE; }
 

@@ -82,12 +82,12 @@ namespace Engine.ComponentsAI.Factories
                 //case E_GOAPAction.gotoMeleeRange:
                 //    a = new GOAPActionGoToMeleeRange(owner);
                 //    break;
-                //case E_GOAPAction.weaponShow:
-                //    a = new GOAPActionWeaponShow(owner);
-                //    break;
-                //case E_GOAPAction.weaponHide:
-                //    a = new GOAPActionWeaponHide(owner);
-                //    break;
+                case E_GOAPAction.weaponShow:
+                    a = new GOAPActionWeaponShow(owner);
+                    break;
+                case E_GOAPAction.weaponHide:
+                    a = new GOAPActionWeaponHide(owner);
+                    break;
                 //case E_GOAPAction.attackMeleeOnce:
                 //    a = new GOAPActionAttackMeleeOnce(owner);
                 //    break;
@@ -106,9 +106,9 @@ namespace Engine.ComponentsAI.Factories
                 //case E_GOAPAction.attackBow:
                 //    a = new GOAPActionAttackBow(owner);
                 //    break;
-                //case E_GOAPAction.orderAttack:
-                //    a = new GOAPActionOrderAttack(owner);
-                //    break;
+                case E_GOAPAction.orderAttack:
+                    a = new GOAPActionOrderAttack(owner);
+                    break;
                 //case E_GOAPAction.attackBoss:
                 //    a = new GOAPActionAttackBossSpecial(owner);
                 //    break;

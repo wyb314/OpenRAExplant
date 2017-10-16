@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using TrueSync;
 
 namespace Engine.ComponentsAI.AStarMachine
 {
@@ -37,7 +38,7 @@ namespace Engine.ComponentsAI.AStarMachine
 
         public void RunAStar(Agent ai)
         {
-            float g, h, f;//The g,h and f values needed for the formula f = g + h
+            FP g, h, f;//The g,h and f values needed for the formula f = g + h
             int numberOfNeighbours = 0;
             short neighbour;
             AStarNode neighbourNode;

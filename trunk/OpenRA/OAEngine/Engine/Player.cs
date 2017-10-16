@@ -31,6 +31,8 @@ namespace Engine
             }
             this.PlayerActor = new Actor(world,this.ClientIndex,"Player_"+this.ClientIndex,null);
             this.PlayerActor.Init();
+
+            this.World.AddAgent(this.PlayerActor.agent);
             world.Add(this.PlayerActor);
             //this.InternalName = pr.Name;
 

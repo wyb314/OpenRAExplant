@@ -18,6 +18,7 @@ using Engine;
 using Engine.FileSystem;
 using Engine.Interfaces;
 using Engine.Maps;
+using TrueSync;
 using YamlDotNet.Serialization;
 using YamlDotNet.Serialization.NamingConventions;
 
@@ -143,9 +144,32 @@ namespace Engine
 
         public static int LocalTick { get { return OrderManager.LocalFrameNumber; } }
 
+        public static int WorldTick
+        {
+            get
+            {
+                if (OrderManager.World == null) return 0;
+                return OrderManager.World.WorldTick;
+            }
+        }
+
+        public static FP WorldTime
+        {
+            get
+            {
+                if (OrderManager.World == null) return 0;
+                return OrderManager.World.WorldTick * Game.Timestep / new FP(1000);
+            }
+        }
+
+        public static FP DeltaTime
+        {
+            get { return Timestep / new FP(1000); }
+        }
+
         static void LogicTick(float elapsedTime)
         {
-            IWorld world = OrderManager.World as IWorld;
+            Engine.Interfaces.IWorld world = OrderManager.World as Engine.Interfaces.IWorld;
 
             Sync.CheckSyncUnchanged(world, OrderManager.TickImmediate);
 
@@ -268,7 +292,7 @@ namespace Engine
 
             Map map;
 
-            IWorld world = OrderManager.World as IWorld;
+            Engine.Interfaces.IWorld world = OrderManager.World as Engine.Interfaces.IWorld;
             
             using (new PerfTimer("PrepareMap"))
                 map = ModData.PrepareMap(mapUID);

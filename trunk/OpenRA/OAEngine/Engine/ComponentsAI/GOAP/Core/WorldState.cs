@@ -87,9 +87,9 @@ namespace Engine.ComponentsAI.GOAP.Core
 
     public class ValueFloat : Value
     {
-        public float Float;
+        public FP Float;
 
-        public ValueFloat(float f) { Float = f; }
+        public ValueFloat(FP f) { Float = f; }
 
         public override string ToString() { return Float.ToString(); }
     }
@@ -131,7 +131,7 @@ namespace Engine.ComponentsAI.GOAP.Core
 
         public WorldStateProp(bool state) { PropValue = new ValueBool(state); PropType = E_PropType.E_BOOL; }
         public WorldStateProp(int state) { PropValue = new ValueInt(state); PropType = E_PropType.E_INT; }
-        public WorldStateProp(float state) { PropValue = new ValueFloat(state); PropType = E_PropType.E_FLOAT; }
+        public WorldStateProp(FP state) { PropValue = new ValueFloat(state); PropType = E_PropType.E_FLOAT; }
         public WorldStateProp(Agent state) { PropValue = new ValueAgent(state); PropType = E_PropType.E_AGENT; }
         public WorldStateProp(E_EventTypes eventType) { PropValue = new ValueEvent(eventType); PropType = E_PropType.E_EVENT; }
         public WorldStateProp(AgentOrder.E_OrderType order) { PropValue = new ValueOrder(order); PropType = E_PropType.E_ORDER; }
@@ -140,7 +140,7 @@ namespace Engine.ComponentsAI.GOAP.Core
 
         public bool GetBool() { ValueBool b = PropValue as ValueBool; return b != null ? b.Bool : false; }
         public int GetInt() { ValueInt v = PropValue as ValueInt; return v != null ? v.Int : 0; }
-        public float GetFloat() { ValueFloat v = PropValue as ValueFloat; return v != null ? v.Float : 0.0f; }
+        public FP GetFloat() { ValueFloat v = PropValue as ValueFloat; return v != null ? v.Float : 0.0f; }
         public Agent GetAgent() { ValueAgent v = PropValue as ValueAgent; return v != null ? v.Agent : null; }
         public E_EventTypes GetEvent() { ValueEvent v = PropValue as ValueEvent; return v != null ? v.Event : E_EventTypes.None; }
         public AgentOrder.E_OrderType GetOrder() { ValueOrder v = PropValue as ValueOrder; return v != null ? v.Order : AgentOrder.E_OrderType.E_NONE; }
@@ -223,7 +223,7 @@ namespace Engine.ComponentsAI.GOAP.Core
             m_PropBitSet.Set(index, true); // set info that key is set
         }
 
-        public void SetWSProperty(E_PropKey key, float value)
+        public void SetWSProperty(E_PropKey key, FP value)
         {
             int index = (int)key;
             if (m_PropState[index] != null)

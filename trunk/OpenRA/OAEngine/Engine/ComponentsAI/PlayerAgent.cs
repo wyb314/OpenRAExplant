@@ -50,6 +50,26 @@ namespace Engine.ComponentsAI
 
         public IRender rendererProxy { private set; get; }
 
+        public override E_ComboLevel[] ComboLevel
+        {
+            get { return this.self.ComboLevel; }
+        }
+
+        public override E_SwordLevel SwordLevel
+        {
+            get { return this.self.SwordLevel; }
+        }
+
+        public override TSVector2 Forward
+        {
+            get { return MathUtils.FacingToTSVector2(this.Facing); }
+        }
+
+        public override World world
+        {
+            get { return this.self.World; }
+        }
+
         public PlayerAgent(Actor self, IRender render,AnimSet animSet)
         {
             this.self = self;

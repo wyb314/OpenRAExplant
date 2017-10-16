@@ -32,13 +32,13 @@ namespace Engine.ComponentsAI
             return facing;
         }
 
-        public static FP RoundFacing(FP facing)
+        public static FP RoundFacing(FP facing,int period = 360)
         {
-            facing = facing % 256;
+            facing = facing % period;
 
             if (facing < 0)
             {
-                facing += 256;
+                facing += period;
             }
             return facing;
         }

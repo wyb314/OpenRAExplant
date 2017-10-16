@@ -66,6 +66,13 @@ namespace Engine.ComponentAnim.Core
         Enviroment,
     }
 
+    public enum E_CriticalHitType
+    {
+        None,
+        Vertical,
+        Horizontal,
+    }
+
     public enum E_InteractionObjects
     {
         None,
@@ -86,5 +93,35 @@ namespace Engine.ComponentAnim.Core
     {
         None,
         TrackTarget,
+    }
+
+    public enum E_AttackType
+    {
+        None = -1,
+        X = 0,
+        O = 1,
+        BossBash = 2,
+        Fatality = 3,
+        Counter = 4,
+        Berserk = 5,
+        Max = 6,
+    }
+
+    public enum E_ComboLevel
+    {
+        One = 1,
+        Two = 2,
+        Three = 3,
+        Max = 3
+    }
+
+    public enum E_SwordLevel
+    {
+        One = 1,
+        Two = 2,
+        Three = 3,
+        Four = 4,
+        Five = 5,
+        Max = 5
     }
 }

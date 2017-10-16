@@ -38,7 +38,7 @@ namespace OAEngine.Engine.ComponentsAI
     {
         public bool DontUpdate = true;
         
-        public int IdleTimer = 0;
+        public FP IdleTimer = 0;
 
         private List<AgentAction> m_ActiveActions = new List<AgentAction>();
         private List<IActionHandler> m_ActionHandlers = new List<IActionHandler>();
@@ -49,6 +49,13 @@ namespace OAEngine.Engine.ComponentsAI
         public E_WeaponState WeaponState = E_WeaponState.NotInHands;
         public E_WeaponType WeaponSelected = E_WeaponType.Katana;
         public E_WeaponType WeaponToSelect = E_WeaponType.None;
+
+        public FP WeaponRange = 2;
+        public FP sqrWeaponRange { get { return WeaponRange * WeaponRange; } }
+
+
+        public FP CombatRange = 4;
+        public FP sqrCombatRange { get { return CombatRange * CombatRange; } }
 
         public E_LookType LookType;
 
@@ -69,50 +76,93 @@ namespace OAEngine.Engine.ComponentsAI
         public FP Speed = 0;
         public TSVector2 MoveDir;
 
+        public FP Health = 30;
 
+        public FP Rage = 0;
+        public FP Fear = 0;
+        public FP Dodge = 0;
+        public FP Berserk = 0;
+        
         public TSVector2 DesiredPosition;
         public TSVector2 DesiredDirection;
         public FP DesiredFacing;
 
         public Agent DesiredTarget;
         public E_AttackType DesiredAttackType;
+        public AnimAttackData DesiredAttackPhase;
+
+
+        /////////////// cOMBAT SETTINGS ///////////////////////
+        public FP RageMin = 0; //0 = no attack
+        public FP RageMax = 100;// 100 % chance is do do attack
+        public FP RageModificator = 5;//per second
+        public FP DodgeMin = 10;
+        public FP DodgeMax = 30;
+        public FP DodgeModificator = -3; //per second
+        public FP FearMin = 10;
+        public FP FearMax = 30;
+        public FP FearModificator = -3; //per second
+        public FP BerserkMin = 0; // = no attack
+        public FP BerserkMax = 0;// 100 % chance is do do attack
+        public FP BerserkModificator = 0;//per second
+
+        public FP RageInjuryModificator = 10; // each injury increase rage
+        public FP DodgeInjuryModificator = 10;  // each injury increase dodge
+        public FP FearInjuryModificator = 5;
+        public FP BerserkInjuryModificator = 0;
+
+        public FP RageBlockModificator = 20; // each block increase rage
+        public FP FearBlockModificator = 20; // each block increase rage
+        public FP BerserkBlockModificator = 0; // each block increase rage
+
+        public FP DodgeAttackModificator = -5; // each attack increase rage
+        public FP FearAttackModificator = 20; // each attack increase rage
+        public FP BerserkAttackModificator = 0; // each attack increase rage
+
 
         #region Goal Setting
-        public float GOAP_AlertRelevancy = 0.7f;
-        public float GOAP_CalmRelevancy = 0.2f;
-        public float GOAP_BlockRelevancy = 0.7f;
-        public float GOAP_DodgeRelevancy = 0.9f;
-        public float GOAP_GoToRelevancy = 0.5f;
-        public float GOAP_CombatMoveBackwardRelevancy = 0.7f;
-        public float GOAP_CombatMoveForwardRelevancy = 0.75f;
-        public float GOAP_CombatMoveLeftRelevancy = 0.6f;
-        public float GOAP_CombatMoveRightRelevancy = 0.6f;
-        public float GOAP_LookAtTargetRelevancy = 0.7f;
-        public float GOAP_KillTargetRelevancy = 0.8f;
-        public float GOAP_PlayAnimRelevancy = 0.95f;
-        public float GOAP_UseWorlObjectRelevancy = 0.9f;
-        public float GOAP_ReactToDamageRelevancy = 1.0f;
-        public float GOAP_IdleActionRelevancy = 0.4f;
-        public float GOAP_TeleportRelevancy = 0.9f;
+        public FP GOAP_AlertRelevancy = 0.7f;
+        public FP GOAP_CalmRelevancy = 0.2f;
+        public FP GOAP_BlockRelevancy = 0.7f;
+        public FP GOAP_DodgeRelevancy = 0.9f;
+        public FP GOAP_GoToRelevancy = 0.5f;
+        public FP GOAP_CombatMoveBackwardRelevancy = 0.7f;
+        public FP GOAP_CombatMoveForwardRelevancy = 0.75f;
+        public FP GOAP_CombatMoveLeftRelevancy = 0.6f;
+        public FP GOAP_CombatMoveRightRelevancy = 0.6f;
+        public FP GOAP_LookAtTargetRelevancy = 0.7f;
+        public FP GOAP_KillTargetRelevancy = 0.8f;
+        public FP GOAP_PlayAnimRelevancy = 0.95f;
+        public FP GOAP_UseWorlObjectRelevancy = 0.9f;
+        public FP GOAP_ReactToDamageRelevancy = 1.0f;
+        public FP GOAP_IdleActionRelevancy = 0.4f;
+        public FP GOAP_TeleportRelevancy = 0.9f;
 
-        public float GOAP_AlertDelay = 0;
-        public float GOAP_CalmDelay = 0;
-        public float GOAP_BlockDelay = 2.7f;
-        public float GOAP_DodgeDelay = 0;
-        public int GOAP_GoToDelay = 0;
-        public float GOAP_CombatMoveDelay = 0.5f;
-        public float GOAP_CombatMoveLeftDelay = 2.6f;
-        public float GOAP_CombatMoveRightDelay = 2.6f;
-        public float GOAP_LookAtTargetDelay = 0.4f;
-        public float GOAP_KillTargetDelay = 0f;
-        public float GOAP_PlayAnimDelay = 0.0f;
-        public float GOAP_UseWorlObjectDelay = 0f;
-        public float GOAP_CombatMoveBackwardDelay = 3.5f;
-        public float GOAP_CombatMoveForwardDelay = 3.5f;
-        public int GOAP_IdleActionDelay = 10 * 1000;
-        public float GOAP_TeleportDelay = 4;
+        public FP GOAP_AlertDelay = 0;
+        public FP GOAP_CalmDelay = 0;
+        public FP GOAP_BlockDelay = 2.7f;
+        public FP GOAP_DodgeDelay = 0;
+        public FP GOAP_GoToDelay = 0;
+        public FP GOAP_CombatMoveDelay = 0.5f;
+        public FP GOAP_CombatMoveLeftDelay = 2.6f;
+        public FP GOAP_CombatMoveRightDelay = 2.6f;
+        public FP GOAP_LookAtTargetDelay = 0.4f;
+        public FP GOAP_KillTargetDelay = 0f;
+        public FP GOAP_PlayAnimDelay = 0.0f;
+        public FP GOAP_UseWorlObjectDelay = 0f;
+        public FP GOAP_CombatMoveBackwardDelay = 3.5f;
+        public FP GOAP_CombatMoveForwardDelay = 3.5f;
+        public FP GOAP_IdleActionDelay = 10 * 1000;
+        public FP GOAP_TeleportDelay = 4;
 
         #endregion
+
+
+
+        
+
+
+
 
         public bool _Stop = false;
         /// <summary>
@@ -142,21 +192,42 @@ namespace OAEngine.Engine.ComponentsAI
                     case AgentOrder.E_OrderType.E_STOPMOVE:
                         Owner.WorldState.SetWSProperty(E_PropKey.E_AT_TARGET_POS, true);
                         DesiredPosition = Owner.Position;
-                        DesiredFacing = 0;
-                        //MoveSpeedModifier = 0;
+						DesiredFacing = 0;
                         break;
                     case AgentOrder.E_OrderType.E_GOTO:
                         Owner.WorldState.SetWSProperty(E_PropKey.E_AT_TARGET_POS, false);
                         DesiredPosition = order.Position;
                         DesiredDirection = order.Direction;
-                        DesiredFacing = order.Facing;
+						DesiredFacing = order.Facing * new FP(360) / new FP(256);
                         MoveSpeedModifier = order.MoveSpeedModifier;
                         break;
                     case AgentOrder.E_OrderType.E_DODGE:
-                        //DesiredDirection = order.Direction;
+                        DesiredDirection = order.Direction;
                         //Debug.Log(Time.timeSinceLevelLoad + " order arrived " + order.Type);
                         break;
-                  
+                    //case AgentOrder.E_OrderType.E_USE:
+                    //    UnityEngine.Debug.LogError("AgentOrder.E_OrderType.E_USE:");
+                    //    Owner.WorldState.SetWSProperty(E_PropKey.E_USE_WORLD_OBJECT, true);
+
+                    //    if ((order.Position - Owner.Position).sqrMagnitude <= 1)
+                    //        Owner.WorldState.SetWSProperty(E_PropKey.E_AT_TARGET_POS, true);
+                    //    else
+                    //        Owner.WorldState.SetWSProperty(E_PropKey.E_AT_TARGET_POS, false);
+                    //    DesiredPosition = order.Position;
+                    //    InteractionObject = order.InteractionObject;
+                    //    Interaction = order.Interaction;
+                    //    break;
+                    case AgentOrder.E_OrderType.E_ATTACK:
+                        if (order.Target == null || (order.Target.Position - Owner.Position).magnitude <= (WeaponRange + 0.2))
+                            Owner.WorldState.SetWSProperty(E_PropKey.E_IN_WEAPONS_RANGE, true);
+                        else
+                            Owner.WorldState.SetWSProperty(E_PropKey.E_IN_WEAPONS_RANGE, false);
+
+                        DesiredAttackType = order.AttackType;
+                        DesiredTarget = order.Target;
+                        DesiredDirection = order.Direction;
+                        DesiredAttackPhase = order.AnimAttackData;
+                        break;
                 }
 
                 //  Debug.Log(Time.timeSinceLevelLoad + " new order arrived " + order.Type);
@@ -183,7 +254,7 @@ namespace OAEngine.Engine.ComponentsAI
 
         public void Update()
         {
-            IdleTimer += Game.Timestep;
+            IdleTimer += Game.DeltaTime;
 
             for (int i = 0; i < m_ActiveActions.Count; i++)
             {
@@ -233,11 +304,12 @@ namespace OAEngine.Engine.ComponentsAI
 
             Speed = 0;
 
+            //TODO://
             //Health = RealMaxHealth;
 
-            //Rage = RageMin;
-            //Dodge = DodgeMin;
-            //Fear = FearMin;
+            Rage = RageMin;
+            Dodge = DodgeMin;
+            Fear = FearMin;
             IdleTimer = 0;
 
             MoveDir = TSVector2.zero;

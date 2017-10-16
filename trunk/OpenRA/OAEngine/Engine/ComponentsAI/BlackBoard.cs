@@ -38,7 +38,7 @@ namespace OAEngine.Engine.ComponentsAI
     {
         public bool DontUpdate = true;
         
-        public int IdleTimer = 0;
+        public FP IdleTimer = 0;
 
         private List<AgentAction> m_ActiveActions = new List<AgentAction>();
         private List<IActionHandler> m_ActionHandlers = new List<IActionHandler>();
@@ -49,6 +49,13 @@ namespace OAEngine.Engine.ComponentsAI
         public E_WeaponState WeaponState = E_WeaponState.NotInHands;
         public E_WeaponType WeaponSelected = E_WeaponType.Katana;
         public E_WeaponType WeaponToSelect = E_WeaponType.None;
+
+        public FP WeaponRange = 2;
+        public FP sqrWeaponRange { get { return WeaponRange * WeaponRange; } }
+
+
+        public FP CombatRange = 4;
+        public FP sqrCombatRange { get { return CombatRange * CombatRange; } }
 
         public E_LookType LookType;
 
@@ -69,7 +76,13 @@ namespace OAEngine.Engine.ComponentsAI
         public FP Speed = 0;
         public TSVector2 MoveDir;
 
+        public FP Health = 30;
 
+        public FP Rage = 0;
+        public FP Fear = 0;
+        public FP Dodge = 0;
+        public FP Berserk = 0;
+        
         public TSVector2 DesiredPosition;
         public TSVector2 DesiredDirection;
         public FP DesiredFacing;
@@ -77,6 +90,34 @@ namespace OAEngine.Engine.ComponentsAI
         public Agent DesiredTarget;
         public E_AttackType DesiredAttackType;
         public AnimAttackData DesiredAttackPhase;
+
+
+        /////////////// cOMBAT SETTINGS ///////////////////////
+        public FP RageMin = 0; //0 = no attack
+        public FP RageMax = 100;// 100 % chance is do do attack
+        public FP RageModificator = 5;//per second
+        public FP DodgeMin = 10;
+        public FP DodgeMax = 30;
+        public FP DodgeModificator = -3; //per second
+        public FP FearMin = 10;
+        public FP FearMax = 30;
+        public FP FearModificator = -3; //per second
+        public FP BerserkMin = 0; // = no attack
+        public FP BerserkMax = 0;// 100 % chance is do do attack
+        public FP BerserkModificator = 0;//per second
+
+        public FP RageInjuryModificator = 10; // each injury increase rage
+        public FP DodgeInjuryModificator = 10;  // each injury increase dodge
+        public FP FearInjuryModificator = 5;
+        public FP BerserkInjuryModificator = 0;
+
+        public FP RageBlockModificator = 20; // each block increase rage
+        public FP FearBlockModificator = 20; // each block increase rage
+        public FP BerserkBlockModificator = 0; // each block increase rage
+
+        public FP DodgeAttackModificator = -5; // each attack increase rage
+        public FP FearAttackModificator = 20; // each attack increase rage
+        public FP BerserkAttackModificator = 0; // each attack increase rage
 
 
         #region Goal Setting
@@ -151,21 +192,42 @@ namespace OAEngine.Engine.ComponentsAI
                     case AgentOrder.E_OrderType.E_STOPMOVE:
                         Owner.WorldState.SetWSProperty(E_PropKey.E_AT_TARGET_POS, true);
                         DesiredPosition = Owner.Position;
-                        DesiredFacing = 0;
-                        //MoveSpeedModifier = 0;
+						DesiredFacing = 0;
                         break;
                     case AgentOrder.E_OrderType.E_GOTO:
                         Owner.WorldState.SetWSProperty(E_PropKey.E_AT_TARGET_POS, false);
                         DesiredPosition = order.Position;
                         DesiredDirection = order.Direction;
-                        DesiredFacing = order.Facing;
+						DesiredFacing = order.Facing * new FP(360) / new FP(256);
                         MoveSpeedModifier = order.MoveSpeedModifier;
                         break;
                     case AgentOrder.E_OrderType.E_DODGE:
-                        //DesiredDirection = order.Direction;
+                        DesiredDirection = order.Direction;
                         //Debug.Log(Time.timeSinceLevelLoad + " order arrived " + order.Type);
                         break;
-                  
+                    //case AgentOrder.E_OrderType.E_USE:
+                    //    UnityEngine.Debug.LogError("AgentOrder.E_OrderType.E_USE:");
+                    //    Owner.WorldState.SetWSProperty(E_PropKey.E_USE_WORLD_OBJECT, true);
+
+                    //    if ((order.Position - Owner.Position).sqrMagnitude <= 1)
+                    //        Owner.WorldState.SetWSProperty(E_PropKey.E_AT_TARGET_POS, true);
+                    //    else
+                    //        Owner.WorldState.SetWSProperty(E_PropKey.E_AT_TARGET_POS, false);
+                    //    DesiredPosition = order.Position;
+                    //    InteractionObject = order.InteractionObject;
+                    //    Interaction = order.Interaction;
+                    //    break;
+                    case AgentOrder.E_OrderType.E_ATTACK:
+                        if (order.Target == null || (order.Target.Position - Owner.Position).magnitude <= (WeaponRange + 0.2))
+                            Owner.WorldState.SetWSProperty(E_PropKey.E_IN_WEAPONS_RANGE, true);
+                        else
+                            Owner.WorldState.SetWSProperty(E_PropKey.E_IN_WEAPONS_RANGE, false);
+
+                        DesiredAttackType = order.AttackType;
+                        DesiredTarget = order.Target;
+                        DesiredDirection = order.Direction;
+                        DesiredAttackPhase = order.AnimAttackData;
+                        break;
                 }
 
                 //  Debug.Log(Time.timeSinceLevelLoad + " new order arrived " + order.Type);
@@ -192,7 +254,7 @@ namespace OAEngine.Engine.ComponentsAI
 
         public void Update()
         {
-            IdleTimer += Game.Timestep;
+            IdleTimer += Game.DeltaTime;
 
             for (int i = 0; i < m_ActiveActions.Count; i++)
             {
@@ -242,11 +304,12 @@ namespace OAEngine.Engine.ComponentsAI
 
             Speed = 0;
 
+            //TODO://
             //Health = RealMaxHealth;
 
-            //Rage = RageMin;
-            //Dodge = DodgeMin;
-            //Fear = FearMin;
+            Rage = RageMin;
+            Dodge = DodgeMin;
+            Fear = FearMin;
             IdleTimer = 0;
 
             MoveDir = TSVector2.zero;
