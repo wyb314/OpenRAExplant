@@ -101,21 +101,18 @@ namespace Engine
             }
         }
 
-        public List<Agent> Ememys
+        public List<Agent> GetEmemys(Agent self)
         {
-            get
+            List<Agent> result = null;
+            foreach (var play in this.Players)
             {
-                List<Agent> result = null;
-                foreach (var play in this.Players)
+                if (play.PlayerActor.agent != self)
                 {
-                    if (play.ClientIndex != OrderManager.LocalClient.Index)
-                    {
-                        if (result == null) result = new List<Agent>();
-                        result.Add(play.PlayerActor.agent);
-                    }
+                    if (result == null) result = new List<Agent>();
+                    result.Add(play.PlayerActor.agent);
                 }
-                return result;
             }
+            return result;
         }
 
         public int SyncHash()

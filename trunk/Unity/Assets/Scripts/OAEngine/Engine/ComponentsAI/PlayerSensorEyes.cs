@@ -58,7 +58,7 @@ namespace Engine.ComponentsAI
             //    Owner.WorldState.SetWSProperty(E_PropKey.E_ALERTED, false);
             //}
 
-            List<Agent> enemies = this.Owner.world.Ememys;
+            List<Agent> enemies = this.Owner.world.GetEmemys(this.Owner);
             if (enemies == null || enemies.Count == 0)
             {
                 if (Owner.WorldState.GetWSProperty(E_PropKey.E_ALERTED).GetBool() == true)
