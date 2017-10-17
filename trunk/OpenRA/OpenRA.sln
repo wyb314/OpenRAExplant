@@ -36,6 +36,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FixMath", "FixMath\FixMath.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Physics", "Physics\Physics.csproj", "{52FCFA5D-0813-444A-87B3-EE843142B3CC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TrueSyncLibrary", "TrueSync\TrueSyncLibrary.csproj", "{BD862BB6-564E-4102-A18D-56DA32425D20}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -94,6 +96,10 @@ Global
 		{52FCFA5D-0813-444A-87B3-EE843142B3CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{52FCFA5D-0813-444A-87B3-EE843142B3CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{52FCFA5D-0813-444A-87B3-EE843142B3CC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BD862BB6-564E-4102-A18D-56DA32425D20}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BD862BB6-564E-4102-A18D-56DA32425D20}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BD862BB6-564E-4102-A18D-56DA32425D20}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BD862BB6-564E-4102-A18D-56DA32425D20}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

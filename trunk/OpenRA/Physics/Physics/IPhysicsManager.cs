@@ -1,5 +1,6 @@
-﻿using TrueSync;
-using UnityEngine;
+﻿using Physics;
+using TrueSync;
+//using UnityEngine;
 
 /**
 * @brief Interface to a world physics manager.
@@ -15,7 +16,7 @@ public interface IPhysicsManager : IPhysicsManagerBase {
     /**
     * @brief Returns the GameObject related to a {@link IBody}.
     **/
-    GameObject GetGameObject(IBody rigidBody);
+    IRandererObject GetGameObject(IBody rigidBody);
 
     /**
     * @brief Returns the layer related to a {@link IBody}.

@@ -573,7 +573,7 @@ namespace TrueSync.Physics3D {
                     if (!(t.VertexBody1 == points[i] || t.VertexBody2 == points[i] || t.VertexBody3 == points[i]))
                     {
                         if (XenoCollide.Detect(points[i].Shape, t, ref points[i].orientation,
-                            ref TSMatrix.InternalIdentity, ref points[i].position, ref TSVector.InternalZero,
+                            ref Shape.InternalIdentity, ref points[i].position, ref Shape.InternalZero,
                             out point, out normal, out penetration))
                         {
                             int nearest = CollisionSystem.FindNearestTrianglePoint(this, queryList[e], ref point);
