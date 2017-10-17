@@ -139,6 +139,8 @@ namespace OAUnityLayer.Renderers
 
         private Vector3 curPos = Vector3.zero;
         private Quaternion curRot;
+
+        
         public void Render(Actor self, IWorldRenderer wr)
         {
             //sp.SetActor(self);
@@ -173,6 +175,10 @@ namespace OAUnityLayer.Renderers
             //}
 
             //this.tran.position = Vector3.Lerp(this.tran.position,curPos,((float)Game.Timestep) * 13);
+
+
+
+            Debug.LogError("Facing serial-> "+self.Facing._serializedValue+"  posX->"+self.Pos.x._serializedValue+" posY->"+self.Pos.y._serializedValue);
 
             Quaternion rot = Quaternion.Euler(0, 90 - (float)self.Facing.AsFloat(), 0);
 
