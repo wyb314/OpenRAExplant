@@ -176,10 +176,7 @@ namespace OAUnityLayer.Renderers
 
             //this.tran.position = Vector3.Lerp(this.tran.position,curPos,((float)Game.Timestep) * 13);
 
-
-
-            Debug.LogError("Facing serial-> "+self.Facing._serializedValue+"  posX->"+self.Pos.x._serializedValue+" posY->"+self.Pos.y._serializedValue);
-
+            
             Quaternion rot = Quaternion.Euler(0, 90 - (float)self.Facing.AsFloat(), 0);
 
             this.tran.rotation = rot;
