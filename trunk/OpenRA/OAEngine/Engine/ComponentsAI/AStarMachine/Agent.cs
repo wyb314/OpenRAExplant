@@ -31,6 +31,8 @@ namespace Engine.ComponentsAI.AStarMachine
 
         private Hashtable m_Actions = new Hashtable();
         
+        private Dictionary<Type,IAgentComponent> components = new Dictionary<Type, IAgentComponent>(); 
+
         public GOAPAction GetAction(E_GOAPAction type) { return (GOAPAction)m_Actions[type]; }
         public int GetNumberOfActions() { return m_Actions.Count; }
 
@@ -50,7 +52,36 @@ namespace Engine.ComponentsAI.AStarMachine
         {
             m_GoalManager.Initialize();
         }
-        
+
+        public void AddComponent(IAgentComponent component)
+        {
+            if (component == null)
+            {
+                return;
+            }
+            Type type = component.GetType();
+            IAgentComponent _component;
+
+            if (!this.components.TryGetValue(type,out _component))
+            {
+                component.SetAgent(this);
+                this.components.Add(type, component);
+            }
+            else
+            {
+                throw new ArgumentException("Can't add the same type component multi times to a agent!");
+            }
+        }
+
+        public T GetComponent<T>() where T : class,IAgentComponent
+        {
+            IAgentComponent result = null;
+            
+            this.components.TryGetValue(typeof (T), out result);
+
+            return result as T;
+        }
+
         public abstract World world { get; }
 
         public abstract TSVector2 CurJoystickDir { get; }

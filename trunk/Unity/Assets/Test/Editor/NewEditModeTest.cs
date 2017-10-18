@@ -36,7 +36,7 @@ public class NewEditModeTest {
             result1 += val0 * aa;
         }
 
-        //Debug.LogError("sum0->" + sum0.AsFloat() + " sum1->" + sum1.AsFloat());
+        Debug.LogError("sum0->" + sum0._serializedValue + " sum1->" + sum1._serializedValue);
         Debug.LogError("result0->" + result0._serializedValue + " result1->" + result1._serializedValue);
 
     }
@@ -48,23 +48,30 @@ public class NewEditModeTest {
 
         int i = 0;
         float sum = 0;
+        FP fpSum = 0;
         while (i <= 8)
         {
             fGroup0[i] = UnityEngine.Random.Range(0, 0.1f);
+            Debug.LogError("i "+i+" val->"+ fGroup0[i].ToString("f11"));
             sum += fGroup0[i];
+            fpSum += fGroup0[i];
             if (i == 8)
             {
                 fGroup0[i + 1] = 2 - sum;
-                //sum += fGroup0[i + 1];
+                sum += fGroup0[i + 1];
+                fpSum += fGroup0[i + 1];
                 break;
             }
             else
             {
                 fGroup0[i + 1] = UnityEngine.Random.Range(0, 0.1f);
                 sum += fGroup0[i + 1];
+                fpSum += fGroup0[i + 1];
             }
             i+= 2;
         }
+
+        Debug.LogError("fpSum->"+fpSum._serializedValue+" sum->"+sum.ToString("f11"));
         
     }
 
@@ -76,4 +83,14 @@ public class NewEditModeTest {
 		// yield to skip a frame
 		yield return null;
 	}
+
+    [Test]
+    public void NewEditModeTestSimplePasses1()
+    {
+        //for (int i = 0; i < 10; i++)
+        //{
+        //    FP a = 
+                
+        //}
+    }
 }
