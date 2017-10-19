@@ -138,7 +138,7 @@ namespace Engine.Physics
         /**
          *  @brief Creates a new {@link TSRigidBody} when there is no one attached to this GameObject.
          **/
-        public void Awake()
+        public void Init()
         {
             tsTransform = this.GetComponent<TSTransform2D>();
             tsRigidBody = this.GetComponent<TSRigidBody2D>();

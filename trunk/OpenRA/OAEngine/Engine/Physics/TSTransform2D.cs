@@ -112,7 +112,7 @@ namespace Engine.Physics
 
         private TSRigidBody2D rb;
 
-        public void Start()
+        public void Init()
         {
             //if (!MediaTypeNames.Application.isPlaying)
             //{
@@ -160,7 +160,7 @@ namespace Engine.Physics
             initialized = true;
         }
 
-        public void Tick()
+        public void Update()
         {
             //if (MediaTypeNames.Application.isPlaying)
             //{
@@ -189,31 +189,38 @@ namespace Engine.Physics
 
         private void UpdatePlayMode()
         {
-            if (rb != null)
+            //if (rb != null)
+            //{
+            //    if (rb.interpolation == TSRigidBody2D.InterpolateMode.Interpolate)
+            //    {
+            //        transform.position = Vector3.Lerp(transform.position, position.ToVector(), Time.deltaTime * DELTA_TIME_FACTOR);
+            //        transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(0, 0, rotation.AsFloat()), Time.deltaTime * DELTA_TIME_FACTOR);
+            //        transform.localScale = Vector3.Lerp(transform.localScale, scale.ToVector(), Time.deltaTime * DELTA_TIME_FACTOR);
+            //        return;
+            //    }
+            //    else if (rb.interpolation == TSRigidBody2D.InterpolateMode.Extrapolate)
+            //    {
+            //        transform.position = (position + tsCollider.Body.TSLinearVelocity * Time.deltaTime * DELTA_TIME_FACTOR).ToVector();
+            //        transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(0, 0, rotation.AsFloat()), Time.deltaTime * DELTA_TIME_FACTOR);
+            //        transform.localScale = Vector3.Lerp(transform.localScale, scale.ToVector(), Time.deltaTime * DELTA_TIME_FACTOR);
+            //        return;
+            //    }
+            //}
+
+            if (this.agent == null)
             {
-                if (rb.interpolation == TSRigidBody2D.InterpolateMode.Interpolate)
-                {
-                    transform.position = Vector3.Lerp(transform.position, position.ToVector(), Time.deltaTime * DELTA_TIME_FACTOR);
-                    transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(0, 0, rotation.AsFloat()), Time.deltaTime * DELTA_TIME_FACTOR);
-                    transform.localScale = Vector3.Lerp(transform.localScale, scale.ToVector(), Time.deltaTime * DELTA_TIME_FACTOR);
-                    return;
-                }
-                else if (rb.interpolation == TSRigidBody2D.InterpolateMode.Extrapolate)
-                {
-                    transform.position = (position + tsCollider.Body.TSLinearVelocity * Time.deltaTime * DELTA_TIME_FACTOR).ToVector();
-                    transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.Euler(0, 0, rotation.AsFloat()), Time.deltaTime * DELTA_TIME_FACTOR);
-                    transform.localScale = Vector3.Lerp(transform.localScale, scale.ToVector(), Time.deltaTime * DELTA_TIME_FACTOR);
-                    return;
-                }
+                return;
             }
 
-            transform.position = position.ToVector();
+            this.agent.Position = position;
+            this.agent.Facing = rotation.AsFloat();
+            //transform.position = position.ToVector();
 
-            Quaternion rot = transform.rotation;
-            rot.eulerAngles = new Vector3(0, 0, rotation.AsFloat());
-            transform.rotation = rot;
+            //Quaternion rot = transform.rotation;
+            //rot.eulerAngles = new Vector3(0, 0, rotation.AsFloat());
+            //transform.rotation = rot;
 
-            transform.localScale = scale.ToVector();
+            //transform.localScale = scale.ToVector();
         }
 
     }

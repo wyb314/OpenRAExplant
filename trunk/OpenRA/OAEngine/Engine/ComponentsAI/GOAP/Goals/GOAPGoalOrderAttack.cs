@@ -31,7 +31,7 @@ namespace Engine.ComponentsAI.GOAP.Goals
                 GoalRelevancy = 0;
         }
 
-        public override void SetDisableTime() { NextEvaluationTime = Owner.BlackBoard.GOAP_KillTargetDelay + Game.WorldTime; }
+        public override void SetDisableTime() { NextEvaluationTime = Owner.BlackBoard.GOAP_KillTargetDelay + Game.Time; }
 
         public override void SetWSSatisfactionForPlanning(WorldState worldState)
         {

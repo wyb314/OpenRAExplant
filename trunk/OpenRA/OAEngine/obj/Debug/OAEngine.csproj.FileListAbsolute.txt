@@ -7,3 +7,7 @@ E:\GitHubProjects\OpenRAExplant\trunk\OpenRA\OAEngine\bin\Debug\YamlDotNet.pdb
 E:\GitHubProjects\OpenRAExplant\trunk\OpenRA\OAEngine\obj\Debug\OAEngine.csprojResolveAssemblyReference.cache
 E:\GitHubProjects\OpenRAExplant\trunk\OpenRA\OAEngine\bin\Debug\FixMath.dll
 E:\GitHubProjects\OpenRAExplant\trunk\OpenRA\OAEngine\bin\Debug\FixMath.pdb
+E:\GitHubProjects\OpenRAExplant\trunk\OpenRA\OAEngine\bin\Debug\Physics.dll
+E:\GitHubProjects\OpenRAExplant\trunk\OpenRA\OAEngine\bin\Debug\TrueSync.dll
+E:\GitHubProjects\OpenRAExplant\trunk\OpenRA\OAEngine\bin\Debug\Physics.pdb
+E:\GitHubProjects\OpenRAExplant\trunk\OpenRA\OAEngine\bin\Debug\TrueSync.pdb

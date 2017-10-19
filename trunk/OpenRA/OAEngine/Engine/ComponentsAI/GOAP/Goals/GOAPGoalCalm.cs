@@ -33,7 +33,7 @@ namespace Engine.ComponentsAI.GOAP.Goals
             SetDisableTime();
         }
 
-        public override void SetDisableTime() { NextEvaluationTime = Owner.BlackBoard.GOAP_CalmDelay + Game.WorldTime; }
+        public override void SetDisableTime() { NextEvaluationTime = Owner.BlackBoard.GOAP_CalmDelay + Game.Time; }
 
         public override void SetWSSatisfactionForPlanning(WorldState worldState)
         {

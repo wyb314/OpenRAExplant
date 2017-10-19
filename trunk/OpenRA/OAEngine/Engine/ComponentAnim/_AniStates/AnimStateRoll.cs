@@ -59,7 +59,7 @@ namespace Engine.ComponentAnim._AniStates
         {
             if (RotationOk == false)
             {
-                CurrentRotationTime += Game.DeltaTime;
+                CurrentRotationTime += Time.deltaTime;
 
                 if (CurrentRotationTime >= RotationTime)
                 {
@@ -86,7 +86,7 @@ namespace Engine.ComponentAnim._AniStates
 
             if (PositionOK == false)// && (RotationOk || (Quaternion.Angle(Owner.Transform.rotation, FinalRotation) > 40.0f))
             {
-                CurrentMoveTime += Game.DeltaTime;
+                CurrentMoveTime += Time.deltaTime;
                 if (CurrentMoveTime >= MoveTime)
                 {
                     CurrentMoveTime = MoveTime;
@@ -104,7 +104,7 @@ namespace Engine.ComponentAnim._AniStates
                 //PositionOK = true;
             }
 
-            if (EndOfStateTime <= Game.WorldTime)
+            if (EndOfStateTime <= Game.Time)
                 Release();
         }
 
@@ -158,7 +158,7 @@ namespace Engine.ComponentAnim._AniStates
 
             RotationTime = TSVector2.Angle(this.Owner.Forward, finalDir) / 1000.0f;
             MoveTime = this.AnimEngine.GetAnimLength(AnimName) * 0.85f;
-            EndOfStateTime = this.AnimEngine.GetAnimLength(AnimName) * 0.9f + Game.WorldTime;
+            EndOfStateTime = this.AnimEngine.GetAnimLength(AnimName) * 0.9f + Game.Time;
 
             RotationOk = RotationTime == 0;
             PositionOK = false;

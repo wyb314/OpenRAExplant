@@ -25,7 +25,7 @@ namespace TrueSync {
          **/
         public static TSRandom instance;
 
-        internal static void Init() {
+        public static void Init() {
             instance = New(1);
         }
 

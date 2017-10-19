@@ -9,9 +9,11 @@ using Engine.ComponentsAI.GOAP;
 using Engine.ComponentsAI.GOAP.Core;
 using Engine.ComponentsAI.WorkingMemory;
 using Engine.Interfaces;
+using Engine.Physics;
 using Engine.Primitives;
 using Engine.Support;
 using OAEngine.Engine.ComponentsAI;
+using Physics;
 using TrueSync;
 
 namespace Engine.ComponentsAI
@@ -70,15 +72,31 @@ namespace Engine.ComponentsAI
             get { return this.self.World; }
         }
 
+        #region
+        public TSTransform2D Transform2D { private set; get; }
+        public TSRigidBody2D RigidBody2D { private set; get; }
+
+        public TSCircleCollider2D CircleCollider2D { private set; get; }
+
+
+        private IRegidbodyWrapObject rendererObject;
+        public override IRegidbodyWrapObject RendererObject
+        {
+            get { return this.rendererObject; }
+        }
+        #endregion
+
         public PlayerAgent(Actor self, IRender render,AnimSet animSet)
         {
             this.self = self;
             this.rendererProxy = render;
+            this.rendererObject = new PlayerRegidbodyWarper(this);
             this.AnimSet = animSet;
         }
 
         public void Init()
         {
+            this.ApplyPhysics();
             this.WorldState = new WorldState();
             this.m_GoalManager = new GOAPManager(this);
             this.Memory = new Memory();
@@ -111,6 +129,25 @@ namespace Engine.ComponentsAI
             WorldState.SetWSProperty(E_PropKey.E_EVENT, E_EventTypes.None);
 
             this.BlackBoard.DontUpdate = false;
+            
+        }
+
+
+        private void ApplyPhysics()
+        {
+            this.Transform2D = new TSTransform2D();
+            this.AddComponent(Transform2D);
+
+            this.RigidBody2D = new TSRigidBody2D();
+            this.AddComponent(RigidBody2D);
+
+            this.CircleCollider2D = new TSCircleCollider2D();
+            this.AddComponent(CircleCollider2D);
+
+            this.Transform2D.Init();
+            this.CircleCollider2D.Init();
+
+            PhysicsManager.instance.AddBody(this.CircleCollider2D);
         }
 
 
@@ -135,6 +172,8 @@ namespace Engine.ComponentsAI
 
             //Update the working memory.Cleans up facts marked for deletion
             Memory.Tick();
+
+            this.Transform2D.Update();
         }
 
 

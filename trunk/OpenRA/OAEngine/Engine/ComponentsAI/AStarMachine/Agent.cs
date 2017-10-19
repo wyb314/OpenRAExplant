@@ -11,6 +11,7 @@ using Engine.Interfaces;
 using Engine.Primitives;
 using Engine.Support;
 using OAEngine.Engine.ComponentsAI;
+using Physics;
 using TrueSync;
 
 namespace Engine.ComponentsAI.AStarMachine
@@ -82,6 +83,15 @@ namespace Engine.ComponentsAI.AStarMachine
             return result as T;
         }
 
+        public IAgentComponent GetComponent(Type type)
+        {
+            IAgentComponent result = null;
+
+            this.components.TryGetValue(type, out result);
+
+            return result;
+        }
+
         public abstract World world { get; }
 
         public abstract TSVector2 CurJoystickDir { get; }
@@ -103,5 +113,7 @@ namespace Engine.ComponentsAI.AStarMachine
         public abstract E_ComboLevel[] ComboLevel { get; }
 
         public abstract E_SwordLevel SwordLevel { get; }
+
+        public abstract IRegidbodyWrapObject RendererObject { get; }
     }
 }

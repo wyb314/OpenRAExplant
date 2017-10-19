@@ -168,7 +168,7 @@ namespace OAEngine.Engine.ComponentsAI
         /// <summary>
         /// 某些情况下会禁止获取用户输入
         /// </summary>
-        public bool Stop { get { return _Stop; } set { _Stop = value; Game.AllUserInput(!_Stop); } }
+        public bool Stop { get { return _Stop; } set { _Stop = value; Game.AllowUserInput(!_Stop); } }
 
         public Agent Owner;
         
@@ -254,7 +254,7 @@ namespace OAEngine.Engine.ComponentsAI
 
         public void Update()
         {
-            IdleTimer += Game.DeltaTime;
+            IdleTimer += Time.deltaTime;
 
             for (int i = 0; i < m_ActiveActions.Count; i++)
             {

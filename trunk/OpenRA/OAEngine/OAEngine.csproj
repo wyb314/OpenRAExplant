@@ -67,6 +67,7 @@
     <Compile Include="Engine\ComponentsAI\AStarMachine\AStarMap.cs" />
     <Compile Include="Engine\ComponentsAI\AStarMachine\AStarNode.cs" />
     <Compile Include="Engine\ComponentsAI\AStarMachine\AStarStorage.cs" />
+    <Compile Include="Engine\ComponentsAI\AStarMachine\IAgentComponent.cs" />
     <Compile Include="Engine\ComponentsAI\BlackBoard.cs" />
     <Compile Include="Engine\ComponentsAI\ComponentPlayer\ComponentPlayer.cs" />
     <Compile Include="Engine\ComponentsAI\Factories\AgentActionFactory.cs" />
@@ -97,6 +98,7 @@
     <Compile Include="Engine\ComponentsAI\GOAP\Goals\GOAPGoalOrderAttack.cs" />
     <Compile Include="Engine\ComponentsAI\GOAP\Goals\GOAPGoalOrderDodge.cs" />
     <Compile Include="Engine\ComponentsAI\PlayerAgent.cs" />
+    <Compile Include="Engine\ComponentsAI\PlayerRegidbodyWarper.cs" />
     <Compile Include="Engine\ComponentsAI\PlayerSensorEyes.cs" />
     <Compile Include="Engine\ComponentsAI\WorkingMemory\Fact.cs" />
     <Compile Include="Engine\ComponentsAI\WorkingMemory\Memory.cs" />
@@ -160,6 +162,19 @@
     <Compile Include="Engine\OrderGenerators\PlayerControllerOrderGenerator.cs" />
     <Compile Include="Engine\Partials\ActorReference.cs" />
     <Compile Include="Engine\Partials\PlayerReference.cs" />
+    <Compile Include="Engine\Physics\AbstractPhysicComponent.cs" />
+    <Compile Include="Engine\Physics\ForceMode.cs" />
+    <Compile Include="Engine\Physics\LayerCollisionMatrix.cs" />
+    <Compile Include="Engine\Physics\Physics2DWorldManager.cs" />
+    <Compile Include="Engine\Physics\PhysicsManager.cs" />
+    <Compile Include="Engine\Physics\TSBoxCollider2D.cs" />
+    <Compile Include="Engine\Physics\TSCircleCollider2D.cs" />
+    <Compile Include="Engine\Physics\TSCollider2D.cs" />
+    <Compile Include="Engine\Physics\TSCollision2D.cs" />
+    <Compile Include="Engine\Physics\TSMaterial.cs" />
+    <Compile Include="Engine\Physics\TSRaycastHit2D.cs" />
+    <Compile Include="Engine\Physics\TSRigidBody2D.cs" />
+    <Compile Include="Engine\Physics\TSTransform2D.cs" />
     <Compile Include="Engine\Player.cs" />
     <Compile Include="Engine\Primitives\CPos.cs" />
     <Compile Include="Engine\Primitives\CVec.cs" />
@@ -171,6 +186,7 @@
     <Compile Include="Engine\Primitives\WRot.cs" />
     <Compile Include="Engine\Primitives\WVec.cs" />
     <Compile Include="Engine\Inputs\IInputsGetter.cs" />
+    <Compile Include="Engine\Time.cs" />
     <Compile Include="Engine\Types.cs" />
     <Compile Include="Engine\World.cs" />
     <Compile Include="Engine\Network\Enums\ClientState.cs" />
@@ -225,6 +241,14 @@
     <ProjectReference Include="..\FixMath\FixMath.csproj">
       <Project>{61da629b-524b-4351-9163-0077c1024bc6}</Project>
       <Name>FixMath</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Physics\Physics.csproj">
+      <Project>{52fcfa5d-0813-444a-87b3-ee843142b3cc}</Project>
+      <Name>Physics</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TrueSync\TrueSyncLibrary.csproj">
+      <Project>{BD862BB6-564E-4102-A18D-56DA32425D20}</Project>
+      <Name>TrueSyncLibrary</Name>
     </ProjectReference>
     <ProjectReference Include="..\YamlDotNet\YamlDotNet.csproj">
       <Project>{f295d967-e67e-44ad-af2a-a4cf9154bc79}</Project>

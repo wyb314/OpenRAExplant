@@ -34,11 +34,11 @@ namespace Engine.ComponentsAI.GOAP.Core
         public abstract void CalculateGoalRelevancy(); // how important is this goal !!!
         public void ClearGoalRelevancy() { GoalRelevancy = 0; }
 
-        public virtual void SetDisableTime() { NextEvaluationTime = Game.WorldTime + this.Owner.Random.Next(0.1f,0.2f); }
+        public virtual void SetDisableTime() { NextEvaluationTime = Game.Time + this.Owner.Random.Next(0.1f,0.2f); }
 
         public virtual bool ReplanRequired() { return false; }// if goal need to be replanned !!!!
         public abstract bool IsSatisfied();
-        public virtual bool IsDisabled() { return NextEvaluationTime > Game.WorldTime; }
+        public virtual bool IsDisabled() { return NextEvaluationTime > Game.Time; }
 
         protected GOAPGoal(E_GOAPGoals type, Agent ai)
         {

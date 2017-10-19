@@ -29,3 +29,7 @@ E:\GitHubProjects\OpenRAExplant\trunk\OpenRA\OAUnityLayer\bin\Debug\FixMath.dll
 E:\GitHubProjects\OpenRAExplant\trunk\OpenRA\OAUnityLayer\bin\Debug\YamlDotNet.dll
 E:\GitHubProjects\OpenRAExplant\trunk\OpenRA\OAUnityLayer\bin\Debug\FixMath.pdb
 E:\GitHubProjects\OpenRAExplant\trunk\OpenRA\OAUnityLayer\bin\Debug\YamlDotNet.pdb
+E:\GitHubProjects\OpenRAExplant\trunk\OpenRA\OAUnityLayer\bin\Debug\Physics.dll
+E:\GitHubProjects\OpenRAExplant\trunk\OpenRA\OAUnityLayer\bin\Debug\TrueSync.dll
+E:\GitHubProjects\OpenRAExplant\trunk\OpenRA\OAUnityLayer\bin\Debug\Physics.pdb
+E:\GitHubProjects\OpenRAExplant\trunk\OpenRA\OAUnityLayer\bin\Debug\TrueSync.pdb

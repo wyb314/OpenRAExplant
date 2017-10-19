@@ -174,7 +174,7 @@
     <Compile Include="Physics\IBody3D.cs" />
     <Compile Include="Physics\IBodyConstraint.cs" />
     <Compile Include="Physics\IPhysicsManager.cs" />
-    <Compile Include="Physics\IRandererObject.cs" />
+    <Compile Include="Physics\IRegidbodyWrapObject.cs" />
     <Compile Include="Physics\Jitter\Collision\CollisionIsland.cs" />
     <Compile Include="Physics\Jitter\Collision\CollisionSystem.cs" />
     <Compile Include="Physics\Jitter\Collision\CollisionSystemBrute.cs" />

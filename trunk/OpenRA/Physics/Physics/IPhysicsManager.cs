@@ -16,7 +16,7 @@ public interface IPhysicsManager : IPhysicsManagerBase {
     /**
     * @brief Returns the GameObject related to a {@link IBody}.
     **/
-    IRandererObject GetGameObject(IBody rigidBody);
+    IRegidbodyWrapObject GetGameObject(IBody rigidBody);
 
     /**
     * @brief Returns the layer related to a {@link IBody}.
