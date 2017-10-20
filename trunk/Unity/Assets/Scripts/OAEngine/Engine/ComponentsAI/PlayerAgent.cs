@@ -156,6 +156,7 @@ namespace Engine.ComponentsAI
             this.AddComponent(Transform2D);
 
             this.RigidBody2D = new TSRigidBody2D();
+            
             this.AddComponent(RigidBody2D);
 
             this.CircleCollider2D = new TSCircleCollider2D();
@@ -166,6 +167,7 @@ namespace Engine.ComponentsAI
             this.CircleCollider2D.Init();
             this.Transform2D.position = this.self.Pos;
             this.Transform2D.rotation = this.self.Facing;
+            this.RigidBody2D.isKinematic = true;
 
             PhysicsManager.instance.AddBody(this.CircleCollider2D);
         }
