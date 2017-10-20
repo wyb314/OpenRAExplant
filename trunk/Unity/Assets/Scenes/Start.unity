@@ -1371,7 +1371,7 @@ GameObject:
   - component: {fileID: 1804395530}
   - component: {fileID: 1804395529}
   m_Layer: 0
-  m_Name: ThirdPersonController+Jump
+  m_Name: InputControlls
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1525,7 +1525,7 @@ MonoBehaviour:
   _anchor: 0
   _anchorOffet: {x: 0, y: 0}
   _visible: 1
-  _activated: 0
+  _activated: 1
   enableCamera: 0
   cameraMode: 0
   camTargetTag: Player
