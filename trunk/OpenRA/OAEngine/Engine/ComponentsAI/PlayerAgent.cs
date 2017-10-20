@@ -173,7 +173,7 @@ namespace Engine.ComponentsAI
             this.CircleCollider2D.Init();
             this.Transform2D.position = this.self.Pos;
             this.Transform2D.rotation = this.self.Facing;
-            this.rigidBody2D.mass = FP.MaxValue;
+            this.rigidBody2D.mass = new FP(1000);
             //this.RigidBody2D.isKinematic = true;
 
             PhysicsManager.instance.AddBody(this.CircleCollider2D);
