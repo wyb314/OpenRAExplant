@@ -9,7 +9,10 @@ using Engine.Network;
 using Engine.Network.Defaults;
 using Engine.Network.Interfaces;
 using Engine.OrderGenerators;
+using Engine.Physics;
 using Engine.Support;
+using TrueSync;
+using IWorld = Engine.Interfaces.IWorld;
 
 namespace Engine
 {
@@ -43,9 +46,14 @@ namespace Engine
 
             SharedRandom = new MersenneTwister(orderManager.LobbyInfo.GlobalSettings.RandomSeed);
 
-            this.CreatePlayers(orderManager);
-        }
+            this.InitPhysics();
 
+
+            this.CreatePlayers(orderManager);
+
+            
+        }
+        
         IOrderGenerator orderGenerator;
         public IOrderGenerator OrderGenerator
         {
@@ -65,6 +73,16 @@ namespace Engine
 
         public void AddFrameEndTask(Action<World> a) { frameEndActions.Enqueue(a); }
         public int WorldTick { get; private set; }
+        
+        public void InitPhysics()
+        {
+            TSRandom.Init();
+            var pm = PhysicsManager.New();// init 2d  deterministic physics
+            pm.LockedTimeStep = new FP(Time.Timestep) / new FP(1000); ;
+            PhysicsManager.instance.Init();
+
+        }
+
 
         private void CreatePlayers(IOrderManager<ClientDefault> orderManager)
         {
@@ -92,6 +110,12 @@ namespace Engine
         {
         }
 
+
+        private void BuildScene()
+        {
+            TSVector2 size = new TSVector2(50,1);
+            TSBoxCollider2D wall0 = new TSBoxCollider2D();
+        }
 
         public void AddAgent(Agent agent)
         {
@@ -132,6 +156,10 @@ namespace Engine
             {
                 WorldTick++;
 
+                Time.time += Time.deltaTime;
+
+                PhysicsManager.instance.UpdateStep();
+                
                 foreach (var a in actors.Values)
                     a.Tick();
             }

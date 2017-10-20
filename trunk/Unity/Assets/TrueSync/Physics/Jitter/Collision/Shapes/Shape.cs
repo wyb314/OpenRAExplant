@@ -253,6 +253,14 @@ namespace TrueSync.Physics3D {
             box.min.z = orientation.M13 * vec.x + orientation.M23 * vec.y + orientation.M33 * vec.z;
         }
 
+        public static TSMatrix InternalIdentity = new TSMatrix()
+        {
+            M11 = FP.One,
+            M22 = FP.One,
+            M33 = FP.One,
+        };
+
+        public static TSVector InternalZero = new TSVector(0, 0, 0);
         /// <summary>
         /// This method uses the <see cref="ISupportMappable"/> implementation
         /// to calculate the local bounding box, the mass, geometric center and 
@@ -261,7 +269,7 @@ namespace TrueSync.Physics3D {
         /// </summary>
         public virtual void UpdateShape()
         {
-            GetBoundingBox(ref TSMatrix.InternalIdentity, out boundingBox);
+            GetBoundingBox(ref InternalIdentity, out boundingBox);
 
             CalculateMassInertia();
             RaiseShapeUpdated();

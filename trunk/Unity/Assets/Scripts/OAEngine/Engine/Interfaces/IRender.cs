@@ -20,5 +20,9 @@ namespace Engine.Interfaces
         void StopAnim();
 
         void SetAnimationStateSpeed(string name, float speed);
+
+        void SetActive(bool active);
+
+        void OnDestroy();
     }
 }

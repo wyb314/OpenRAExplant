@@ -13,7 +13,7 @@ using Engine.Physics;
 using Engine.Primitives;
 using Engine.Support;
 using OAEngine.Engine.ComponentsAI;
-using Physics;
+using TrueSyncPhysics;
 using TrueSync;
 
 namespace Engine.ComponentsAI
@@ -22,14 +22,30 @@ namespace Engine.ComponentsAI
     {
         public override TSVector2 Position
         {
-            set { this.self.Pos = value; }
-            get { return this.self.Pos; }
+            set
+            {
+                this.Transform2D.position = value;
+                //this.self.Pos = value;
+            }
+            get
+            {
+                return this.Transform2D.position;
+                //return this.self.Pos;
+            }
         }
 
         public override FP Facing
         {
-            get { return this.self.Facing; }
-            set { this.self.Facing = value; }
+            get
+            {
+                return this.Transform2D.rotation;
+                //return this.self.Facing;
+            }
+            set
+            {
+                this.Transform2D.rotation = value;
+                //this.self.Facing = value;
+            }
         }
 
         public override FP TurnSpeed
@@ -136,16 +152,20 @@ namespace Engine.ComponentsAI
         private void ApplyPhysics()
         {
             this.Transform2D = new TSTransform2D();
+            
             this.AddComponent(Transform2D);
 
             this.RigidBody2D = new TSRigidBody2D();
             this.AddComponent(RigidBody2D);
 
             this.CircleCollider2D = new TSCircleCollider2D();
+
             this.AddComponent(CircleCollider2D);
 
             this.Transform2D.Init();
             this.CircleCollider2D.Init();
+            this.Transform2D.position = this.self.Pos;
+            this.Transform2D.rotation = this.self.Facing;
 
             PhysicsManager.instance.AddBody(this.CircleCollider2D);
         }
@@ -173,7 +193,7 @@ namespace Engine.ComponentsAI
             //Update the working memory.Cleans up facts marked for deletion
             Memory.Tick();
 
-            this.Transform2D.Update();
+            //this.Transform2D.Update();
         }
 
 

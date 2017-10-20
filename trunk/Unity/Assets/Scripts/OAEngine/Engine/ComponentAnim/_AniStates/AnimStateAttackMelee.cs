@@ -159,7 +159,7 @@ namespace Engine.ComponentAnim._AniStates
             {
                 CurrentMoveTime += deltaTime;
 
-                if (AttackPhaseTime < Game.WorldTime)
+                if (AttackPhaseTime < Game.Time)
                 {
                     //Debug.Log(Time.timeSinceLevelLoad + " attack phase done");
                     Action.AttackPhaseDone = true;
@@ -182,7 +182,7 @@ namespace Engine.ComponentAnim._AniStates
                     this.Owner.Position = finalPos;
                 }
 
-                if (Action.Hit == false && HitTime <= Game.WorldTime)
+                if (Action.Hit == false && HitTime <= Game.Time)
                 {
                     Action.Hit = true;
 
@@ -207,7 +207,7 @@ namespace Engine.ComponentAnim._AniStates
                     //Debug.Log("DoMeleeDamage  " + (Action.AttackTarget != null ? Action.AttackTarget.name : "no target"));
                 }
             }
-            else if (State == E_State.E_FINISHED && EndOfStateTime <= Game.WorldTime)
+            else if (State == E_State.E_FINISHED && EndOfStateTime <= Game.Time)
             {
                 Action.AttackPhaseDone = true;
                 //Debug.Log(Time.timeSinceLevelLoad + " attack finished");
@@ -220,18 +220,18 @@ namespace Engine.ComponentAnim._AniStates
             CrossFade(AnimAttackData.AnimName, 0.2f);
 
             // when to do hit !!!
-            HitTime = Game.WorldTime + AnimAttackData.HitTime;
+            HitTime = Game.Time + AnimAttackData.HitTime;
 
             StartPosition = this.Owner.Position;
             FinalPosition = StartPosition + this.Owner.Forward * AnimAttackData.MoveDistance;
             MoveTime = AnimAttackData.AttackMoveEndTime - AnimAttackData.AttackMoveStartTime;
 
-            EndOfStateTime = Game.WorldTime + AnimEngine.GetAnimLength(AnimAttackData.AnimName) * 0.9f;
+            EndOfStateTime = Game.Time + AnimEngine.GetAnimLength(AnimAttackData.AnimName) * 0.9f;
 
             if (AnimAttackData.LastAttackInCombo)
-                AttackPhaseTime = Game.WorldTime + AnimEngine.GetAnimLength(AnimAttackData.AnimName) * 0.9f;
+                AttackPhaseTime = Game.Time + AnimEngine.GetAnimLength(AnimAttackData.AnimName) * 0.9f;
             else
-                AttackPhaseTime =  Game.WorldTime + AnimAttackData.AttackEndTime;
+                AttackPhaseTime =  Game.Time + AnimAttackData.AttackEndTime;
 
             CurrentMoveTime = -AnimAttackData.AttackMoveStartTime; // move a little bit later
 

@@ -190,76 +190,115 @@ namespace OAUnityLayer.Renderers
 
         public bool IsPlaying(string name)
         {
-            return this.animation.IsPlaying(name);
+            if (this.animation != null)
+            {
+                return this.animation.IsPlaying(name);
+            }
+
+            return false;
         }
 
         public void CrossFadeQueued(string animation, float fadeLength, Engine.ComponentAnim.Core.QueueMode queue)
         {
-            this.animation.CrossFadeQueued(animation,fadeLength,(UnityEngine.QueueMode)queue);
+            if (this.animation != null)
+            {
+                this.animation.CrossFadeQueued(animation, fadeLength, (UnityEngine.QueueMode)queue);
+            }
         }
 
         public void CrossFade(string animation, float fadeLength)
         {
-            this.animation.CrossFade(animation,fadeLength);
+            if (this.animation != null)
+            {
+                this.animation.CrossFade(animation, fadeLength);
+            } 
         }
 
         public void RewindAnim()
         {
-            this.animation.Rewind();
+            if (this.animation != null)
+            {
+                this.animation.Rewind();
+            }
+           
         }
 
         public void StopAnim()
         {
-            this.animation.Stop();
+            if (this.animation != null)
+            {
+                this.animation.Stop();
+            }
+            
         }
 
         public void SetAnimationStateSpeed(string name, float speed)
         {
-            this.animation[name].speed = speed;
-        }
-    }
-
-    public class SmothPos : MonoBehaviour
-    {
-        private Transform tran;
-        void Start()
-        {
-            tran = transform;
-        }
-
-        public Actor actor;
-        public void SetActor(Actor actor)
-        {
-            this.actor = actor;
-        }
-
-        void Update()
-        {
-            if (actor == null)
+            if (this.animation != null)
             {
-                return;
+                this.animation[name].speed = speed;
             }
+           
+        }
 
-            //float rad = this.actor.Facing * Mathf.PI / 128;
+        public void SetActive(bool active)
+        {
+            if (this.go != null)
+            {
+                this.go.SetActive(active);
+            }
+        }
 
-            //Quaternion rot = Quaternion.Euler(new Vector3(0, -rad * Mathf.Rad2Deg, 0));
-
-            //this.tran.rotation = Quaternion.Lerp(this.tran.rotation, rot, Time.deltaTime*8);
-
-            //Vector3 curPos = new Vector3(((float)actor.Pos.X) / 1024, 0, -((float)actor.Pos.Y) / 1024);
-
-            //this.tran.position = Vector3.Lerp(this.tran.position, curPos, ((float)Game.Timestep) * 13);
-            
-            Quaternion rot = Quaternion.Euler(0,90 - (float)this.actor.Facing.AsFloat(),0);
-
-            this.tran.rotation = rot;
-
-            Vector3 targetPos = new Vector3(((float)actor.Pos.x), 0, (float)actor.Pos.y);
-            this.tran.position = Vector3.Lerp(this.tran.position, targetPos, Time.deltaTime * 13);
-
-            //Vector3 curPos = new Vector3(((float)actor.Pos.x), 0, (float)actor.Pos.y);
-
-            //this.tran.position = curPos;
+        public void OnDestroy()
+        {
+            if (this.go != null)
+            {
+                UnityEngine.Object.Destroy(this.go);
+            }
         }
     }
+
+    //public class SmothPos : MonoBehaviour
+    //{
+    //    private Transform tran;
+    //    void Start()
+    //    {
+    //        tran = transform;
+    //    }
+
+    //    public Actor actor;
+    //    public void SetActor(Actor actor)
+    //    {
+    //        this.actor = actor;
+    //    }
+
+    //    void Update()
+    //    {
+    //        if (actor == null)
+    //        {
+    //            return;
+    //        }
+
+    //        //float rad = this.actor.Facing * Mathf.PI / 128;
+
+    //        //Quaternion rot = Quaternion.Euler(new Vector3(0, -rad * Mathf.Rad2Deg, 0));
+
+    //        //this.tran.rotation = Quaternion.Lerp(this.tran.rotation, rot, Time.deltaTime*8);
+
+    //        //Vector3 curPos = new Vector3(((float)actor.Pos.X) / 1024, 0, -((float)actor.Pos.Y) / 1024);
+
+    //        //this.tran.position = Vector3.Lerp(this.tran.position, curPos, ((float)Game.Timestep) * 13);
+            
+    //        Quaternion rot = Quaternion.Euler(0,90 - (float)this.actor.Facing.AsFloat(),0);
+
+    //        this.tran.rotation = rot;
+
+    //        Vector3 targetPos = new Vector3(((float)actor.Pos.x), 0, (float)actor.Pos.y);
+    //        this.tran.position = Vector3.Lerp(this.tran.position, targetPos, Time.deltaTime * 13);
+
+    //        //Vector3 curPos = new Vector3(((float)actor.Pos.x), 0, (float)actor.Pos.y);
+
+    //        //this.tran.position = curPos;
+    //    }
+    //}
 }

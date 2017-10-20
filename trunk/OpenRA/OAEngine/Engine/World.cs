@@ -46,9 +46,12 @@ namespace Engine
 
             SharedRandom = new MersenneTwister(orderManager.LobbyInfo.GlobalSettings.RandomSeed);
 
+            this.InitPhysics();
+
+
             this.CreatePlayers(orderManager);
 
-            this.InitPhysics();
+            
         }
         
         IOrderGenerator orderGenerator;

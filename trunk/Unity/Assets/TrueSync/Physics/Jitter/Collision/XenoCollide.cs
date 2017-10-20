@@ -179,7 +179,7 @@ namespace TrueSync.Physics3D {
                 TSVector.Swap(ref v11, ref v21);
                 TSVector.Swap(ref v12, ref v22);
                 TSVector.Negate(ref normal, out normal);
-				UnityEngine.Debug.Log("normal: " + normal);
+				//UnityEngine.Debug.Log("normal: " + normal);
             }
 
 

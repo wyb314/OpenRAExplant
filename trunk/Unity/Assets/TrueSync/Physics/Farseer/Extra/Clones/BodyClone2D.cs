@@ -142,7 +142,7 @@ namespace TrueSync.Physics2D {
             body.disabled = this.disabled;
 
             if (lastDisabled && !body.disabled) {
-                Physics2D.ContactManager.physicsManager.GetGameObject(body).SetActive(true);
+                //Physics2D.ContactManager.physicsManager.GetGameObject(body).SetActive(true);
             }
 
             body.GravityScale = this.GravityScale;

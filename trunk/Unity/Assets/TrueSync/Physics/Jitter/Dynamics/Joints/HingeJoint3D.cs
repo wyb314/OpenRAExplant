@@ -52,8 +52,8 @@ namespace TrueSync.Physics3D {
             worldPointConstraint[0] = new PointOnPoint((RigidBody)body1, (RigidBody)body2, pos1);
             worldPointConstraint[1] = new PointOnPoint((RigidBody)body1, (RigidBody)body2, pos2);
 
-            StateTracker.AddTracking(worldPointConstraint[0]);
-            StateTracker.AddTracking(worldPointConstraint[1]);
+            //StateTracker.AddTracking(worldPointConstraint[0]);
+            //StateTracker.AddTracking(worldPointConstraint[1]);
 
             Activate();
         }

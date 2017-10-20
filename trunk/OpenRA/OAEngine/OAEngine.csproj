@@ -167,6 +167,7 @@
     <Compile Include="Engine\Physics\LayerCollisionMatrix.cs" />
     <Compile Include="Engine\Physics\Physics2DWorldManager.cs" />
     <Compile Include="Engine\Physics\PhysicsManager.cs" />
+    <Compile Include="Engine\Physics\SampleWall.cs" />
     <Compile Include="Engine\Physics\TSBoxCollider2D.cs" />
     <Compile Include="Engine\Physics\TSCircleCollider2D.cs" />
     <Compile Include="Engine\Physics\TSCollider2D.cs" />

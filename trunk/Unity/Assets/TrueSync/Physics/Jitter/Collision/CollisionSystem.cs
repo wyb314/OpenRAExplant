@@ -237,9 +237,9 @@ namespace TrueSync.Physics3D {
                 TSVector point, normal;
                 FP penetration;
                 bool result;
-
-                result = XenoCollide.Detect(myTriangle, otherTriangle, ref TSMatrix.InternalIdentity, ref TSMatrix.InternalIdentity,
-                    ref TSVector.InternalZero, ref TSVector.InternalZero, out point, out normal, out penetration);
+                
+                result = XenoCollide.Detect(myTriangle, otherTriangle, ref Shape.InternalIdentity, ref Shape.InternalIdentity,
+                    ref Shape.InternalZero, ref Shape.InternalZero, out point, out normal, out penetration);
 
                 if (result)
                 {
@@ -474,8 +474,8 @@ namespace TrueSync.Physics3D {
                     {
                         ms.SetCurrentShape(e);
 
-                        result = XenoCollide.Detect(ms, t, ref rigidBody.orientation, ref TSMatrix.InternalIdentity,
-                            ref rigidBody.position, ref TSVector.InternalZero, out point, out normal, out penetration);
+                        result = XenoCollide.Detect(ms, t, ref rigidBody.orientation, ref Shape.InternalIdentity,
+                            ref rigidBody.position, ref Shape.InternalZero, out point, out normal, out penetration);
 
                         if (result)
                         {
@@ -504,8 +504,8 @@ namespace TrueSync.Physics3D {
                     FP penetration;
                     bool result;
 
-                    result = XenoCollide.Detect(rigidBody.Shape, t, ref rigidBody.orientation, ref TSMatrix.InternalIdentity,
-                        ref rigidBody.position, ref TSVector.InternalZero, out point, out normal, out penetration);
+                    result = XenoCollide.Detect(rigidBody.Shape, t, ref rigidBody.orientation, ref Shape.InternalIdentity,
+                        ref rigidBody.position, ref Shape.InternalZero, out point, out normal, out penetration);
 
                     if (result)
                     {

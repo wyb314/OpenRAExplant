@@ -49,7 +49,7 @@ namespace Engine.ComponentAnim._AniStates
                 {
                     //swhow weapon anim
                     string s = Owner.AnimSet.GetShowWeaponAnim(Owner.BlackBoard.WeaponSelected);
-                    TimeToFinishWeaponAction = Game.WorldTime + AnimEngine.GetAnimLength(s) * 0.8f;
+                    TimeToFinishWeaponAction = Game.Time + AnimEngine.GetAnimLength(s) * 0.8f;
                     AnimEngine.CrossFade(s, 0.1f);
                     //                Owner.ShowWeapon(true, 0.1f);
                 }
@@ -57,7 +57,7 @@ namespace Engine.ComponentAnim._AniStates
                 {
                     //hide weapon anim
                     string s = Owner.AnimSet.GetHideWeaponAnim(Owner.BlackBoard.WeaponSelected);
-                    TimeToFinishWeaponAction = Game.WorldTime + (AnimEngine.GetAnimLength(s) * 0.9f);
+                    TimeToFinishWeaponAction = Game.Time + (AnimEngine.GetAnimLength(s) * 0.9f);
                     AnimEngine.CrossFade(s, 0.1f);
                     //              Owner.ShowWeapon(false, 2.3f);
                 }
@@ -69,7 +69,7 @@ namespace Engine.ComponentAnim._AniStates
 
         override public void Update()
         {
-            if (WeaponAction != null && TimeToFinishWeaponAction < Game.WorldTime)
+            if (WeaponAction != null && TimeToFinishWeaponAction < Game.Time)
             {
                 WeaponAction.SetSuccess();
                 WeaponAction = null;

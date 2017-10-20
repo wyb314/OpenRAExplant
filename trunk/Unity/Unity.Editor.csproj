@@ -124,12 +124,6 @@
     <Reference Include="ICSharpCode.SharpZipLib">
       <HintPath>Assets\Plugins\ICSharpCode.SharpZipLib.dll</HintPath>
     </Reference>
-    <Reference Include="Photon3Unity3D">
-      <HintPath>Assets\Plugins\Photon3Unity3D.dll</HintPath>
-    </Reference>
-    <Reference Include="TrueSync">
-      <HintPath>Assets\Plugins\TrueSync.dll</HintPath>
-    </Reference>
     <Reference Include="UberLogger">
       <HintPath>Assets\Plugins\UberLogger.dll</HintPath>
     </Reference>
@@ -233,7 +227,6 @@
     <None Include="Assets\Plugins\Android\res\values\of_colors.xml" />
     <None Include="Assets\Plugins\Android\res\values\of_strings.xml" />
     <None Include="Assets\Plugins\Android\res\values\of_styles.xml" />
-    <None Include="Assets\Plugins\Photon3Unity3D.xml" />
     <None Include="Assets\Plugins\YamlDotNet\Readme.txt" />
     <None Include="Assets\Plugins\YamlDotNet\YamlDotNet.license.txt" />
     <None Include="Assets\Plugins\release_history.txt" />

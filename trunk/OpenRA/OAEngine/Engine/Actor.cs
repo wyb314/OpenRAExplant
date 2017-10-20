@@ -26,7 +26,7 @@ namespace Engine
 
         public int MoveSpeed = 3000;
 
-        public FP Facing = 64;
+        public FP Facing = 90;
 
         public FP TurnSpeed = 4;
 
@@ -92,6 +92,13 @@ namespace Engine
             this.Agent.Tick();
             this.AnimComponent.Update();
             this.ComponentPlayer.Update();
+            this.SetTransform();
+        }
+
+        private void SetTransform()
+        {
+            this.Pos = this.agent.Position;
+            this.Facing = this.agent.Facing;
         }
 
         //public void SetMoveDir(byte angle)

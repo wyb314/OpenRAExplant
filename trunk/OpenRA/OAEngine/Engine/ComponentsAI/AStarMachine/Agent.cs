@@ -11,7 +11,7 @@ using Engine.Interfaces;
 using Engine.Primitives;
 using Engine.Support;
 using OAEngine.Engine.ComponentsAI;
-using Physics;
+using TrueSyncPhysics;
 using TrueSync;
 
 namespace Engine.ComponentsAI.AStarMachine
@@ -77,8 +77,18 @@ namespace Engine.ComponentsAI.AStarMachine
         public T GetComponent<T>() where T : class,IAgentComponent
         {
             IAgentComponent result = null;
-            
-            this.components.TryGetValue(typeof (T), out result);
+
+            foreach (var component in this.components)
+            {
+                if (component.Value is T)
+                {
+                    result = component.Value;
+
+                    break;
+                }
+            }
+
+            //this.components.TryGetValue(typeof (T), out result);
 
             return result as T;
         }
@@ -86,8 +96,16 @@ namespace Engine.ComponentsAI.AStarMachine
         public IAgentComponent GetComponent(Type type)
         {
             IAgentComponent result = null;
+            foreach (var component in this.components)
+            {
+                if (component.Value.GetType() == type)
+                {
+                    result = component.Value;
 
-            this.components.TryGetValue(type, out result);
+                    break;
+                }
+            }
+            //this.components.TryGetValue(type, out result);
 
             return result;
         }

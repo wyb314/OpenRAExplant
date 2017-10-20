@@ -34,7 +34,7 @@ public class Test0 : MonoBehaviour
 
         Application.targetFrameRate = 40;
         inputer = new GameInputerGetter();
-        Time.fixedDeltaTime = ((float)Engine.Game.Timestep)/1000;
+        UnityEngine.Time.fixedDeltaTime = ((float)Engine.Game.Timestep)/1000;
 
     }
 
@@ -79,7 +79,7 @@ public class Test0 : MonoBehaviour
         //}
         if (platformInfo != null)
         {
-            platformInfo.LogicTick(Time.fixedDeltaTime);
+            platformInfo.LogicTick(UnityEngine.Time.fixedDeltaTime);
         }
 
         //if (this.curFacing != this.targetFaceing)

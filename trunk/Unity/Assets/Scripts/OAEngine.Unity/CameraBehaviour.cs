@@ -42,7 +42,7 @@ public class CameraBehaviour : MonoBehaviour
 
         Vector3 goalPosition = offsetPos*0.9f + this.targetTran.position;
 
-        this.tran.position = Vector3.Lerp(this.tran.position, goalPosition, Time.deltaTime * 4);
+        this.tran.position = Vector3.Lerp(this.tran.position, goalPosition, UnityEngine.Time.deltaTime * 4);
 
         Vector3 dir = this.tran.forward;
         dir.y = 0;
@@ -53,7 +53,7 @@ public class CameraBehaviour : MonoBehaviour
         Vector3 lookAt = t - this.tran.position;
         lookAt.Normalize();
 
-        this.tran.forward = Vector3.Lerp(this.tran.forward, lookAt, Time.deltaTime * 4);
+        this.tran.forward = Vector3.Lerp(this.tran.forward, lookAt, UnityEngine.Time.deltaTime * 4);
     }
 
 

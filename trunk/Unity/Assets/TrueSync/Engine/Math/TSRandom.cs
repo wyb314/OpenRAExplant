@@ -35,8 +35,8 @@ namespace TrueSync {
         public static TSRandom New(int seed) {
             TSRandom r = new TSRandom(seed);
 
-            StateTracker.AddTracking(r, "mt");
-            StateTracker.AddTracking(r, "mti");
+            //StateTracker.AddTracking(r, "mt");
+            //StateTracker.AddTracking(r, "mti");
 
             return r;
         }

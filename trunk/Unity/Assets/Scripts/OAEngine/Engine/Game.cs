@@ -108,6 +108,7 @@ namespace Engine
             {
                 OrderManager.Dispose();
             }
+            Engine.Time.Timestep = Timestep;
             ModData = null;
             if (modID == null)
                 throw new InvalidOperationException("Game.Mod argument missing.");
@@ -153,29 +154,24 @@ namespace Engine
             }
         }
 
-        public static FP WorldTime
+        public static FP Time
         {
             get
             {
                 if (OrderManager.World == null) return 0;
-                return OrderManager.World.WorldTick * Game.Timestep / new FP(1000);
+                return Engine.Time.time;
             }
-        }
-
-        public static FP DeltaTime
-        {
-            get { return Timestep / new FP(1000); }
         }
 
         static void LogicTick(float elapsedTime)
         {
             Engine.Interfaces.IWorld world = OrderManager.World as Engine.Interfaces.IWorld;
-
+            
             Sync.CheckSyncUnchanged(world, OrderManager.TickImmediate);
 
             if (world == null)
                 return;
-            
+
             var isNetTick = LocalTick % NetTickScale == 0;
 
             if (!isNetTick || OrderManager.IsReadyForNextFrame)
@@ -319,7 +315,7 @@ namespace Engine
 
             OrderManager.StartGame();
 
-            AllUserInput(true);
+            AllowUserInput(true);
 
             //worldRenderer.RefreshPalette();
             //Cursor.SetCursor("default");
@@ -327,7 +323,7 @@ namespace Engine
             GC.Collect();
         }
         
-        internal static void AllUserInput(bool allow)
+        internal static void AllowUserInput(bool allow)
         {
             if (Platform.platformInfo != null && Platform.platformInfo.inputter != null)
             {

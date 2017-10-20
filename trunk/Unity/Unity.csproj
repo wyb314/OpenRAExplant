@@ -82,12 +82,6 @@
     <Reference Include="ICSharpCode.SharpZipLib">
       <HintPath>Assets\Plugins\ICSharpCode.SharpZipLib.dll</HintPath>
     </Reference>
-    <Reference Include="Photon3Unity3D">
-      <HintPath>Assets\Plugins\Photon3Unity3D.dll</HintPath>
-    </Reference>
-    <Reference Include="TrueSync">
-      <HintPath>Assets\Plugins\TrueSync.dll</HintPath>
-    </Reference>
     <Reference Include="UberLogger">
       <HintPath>Assets\Plugins\UberLogger.dll</HintPath>
     </Reference>
@@ -216,6 +210,7 @@
     <Compile Include="Assets\Scripts\OAEngine\Engine\ComponentsAI\AStarMachine\AStarMap.cs" />
     <Compile Include="Assets\Scripts\OAEngine\Engine\ComponentsAI\AStarMachine\AStarNode.cs" />
     <Compile Include="Assets\Scripts\OAEngine\Engine\ComponentsAI\AStarMachine\AStarStorage.cs" />
+    <Compile Include="Assets\Scripts\OAEngine\Engine\ComponentsAI\AStarMachine\IAgentComponent.cs" />
     <Compile Include="Assets\Scripts\OAEngine\Engine\ComponentsAI\BlackBoard.cs" />
     <Compile Include="Assets\Scripts\OAEngine\Engine\ComponentsAI\ComponentPlayer\ComponentPlayer.cs" />
     <Compile Include="Assets\Scripts\OAEngine\Engine\ComponentsAI\Factories\AgentActionFactory.cs" />
@@ -246,6 +241,7 @@
     <Compile Include="Assets\Scripts\OAEngine\Engine\ComponentsAI\GOAP\Goals\GOAPGoalOrderAttack.cs" />
     <Compile Include="Assets\Scripts\OAEngine\Engine\ComponentsAI\GOAP\Goals\GOAPGoalOrderDodge.cs" />
     <Compile Include="Assets\Scripts\OAEngine\Engine\ComponentsAI\PlayerAgent.cs" />
+    <Compile Include="Assets\Scripts\OAEngine\Engine\ComponentsAI\PlayerRegidbodyWarper.cs" />
     <Compile Include="Assets\Scripts\OAEngine\Engine\ComponentsAI\PlayerSensorEyes.cs" />
     <Compile Include="Assets\Scripts\OAEngine\Engine\ComponentsAI\WorkingMemory\Fact.cs" />
     <Compile Include="Assets\Scripts\OAEngine\Engine\ComponentsAI\WorkingMemory\Memory.cs" />
@@ -336,6 +332,20 @@
     <Compile Include="Assets\Scripts\OAEngine\Engine\Partials\ActorReference.cs" />
     <Compile Include="Assets\Scripts\OAEngine\Engine\Partials\Map.cs" />
     <Compile Include="Assets\Scripts\OAEngine\Engine\Partials\PlayerReference.cs" />
+    <Compile Include="Assets\Scripts\OAEngine\Engine\Physics\AbstractPhysicComponent.cs" />
+    <Compile Include="Assets\Scripts\OAEngine\Engine\Physics\ForceMode.cs" />
+    <Compile Include="Assets\Scripts\OAEngine\Engine\Physics\LayerCollisionMatrix.cs" />
+    <Compile Include="Assets\Scripts\OAEngine\Engine\Physics\Physics2DWorldManager.cs" />
+    <Compile Include="Assets\Scripts\OAEngine\Engine\Physics\PhysicsManager.cs" />
+    <Compile Include="Assets\Scripts\OAEngine\Engine\Physics\SampleWall.cs" />
+    <Compile Include="Assets\Scripts\OAEngine\Engine\Physics\TSBoxCollider2D.cs" />
+    <Compile Include="Assets\Scripts\OAEngine\Engine\Physics\TSCircleCollider2D.cs" />
+    <Compile Include="Assets\Scripts\OAEngine\Engine\Physics\TSCollider2D.cs" />
+    <Compile Include="Assets\Scripts\OAEngine\Engine\Physics\TSCollision2D.cs" />
+    <Compile Include="Assets\Scripts\OAEngine\Engine\Physics\TSMaterial.cs" />
+    <Compile Include="Assets\Scripts\OAEngine\Engine\Physics\TSRaycastHit2D.cs" />
+    <Compile Include="Assets\Scripts\OAEngine\Engine\Physics\TSRigidBody2D.cs" />
+    <Compile Include="Assets\Scripts\OAEngine\Engine\Physics\TSTransform2D.cs" />
     <Compile Include="Assets\Scripts\OAEngine\Engine\Platform.cs" />
     <Compile Include="Assets\Scripts\OAEngine\Engine\Player.cs" />
     <Compile Include="Assets\Scripts\OAEngine\Engine\Primitives\ActionQueue.cs" />
@@ -365,6 +375,7 @@
     <Compile Include="Assets\Scripts\OAEngine\Engine\Support\PerfTimer.cs" />
     <Compile Include="Assets\Scripts\OAEngine\Engine\Support\Program.cs" />
     <Compile Include="Assets\Scripts\OAEngine\Engine\Sync.cs" />
+    <Compile Include="Assets\Scripts\OAEngine\Engine\Time.cs" />
     <Compile Include="Assets\Scripts\OAEngine\Engine\Types.cs" />
     <Compile Include="Assets\Scripts\OAEngine\Engine\World.cs" />
     <Compile Include="Assets\Scripts\OAEngine\Engine\WorldRenderer.cs" />
@@ -378,7 +389,6 @@
     <Compile Include="Assets\Test\SmothFollow1.cs" />
     <Compile Include="Assets\Test\Test0.cs" />
     <Compile Include="Assets\Test\TestFixedUpdateMove.cs" />
-    <Compile Include="Assets\TrueSync\Engine\InputData.cs" />
     <Compile Include="Assets\TrueSync\Engine\Math\Fix64.cs" />
     <Compile Include="Assets\TrueSync\Engine\Math\Fix64AcosLut.cs" />
     <Compile Include="Assets\TrueSync\Engine\Math\Fix64SinLut.cs" />
@@ -389,8 +399,6 @@
     <Compile Include="Assets\TrueSync\Engine\Math\TSRandom.cs" />
     <Compile Include="Assets\TrueSync\Engine\Math\TSVector.cs" />
     <Compile Include="Assets\TrueSync\Engine\Math\TSVector2.cs" />
-    <Compile Include="Assets\TrueSync\Engine\TrueSyncExtensions.cs" />
-    <Compile Include="Assets\TrueSync\Engine\TrueSyncInput.cs" />
     <Compile Include="Assets\TrueSync\Physics\Farseer\Collision\Collision.cs" />
     <Compile Include="Assets\TrueSync\Physics\Farseer\Collision\Distance.cs" />
     <Compile Include="Assets\TrueSync\Physics\Farseer\Collision\DynamicTree.cs" />
@@ -520,6 +528,8 @@
     <Compile Include="Assets\TrueSync\Physics\IBody3D.cs" />
     <Compile Include="Assets\TrueSync\Physics\IBodyConstraint.cs" />
     <Compile Include="Assets\TrueSync\Physics\IPhysicsManager.cs" />
+    <Compile Include="Assets\TrueSync\Physics\IPhysicsManagerBase.cs" />
+    <Compile Include="Assets\TrueSync\Physics\IRegidbodyWrapObject.cs" />
     <Compile Include="Assets\TrueSync\Physics\Jitter\Collision\CollisionIsland.cs" />
     <Compile Include="Assets\TrueSync\Physics\Jitter\Collision\CollisionSystem.cs" />
     <Compile Include="Assets\TrueSync\Physics\Jitter\Collision\CollisionSystemBrute.cs" />
@@ -574,6 +584,18 @@
     <Compile Include="Assets\TrueSync\Physics\Jitter\LinearMath\TSBBox.cs" />
     <Compile Include="Assets\TrueSync\Physics\Jitter\LinearMath\TSConvexHull.cs" />
     <Compile Include="Assets\TrueSync\Physics\Jitter\World.cs" />
+    <Compile Include="Assets\TrueSync\TrueSync\AddTracking.cs" />
+    <Compile Include="Assets\TrueSync\TrueSync\ArrayResourcePool.cs" />
+    <Compile Include="Assets\TrueSync\TrueSync\ChecksumExtractor.cs" />
+    <Compile Include="Assets\TrueSync\TrueSync\HashList.cs" />
+    <Compile Include="Assets\TrueSync\TrueSync\IBody.cs" />
+    <Compile Include="Assets\TrueSync\TrueSync\ICollider.cs" />
+    <Compile Include="Assets\TrueSync\TrueSync\IWorld.cs" />
+    <Compile Include="Assets\TrueSync\TrueSync\IWorldClone.cs" />
+    <Compile Include="Assets\TrueSync\TrueSync\ResourcePool.cs" />
+    <Compile Include="Assets\TrueSync\TrueSync\ResourcePoolItem.cs" />
+    <Compile Include="Assets\TrueSync\TrueSync\Utils.cs" />
+    <Compile Include="Assets\TrueSync\TrueSync\WorldChecksumExtractor.cs" />
     <Compile Include="Assets\UberLogger\Examples\TestUberLogger.cs" />
     <Compile Include="Assets\UberLogger\UberLoggerEditor.cs" />
   </ItemGroup>
@@ -636,7 +658,6 @@
     <None Include="Assets\Plugins\Android\res\values\of_colors.xml" />
     <None Include="Assets\Plugins\Android\res\values\of_strings.xml" />
     <None Include="Assets\Plugins\Android\res\values\of_styles.xml" />
-    <None Include="Assets\Plugins\Photon3Unity3D.xml" />
     <None Include="Assets\Plugins\YamlDotNet\Readme.txt" />
     <None Include="Assets\Plugins\YamlDotNet\YamlDotNet.license.txt" />
     <None Include="Assets\Plugins\release_history.txt" />

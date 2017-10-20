@@ -36,7 +36,7 @@ namespace Engine.ComponentsAI.GOAP.Goals
             }
         }
 
-        public override void SetDisableTime() { NextEvaluationTime = 0.5f + Game.WorldTime; }
+        public override void SetDisableTime() { NextEvaluationTime = 0.5f + Game.Time; }
 
         public override void SetWSSatisfactionForPlanning(WorldState worldState)
         {
