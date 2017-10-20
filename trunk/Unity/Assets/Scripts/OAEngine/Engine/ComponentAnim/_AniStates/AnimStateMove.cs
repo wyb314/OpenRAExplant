@@ -60,8 +60,8 @@ namespace Engine.ComponentAnim._AniStates
                 return;
             }
             
-            FP deltaTime = Game.Timestep/1000f;
-            RotationProgress += deltaTime * Owner.BlackBoard.RotationSmooth;
+            //FP deltaTime = Game.Timestep/1000f;
+            RotationProgress += Time.deltaTime * Owner.BlackBoard.RotationSmooth;
             RotationProgress = TSMath.Min(RotationProgress, 1);
 
             FP curFacing = AIUtils.RoundFacing(StartRotation);
@@ -84,6 +84,7 @@ namespace Engine.ComponentAnim._AniStates
             //}
             //Log.Write("wyb",string.Format("facing {0}  [{1} {2} {3} ]",facing,curFacing,targetFacing,RotationProgress));
             Owner.RigidBody2D.MoveRotation(facing);
+            Owner.Facing = facing;
             curFacing = AIUtils.RoundFacing(facing);
             targetFacing = AIUtils.RoundFacing(FinalRotation);
             if (curFacing > targetFacing && curFacing - targetFacing > 180)
@@ -104,7 +105,7 @@ namespace Engine.ComponentAnim._AniStates
             MaxSpeed = TSMath.Max(Owner.BlackBoard.MaxWalkSpeed, Owner.BlackBoard.MaxRunSpeed * Owner.BlackBoard.MoveSpeedModifier);
 
             // Smooth the speed based on the current target direction
-            FP curSmooth = Owner.BlackBoard.SpeedSmooth * deltaTime;
+            FP curSmooth = Owner.BlackBoard.SpeedSmooth * Time.deltaTime;
 
             Owner.BlackBoard.Speed = TSMath.Lerp(Owner.BlackBoard.Speed, MaxSpeed, curSmooth);
             Owner.BlackBoard.MoveDir = Owner.BlackBoard.DesiredDirection;
