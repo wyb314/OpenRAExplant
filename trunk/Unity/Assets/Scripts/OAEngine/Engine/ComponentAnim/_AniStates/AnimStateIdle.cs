@@ -31,6 +31,7 @@ namespace Engine.ComponentAnim._AniStates
         override public void OnActivate(AgentAction action)
         {
             base.OnActivate(action);
+            this.Owner.RigidBody2D.velocity = TSVector2.zero;
 
         }
 

@@ -90,7 +90,13 @@ namespace Engine.ComponentsAI
 
         #region
         public TSTransform2D Transform2D { private set; get; }
-        public TSRigidBody2D RigidBody2D { private set; get; }
+
+        private TSRigidBody2D rigidBody2D;
+
+        public override TSRigidBody2D RigidBody2D
+        {
+            get { return this.rigidBody2D; }
+        }
 
         public TSCircleCollider2D CircleCollider2D { private set; get; }
 
@@ -155,7 +161,7 @@ namespace Engine.ComponentsAI
             
             this.AddComponent(Transform2D);
 
-            this.RigidBody2D = new TSRigidBody2D();
+            this.rigidBody2D = new TSRigidBody2D();
             
             this.AddComponent(RigidBody2D);
 

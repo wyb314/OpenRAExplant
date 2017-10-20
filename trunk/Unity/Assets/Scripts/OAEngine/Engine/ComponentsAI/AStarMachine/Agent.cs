@@ -13,6 +13,7 @@ using Engine.Support;
 using OAEngine.Engine.ComponentsAI;
 using TrueSyncPhysics;
 using TrueSync;
+using Engine.Physics;
 
 namespace Engine.ComponentsAI.AStarMachine
 {
@@ -133,5 +134,8 @@ namespace Engine.ComponentsAI.AStarMachine
         public abstract E_SwordLevel SwordLevel { get; }
 
         public abstract IRegidbodyWrapObject RendererObject { get; }
+
+        public abstract TSRigidBody2D RigidBody2D { get; }
+
     }
 }

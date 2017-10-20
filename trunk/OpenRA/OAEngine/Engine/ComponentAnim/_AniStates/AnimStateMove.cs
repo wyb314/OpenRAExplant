@@ -83,7 +83,7 @@ namespace Engine.ComponentAnim._AniStates
             //    Owner.Facing = q;
             //}
             //Log.Write("wyb",string.Format("facing {0}  [{1} {2} {3} ]",facing,curFacing,targetFacing,RotationProgress));
-            Owner.Facing = facing;
+            Owner.RigidBody2D.MoveRotation(facing);
             curFacing = AIUtils.RoundFacing(facing);
             targetFacing = AIUtils.RoundFacing(FinalRotation);
             if (curFacing > targetFacing && curFacing - targetFacing > 180)
@@ -110,7 +110,10 @@ namespace Engine.ComponentAnim._AniStates
             Owner.BlackBoard.MoveDir = Owner.BlackBoard.DesiredDirection;
 
             TSVector2 velocity = Owner.BlackBoard.MoveDir*Owner.BlackBoard.Speed;
-            Owner.Position += velocity * deltaTime; 
+
+            Owner.RigidBody2D.velocity = velocity;
+
+            //Owner.Position += velocity * deltaTime; 
 
             E_MotionType motion = GetMotionType();
             //Log.Write("wyb", "Speed->" + Owner.BlackBoard.Speed+" motion: "+motion);
