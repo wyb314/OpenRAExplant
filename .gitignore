@@ -65,3 +65,15 @@ obj
 /trunk/OpenRA/.vs
 .vs
 Logs
+/trunk/Unity/Unity.csproj
+/trunk/Unity/Unity.csproj.user
+/trunk/Unity/Unity.Editor.csproj
+/trunk/Unity/Unity.Editor.csproj.user
+/trunk/Unity/Unity.Plugins.csproj
+/trunk/Unity/Unity.Plugins.csproj.user
+/trunk/Unity/Unity.sln
+/trunk/Unity/obj
+/trunk/Unity/Assembly-CSharp.csproj
+/trunk/Unity/Assembly-CSharp-Editor.csproj
+/trunk/Unity/Assembly-CSharp-firstpass.csproj
+/trunk/Unity/StyleCop.Cache
