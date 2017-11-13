@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2015
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DPhysicsDemo", "DPhysicsDemo.csproj", "{2C546281-9BA8-5B70-4C68-8B073F9D1F69}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DPhysicsDemo.Editor", "DPhysicsDemo.Editor.csproj", "{A11C7CEF-47A4-CAD3-0A0F-A697F5C9E5CB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2C546281-9BA8-5B70-4C68-8B073F9D1F69}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2C546281-9BA8-5B70-4C68-8B073F9D1F69}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2C546281-9BA8-5B70-4C68-8B073F9D1F69}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2C546281-9BA8-5B70-4C68-8B073F9D1F69}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A11C7CEF-47A4-CAD3-0A0F-A697F5C9E5CB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A11C7CEF-47A4-CAD3-0A0F-A697F5C9E5CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A11C7CEF-47A4-CAD3-0A0F-A697F5C9E5CB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A11C7CEF-47A4-CAD3-0A0F-A697F5C9E5CB}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

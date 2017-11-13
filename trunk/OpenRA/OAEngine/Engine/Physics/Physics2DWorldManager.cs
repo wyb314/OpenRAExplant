@@ -143,7 +143,11 @@ namespace Engine.Physics
             //可能有铰链有关,暂时不予以支持
             IRegidbodyWrapObject go = gameObjectMap[body];
 
-            go.OnDestroy();
+            if (go != null)
+            {
+                go.OnDestroy();
+            }
+            
             //if (go != null)
             //{
             //    GameObject.Destroy(go);

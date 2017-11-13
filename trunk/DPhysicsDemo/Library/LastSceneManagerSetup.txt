@@ -1,0 +1,4 @@
+sceneSetups:
+- path: Assets/DPhysics/Examples/Newton's Balls/NewtonsBallsScene.unity
+  isLoaded: 1
+  isActive: 1

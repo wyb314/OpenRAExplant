@@ -10,6 +10,7 @@ using Engine.Network.Defaults;
 using Engine.Network.Interfaces;
 using Engine.OrderGenerators;
 using Engine.Physics;
+using Engine.Physics.Walls;
 using Engine.Support;
 using TrueSync;
 using IWorld = Engine.Interfaces.IWorld;
@@ -108,13 +109,14 @@ namespace Engine
 
         public void LoadComplete(IWorldRenderer worldRenderer)
         {
+            this.BuildScene();
         }
 
 
         private void BuildScene()
         {
-            TSVector2 size = new TSVector2(50,1);
-            TSBoxCollider2D wall0 = new TSBoxCollider2D();
+            SampleWall2D wall0 = new SampleWall2D(new TSVector2(0,5),new TSVector2(100,2));
+            wall0.AddToPhysicWorld();
         }
 
         public void AddAgent(Agent agent)
